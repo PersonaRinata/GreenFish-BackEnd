@@ -1,4 +1,4 @@
-module GoYin
+module GreenFish
 
 go 1.20
 

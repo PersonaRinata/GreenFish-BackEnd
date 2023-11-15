@@ -3,46 +3,46 @@
 package video
 
 import (
-	"GoYin/server/kitex_gen/base"
+	"GreenFish/server/kitex_gen/base"
 	"context"
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
 	"strings"
 )
 
-type DouyinFeedRequest struct {
+type QingyuFeedRequest struct {
 	LatestTime int64 `thrift:"latest_time,1" frugal:"1,default,i64" json:"latest_time"`
 	ViewerId   int64 `thrift:"viewer_id,2" frugal:"2,default,i64" json:"viewer_id"`
 }
 
-func NewDouyinFeedRequest() *DouyinFeedRequest {
-	return &DouyinFeedRequest{}
+func NewQingyuFeedRequest() *QingyuFeedRequest {
+	return &QingyuFeedRequest{}
 }
 
-func (p *DouyinFeedRequest) InitDefault() {
-	*p = DouyinFeedRequest{}
+func (p *QingyuFeedRequest) InitDefault() {
+	*p = QingyuFeedRequest{}
 }
 
-func (p *DouyinFeedRequest) GetLatestTime() (v int64) {
+func (p *QingyuFeedRequest) GetLatestTime() (v int64) {
 	return p.LatestTime
 }
 
-func (p *DouyinFeedRequest) GetViewerId() (v int64) {
+func (p *QingyuFeedRequest) GetViewerId() (v int64) {
 	return p.ViewerId
 }
-func (p *DouyinFeedRequest) SetLatestTime(val int64) {
+func (p *QingyuFeedRequest) SetLatestTime(val int64) {
 	p.LatestTime = val
 }
-func (p *DouyinFeedRequest) SetViewerId(val int64) {
+func (p *QingyuFeedRequest) SetViewerId(val int64) {
 	p.ViewerId = val
 }
 
-var fieldIDToName_DouyinFeedRequest = map[int16]string{
+var fieldIDToName_QingyuFeedRequest = map[int16]string{
 	1: "latest_time",
 	2: "viewer_id",
 }
 
-func (p *DouyinFeedRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -101,7 +101,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFeedRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFeedRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -111,7 +111,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuFeedRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -120,7 +120,7 @@ func (p *DouyinFeedRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuFeedRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -129,9 +129,9 @@ func (p *DouyinFeedRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_feed_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_feed_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -162,7 +162,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("latest_time", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -179,7 +179,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("viewer_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -196,14 +196,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) String() string {
+func (p *QingyuFeedRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFeedRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuFeedRequest(%+v)", *p)
 }
 
-func (p *DouyinFeedRequest) DeepEqual(ano *DouyinFeedRequest) bool {
+func (p *QingyuFeedRequest) DeepEqual(ano *QingyuFeedRequest) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -218,14 +218,14 @@ func (p *DouyinFeedRequest) DeepEqual(ano *DouyinFeedRequest) bool {
 	return true
 }
 
-func (p *DouyinFeedRequest) Field1DeepEqual(src int64) bool {
+func (p *QingyuFeedRequest) Field1DeepEqual(src int64) bool {
 
 	if p.LatestTime != src {
 		return false
 	}
 	return true
 }
-func (p *DouyinFeedRequest) Field2DeepEqual(src int64) bool {
+func (p *QingyuFeedRequest) Field2DeepEqual(src int64) bool {
 
 	if p.ViewerId != src {
 		return false
@@ -233,57 +233,57 @@ func (p *DouyinFeedRequest) Field2DeepEqual(src int64) bool {
 	return true
 }
 
-type DouyinFeedResponse struct {
-	BaseResp  *base.DouyinBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.DouyinBaseResponse" json:"base_resp"`
+type QingyuFeedResponse struct {
+	BaseResp  *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
 	VideoList []*base.Video            `thrift:"video_list,2" frugal:"2,default,list<base.Video>" json:"video_list"`
 	NextTime  int64                    `thrift:"next_time,3" frugal:"3,default,i64" json:"next_time"`
 }
 
-func NewDouyinFeedResponse() *DouyinFeedResponse {
-	return &DouyinFeedResponse{}
+func NewQingyuFeedResponse() *QingyuFeedResponse {
+	return &QingyuFeedResponse{}
 }
 
-func (p *DouyinFeedResponse) InitDefault() {
-	*p = DouyinFeedResponse{}
+func (p *QingyuFeedResponse) InitDefault() {
+	*p = QingyuFeedResponse{}
 }
 
-var DouyinFeedResponse_BaseResp_DEFAULT *base.DouyinBaseResponse
+var QingyuFeedResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
 
-func (p *DouyinFeedResponse) GetBaseResp() (v *base.DouyinBaseResponse) {
+func (p *QingyuFeedResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
 	if !p.IsSetBaseResp() {
-		return DouyinFeedResponse_BaseResp_DEFAULT
+		return QingyuFeedResponse_BaseResp_DEFAULT
 	}
 	return p.BaseResp
 }
 
-func (p *DouyinFeedResponse) GetVideoList() (v []*base.Video) {
+func (p *QingyuFeedResponse) GetVideoList() (v []*base.Video) {
 	return p.VideoList
 }
 
-func (p *DouyinFeedResponse) GetNextTime() (v int64) {
+func (p *QingyuFeedResponse) GetNextTime() (v int64) {
 	return p.NextTime
 }
-func (p *DouyinFeedResponse) SetBaseResp(val *base.DouyinBaseResponse) {
+func (p *QingyuFeedResponse) SetBaseResp(val *base.QingyuBaseResponse) {
 	p.BaseResp = val
 }
-func (p *DouyinFeedResponse) SetVideoList(val []*base.Video) {
+func (p *QingyuFeedResponse) SetVideoList(val []*base.Video) {
 	p.VideoList = val
 }
-func (p *DouyinFeedResponse) SetNextTime(val int64) {
+func (p *QingyuFeedResponse) SetNextTime(val int64) {
 	p.NextTime = val
 }
 
-var fieldIDToName_DouyinFeedResponse = map[int16]string{
+var fieldIDToName_QingyuFeedResponse = map[int16]string{
 	1: "base_resp",
 	2: "video_list",
 	3: "next_time",
 }
 
-func (p *DouyinFeedResponse) IsSetBaseResp() bool {
+func (p *QingyuFeedResponse) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
-func (p *DouyinFeedResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -352,7 +352,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFeedResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFeedResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -362,15 +362,15 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) ReadField1(iprot thrift.TProtocol) error {
-	p.BaseResp = base.NewDouyinBaseResponse()
+func (p *QingyuFeedResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
 	if err := p.BaseResp.Read(iprot); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *DouyinFeedResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuFeedResponse) ReadField2(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -390,7 +390,7 @@ func (p *DouyinFeedResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuFeedResponse) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -399,9 +399,9 @@ func (p *DouyinFeedResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_feed_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_feed_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -436,7 +436,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -453,7 +453,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_list", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -478,7 +478,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("next_time", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -495,14 +495,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) String() string {
+func (p *QingyuFeedResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFeedResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuFeedResponse(%+v)", *p)
 }
 
-func (p *DouyinFeedResponse) DeepEqual(ano *DouyinFeedResponse) bool {
+func (p *QingyuFeedResponse) DeepEqual(ano *QingyuFeedResponse) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -520,14 +520,14 @@ func (p *DouyinFeedResponse) DeepEqual(ano *DouyinFeedResponse) bool {
 	return true
 }
 
-func (p *DouyinFeedResponse) Field1DeepEqual(src *base.DouyinBaseResponse) bool {
+func (p *QingyuFeedResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
 
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *DouyinFeedResponse) Field2DeepEqual(src []*base.Video) bool {
+func (p *QingyuFeedResponse) Field2DeepEqual(src []*base.Video) bool {
 
 	if len(p.VideoList) != len(src) {
 		return false
@@ -540,7 +540,7 @@ func (p *DouyinFeedResponse) Field2DeepEqual(src []*base.Video) bool {
 	}
 	return true
 }
-func (p *DouyinFeedResponse) Field3DeepEqual(src int64) bool {
+func (p *QingyuFeedResponse) Field3DeepEqual(src int64) bool {
 
 	if p.NextTime != src {
 		return false
@@ -548,57 +548,57 @@ func (p *DouyinFeedResponse) Field3DeepEqual(src int64) bool {
 	return true
 }
 
-type DouyinPublishActionRequest struct {
+type QingyuPublishActionRequest struct {
 	UserId   int64  `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
 	PlayUrl  string `thrift:"play_url,2" frugal:"2,default,string" json:"play_url"`
 	CoverUrl string `thrift:"cover_url,3" frugal:"3,default,string" json:"cover_url"`
 	Title    string `thrift:"title,4" frugal:"4,default,string" json:"title"`
 }
 
-func NewDouyinPublishActionRequest() *DouyinPublishActionRequest {
-	return &DouyinPublishActionRequest{}
+func NewQingyuPublishActionRequest() *QingyuPublishActionRequest {
+	return &QingyuPublishActionRequest{}
 }
 
-func (p *DouyinPublishActionRequest) InitDefault() {
-	*p = DouyinPublishActionRequest{}
+func (p *QingyuPublishActionRequest) InitDefault() {
+	*p = QingyuPublishActionRequest{}
 }
 
-func (p *DouyinPublishActionRequest) GetUserId() (v int64) {
+func (p *QingyuPublishActionRequest) GetUserId() (v int64) {
 	return p.UserId
 }
 
-func (p *DouyinPublishActionRequest) GetPlayUrl() (v string) {
+func (p *QingyuPublishActionRequest) GetPlayUrl() (v string) {
 	return p.PlayUrl
 }
 
-func (p *DouyinPublishActionRequest) GetCoverUrl() (v string) {
+func (p *QingyuPublishActionRequest) GetCoverUrl() (v string) {
 	return p.CoverUrl
 }
 
-func (p *DouyinPublishActionRequest) GetTitle() (v string) {
+func (p *QingyuPublishActionRequest) GetTitle() (v string) {
 	return p.Title
 }
-func (p *DouyinPublishActionRequest) SetUserId(val int64) {
+func (p *QingyuPublishActionRequest) SetUserId(val int64) {
 	p.UserId = val
 }
-func (p *DouyinPublishActionRequest) SetPlayUrl(val string) {
+func (p *QingyuPublishActionRequest) SetPlayUrl(val string) {
 	p.PlayUrl = val
 }
-func (p *DouyinPublishActionRequest) SetCoverUrl(val string) {
+func (p *QingyuPublishActionRequest) SetCoverUrl(val string) {
 	p.CoverUrl = val
 }
-func (p *DouyinPublishActionRequest) SetTitle(val string) {
+func (p *QingyuPublishActionRequest) SetTitle(val string) {
 	p.Title = val
 }
 
-var fieldIDToName_DouyinPublishActionRequest = map[int16]string{
+var fieldIDToName_QingyuPublishActionRequest = map[int16]string{
 	1: "user_id",
 	2: "play_url",
 	3: "cover_url",
 	4: "title",
 }
 
-func (p *DouyinPublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -677,7 +677,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinPublishActionRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuPublishActionRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -687,7 +687,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuPublishActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -696,7 +696,7 @@ func (p *DouyinPublishActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishActionRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuPublishActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -705,7 +705,7 @@ func (p *DouyinPublishActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishActionRequest) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuPublishActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -714,7 +714,7 @@ func (p *DouyinPublishActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishActionRequest) ReadField4(iprot thrift.TProtocol) error {
+func (p *QingyuPublishActionRequest) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -723,9 +723,9 @@ func (p *DouyinPublishActionRequest) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishActionRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_publish_action_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_publish_action_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -764,7 +764,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -781,7 +781,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("play_url", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -798,7 +798,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("cover_url", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -815,7 +815,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("title", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -832,14 +832,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) String() string {
+func (p *QingyuPublishActionRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinPublishActionRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuPublishActionRequest(%+v)", *p)
 }
 
-func (p *DouyinPublishActionRequest) DeepEqual(ano *DouyinPublishActionRequest) bool {
+func (p *QingyuPublishActionRequest) DeepEqual(ano *QingyuPublishActionRequest) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -860,28 +860,28 @@ func (p *DouyinPublishActionRequest) DeepEqual(ano *DouyinPublishActionRequest) 
 	return true
 }
 
-func (p *DouyinPublishActionRequest) Field1DeepEqual(src int64) bool {
+func (p *QingyuPublishActionRequest) Field1DeepEqual(src int64) bool {
 
 	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *DouyinPublishActionRequest) Field2DeepEqual(src string) bool {
+func (p *QingyuPublishActionRequest) Field2DeepEqual(src string) bool {
 
 	if strings.Compare(p.PlayUrl, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *DouyinPublishActionRequest) Field3DeepEqual(src string) bool {
+func (p *QingyuPublishActionRequest) Field3DeepEqual(src string) bool {
 
 	if strings.Compare(p.CoverUrl, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *DouyinPublishActionRequest) Field4DeepEqual(src string) bool {
+func (p *QingyuPublishActionRequest) Field4DeepEqual(src string) bool {
 
 	if strings.Compare(p.Title, src) != 0 {
 		return false
@@ -889,39 +889,39 @@ func (p *DouyinPublishActionRequest) Field4DeepEqual(src string) bool {
 	return true
 }
 
-type DouyinPublishActionResponse struct {
-	BaseResp *base.DouyinBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.DouyinBaseResponse" json:"base_resp"`
+type QingyuPublishActionResponse struct {
+	BaseResp *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
 }
 
-func NewDouyinPublishActionResponse() *DouyinPublishActionResponse {
-	return &DouyinPublishActionResponse{}
+func NewQingyuPublishActionResponse() *QingyuPublishActionResponse {
+	return &QingyuPublishActionResponse{}
 }
 
-func (p *DouyinPublishActionResponse) InitDefault() {
-	*p = DouyinPublishActionResponse{}
+func (p *QingyuPublishActionResponse) InitDefault() {
+	*p = QingyuPublishActionResponse{}
 }
 
-var DouyinPublishActionResponse_BaseResp_DEFAULT *base.DouyinBaseResponse
+var QingyuPublishActionResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
 
-func (p *DouyinPublishActionResponse) GetBaseResp() (v *base.DouyinBaseResponse) {
+func (p *QingyuPublishActionResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
 	if !p.IsSetBaseResp() {
-		return DouyinPublishActionResponse_BaseResp_DEFAULT
+		return QingyuPublishActionResponse_BaseResp_DEFAULT
 	}
 	return p.BaseResp
 }
-func (p *DouyinPublishActionResponse) SetBaseResp(val *base.DouyinBaseResponse) {
+func (p *QingyuPublishActionResponse) SetBaseResp(val *base.QingyuBaseResponse) {
 	p.BaseResp = val
 }
 
-var fieldIDToName_DouyinPublishActionResponse = map[int16]string{
+var fieldIDToName_QingyuPublishActionResponse = map[int16]string{
 	1: "base_resp",
 }
 
-func (p *DouyinPublishActionResponse) IsSetBaseResp() bool {
+func (p *QingyuPublishActionResponse) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
-func (p *DouyinPublishActionResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -970,7 +970,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinPublishActionResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuPublishActionResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -980,17 +980,17 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinPublishActionResponse) ReadField1(iprot thrift.TProtocol) error {
-	p.BaseResp = base.NewDouyinBaseResponse()
+func (p *QingyuPublishActionResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
 	if err := p.BaseResp.Read(iprot); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *DouyinPublishActionResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_publish_action_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_publish_action_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1017,7 +1017,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinPublishActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1034,14 +1034,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionResponse) String() string {
+func (p *QingyuPublishActionResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinPublishActionResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuPublishActionResponse(%+v)", *p)
 }
 
-func (p *DouyinPublishActionResponse) DeepEqual(ano *DouyinPublishActionResponse) bool {
+func (p *QingyuPublishActionResponse) DeepEqual(ano *QingyuPublishActionResponse) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -1053,7 +1053,7 @@ func (p *DouyinPublishActionResponse) DeepEqual(ano *DouyinPublishActionResponse
 	return true
 }
 
-func (p *DouyinPublishActionResponse) Field1DeepEqual(src *base.DouyinBaseResponse) bool {
+func (p *QingyuPublishActionResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
 
 	if !p.BaseResp.DeepEqual(src) {
 		return false
@@ -1061,39 +1061,39 @@ func (p *DouyinPublishActionResponse) Field1DeepEqual(src *base.DouyinBaseRespon
 	return true
 }
 
-type DouyinGetPublishedListRequest struct {
+type QingyuGetPublishedListRequest struct {
 	ViewerId int64 `thrift:"viewer_id,1" frugal:"1,default,i64" json:"viewer_id"`
 	OwnerId  int64 `thrift:"owner_id,2" frugal:"2,default,i64" json:"owner_id"`
 }
 
-func NewDouyinGetPublishedListRequest() *DouyinGetPublishedListRequest {
-	return &DouyinGetPublishedListRequest{}
+func NewQingyuGetPublishedListRequest() *QingyuGetPublishedListRequest {
+	return &QingyuGetPublishedListRequest{}
 }
 
-func (p *DouyinGetPublishedListRequest) InitDefault() {
-	*p = DouyinGetPublishedListRequest{}
+func (p *QingyuGetPublishedListRequest) InitDefault() {
+	*p = QingyuGetPublishedListRequest{}
 }
 
-func (p *DouyinGetPublishedListRequest) GetViewerId() (v int64) {
+func (p *QingyuGetPublishedListRequest) GetViewerId() (v int64) {
 	return p.ViewerId
 }
 
-func (p *DouyinGetPublishedListRequest) GetOwnerId() (v int64) {
+func (p *QingyuGetPublishedListRequest) GetOwnerId() (v int64) {
 	return p.OwnerId
 }
-func (p *DouyinGetPublishedListRequest) SetViewerId(val int64) {
+func (p *QingyuGetPublishedListRequest) SetViewerId(val int64) {
 	p.ViewerId = val
 }
-func (p *DouyinGetPublishedListRequest) SetOwnerId(val int64) {
+func (p *QingyuGetPublishedListRequest) SetOwnerId(val int64) {
 	p.OwnerId = val
 }
 
-var fieldIDToName_DouyinGetPublishedListRequest = map[int16]string{
+var fieldIDToName_QingyuGetPublishedListRequest = map[int16]string{
 	1: "viewer_id",
 	2: "owner_id",
 }
 
-func (p *DouyinGetPublishedListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1152,7 +1152,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinGetPublishedListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuGetPublishedListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1162,7 +1162,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuGetPublishedListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1171,7 +1171,7 @@ func (p *DouyinGetPublishedListRequest) ReadField1(iprot thrift.TProtocol) error
 	return nil
 }
 
-func (p *DouyinGetPublishedListRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuGetPublishedListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1180,9 +1180,9 @@ func (p *DouyinGetPublishedListRequest) ReadField2(iprot thrift.TProtocol) error
 	return nil
 }
 
-func (p *DouyinGetPublishedListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_get_published_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_get_published_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1213,7 +1213,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("viewer_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1230,7 +1230,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("owner_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1247,14 +1247,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedListRequest) String() string {
+func (p *QingyuGetPublishedListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinGetPublishedListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuGetPublishedListRequest(%+v)", *p)
 }
 
-func (p *DouyinGetPublishedListRequest) DeepEqual(ano *DouyinGetPublishedListRequest) bool {
+func (p *QingyuGetPublishedListRequest) DeepEqual(ano *QingyuGetPublishedListRequest) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -1269,14 +1269,14 @@ func (p *DouyinGetPublishedListRequest) DeepEqual(ano *DouyinGetPublishedListReq
 	return true
 }
 
-func (p *DouyinGetPublishedListRequest) Field1DeepEqual(src int64) bool {
+func (p *QingyuGetPublishedListRequest) Field1DeepEqual(src int64) bool {
 
 	if p.ViewerId != src {
 		return false
 	}
 	return true
 }
-func (p *DouyinGetPublishedListRequest) Field2DeepEqual(src int64) bool {
+func (p *QingyuGetPublishedListRequest) Field2DeepEqual(src int64) bool {
 
 	if p.OwnerId != src {
 		return false
@@ -1284,48 +1284,48 @@ func (p *DouyinGetPublishedListRequest) Field2DeepEqual(src int64) bool {
 	return true
 }
 
-type DouyinGetPublishedListResponse struct {
-	BaseResp  *base.DouyinBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.DouyinBaseResponse" json:"base_resp"`
+type QingyuGetPublishedListResponse struct {
+	BaseResp  *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
 	VideoList []*base.Video            `thrift:"video_list,2" frugal:"2,default,list<base.Video>" json:"video_list"`
 }
 
-func NewDouyinGetPublishedListResponse() *DouyinGetPublishedListResponse {
-	return &DouyinGetPublishedListResponse{}
+func NewQingyuGetPublishedListResponse() *QingyuGetPublishedListResponse {
+	return &QingyuGetPublishedListResponse{}
 }
 
-func (p *DouyinGetPublishedListResponse) InitDefault() {
-	*p = DouyinGetPublishedListResponse{}
+func (p *QingyuGetPublishedListResponse) InitDefault() {
+	*p = QingyuGetPublishedListResponse{}
 }
 
-var DouyinGetPublishedListResponse_BaseResp_DEFAULT *base.DouyinBaseResponse
+var QingyuGetPublishedListResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
 
-func (p *DouyinGetPublishedListResponse) GetBaseResp() (v *base.DouyinBaseResponse) {
+func (p *QingyuGetPublishedListResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
 	if !p.IsSetBaseResp() {
-		return DouyinGetPublishedListResponse_BaseResp_DEFAULT
+		return QingyuGetPublishedListResponse_BaseResp_DEFAULT
 	}
 	return p.BaseResp
 }
 
-func (p *DouyinGetPublishedListResponse) GetVideoList() (v []*base.Video) {
+func (p *QingyuGetPublishedListResponse) GetVideoList() (v []*base.Video) {
 	return p.VideoList
 }
-func (p *DouyinGetPublishedListResponse) SetBaseResp(val *base.DouyinBaseResponse) {
+func (p *QingyuGetPublishedListResponse) SetBaseResp(val *base.QingyuBaseResponse) {
 	p.BaseResp = val
 }
-func (p *DouyinGetPublishedListResponse) SetVideoList(val []*base.Video) {
+func (p *QingyuGetPublishedListResponse) SetVideoList(val []*base.Video) {
 	p.VideoList = val
 }
 
-var fieldIDToName_DouyinGetPublishedListResponse = map[int16]string{
+var fieldIDToName_QingyuGetPublishedListResponse = map[int16]string{
 	1: "base_resp",
 	2: "video_list",
 }
 
-func (p *DouyinGetPublishedListResponse) IsSetBaseResp() bool {
+func (p *QingyuGetPublishedListResponse) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
-func (p *DouyinGetPublishedListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1384,7 +1384,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinGetPublishedListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuGetPublishedListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1394,15 +1394,15 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedListResponse) ReadField1(iprot thrift.TProtocol) error {
-	p.BaseResp = base.NewDouyinBaseResponse()
+func (p *QingyuGetPublishedListResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
 	if err := p.BaseResp.Read(iprot); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *DouyinGetPublishedListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuGetPublishedListResponse) ReadField2(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -1422,9 +1422,9 @@ func (p *DouyinGetPublishedListResponse) ReadField2(iprot thrift.TProtocol) erro
 	return nil
 }
 
-func (p *DouyinGetPublishedListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_get_published_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_get_published_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1455,7 +1455,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1472,7 +1472,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_list", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1497,14 +1497,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedListResponse) String() string {
+func (p *QingyuGetPublishedListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinGetPublishedListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuGetPublishedListResponse(%+v)", *p)
 }
 
-func (p *DouyinGetPublishedListResponse) DeepEqual(ano *DouyinGetPublishedListResponse) bool {
+func (p *QingyuGetPublishedListResponse) DeepEqual(ano *QingyuGetPublishedListResponse) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -1519,14 +1519,14 @@ func (p *DouyinGetPublishedListResponse) DeepEqual(ano *DouyinGetPublishedListRe
 	return true
 }
 
-func (p *DouyinGetPublishedListResponse) Field1DeepEqual(src *base.DouyinBaseResponse) bool {
+func (p *QingyuGetPublishedListResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
 
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *DouyinGetPublishedListResponse) Field2DeepEqual(src []*base.Video) bool {
+func (p *QingyuGetPublishedListResponse) Field2DeepEqual(src []*base.Video) bool {
 
 	if len(p.VideoList) != len(src) {
 		return false
@@ -1540,39 +1540,39 @@ func (p *DouyinGetPublishedListResponse) Field2DeepEqual(src []*base.Video) bool
 	return true
 }
 
-type DouyinGetFavoriteListRequest struct {
+type QingyuGetFavoriteListRequest struct {
 	ViewerId int64 `thrift:"viewer_id,1" frugal:"1,default,i64" json:"viewer_id"`
 	OwnerId  int64 `thrift:"owner_id,2" frugal:"2,default,i64" json:"owner_id"`
 }
 
-func NewDouyinGetFavoriteListRequest() *DouyinGetFavoriteListRequest {
-	return &DouyinGetFavoriteListRequest{}
+func NewQingyuGetFavoriteListRequest() *QingyuGetFavoriteListRequest {
+	return &QingyuGetFavoriteListRequest{}
 }
 
-func (p *DouyinGetFavoriteListRequest) InitDefault() {
-	*p = DouyinGetFavoriteListRequest{}
+func (p *QingyuGetFavoriteListRequest) InitDefault() {
+	*p = QingyuGetFavoriteListRequest{}
 }
 
-func (p *DouyinGetFavoriteListRequest) GetViewerId() (v int64) {
+func (p *QingyuGetFavoriteListRequest) GetViewerId() (v int64) {
 	return p.ViewerId
 }
 
-func (p *DouyinGetFavoriteListRequest) GetOwnerId() (v int64) {
+func (p *QingyuGetFavoriteListRequest) GetOwnerId() (v int64) {
 	return p.OwnerId
 }
-func (p *DouyinGetFavoriteListRequest) SetViewerId(val int64) {
+func (p *QingyuGetFavoriteListRequest) SetViewerId(val int64) {
 	p.ViewerId = val
 }
-func (p *DouyinGetFavoriteListRequest) SetOwnerId(val int64) {
+func (p *QingyuGetFavoriteListRequest) SetOwnerId(val int64) {
 	p.OwnerId = val
 }
 
-var fieldIDToName_DouyinGetFavoriteListRequest = map[int16]string{
+var fieldIDToName_QingyuGetFavoriteListRequest = map[int16]string{
 	1: "viewer_id",
 	2: "owner_id",
 }
 
-func (p *DouyinGetFavoriteListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuGetFavoriteListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1631,7 +1631,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinGetFavoriteListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuGetFavoriteListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1641,7 +1641,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinGetFavoriteListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuGetFavoriteListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1650,7 +1650,7 @@ func (p *DouyinGetFavoriteListRequest) ReadField1(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *DouyinGetFavoriteListRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuGetFavoriteListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1659,9 +1659,9 @@ func (p *DouyinGetFavoriteListRequest) ReadField2(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *DouyinGetFavoriteListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetFavoriteListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_get_favorite_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_get_favorite_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1692,7 +1692,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinGetFavoriteListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetFavoriteListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("viewer_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1709,7 +1709,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinGetFavoriteListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetFavoriteListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("owner_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1726,14 +1726,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinGetFavoriteListRequest) String() string {
+func (p *QingyuGetFavoriteListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinGetFavoriteListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuGetFavoriteListRequest(%+v)", *p)
 }
 
-func (p *DouyinGetFavoriteListRequest) DeepEqual(ano *DouyinGetFavoriteListRequest) bool {
+func (p *QingyuGetFavoriteListRequest) DeepEqual(ano *QingyuGetFavoriteListRequest) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -1748,14 +1748,14 @@ func (p *DouyinGetFavoriteListRequest) DeepEqual(ano *DouyinGetFavoriteListReque
 	return true
 }
 
-func (p *DouyinGetFavoriteListRequest) Field1DeepEqual(src int64) bool {
+func (p *QingyuGetFavoriteListRequest) Field1DeepEqual(src int64) bool {
 
 	if p.ViewerId != src {
 		return false
 	}
 	return true
 }
-func (p *DouyinGetFavoriteListRequest) Field2DeepEqual(src int64) bool {
+func (p *QingyuGetFavoriteListRequest) Field2DeepEqual(src int64) bool {
 
 	if p.OwnerId != src {
 		return false
@@ -1763,48 +1763,48 @@ func (p *DouyinGetFavoriteListRequest) Field2DeepEqual(src int64) bool {
 	return true
 }
 
-type DouyinGetFavoriteListResponse struct {
-	BaseResp  *base.DouyinBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.DouyinBaseResponse" json:"base_resp"`
+type QingyuGetFavoriteListResponse struct {
+	BaseResp  *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
 	VideoList []*base.Video            `thrift:"video_list,2" frugal:"2,default,list<base.Video>" json:"video_list"`
 }
 
-func NewDouyinGetFavoriteListResponse() *DouyinGetFavoriteListResponse {
-	return &DouyinGetFavoriteListResponse{}
+func NewQingyuGetFavoriteListResponse() *QingyuGetFavoriteListResponse {
+	return &QingyuGetFavoriteListResponse{}
 }
 
-func (p *DouyinGetFavoriteListResponse) InitDefault() {
-	*p = DouyinGetFavoriteListResponse{}
+func (p *QingyuGetFavoriteListResponse) InitDefault() {
+	*p = QingyuGetFavoriteListResponse{}
 }
 
-var DouyinGetFavoriteListResponse_BaseResp_DEFAULT *base.DouyinBaseResponse
+var QingyuGetFavoriteListResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
 
-func (p *DouyinGetFavoriteListResponse) GetBaseResp() (v *base.DouyinBaseResponse) {
+func (p *QingyuGetFavoriteListResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
 	if !p.IsSetBaseResp() {
-		return DouyinGetFavoriteListResponse_BaseResp_DEFAULT
+		return QingyuGetFavoriteListResponse_BaseResp_DEFAULT
 	}
 	return p.BaseResp
 }
 
-func (p *DouyinGetFavoriteListResponse) GetVideoList() (v []*base.Video) {
+func (p *QingyuGetFavoriteListResponse) GetVideoList() (v []*base.Video) {
 	return p.VideoList
 }
-func (p *DouyinGetFavoriteListResponse) SetBaseResp(val *base.DouyinBaseResponse) {
+func (p *QingyuGetFavoriteListResponse) SetBaseResp(val *base.QingyuBaseResponse) {
 	p.BaseResp = val
 }
-func (p *DouyinGetFavoriteListResponse) SetVideoList(val []*base.Video) {
+func (p *QingyuGetFavoriteListResponse) SetVideoList(val []*base.Video) {
 	p.VideoList = val
 }
 
-var fieldIDToName_DouyinGetFavoriteListResponse = map[int16]string{
+var fieldIDToName_QingyuGetFavoriteListResponse = map[int16]string{
 	1: "base_resp",
 	2: "video_list",
 }
 
-func (p *DouyinGetFavoriteListResponse) IsSetBaseResp() bool {
+func (p *QingyuGetFavoriteListResponse) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
-func (p *DouyinGetFavoriteListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuGetFavoriteListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1863,7 +1863,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinGetFavoriteListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuGetFavoriteListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1873,15 +1873,15 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinGetFavoriteListResponse) ReadField1(iprot thrift.TProtocol) error {
-	p.BaseResp = base.NewDouyinBaseResponse()
+func (p *QingyuGetFavoriteListResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
 	if err := p.BaseResp.Read(iprot); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *DouyinGetFavoriteListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuGetFavoriteListResponse) ReadField2(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -1901,9 +1901,9 @@ func (p *DouyinGetFavoriteListResponse) ReadField2(iprot thrift.TProtocol) error
 	return nil
 }
 
-func (p *DouyinGetFavoriteListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetFavoriteListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_get_favorite_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_get_favorite_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1934,7 +1934,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinGetFavoriteListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetFavoriteListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1951,7 +1951,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinGetFavoriteListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetFavoriteListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_list", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1976,14 +1976,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinGetFavoriteListResponse) String() string {
+func (p *QingyuGetFavoriteListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinGetFavoriteListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuGetFavoriteListResponse(%+v)", *p)
 }
 
-func (p *DouyinGetFavoriteListResponse) DeepEqual(ano *DouyinGetFavoriteListResponse) bool {
+func (p *QingyuGetFavoriteListResponse) DeepEqual(ano *QingyuGetFavoriteListResponse) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -1998,14 +1998,14 @@ func (p *DouyinGetFavoriteListResponse) DeepEqual(ano *DouyinGetFavoriteListResp
 	return true
 }
 
-func (p *DouyinGetFavoriteListResponse) Field1DeepEqual(src *base.DouyinBaseResponse) bool {
+func (p *QingyuGetFavoriteListResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
 
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *DouyinGetFavoriteListResponse) Field2DeepEqual(src []*base.Video) bool {
+func (p *QingyuGetFavoriteListResponse) Field2DeepEqual(src []*base.Video) bool {
 
 	if len(p.VideoList) != len(src) {
 		return false
@@ -2019,30 +2019,30 @@ func (p *DouyinGetFavoriteListResponse) Field2DeepEqual(src []*base.Video) bool 
 	return true
 }
 
-type DouyinGetPublishedVideoIdListRequest struct {
+type QingyuGetPublishedVideoIdListRequest struct {
 	UserId int64 `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
 }
 
-func NewDouyinGetPublishedVideoIdListRequest() *DouyinGetPublishedVideoIdListRequest {
-	return &DouyinGetPublishedVideoIdListRequest{}
+func NewQingyuGetPublishedVideoIdListRequest() *QingyuGetPublishedVideoIdListRequest {
+	return &QingyuGetPublishedVideoIdListRequest{}
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) InitDefault() {
-	*p = DouyinGetPublishedVideoIdListRequest{}
+func (p *QingyuGetPublishedVideoIdListRequest) InitDefault() {
+	*p = QingyuGetPublishedVideoIdListRequest{}
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) GetUserId() (v int64) {
+func (p *QingyuGetPublishedVideoIdListRequest) GetUserId() (v int64) {
 	return p.UserId
 }
-func (p *DouyinGetPublishedVideoIdListRequest) SetUserId(val int64) {
+func (p *QingyuGetPublishedVideoIdListRequest) SetUserId(val int64) {
 	p.UserId = val
 }
 
-var fieldIDToName_DouyinGetPublishedVideoIdListRequest = map[int16]string{
+var fieldIDToName_QingyuGetPublishedVideoIdListRequest = map[int16]string{
 	1: "user_id",
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedVideoIdListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2091,7 +2091,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinGetPublishedVideoIdListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuGetPublishedVideoIdListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2101,7 +2101,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuGetPublishedVideoIdListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -2110,9 +2110,9 @@ func (p *DouyinGetPublishedVideoIdListRequest) ReadField1(iprot thrift.TProtocol
 	return nil
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedVideoIdListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_get_published_video_id_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_get_published_video_id_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2139,7 +2139,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedVideoIdListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2156,14 +2156,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) String() string {
+func (p *QingyuGetPublishedVideoIdListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinGetPublishedVideoIdListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuGetPublishedVideoIdListRequest(%+v)", *p)
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) DeepEqual(ano *DouyinGetPublishedVideoIdListRequest) bool {
+func (p *QingyuGetPublishedVideoIdListRequest) DeepEqual(ano *QingyuGetPublishedVideoIdListRequest) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -2175,7 +2175,7 @@ func (p *DouyinGetPublishedVideoIdListRequest) DeepEqual(ano *DouyinGetPublished
 	return true
 }
 
-func (p *DouyinGetPublishedVideoIdListRequest) Field1DeepEqual(src int64) bool {
+func (p *QingyuGetPublishedVideoIdListRequest) Field1DeepEqual(src int64) bool {
 
 	if p.UserId != src {
 		return false
@@ -2183,48 +2183,48 @@ func (p *DouyinGetPublishedVideoIdListRequest) Field1DeepEqual(src int64) bool {
 	return true
 }
 
-type DouyinGetPublishedVideoIdListResponse struct {
-	BaseResp    *base.DouyinBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.DouyinBaseResponse" json:"base_resp"`
+type QingyuGetPublishedVideoIdListResponse struct {
+	BaseResp    *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
 	VideoIdList []int64                  `thrift:"video_id_list,2" frugal:"2,default,list<i64>" json:"video_id_list"`
 }
 
-func NewDouyinGetPublishedVideoIdListResponse() *DouyinGetPublishedVideoIdListResponse {
-	return &DouyinGetPublishedVideoIdListResponse{}
+func NewQingyuGetPublishedVideoIdListResponse() *QingyuGetPublishedVideoIdListResponse {
+	return &QingyuGetPublishedVideoIdListResponse{}
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) InitDefault() {
-	*p = DouyinGetPublishedVideoIdListResponse{}
+func (p *QingyuGetPublishedVideoIdListResponse) InitDefault() {
+	*p = QingyuGetPublishedVideoIdListResponse{}
 }
 
-var DouyinGetPublishedVideoIdListResponse_BaseResp_DEFAULT *base.DouyinBaseResponse
+var QingyuGetPublishedVideoIdListResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
 
-func (p *DouyinGetPublishedVideoIdListResponse) GetBaseResp() (v *base.DouyinBaseResponse) {
+func (p *QingyuGetPublishedVideoIdListResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
 	if !p.IsSetBaseResp() {
-		return DouyinGetPublishedVideoIdListResponse_BaseResp_DEFAULT
+		return QingyuGetPublishedVideoIdListResponse_BaseResp_DEFAULT
 	}
 	return p.BaseResp
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) GetVideoIdList() (v []int64) {
+func (p *QingyuGetPublishedVideoIdListResponse) GetVideoIdList() (v []int64) {
 	return p.VideoIdList
 }
-func (p *DouyinGetPublishedVideoIdListResponse) SetBaseResp(val *base.DouyinBaseResponse) {
+func (p *QingyuGetPublishedVideoIdListResponse) SetBaseResp(val *base.QingyuBaseResponse) {
 	p.BaseResp = val
 }
-func (p *DouyinGetPublishedVideoIdListResponse) SetVideoIdList(val []int64) {
+func (p *QingyuGetPublishedVideoIdListResponse) SetVideoIdList(val []int64) {
 	p.VideoIdList = val
 }
 
-var fieldIDToName_DouyinGetPublishedVideoIdListResponse = map[int16]string{
+var fieldIDToName_QingyuGetPublishedVideoIdListResponse = map[int16]string{
 	1: "base_resp",
 	2: "video_id_list",
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) IsSetBaseResp() bool {
+func (p *QingyuGetPublishedVideoIdListResponse) IsSetBaseResp() bool {
 	return p.BaseResp != nil
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedVideoIdListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2283,7 +2283,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinGetPublishedVideoIdListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuGetPublishedVideoIdListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2293,15 +2293,15 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) ReadField1(iprot thrift.TProtocol) error {
-	p.BaseResp = base.NewDouyinBaseResponse()
+func (p *QingyuGetPublishedVideoIdListResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
 	if err := p.BaseResp.Read(iprot); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuGetPublishedVideoIdListResponse) ReadField2(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -2323,9 +2323,9 @@ func (p *DouyinGetPublishedVideoIdListResponse) ReadField2(iprot thrift.TProtoco
 	return nil
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedVideoIdListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_get_published_video_id_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_get_published_video_id_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2356,7 +2356,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedVideoIdListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2373,7 +2373,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuGetPublishedVideoIdListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_id_list", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2398,14 +2398,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) String() string {
+func (p *QingyuGetPublishedVideoIdListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinGetPublishedVideoIdListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuGetPublishedVideoIdListResponse(%+v)", *p)
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) DeepEqual(ano *DouyinGetPublishedVideoIdListResponse) bool {
+func (p *QingyuGetPublishedVideoIdListResponse) DeepEqual(ano *QingyuGetPublishedVideoIdListResponse) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -2420,14 +2420,14 @@ func (p *DouyinGetPublishedVideoIdListResponse) DeepEqual(ano *DouyinGetPublishe
 	return true
 }
 
-func (p *DouyinGetPublishedVideoIdListResponse) Field1DeepEqual(src *base.DouyinBaseResponse) bool {
+func (p *QingyuGetPublishedVideoIdListResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
 
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *DouyinGetPublishedVideoIdListResponse) Field2DeepEqual(src []int64) bool {
+func (p *QingyuGetPublishedVideoIdListResponse) Field2DeepEqual(src []int64) bool {
 
 	if len(p.VideoIdList) != len(src) {
 		return false
@@ -2442,15 +2442,15 @@ func (p *DouyinGetPublishedVideoIdListResponse) Field2DeepEqual(src []int64) boo
 }
 
 type VideoService interface {
-	Feed(ctx context.Context, req *DouyinFeedRequest) (r *DouyinFeedResponse, err error)
+	Feed(ctx context.Context, req *QingyuFeedRequest) (r *QingyuFeedResponse, err error)
 
-	PublishVideo(ctx context.Context, req *DouyinPublishActionRequest) (r *DouyinPublishActionResponse, err error)
+	PublishVideo(ctx context.Context, req *QingyuPublishActionRequest) (r *QingyuPublishActionResponse, err error)
 
-	GetPublishedVideoList(ctx context.Context, req *DouyinGetPublishedListRequest) (r *DouyinGetPublishedListResponse, err error)
+	GetPublishedVideoList(ctx context.Context, req *QingyuGetPublishedListRequest) (r *QingyuGetPublishedListResponse, err error)
 
-	GetFavoriteVideoList(ctx context.Context, req *DouyinGetFavoriteListRequest) (r *DouyinGetFavoriteListResponse, err error)
+	GetFavoriteVideoList(ctx context.Context, req *QingyuGetFavoriteListRequest) (r *QingyuGetFavoriteListResponse, err error)
 
-	GetPublishedVideoIdList(ctx context.Context, req *DouyinGetPublishedVideoIdListRequest) (r *DouyinGetPublishedVideoIdListResponse, err error)
+	GetPublishedVideoIdList(ctx context.Context, req *QingyuGetPublishedVideoIdListRequest) (r *QingyuGetPublishedVideoIdListResponse, err error)
 }
 
 type VideoServiceClient struct {
@@ -2479,7 +2479,7 @@ func (p *VideoServiceClient) Client_() thrift.TClient {
 	return p.c
 }
 
-func (p *VideoServiceClient) Feed(ctx context.Context, req *DouyinFeedRequest) (r *DouyinFeedResponse, err error) {
+func (p *VideoServiceClient) Feed(ctx context.Context, req *QingyuFeedRequest) (r *QingyuFeedResponse, err error) {
 	var _args VideoServiceFeedArgs
 	_args.Req = req
 	var _result VideoServiceFeedResult
@@ -2488,7 +2488,7 @@ func (p *VideoServiceClient) Feed(ctx context.Context, req *DouyinFeedRequest) (
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *VideoServiceClient) PublishVideo(ctx context.Context, req *DouyinPublishActionRequest) (r *DouyinPublishActionResponse, err error) {
+func (p *VideoServiceClient) PublishVideo(ctx context.Context, req *QingyuPublishActionRequest) (r *QingyuPublishActionResponse, err error) {
 	var _args VideoServicePublishVideoArgs
 	_args.Req = req
 	var _result VideoServicePublishVideoResult
@@ -2497,7 +2497,7 @@ func (p *VideoServiceClient) PublishVideo(ctx context.Context, req *DouyinPublis
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *VideoServiceClient) GetPublishedVideoList(ctx context.Context, req *DouyinGetPublishedListRequest) (r *DouyinGetPublishedListResponse, err error) {
+func (p *VideoServiceClient) GetPublishedVideoList(ctx context.Context, req *QingyuGetPublishedListRequest) (r *QingyuGetPublishedListResponse, err error) {
 	var _args VideoServiceGetPublishedVideoListArgs
 	_args.Req = req
 	var _result VideoServiceGetPublishedVideoListResult
@@ -2506,7 +2506,7 @@ func (p *VideoServiceClient) GetPublishedVideoList(ctx context.Context, req *Dou
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *VideoServiceClient) GetFavoriteVideoList(ctx context.Context, req *DouyinGetFavoriteListRequest) (r *DouyinGetFavoriteListResponse, err error) {
+func (p *VideoServiceClient) GetFavoriteVideoList(ctx context.Context, req *QingyuGetFavoriteListRequest) (r *QingyuGetFavoriteListResponse, err error) {
 	var _args VideoServiceGetFavoriteVideoListArgs
 	_args.Req = req
 	var _result VideoServiceGetFavoriteVideoListResult
@@ -2515,7 +2515,7 @@ func (p *VideoServiceClient) GetFavoriteVideoList(ctx context.Context, req *Douy
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *VideoServiceClient) GetPublishedVideoIdList(ctx context.Context, req *DouyinGetPublishedVideoIdListRequest) (r *DouyinGetPublishedVideoIdListResponse, err error) {
+func (p *VideoServiceClient) GetPublishedVideoIdList(ctx context.Context, req *QingyuGetPublishedVideoIdListRequest) (r *QingyuGetPublishedVideoIdListResponse, err error) {
 	var _args VideoServiceGetPublishedVideoIdListArgs
 	_args.Req = req
 	var _result VideoServiceGetPublishedVideoIdListResult
@@ -2589,7 +2589,7 @@ func (p *videoServiceProcessorFeed) Process(ctx context.Context, seqId int32, ip
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := VideoServiceFeedResult{}
-	var retval *DouyinFeedResponse
+	var retval *QingyuFeedResponse
 	if retval, err2 = p.handler.Feed(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Feed: "+err2.Error())
 		oprot.WriteMessageBegin("Feed", thrift.EXCEPTION, seqId)
@@ -2637,7 +2637,7 @@ func (p *videoServiceProcessorPublishVideo) Process(ctx context.Context, seqId i
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := VideoServicePublishVideoResult{}
-	var retval *DouyinPublishActionResponse
+	var retval *QingyuPublishActionResponse
 	if retval, err2 = p.handler.PublishVideo(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing PublishVideo: "+err2.Error())
 		oprot.WriteMessageBegin("PublishVideo", thrift.EXCEPTION, seqId)
@@ -2685,7 +2685,7 @@ func (p *videoServiceProcessorGetPublishedVideoList) Process(ctx context.Context
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := VideoServiceGetPublishedVideoListResult{}
-	var retval *DouyinGetPublishedListResponse
+	var retval *QingyuGetPublishedListResponse
 	if retval, err2 = p.handler.GetPublishedVideoList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetPublishedVideoList: "+err2.Error())
 		oprot.WriteMessageBegin("GetPublishedVideoList", thrift.EXCEPTION, seqId)
@@ -2733,7 +2733,7 @@ func (p *videoServiceProcessorGetFavoriteVideoList) Process(ctx context.Context,
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := VideoServiceGetFavoriteVideoListResult{}
-	var retval *DouyinGetFavoriteListResponse
+	var retval *QingyuGetFavoriteListResponse
 	if retval, err2 = p.handler.GetFavoriteVideoList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetFavoriteVideoList: "+err2.Error())
 		oprot.WriteMessageBegin("GetFavoriteVideoList", thrift.EXCEPTION, seqId)
@@ -2781,7 +2781,7 @@ func (p *videoServiceProcessorGetPublishedVideoIdList) Process(ctx context.Conte
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := VideoServiceGetPublishedVideoIdListResult{}
-	var retval *DouyinGetPublishedVideoIdListResponse
+	var retval *QingyuGetPublishedVideoIdListResponse
 	if retval, err2 = p.handler.GetPublishedVideoIdList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetPublishedVideoIdList: "+err2.Error())
 		oprot.WriteMessageBegin("GetPublishedVideoIdList", thrift.EXCEPTION, seqId)
@@ -2811,7 +2811,7 @@ func (p *videoServiceProcessorGetPublishedVideoIdList) Process(ctx context.Conte
 }
 
 type VideoServiceFeedArgs struct {
-	Req *DouyinFeedRequest `thrift:"req,1" frugal:"1,default,DouyinFeedRequest" json:"req"`
+	Req *QingyuFeedRequest `thrift:"req,1" frugal:"1,default,QingyuFeedRequest" json:"req"`
 }
 
 func NewVideoServiceFeedArgs() *VideoServiceFeedArgs {
@@ -2822,15 +2822,15 @@ func (p *VideoServiceFeedArgs) InitDefault() {
 	*p = VideoServiceFeedArgs{}
 }
 
-var VideoServiceFeedArgs_Req_DEFAULT *DouyinFeedRequest
+var VideoServiceFeedArgs_Req_DEFAULT *QingyuFeedRequest
 
-func (p *VideoServiceFeedArgs) GetReq() (v *DouyinFeedRequest) {
+func (p *VideoServiceFeedArgs) GetReq() (v *QingyuFeedRequest) {
 	if !p.IsSetReq() {
 		return VideoServiceFeedArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *VideoServiceFeedArgs) SetReq(val *DouyinFeedRequest) {
+func (p *VideoServiceFeedArgs) SetReq(val *QingyuFeedRequest) {
 	p.Req = val
 }
 
@@ -2902,7 +2902,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServiceFeedArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinFeedRequest()
+	p.Req = NewQingyuFeedRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -2974,7 +2974,7 @@ func (p *VideoServiceFeedArgs) DeepEqual(ano *VideoServiceFeedArgs) bool {
 	return true
 }
 
-func (p *VideoServiceFeedArgs) Field1DeepEqual(src *DouyinFeedRequest) bool {
+func (p *VideoServiceFeedArgs) Field1DeepEqual(src *QingyuFeedRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -2983,7 +2983,7 @@ func (p *VideoServiceFeedArgs) Field1DeepEqual(src *DouyinFeedRequest) bool {
 }
 
 type VideoServiceFeedResult struct {
-	Success *DouyinFeedResponse `thrift:"success,0,optional" frugal:"0,optional,DouyinFeedResponse" json:"success,omitempty"`
+	Success *QingyuFeedResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuFeedResponse" json:"success,omitempty"`
 }
 
 func NewVideoServiceFeedResult() *VideoServiceFeedResult {
@@ -2994,16 +2994,16 @@ func (p *VideoServiceFeedResult) InitDefault() {
 	*p = VideoServiceFeedResult{}
 }
 
-var VideoServiceFeedResult_Success_DEFAULT *DouyinFeedResponse
+var VideoServiceFeedResult_Success_DEFAULT *QingyuFeedResponse
 
-func (p *VideoServiceFeedResult) GetSuccess() (v *DouyinFeedResponse) {
+func (p *VideoServiceFeedResult) GetSuccess() (v *QingyuFeedResponse) {
 	if !p.IsSetSuccess() {
 		return VideoServiceFeedResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *VideoServiceFeedResult) SetSuccess(x interface{}) {
-	p.Success = x.(*DouyinFeedResponse)
+	p.Success = x.(*QingyuFeedResponse)
 }
 
 var fieldIDToName_VideoServiceFeedResult = map[int16]string{
@@ -3074,7 +3074,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServiceFeedResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinFeedResponse()
+	p.Success = NewQingyuFeedResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -3148,7 +3148,7 @@ func (p *VideoServiceFeedResult) DeepEqual(ano *VideoServiceFeedResult) bool {
 	return true
 }
 
-func (p *VideoServiceFeedResult) Field0DeepEqual(src *DouyinFeedResponse) bool {
+func (p *VideoServiceFeedResult) Field0DeepEqual(src *QingyuFeedResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -3157,7 +3157,7 @@ func (p *VideoServiceFeedResult) Field0DeepEqual(src *DouyinFeedResponse) bool {
 }
 
 type VideoServicePublishVideoArgs struct {
-	Req *DouyinPublishActionRequest `thrift:"req,1" frugal:"1,default,DouyinPublishActionRequest" json:"req"`
+	Req *QingyuPublishActionRequest `thrift:"req,1" frugal:"1,default,QingyuPublishActionRequest" json:"req"`
 }
 
 func NewVideoServicePublishVideoArgs() *VideoServicePublishVideoArgs {
@@ -3168,15 +3168,15 @@ func (p *VideoServicePublishVideoArgs) InitDefault() {
 	*p = VideoServicePublishVideoArgs{}
 }
 
-var VideoServicePublishVideoArgs_Req_DEFAULT *DouyinPublishActionRequest
+var VideoServicePublishVideoArgs_Req_DEFAULT *QingyuPublishActionRequest
 
-func (p *VideoServicePublishVideoArgs) GetReq() (v *DouyinPublishActionRequest) {
+func (p *VideoServicePublishVideoArgs) GetReq() (v *QingyuPublishActionRequest) {
 	if !p.IsSetReq() {
 		return VideoServicePublishVideoArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *VideoServicePublishVideoArgs) SetReq(val *DouyinPublishActionRequest) {
+func (p *VideoServicePublishVideoArgs) SetReq(val *QingyuPublishActionRequest) {
 	p.Req = val
 }
 
@@ -3248,7 +3248,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServicePublishVideoArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinPublishActionRequest()
+	p.Req = NewQingyuPublishActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -3320,7 +3320,7 @@ func (p *VideoServicePublishVideoArgs) DeepEqual(ano *VideoServicePublishVideoAr
 	return true
 }
 
-func (p *VideoServicePublishVideoArgs) Field1DeepEqual(src *DouyinPublishActionRequest) bool {
+func (p *VideoServicePublishVideoArgs) Field1DeepEqual(src *QingyuPublishActionRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -3329,7 +3329,7 @@ func (p *VideoServicePublishVideoArgs) Field1DeepEqual(src *DouyinPublishActionR
 }
 
 type VideoServicePublishVideoResult struct {
-	Success *DouyinPublishActionResponse `thrift:"success,0,optional" frugal:"0,optional,DouyinPublishActionResponse" json:"success,omitempty"`
+	Success *QingyuPublishActionResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuPublishActionResponse" json:"success,omitempty"`
 }
 
 func NewVideoServicePublishVideoResult() *VideoServicePublishVideoResult {
@@ -3340,16 +3340,16 @@ func (p *VideoServicePublishVideoResult) InitDefault() {
 	*p = VideoServicePublishVideoResult{}
 }
 
-var VideoServicePublishVideoResult_Success_DEFAULT *DouyinPublishActionResponse
+var VideoServicePublishVideoResult_Success_DEFAULT *QingyuPublishActionResponse
 
-func (p *VideoServicePublishVideoResult) GetSuccess() (v *DouyinPublishActionResponse) {
+func (p *VideoServicePublishVideoResult) GetSuccess() (v *QingyuPublishActionResponse) {
 	if !p.IsSetSuccess() {
 		return VideoServicePublishVideoResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *VideoServicePublishVideoResult) SetSuccess(x interface{}) {
-	p.Success = x.(*DouyinPublishActionResponse)
+	p.Success = x.(*QingyuPublishActionResponse)
 }
 
 var fieldIDToName_VideoServicePublishVideoResult = map[int16]string{
@@ -3420,7 +3420,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServicePublishVideoResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinPublishActionResponse()
+	p.Success = NewQingyuPublishActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -3494,7 +3494,7 @@ func (p *VideoServicePublishVideoResult) DeepEqual(ano *VideoServicePublishVideo
 	return true
 }
 
-func (p *VideoServicePublishVideoResult) Field0DeepEqual(src *DouyinPublishActionResponse) bool {
+func (p *VideoServicePublishVideoResult) Field0DeepEqual(src *QingyuPublishActionResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -3503,7 +3503,7 @@ func (p *VideoServicePublishVideoResult) Field0DeepEqual(src *DouyinPublishActio
 }
 
 type VideoServiceGetPublishedVideoListArgs struct {
-	Req *DouyinGetPublishedListRequest `thrift:"req,1" frugal:"1,default,DouyinGetPublishedListRequest" json:"req"`
+	Req *QingyuGetPublishedListRequest `thrift:"req,1" frugal:"1,default,QingyuGetPublishedListRequest" json:"req"`
 }
 
 func NewVideoServiceGetPublishedVideoListArgs() *VideoServiceGetPublishedVideoListArgs {
@@ -3514,15 +3514,15 @@ func (p *VideoServiceGetPublishedVideoListArgs) InitDefault() {
 	*p = VideoServiceGetPublishedVideoListArgs{}
 }
 
-var VideoServiceGetPublishedVideoListArgs_Req_DEFAULT *DouyinGetPublishedListRequest
+var VideoServiceGetPublishedVideoListArgs_Req_DEFAULT *QingyuGetPublishedListRequest
 
-func (p *VideoServiceGetPublishedVideoListArgs) GetReq() (v *DouyinGetPublishedListRequest) {
+func (p *VideoServiceGetPublishedVideoListArgs) GetReq() (v *QingyuGetPublishedListRequest) {
 	if !p.IsSetReq() {
 		return VideoServiceGetPublishedVideoListArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *VideoServiceGetPublishedVideoListArgs) SetReq(val *DouyinGetPublishedListRequest) {
+func (p *VideoServiceGetPublishedVideoListArgs) SetReq(val *QingyuGetPublishedListRequest) {
 	p.Req = val
 }
 
@@ -3594,7 +3594,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServiceGetPublishedVideoListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinGetPublishedListRequest()
+	p.Req = NewQingyuGetPublishedListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -3666,7 +3666,7 @@ func (p *VideoServiceGetPublishedVideoListArgs) DeepEqual(ano *VideoServiceGetPu
 	return true
 }
 
-func (p *VideoServiceGetPublishedVideoListArgs) Field1DeepEqual(src *DouyinGetPublishedListRequest) bool {
+func (p *VideoServiceGetPublishedVideoListArgs) Field1DeepEqual(src *QingyuGetPublishedListRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -3675,7 +3675,7 @@ func (p *VideoServiceGetPublishedVideoListArgs) Field1DeepEqual(src *DouyinGetPu
 }
 
 type VideoServiceGetPublishedVideoListResult struct {
-	Success *DouyinGetPublishedListResponse `thrift:"success,0,optional" frugal:"0,optional,DouyinGetPublishedListResponse" json:"success,omitempty"`
+	Success *QingyuGetPublishedListResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuGetPublishedListResponse" json:"success,omitempty"`
 }
 
 func NewVideoServiceGetPublishedVideoListResult() *VideoServiceGetPublishedVideoListResult {
@@ -3686,16 +3686,16 @@ func (p *VideoServiceGetPublishedVideoListResult) InitDefault() {
 	*p = VideoServiceGetPublishedVideoListResult{}
 }
 
-var VideoServiceGetPublishedVideoListResult_Success_DEFAULT *DouyinGetPublishedListResponse
+var VideoServiceGetPublishedVideoListResult_Success_DEFAULT *QingyuGetPublishedListResponse
 
-func (p *VideoServiceGetPublishedVideoListResult) GetSuccess() (v *DouyinGetPublishedListResponse) {
+func (p *VideoServiceGetPublishedVideoListResult) GetSuccess() (v *QingyuGetPublishedListResponse) {
 	if !p.IsSetSuccess() {
 		return VideoServiceGetPublishedVideoListResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *VideoServiceGetPublishedVideoListResult) SetSuccess(x interface{}) {
-	p.Success = x.(*DouyinGetPublishedListResponse)
+	p.Success = x.(*QingyuGetPublishedListResponse)
 }
 
 var fieldIDToName_VideoServiceGetPublishedVideoListResult = map[int16]string{
@@ -3766,7 +3766,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServiceGetPublishedVideoListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinGetPublishedListResponse()
+	p.Success = NewQingyuGetPublishedListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -3840,7 +3840,7 @@ func (p *VideoServiceGetPublishedVideoListResult) DeepEqual(ano *VideoServiceGet
 	return true
 }
 
-func (p *VideoServiceGetPublishedVideoListResult) Field0DeepEqual(src *DouyinGetPublishedListResponse) bool {
+func (p *VideoServiceGetPublishedVideoListResult) Field0DeepEqual(src *QingyuGetPublishedListResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -3849,7 +3849,7 @@ func (p *VideoServiceGetPublishedVideoListResult) Field0DeepEqual(src *DouyinGet
 }
 
 type VideoServiceGetFavoriteVideoListArgs struct {
-	Req *DouyinGetFavoriteListRequest `thrift:"req,1" frugal:"1,default,DouyinGetFavoriteListRequest" json:"req"`
+	Req *QingyuGetFavoriteListRequest `thrift:"req,1" frugal:"1,default,QingyuGetFavoriteListRequest" json:"req"`
 }
 
 func NewVideoServiceGetFavoriteVideoListArgs() *VideoServiceGetFavoriteVideoListArgs {
@@ -3860,15 +3860,15 @@ func (p *VideoServiceGetFavoriteVideoListArgs) InitDefault() {
 	*p = VideoServiceGetFavoriteVideoListArgs{}
 }
 
-var VideoServiceGetFavoriteVideoListArgs_Req_DEFAULT *DouyinGetFavoriteListRequest
+var VideoServiceGetFavoriteVideoListArgs_Req_DEFAULT *QingyuGetFavoriteListRequest
 
-func (p *VideoServiceGetFavoriteVideoListArgs) GetReq() (v *DouyinGetFavoriteListRequest) {
+func (p *VideoServiceGetFavoriteVideoListArgs) GetReq() (v *QingyuGetFavoriteListRequest) {
 	if !p.IsSetReq() {
 		return VideoServiceGetFavoriteVideoListArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *VideoServiceGetFavoriteVideoListArgs) SetReq(val *DouyinGetFavoriteListRequest) {
+func (p *VideoServiceGetFavoriteVideoListArgs) SetReq(val *QingyuGetFavoriteListRequest) {
 	p.Req = val
 }
 
@@ -3940,7 +3940,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServiceGetFavoriteVideoListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinGetFavoriteListRequest()
+	p.Req = NewQingyuGetFavoriteListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -4012,7 +4012,7 @@ func (p *VideoServiceGetFavoriteVideoListArgs) DeepEqual(ano *VideoServiceGetFav
 	return true
 }
 
-func (p *VideoServiceGetFavoriteVideoListArgs) Field1DeepEqual(src *DouyinGetFavoriteListRequest) bool {
+func (p *VideoServiceGetFavoriteVideoListArgs) Field1DeepEqual(src *QingyuGetFavoriteListRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -4021,7 +4021,7 @@ func (p *VideoServiceGetFavoriteVideoListArgs) Field1DeepEqual(src *DouyinGetFav
 }
 
 type VideoServiceGetFavoriteVideoListResult struct {
-	Success *DouyinGetFavoriteListResponse `thrift:"success,0,optional" frugal:"0,optional,DouyinGetFavoriteListResponse" json:"success,omitempty"`
+	Success *QingyuGetFavoriteListResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuGetFavoriteListResponse" json:"success,omitempty"`
 }
 
 func NewVideoServiceGetFavoriteVideoListResult() *VideoServiceGetFavoriteVideoListResult {
@@ -4032,16 +4032,16 @@ func (p *VideoServiceGetFavoriteVideoListResult) InitDefault() {
 	*p = VideoServiceGetFavoriteVideoListResult{}
 }
 
-var VideoServiceGetFavoriteVideoListResult_Success_DEFAULT *DouyinGetFavoriteListResponse
+var VideoServiceGetFavoriteVideoListResult_Success_DEFAULT *QingyuGetFavoriteListResponse
 
-func (p *VideoServiceGetFavoriteVideoListResult) GetSuccess() (v *DouyinGetFavoriteListResponse) {
+func (p *VideoServiceGetFavoriteVideoListResult) GetSuccess() (v *QingyuGetFavoriteListResponse) {
 	if !p.IsSetSuccess() {
 		return VideoServiceGetFavoriteVideoListResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *VideoServiceGetFavoriteVideoListResult) SetSuccess(x interface{}) {
-	p.Success = x.(*DouyinGetFavoriteListResponse)
+	p.Success = x.(*QingyuGetFavoriteListResponse)
 }
 
 var fieldIDToName_VideoServiceGetFavoriteVideoListResult = map[int16]string{
@@ -4112,7 +4112,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServiceGetFavoriteVideoListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinGetFavoriteListResponse()
+	p.Success = NewQingyuGetFavoriteListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -4186,7 +4186,7 @@ func (p *VideoServiceGetFavoriteVideoListResult) DeepEqual(ano *VideoServiceGetF
 	return true
 }
 
-func (p *VideoServiceGetFavoriteVideoListResult) Field0DeepEqual(src *DouyinGetFavoriteListResponse) bool {
+func (p *VideoServiceGetFavoriteVideoListResult) Field0DeepEqual(src *QingyuGetFavoriteListResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
@@ -4195,7 +4195,7 @@ func (p *VideoServiceGetFavoriteVideoListResult) Field0DeepEqual(src *DouyinGetF
 }
 
 type VideoServiceGetPublishedVideoIdListArgs struct {
-	Req *DouyinGetPublishedVideoIdListRequest `thrift:"req,1" frugal:"1,default,DouyinGetPublishedVideoIdListRequest" json:"req"`
+	Req *QingyuGetPublishedVideoIdListRequest `thrift:"req,1" frugal:"1,default,QingyuGetPublishedVideoIdListRequest" json:"req"`
 }
 
 func NewVideoServiceGetPublishedVideoIdListArgs() *VideoServiceGetPublishedVideoIdListArgs {
@@ -4206,15 +4206,15 @@ func (p *VideoServiceGetPublishedVideoIdListArgs) InitDefault() {
 	*p = VideoServiceGetPublishedVideoIdListArgs{}
 }
 
-var VideoServiceGetPublishedVideoIdListArgs_Req_DEFAULT *DouyinGetPublishedVideoIdListRequest
+var VideoServiceGetPublishedVideoIdListArgs_Req_DEFAULT *QingyuGetPublishedVideoIdListRequest
 
-func (p *VideoServiceGetPublishedVideoIdListArgs) GetReq() (v *DouyinGetPublishedVideoIdListRequest) {
+func (p *VideoServiceGetPublishedVideoIdListArgs) GetReq() (v *QingyuGetPublishedVideoIdListRequest) {
 	if !p.IsSetReq() {
 		return VideoServiceGetPublishedVideoIdListArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *VideoServiceGetPublishedVideoIdListArgs) SetReq(val *DouyinGetPublishedVideoIdListRequest) {
+func (p *VideoServiceGetPublishedVideoIdListArgs) SetReq(val *QingyuGetPublishedVideoIdListRequest) {
 	p.Req = val
 }
 
@@ -4286,7 +4286,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServiceGetPublishedVideoIdListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinGetPublishedVideoIdListRequest()
+	p.Req = NewQingyuGetPublishedVideoIdListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -4358,7 +4358,7 @@ func (p *VideoServiceGetPublishedVideoIdListArgs) DeepEqual(ano *VideoServiceGet
 	return true
 }
 
-func (p *VideoServiceGetPublishedVideoIdListArgs) Field1DeepEqual(src *DouyinGetPublishedVideoIdListRequest) bool {
+func (p *VideoServiceGetPublishedVideoIdListArgs) Field1DeepEqual(src *QingyuGetPublishedVideoIdListRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -4367,7 +4367,7 @@ func (p *VideoServiceGetPublishedVideoIdListArgs) Field1DeepEqual(src *DouyinGet
 }
 
 type VideoServiceGetPublishedVideoIdListResult struct {
-	Success *DouyinGetPublishedVideoIdListResponse `thrift:"success,0,optional" frugal:"0,optional,DouyinGetPublishedVideoIdListResponse" json:"success,omitempty"`
+	Success *QingyuGetPublishedVideoIdListResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuGetPublishedVideoIdListResponse" json:"success,omitempty"`
 }
 
 func NewVideoServiceGetPublishedVideoIdListResult() *VideoServiceGetPublishedVideoIdListResult {
@@ -4378,16 +4378,16 @@ func (p *VideoServiceGetPublishedVideoIdListResult) InitDefault() {
 	*p = VideoServiceGetPublishedVideoIdListResult{}
 }
 
-var VideoServiceGetPublishedVideoIdListResult_Success_DEFAULT *DouyinGetPublishedVideoIdListResponse
+var VideoServiceGetPublishedVideoIdListResult_Success_DEFAULT *QingyuGetPublishedVideoIdListResponse
 
-func (p *VideoServiceGetPublishedVideoIdListResult) GetSuccess() (v *DouyinGetPublishedVideoIdListResponse) {
+func (p *VideoServiceGetPublishedVideoIdListResult) GetSuccess() (v *QingyuGetPublishedVideoIdListResponse) {
 	if !p.IsSetSuccess() {
 		return VideoServiceGetPublishedVideoIdListResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *VideoServiceGetPublishedVideoIdListResult) SetSuccess(x interface{}) {
-	p.Success = x.(*DouyinGetPublishedVideoIdListResponse)
+	p.Success = x.(*QingyuGetPublishedVideoIdListResponse)
 }
 
 var fieldIDToName_VideoServiceGetPublishedVideoIdListResult = map[int16]string{
@@ -4458,7 +4458,7 @@ ReadStructEndError:
 }
 
 func (p *VideoServiceGetPublishedVideoIdListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinGetPublishedVideoIdListResponse()
+	p.Success = NewQingyuGetPublishedVideoIdListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -4532,7 +4532,7 @@ func (p *VideoServiceGetPublishedVideoIdListResult) DeepEqual(ano *VideoServiceG
 	return true
 }
 
-func (p *VideoServiceGetPublishedVideoIdListResult) Field0DeepEqual(src *DouyinGetPublishedVideoIdListResponse) bool {
+func (p *VideoServiceGetPublishedVideoIdListResult) Field0DeepEqual(src *QingyuGetPublishedVideoIdListResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

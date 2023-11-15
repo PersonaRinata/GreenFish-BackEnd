@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/service/user/config"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/service/user/config"
 	sentinel "github.com/alibaba/sentinel-golang/api"
 	"github.com/alibaba/sentinel-golang/core/circuitbreaker"
 	SentinelConfig "github.com/alibaba/sentinel-golang/core/config"

@@ -1,14 +1,14 @@
 package main
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/common/middleware"
-	"GoYin/server/common/tools"
-	"GoYin/server/kitex_gen/base"
-	user "GoYin/server/kitex_gen/user"
-	"GoYin/server/service/api/models"
-	"GoYin/server/service/user/config"
-	"GoYin/server/service/user/model"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/common/middleware"
+	"GreenFish/server/common/tools"
+	"GreenFish/server/kitex_gen/base"
+	"GreenFish/server/kitex_gen/user"
+	"GreenFish/server/service/api/models"
+	"GreenFish/server/service/user/config"
+	"GreenFish/server/service/user/model"
 	"context"
 	"fmt"
 	"github.com/bwmarrin/snowflake"
@@ -51,13 +51,13 @@ type UserServiceImpl struct {
 }
 
 // Register implements the UserServiceImpl interface.
-func (s *UserServiceImpl) Register(ctx context.Context, req *user.DouyinUserRegisterRequest) (resp *user.DouyinUserRegisterResponse, err error) {
-	resp = new(user.DouyinUserRegisterResponse)
+func (s *UserServiceImpl) Register(ctx context.Context, req *user.QingyuUserRegisterRequest) (resp *user.QingyuUserRegisterResponse, err error) {
+	resp = new(user.QingyuUserRegisterResponse)
 
 	sf, err := snowflake.NewNode(consts.UserSnowflakeNode)
 	if err != nil {
 		klog.Errorf("generate user snowflake id failed: %s", err.Error())
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  err.Error(),
 		}
@@ -74,14 +74,14 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.DouyinUserRegi
 	err = s.MysqlManager.CreateUser(ctx, usr)
 	if err != nil {
 		if err.Error() == consts.MysqlAlreadyExists {
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "user already exists",
 			}
 			return resp, err
 		} else {
 			klog.Errorf("mysql create user failed: %s", err.Error())
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  fmt.Sprintf("mysql create user failed: %s", err.Error()),
 			}
@@ -91,7 +91,7 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.DouyinUserRegi
 	err = s.RedisManager.CreateUser(ctx, usr)
 	if err != nil {
 		klog.Errorf("redis create user failed: %s", err.Error())
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("mysql create user failed: %s", err.Error()),
 		}
@@ -102,19 +102,19 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.DouyinUserRegi
 		ID: usr.ID,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Unix() + 60*60*24*30,
-			Issuer:    "GoYin",
+			Issuer:    "GreenFish",
 			NotBefore: time.Now().Unix(),
 		},
 	})
 	if err != nil {
 		klog.Errorf("register create jwt failed", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("register create jwt failed,%s", err),
 		}
 		return resp, err
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "user register success",
 	}
@@ -122,20 +122,20 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.DouyinUserRegi
 }
 
 // Login implements the UserServiceImpl interface.
-func (s *UserServiceImpl) Login(ctx context.Context, req *user.DouyinUserLoginRequest) (resp *user.DouyinUserLoginResponse, err error) {
-	resp = new(user.DouyinUserLoginResponse)
+func (s *UserServiceImpl) Login(ctx context.Context, req *user.QingyuUserLoginRequest) (resp *user.QingyuUserLoginResponse, err error) {
+	resp = new(user.QingyuUserLoginResponse)
 
 	usr, err := s.MysqlManager.GetUserByUsername(ctx, req.Username)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "no such user",
 			}
 			return resp, err
 		} else {
 			klog.Errorf("mysql get user by username failed", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  err.Error(),
 			}
@@ -144,7 +144,7 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.DouyinUserLoginRe
 	}
 
 	if usr.Password != tools.Md5Crypt(req.Password, config.GlobalServerConfig.MysqlInfo.Salt) {
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "wrong password",
 		}
@@ -156,20 +156,20 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.DouyinUserLoginRe
 		ID: usr.ID,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Unix() + 60*60*24*30,
-			Issuer:    "GoYin",
+			Issuer:    "GreenFish",
 			NotBefore: time.Now().Unix(),
 		},
 	})
 	if err != nil {
 		klog.Errorf("register create jwt failed", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("register create jwt failed,%s", err),
 		}
 		return resp, err
 	}
 
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "login success",
 	}
@@ -177,13 +177,13 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.DouyinUserLoginRe
 }
 
 // GetUserInfo implements the UserServiceImpl interface.
-func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.DouyinGetUserRequest) (resp *user.DouyinGetUserResponse, err error) {
-	resp = new(user.DouyinGetUserResponse)
+func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.QingyuGetUserRequest) (resp *user.QingyuGetUserResponse, err error) {
+	resp = new(user.QingyuGetUserResponse)
 
 	usr, err := s.RedisManager.GetUserById(ctx, req.OwnerId)
 	if err != nil {
 		klog.Errorf("redis get user by id failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("redis get user by id failed,%s", err),
 		}
@@ -201,14 +201,14 @@ func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.DouyinGetUs
 	}
 
 	if err != nil {
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "get userInfo failed",
 		}
 		return resp, err
 	}
 
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "get user by id success",
 	}
@@ -229,13 +229,13 @@ func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.DouyinGetUs
 }
 
 // BatchGetUserInfo implements the UserServiceImpl interface.
-func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.DouyinBatchGetUserRequest) (resp *user.DouyinBatchGetUserResonse, err error) {
-	resp = new(user.DouyinBatchGetUserResonse)
+func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.QingyuBatchGetUserRequest) (resp *user.QingyuBatchGetUserResonse, err error) {
+	resp = new(user.QingyuBatchGetUserResonse)
 
 	userList, err := s.RedisManager.BatchGetUserById(ctx, req.OwnerIdList)
 	if err != nil {
 		klog.Errorf("redis batch get users by id failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("redis batch get users by id failed,%s", err),
 		}
@@ -244,7 +244,7 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Douyin
 	socialList, err := s.SocialManager.BatchGetSocialInfo(ctx, req.ViewerId, req.OwnerIdList)
 	if err != nil {
 		klog.Errorf("user socialManager get socialList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get socialList failed",
 		}
@@ -253,7 +253,7 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Douyin
 	interactionList, err := s.InteractionManager.BatchGetInteractInfo(ctx, req.OwnerIdList)
 	if err != nil {
 		klog.Errorf("user interactionManager get interactionList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user interactionManager get interactionList failed",
 		}
@@ -274,7 +274,7 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Douyin
 			FavoriteCount:   interactionList[i].FavoriteCount,
 		})
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "batch get userInfo success",
 	}
@@ -282,13 +282,13 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Douyin
 }
 
 // GetFollowList implements the UserServiceImpl interface.
-func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.DouyinGetRelationFollowListRequest) (resp *user.DouyinGetRelationFollowListResponse, err error) {
-	resp = new(user.DouyinGetRelationFollowListResponse)
+func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.QingyuGetRelationFollowListRequest) (resp *user.QingyuGetRelationFollowListResponse, err error) {
+	resp = new(user.QingyuGetRelationFollowListResponse)
 
 	userIdlist, err := s.SocialManager.GetRelationList(ctx, req.ViewerId, req.OwnerId, consts.FollowList)
 	if err != nil {
 		klog.Errorf("user socialManager get follow list failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get followList failed ",
 		}
@@ -297,7 +297,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.DouyinGet
 	userList, err := s.RedisManager.BatchGetUserById(ctx, userIdlist)
 	if err != nil {
 		klog.Errorf("user redis get user failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redis get user failed ",
 		}
@@ -306,7 +306,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.DouyinGet
 	socialList, err := s.SocialManager.BatchGetSocialInfo(ctx, req.ViewerId, userIdlist)
 	if err != nil {
 		klog.Errorf("user socialManager get socialList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get socialList failed",
 		}
@@ -315,7 +315,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.DouyinGet
 	interactionList, err := s.InteractionManager.BatchGetInteractInfo(ctx, userIdlist)
 	if err != nil {
 		klog.Errorf("user interactionManager get interactionList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user interactionManager get interactionList failed",
 		}
@@ -336,7 +336,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.DouyinGet
 			FavoriteCount:   interactionList[i].FavoriteCount,
 		})
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "batch get followList success",
 	}
@@ -344,13 +344,13 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.DouyinGet
 }
 
 // GetFollowerList implements the UserServiceImpl interface.
-func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.DouyinGetRelationFollowerListRequest) (resp *user.DouyinGetRelationFollowerListResponse, err error) {
-	resp = new(user.DouyinGetRelationFollowerListResponse)
+func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.QingyuGetRelationFollowerListRequest) (resp *user.QingyuGetRelationFollowerListResponse, err error) {
+	resp = new(user.QingyuGetRelationFollowerListResponse)
 
 	userIdlist, err := s.SocialManager.GetRelationList(ctx, req.ViewerId, req.OwnerId, consts.FollowerList)
 	if err != nil {
 		klog.Errorf("user socialManager get follower list failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get followerList failed ",
 		}
@@ -359,7 +359,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.DouyinG
 	userList, err := s.RedisManager.BatchGetUserById(ctx, userIdlist)
 	if err != nil {
 		klog.Errorf("user redis get user failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redis get user failed ",
 		}
@@ -368,7 +368,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.DouyinG
 	socialList, err := s.SocialManager.BatchGetSocialInfo(ctx, req.ViewerId, userIdlist)
 	if err != nil {
 		klog.Errorf("user socialManager get socialList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get socialList failed",
 		}
@@ -377,7 +377,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.DouyinG
 	interactionList, err := s.InteractionManager.BatchGetInteractInfo(ctx, userIdlist)
 	if err != nil {
 		klog.Errorf("user interactionManager get interactionList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user interactionManager get interactionList failed",
 		}
@@ -398,7 +398,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.DouyinG
 			FavoriteCount:   interactionList[i].FavoriteCount,
 		})
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "batch get followList success",
 	}
@@ -407,13 +407,13 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.DouyinG
 }
 
 // GetFriendList implements the UserServiceImpl interface.
-func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.DouyinGetRelationFriendListRequest) (resp *user.DouyinGetRelationFriendListResponse, err error) {
-	resp = new(user.DouyinGetRelationFriendListResponse)
+func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGetRelationFriendListRequest) (resp *user.QingyuGetRelationFriendListResponse, err error) {
+	resp = new(user.QingyuGetRelationFriendListResponse)
 
 	userIdlist, err := s.SocialManager.GetRelationList(ctx, req.ViewerId, req.OwnerId, consts.FriendsList)
 	if err != nil {
 		klog.Errorf("user socialManager get follow list failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get followList failed ",
 		}
@@ -422,7 +422,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.DouyinGet
 	userList, err := s.RedisManager.BatchGetUserById(ctx, userIdlist)
 	if err != nil {
 		klog.Errorf("user redis get user failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redis get user failed ",
 		}
@@ -431,7 +431,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.DouyinGet
 	socialList, err := s.SocialManager.BatchGetSocialInfo(ctx, req.ViewerId, userIdlist)
 	if err != nil {
 		klog.Errorf("user socialManager get socialList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get socialList failed",
 		}
@@ -440,7 +440,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.DouyinGet
 	interactionList, err := s.InteractionManager.BatchGetInteractInfo(ctx, userIdlist)
 	if err != nil {
 		klog.Errorf("user interactionManager get interactionList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user interactionManager get interactionList failed",
 		}
@@ -449,7 +449,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.DouyinGet
 	chatList, err := s.ChatManager.BatchGetLatestMessage(ctx, req.ViewerId, userIdlist)
 	if err != nil {
 		klog.Errorf("user chatManager get chatList failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user chatManager get chatList failed",
 		}
@@ -472,7 +472,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.DouyinGet
 			Message:         chatList[i].Message,
 		})
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "batch get followList success",
 	}

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/kitex_gen/base"
-	video "GoYin/server/kitex_gen/video"
-	"GoYin/server/service/video/model"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/kitex_gen/base"
+	video "GreenFish/server/kitex_gen/video"
+	"GreenFish/server/service/video/model"
 	"context"
 	"fmt"
 	"github.com/bwmarrin/snowflake"
@@ -48,8 +48,8 @@ type RedisManager interface {
 }
 
 // Feed implements the VideoServiceImpl interface.
-func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.DouyinFeedRequest) (resp *video.DouyinFeedResponse, err error) {
-	resp = new(video.DouyinFeedResponse)
+func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.QingyuFeedRequest) (resp *video.QingyuFeedResponse, err error) {
+	resp = new(video.QingyuFeedResponse)
 
 	mv, err := s.RedisManager.GetBasicVideoListByLatestTime(ctx, req.ViewerId, req.LatestTime)
 	if err != nil {
@@ -57,7 +57,7 @@ func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.DouyinFeedReques
 		mv, err = s.MysqlManager.GetBasicVideoListByLatestTime(ctx, req.ViewerId, req.LatestTime)
 		if err != nil {
 			klog.Error("video mysql get basic VideoListByLatestTime failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "video get basic VideoListByLatestTime failed",
 			}
@@ -74,13 +74,13 @@ func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.DouyinFeedReques
 	uv, err := s.UserManager.BatchGetUser(ctx, userIdList, req.ViewerId)
 	if err != nil {
 		klog.Error("video InteractionManager BatchGetVideoInteractInfo failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "video InteractionManager BatchGetVideoInteractInfo failed",
 		}
 		return resp, err
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "get feed success",
 	}
@@ -101,12 +101,12 @@ func (s *VideoServiceImpl) Feed(ctx context.Context, req *video.DouyinFeedReques
 }
 
 // PublishVideo implements the VideoServiceImpl interface.
-func (s *VideoServiceImpl) PublishVideo(ctx context.Context, req *video.DouyinPublishActionRequest) (resp *video.DouyinPublishActionResponse, err error) {
-	resp = new(video.DouyinPublishActionResponse)
+func (s *VideoServiceImpl) PublishVideo(ctx context.Context, req *video.QingyuPublishActionRequest) (resp *video.QingyuPublishActionResponse, err error) {
+	resp = new(video.QingyuPublishActionResponse)
 	sf, err := snowflake.NewNode(consts.VideoSnowFlakeNode)
 	if err != nil {
 		klog.Error("generate snowflake failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "generate snowflake failed",
 		}
@@ -123,7 +123,7 @@ func (s *VideoServiceImpl) PublishVideo(ctx context.Context, req *video.DouyinPu
 	err = s.Publisher.Publish(ctx, videoRecord)
 	if err != nil {
 		klog.Error("video publish video failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "video publish video failed",
 		}
@@ -132,13 +132,13 @@ func (s *VideoServiceImpl) PublishVideo(ctx context.Context, req *video.DouyinPu
 	err = s.RedisManager.PublishVideo(ctx, videoRecord)
 	if err != nil {
 		klog.Error("video redis publish video failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "video redis publish video failed",
 		}
 		return resp, err
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "publish video success",
 	}
@@ -146,8 +146,8 @@ func (s *VideoServiceImpl) PublishVideo(ctx context.Context, req *video.DouyinPu
 }
 
 // GetPublishedVideoList implements the VideoServiceImpl interface.
-func (s *VideoServiceImpl) GetPublishedVideoList(ctx context.Context, req *video.DouyinGetPublishedListRequest) (resp *video.DouyinGetPublishedListResponse, err error) {
-	resp = new(video.DouyinGetPublishedListResponse)
+func (s *VideoServiceImpl) GetPublishedVideoList(ctx context.Context, req *video.QingyuGetPublishedListRequest) (resp *video.QingyuGetPublishedListResponse, err error) {
+	resp = new(video.QingyuGetPublishedListResponse)
 
 	mv, err := s.RedisManager.GetPublishedVideoListByUserId(ctx, req.OwnerId)
 	if err != nil {
@@ -156,7 +156,7 @@ func (s *VideoServiceImpl) GetPublishedVideoList(ctx context.Context, req *video
 		mv, err = s.MysqlManager.GetPublishedVideoListByUserId(ctx, req.OwnerId)
 		if err != nil {
 			klog.Error("video mysql get publishedVideoList failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "video get publishedVideoList failed",
 			}
@@ -173,13 +173,13 @@ func (s *VideoServiceImpl) GetPublishedVideoList(ctx context.Context, req *video
 	uv, err := s.UserManager.BatchGetUser(ctx, userIdList, req.ViewerId)
 	if err != nil {
 		klog.Error("video InteractionManager BatchGetVideoInteractInfo failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "video InteractionManager BatchGetVideoInteractInfo failed",
 		}
 		return resp, err
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "get publishedVideoList success",
 	}
@@ -199,8 +199,8 @@ func (s *VideoServiceImpl) GetPublishedVideoList(ctx context.Context, req *video
 }
 
 // GetFavoriteVideoList implements the VideoServiceImpl interface.
-func (s *VideoServiceImpl) GetFavoriteVideoList(ctx context.Context, req *video.DouyinGetFavoriteListRequest) (resp *video.DouyinGetFavoriteListResponse, err error) {
-	resp = new(video.DouyinGetFavoriteListResponse)
+func (s *VideoServiceImpl) GetFavoriteVideoList(ctx context.Context, req *video.QingyuGetFavoriteListRequest) (resp *video.QingyuGetFavoriteListResponse, err error) {
+	resp = new(video.QingyuGetFavoriteListResponse)
 
 	mv, err := s.RedisManager.GetFavoriteVideoListByUserId(ctx, req.OwnerId)
 	if err != nil {
@@ -208,7 +208,7 @@ func (s *VideoServiceImpl) GetFavoriteVideoList(ctx context.Context, req *video.
 		mv, err = s.MysqlManager.GetFavoriteVideoListByUserId(ctx, req.OwnerId)
 		if err != nil {
 			klog.Error("video mysql get favoriteVideoList failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "video get favoriteVideoList failed",
 			}
@@ -225,13 +225,13 @@ func (s *VideoServiceImpl) GetFavoriteVideoList(ctx context.Context, req *video.
 	uv, err := s.UserManager.BatchGetUser(ctx, userIdList, req.ViewerId)
 	if err != nil {
 		klog.Error("video InteractionManager BatchGetVideoInteractInfo failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "video InteractionManager BatchGetVideoInteractInfo failed",
 		}
 		return resp, err
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "get favoriteVideoList success",
 	}
@@ -251,8 +251,8 @@ func (s *VideoServiceImpl) GetFavoriteVideoList(ctx context.Context, req *video.
 }
 
 // GetPublishedVideoIdList implements the VideoServiceImpl interface.
-func (s *VideoServiceImpl) GetPublishedVideoIdList(ctx context.Context, req *video.DouyinGetPublishedVideoIdListRequest) (resp *video.DouyinGetPublishedVideoIdListResponse, err error) {
-	resp = new(video.DouyinGetPublishedVideoIdListResponse)
+func (s *VideoServiceImpl) GetPublishedVideoIdList(ctx context.Context, req *video.QingyuGetPublishedVideoIdListRequest) (resp *video.QingyuGetPublishedVideoIdListResponse, err error) {
+	resp = new(video.QingyuGetPublishedVideoIdListResponse)
 
 	idList, err := s.RedisManager.GetPublishedVideoIdListByUserId(ctx, req.UserId)
 	if err != nil {
@@ -260,7 +260,7 @@ func (s *VideoServiceImpl) GetPublishedVideoIdList(ctx context.Context, req *vid
 		idList, err = s.MysqlManager.GetPublishedVideoIdListByUserId(ctx, req.UserId)
 		if err != nil {
 			klog.Error("video mysql get publishedVideoIdList failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "video get publishedVideoIdList failed",
 			}
@@ -268,7 +268,7 @@ func (s *VideoServiceImpl) GetPublishedVideoIdList(ctx context.Context, req *vid
 		}
 	}
 	resp.VideoIdList = idList
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "video get publishedVideoIdList success",
 	}

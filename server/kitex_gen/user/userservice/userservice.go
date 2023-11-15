@@ -3,7 +3,7 @@
 package userservice
 
 import (
-	user "GoYin/server/kitex_gen/user"
+	user "GreenFish/server/kitex_gen/user"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -177,7 +177,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) Register(ctx context.Context, req *user.DouyinUserRegisterRequest) (r *user.DouyinUserRegisterResponse, err error) {
+func (p *kClient) Register(ctx context.Context, req *user.QingyuUserRegisterRequest) (r *user.QingyuUserRegisterResponse, err error) {
 	var _args user.UserServiceRegisterArgs
 	_args.Req = req
 	var _result user.UserServiceRegisterResult
@@ -187,7 +187,7 @@ func (p *kClient) Register(ctx context.Context, req *user.DouyinUserRegisterRequ
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Login(ctx context.Context, req *user.DouyinUserLoginRequest) (r *user.DouyinUserLoginResponse, err error) {
+func (p *kClient) Login(ctx context.Context, req *user.QingyuUserLoginRequest) (r *user.QingyuUserLoginResponse, err error) {
 	var _args user.UserServiceLoginArgs
 	_args.Req = req
 	var _result user.UserServiceLoginResult
@@ -197,7 +197,7 @@ func (p *kClient) Login(ctx context.Context, req *user.DouyinUserLoginRequest) (
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetUserInfo(ctx context.Context, req *user.DouyinGetUserRequest) (r *user.DouyinGetUserResponse, err error) {
+func (p *kClient) GetUserInfo(ctx context.Context, req *user.QingyuGetUserRequest) (r *user.QingyuGetUserResponse, err error) {
 	var _args user.UserServiceGetUserInfoArgs
 	_args.Req = req
 	var _result user.UserServiceGetUserInfoResult
@@ -207,7 +207,7 @@ func (p *kClient) GetUserInfo(ctx context.Context, req *user.DouyinGetUserReques
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) BatchGetUserInfo(ctx context.Context, req *user.DouyinBatchGetUserRequest) (r *user.DouyinBatchGetUserResonse, err error) {
+func (p *kClient) BatchGetUserInfo(ctx context.Context, req *user.QingyuBatchGetUserRequest) (r *user.QingyuBatchGetUserResonse, err error) {
 	var _args user.UserServiceBatchGetUserInfoArgs
 	_args.Req = req
 	var _result user.UserServiceBatchGetUserInfoResult
@@ -217,7 +217,7 @@ func (p *kClient) BatchGetUserInfo(ctx context.Context, req *user.DouyinBatchGet
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetFollowList(ctx context.Context, req *user.DouyinGetRelationFollowListRequest) (r *user.DouyinGetRelationFollowListResponse, err error) {
+func (p *kClient) GetFollowList(ctx context.Context, req *user.QingyuGetRelationFollowListRequest) (r *user.QingyuGetRelationFollowListResponse, err error) {
 	var _args user.UserServiceGetFollowListArgs
 	_args.Req = req
 	var _result user.UserServiceGetFollowListResult
@@ -227,7 +227,7 @@ func (p *kClient) GetFollowList(ctx context.Context, req *user.DouyinGetRelation
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetFollowerList(ctx context.Context, req *user.DouyinGetRelationFollowerListRequest) (r *user.DouyinGetRelationFollowerListResponse, err error) {
+func (p *kClient) GetFollowerList(ctx context.Context, req *user.QingyuGetRelationFollowerListRequest) (r *user.QingyuGetRelationFollowerListResponse, err error) {
 	var _args user.UserServiceGetFollowerListArgs
 	_args.Req = req
 	var _result user.UserServiceGetFollowerListResult
@@ -237,7 +237,7 @@ func (p *kClient) GetFollowerList(ctx context.Context, req *user.DouyinGetRelati
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetFriendList(ctx context.Context, req *user.DouyinGetRelationFriendListRequest) (r *user.DouyinGetRelationFriendListResponse, err error) {
+func (p *kClient) GetFriendList(ctx context.Context, req *user.QingyuGetRelationFriendListRequest) (r *user.QingyuGetRelationFriendListResponse, err error) {
 	var _args user.UserServiceGetFriendListArgs
 	_args.Req = req
 	var _result user.UserServiceGetFriendListResult

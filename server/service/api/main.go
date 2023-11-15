@@ -3,9 +3,9 @@
 package main
 
 import (
-	"GoYin/server/service/api/config"
-	"GoYin/server/service/api/initialize"
-	"GoYin/server/service/api/initialize/rpc"
+	"GreenFish/server/service/api/config"
+	"GreenFish/server/service/api/initialize"
+	"GreenFish/server/service/api/initialize/rpc"
 	"context"
 	"fmt"
 	"github.com/cloudwego/hertz/pkg/app"

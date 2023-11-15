@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: IngressClass
 metadata:
-  name: goyin-ink
+  name: greenfish-ink
 
 spec:
   controller: nginx.org/ingress-controller
@@ -9,10 +9,10 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: goyin-ing
+  name: greenfish-ing
 
 spec:
-  ingressClassName: goyin-ink
+  ingressClassName: greenfish-ink
 
   rules:
     - host: going.test
@@ -22,26 +22,26 @@ spec:
                 pathType: Prefix
                 backend:
                   service:
-                    name: goyin-api-svc
+                    name: greenfish-api-svc
                     port:
                       number: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: goyin-kic-dep
+  name: greenfish-kic-dep
   namespace: nginx-ingress
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: goyin-kic-dep
+      app: greenfish-kic-dep
 
   template:
     metadata:
       labels:
-        app: goyin-kic-dep
+        app: greenfish-kic-dep
 
     spec:
       serviceAccountName: nginx-ingress
@@ -52,4 +52,4 @@ spec:
         - image: nginx/nginx-ingress:2.2-alpine
           name: nginx-ingress
           args:
-            - -ingress-class=goyin-ink
+            - -ingress-class=greenfish-ink

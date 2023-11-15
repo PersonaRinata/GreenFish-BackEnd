@@ -3,7 +3,7 @@
 package apiservice
 
 import (
-	api "GoYin/server/kitex_gen/api"
+	api "GreenFish/server/kitex_gen/api"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -348,7 +348,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) Register(ctx context.Context, req *api.DouyinUserRegisterRequest) (r *api.DouyinUserRegisterResponse, err error) {
+func (p *kClient) Register(ctx context.Context, req *api.QingyuUserRegisterRequest) (r *api.QingyuUserRegisterResponse, err error) {
 	var _args api.ApiServiceRegisterArgs
 	_args.Req = req
 	var _result api.ApiServiceRegisterResult
@@ -358,7 +358,7 @@ func (p *kClient) Register(ctx context.Context, req *api.DouyinUserRegisterReque
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Login(ctx context.Context, req *api.DouyinUserLoginRequest) (r *api.DouyinUserLoginResponse, err error) {
+func (p *kClient) Login(ctx context.Context, req *api.QingyuUserLoginRequest) (r *api.QingyuUserLoginResponse, err error) {
 	var _args api.ApiServiceLoginArgs
 	_args.Req = req
 	var _result api.ApiServiceLoginResult
@@ -368,7 +368,7 @@ func (p *kClient) Login(ctx context.Context, req *api.DouyinUserLoginRequest) (r
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetUserInfo(ctx context.Context, req *api.DouyinUserRequest) (r *api.DouyinUserResponse, err error) {
+func (p *kClient) GetUserInfo(ctx context.Context, req *api.QingyuUserRequest) (r *api.QingyuUserResponse, err error) {
 	var _args api.ApiServiceGetUserInfoArgs
 	_args.Req = req
 	var _result api.ApiServiceGetUserInfoResult
@@ -378,7 +378,7 @@ func (p *kClient) GetUserInfo(ctx context.Context, req *api.DouyinUserRequest) (
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Feed(ctx context.Context, req *api.DouyinFeedRequest) (r *api.DouyinFeedResponse, err error) {
+func (p *kClient) Feed(ctx context.Context, req *api.QingyuFeedRequest) (r *api.QingyuFeedResponse, err error) {
 	var _args api.ApiServiceFeedArgs
 	_args.Req = req
 	var _result api.ApiServiceFeedResult
@@ -388,7 +388,7 @@ func (p *kClient) Feed(ctx context.Context, req *api.DouyinFeedRequest) (r *api.
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) PublishVideo(ctx context.Context, req *api.DouyinPublishActionRequest) (r *api.DouyinPublishActionResponse, err error) {
+func (p *kClient) PublishVideo(ctx context.Context, req *api.QingyuPublishActionRequest) (r *api.QingyuPublishActionResponse, err error) {
 	var _args api.ApiServicePublishVideoArgs
 	_args.Req = req
 	var _result api.ApiServicePublishVideoResult
@@ -398,7 +398,7 @@ func (p *kClient) PublishVideo(ctx context.Context, req *api.DouyinPublishAction
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) VideoList(ctx context.Context, req *api.DouyinPublishListRequest) (r *api.DouyinPublishListResponse, err error) {
+func (p *kClient) VideoList(ctx context.Context, req *api.QingyuPublishListRequest) (r *api.QingyuPublishListResponse, err error) {
 	var _args api.ApiServiceVideoListArgs
 	_args.Req = req
 	var _result api.ApiServiceVideoListResult
@@ -408,7 +408,7 @@ func (p *kClient) VideoList(ctx context.Context, req *api.DouyinPublishListReque
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Favorite(ctx context.Context, req *api.DouyinFavoriteActionRequest) (r *api.DouyinFavoriteActionResponse, err error) {
+func (p *kClient) Favorite(ctx context.Context, req *api.QingyuFavoriteActionRequest) (r *api.QingyuFavoriteActionResponse, err error) {
 	var _args api.ApiServiceFavoriteArgs
 	_args.Req = req
 	var _result api.ApiServiceFavoriteResult
@@ -418,7 +418,7 @@ func (p *kClient) Favorite(ctx context.Context, req *api.DouyinFavoriteActionReq
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) FavoriteList(ctx context.Context, req *api.DouyinFavoriteListRequest) (r *api.DouyinFavoriteListResponse, err error) {
+func (p *kClient) FavoriteList(ctx context.Context, req *api.QingyuFavoriteListRequest) (r *api.QingyuFavoriteListResponse, err error) {
 	var _args api.ApiServiceFavoriteListArgs
 	_args.Req = req
 	var _result api.ApiServiceFavoriteListResult
@@ -428,7 +428,7 @@ func (p *kClient) FavoriteList(ctx context.Context, req *api.DouyinFavoriteListR
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Comment(ctx context.Context, req *api.DouyinCommentActionRequest) (r *api.DouyinCommentActionResponse, err error) {
+func (p *kClient) Comment(ctx context.Context, req *api.QingyuCommentActionRequest) (r *api.QingyuCommentActionResponse, err error) {
 	var _args api.ApiServiceCommentArgs
 	_args.Req = req
 	var _result api.ApiServiceCommentResult
@@ -438,7 +438,7 @@ func (p *kClient) Comment(ctx context.Context, req *api.DouyinCommentActionReque
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) CommentList(ctx context.Context, req *api.DouyinCommentListRequest) (r *api.DouyinCommentListResponse, err error) {
+func (p *kClient) CommentList(ctx context.Context, req *api.QingyuCommentListRequest) (r *api.QingyuCommentListResponse, err error) {
 	var _args api.ApiServiceCommentListArgs
 	_args.Req = req
 	var _result api.ApiServiceCommentListResult
@@ -448,7 +448,7 @@ func (p *kClient) CommentList(ctx context.Context, req *api.DouyinCommentListReq
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Action(ctx context.Context, req *api.DouyinRelationActionRequest) (r *api.DouyinRelationActionResponse, err error) {
+func (p *kClient) Action(ctx context.Context, req *api.QingyuRelationActionRequest) (r *api.QingyuRelationActionResponse, err error) {
 	var _args api.ApiServiceActionArgs
 	_args.Req = req
 	var _result api.ApiServiceActionResult
@@ -458,7 +458,7 @@ func (p *kClient) Action(ctx context.Context, req *api.DouyinRelationActionReque
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) FollowingList(ctx context.Context, req *api.DouyinRelationFollowListRequest) (r *api.DouyinRelationFollowListResponse, err error) {
+func (p *kClient) FollowingList(ctx context.Context, req *api.QingyuRelationFollowListRequest) (r *api.QingyuRelationFollowListResponse, err error) {
 	var _args api.ApiServiceFollowingListArgs
 	_args.Req = req
 	var _result api.ApiServiceFollowingListResult
@@ -468,7 +468,7 @@ func (p *kClient) FollowingList(ctx context.Context, req *api.DouyinRelationFoll
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) FollowerList(ctx context.Context, req *api.DouyinRelationFollowerListRequest) (r *api.DouyinRelationFollowerListResponse, err error) {
+func (p *kClient) FollowerList(ctx context.Context, req *api.QingyuRelationFollowerListRequest) (r *api.QingyuRelationFollowerListResponse, err error) {
 	var _args api.ApiServiceFollowerListArgs
 	_args.Req = req
 	var _result api.ApiServiceFollowerListResult
@@ -478,7 +478,7 @@ func (p *kClient) FollowerList(ctx context.Context, req *api.DouyinRelationFollo
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) FriendList(ctx context.Context, req *api.DouyinRelationFriendListRequest) (r *api.DouyinRelationFriendListResponse, err error) {
+func (p *kClient) FriendList(ctx context.Context, req *api.QingyuRelationFriendListRequest) (r *api.QingyuRelationFriendListResponse, err error) {
 	var _args api.ApiServiceFriendListArgs
 	_args.Req = req
 	var _result api.ApiServiceFriendListResult
@@ -488,7 +488,7 @@ func (p *kClient) FriendList(ctx context.Context, req *api.DouyinRelationFriendL
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) ChatHistory(ctx context.Context, req *api.DouyinMessageChatRequest) (r *api.DouyinMessageChatResponse, err error) {
+func (p *kClient) ChatHistory(ctx context.Context, req *api.QingyuMessageChatRequest) (r *api.QingyuMessageChatResponse, err error) {
 	var _args api.ApiServiceChatHistoryArgs
 	_args.Req = req
 	var _result api.ApiServiceChatHistoryResult
@@ -498,7 +498,7 @@ func (p *kClient) ChatHistory(ctx context.Context, req *api.DouyinMessageChatReq
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) SentMessage(ctx context.Context, req *api.DouyinMessageActionRequest) (r *api.DouyinMessageActionResponse, err error) {
+func (p *kClient) SentMessage(ctx context.Context, req *api.QingyuMessageActionRequest) (r *api.QingyuMessageActionResponse, err error) {
 	var _args api.ApiServiceSentMessageArgs
 	_args.Req = req
 	var _result api.ApiServiceSentMessageResult

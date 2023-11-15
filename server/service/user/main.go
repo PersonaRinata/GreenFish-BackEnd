@@ -1,12 +1,12 @@
 package main
 
 import (
-	"GoYin/server/common/middleware"
-	user "GoYin/server/kitex_gen/user/userservice"
-	"GoYin/server/service/user/config"
-	"GoYin/server/service/user/dao"
-	"GoYin/server/service/user/initialize"
-	"GoYin/server/service/user/pkg"
+	"GreenFish/server/common/middleware"
+	user "GreenFish/server/kitex_gen/user/userservice"
+	"GreenFish/server/service/user/config"
+	"GreenFish/server/service/user/dao"
+	"GreenFish/server/service/user/initialize"
+	"GreenFish/server/service/user/pkg"
 	"context"
 	"errors"
 	kitexSentinel "github.com/alibaba/sentinel-golang/pkg/adapters/kitex"

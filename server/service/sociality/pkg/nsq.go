@@ -1,10 +1,10 @@
 package pkg
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/kitex_gen/sociality"
-	"GoYin/server/service/sociality/config"
-	"GoYin/server/service/sociality/dao"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/kitex_gen/sociality"
+	"GreenFish/server/service/sociality/config"
+	"GreenFish/server/service/sociality/dao"
 	"context"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -22,7 +22,7 @@ type SubscriberManager struct {
 	Subscriber *nsq.Consumer
 }
 
-func (p PublisherManager) Publish(ctx context.Context, req *sociality.DouyinRelationActionRequest) error {
+func (p PublisherManager) Publish(ctx context.Context, req *sociality.QingyuRelationActionRequest) error {
 	body, err := sonic.Marshal(req)
 	if err != nil {
 		klog.Error("subscriber marshal req failed,", err)
@@ -33,7 +33,7 @@ func (p PublisherManager) Publish(ctx context.Context, req *sociality.DouyinRela
 
 func (s SubscriberManager) Subscribe(ctx context.Context, dao *dao.MysqlManager) (err error) {
 	s.Subscriber.AddHandler(nsq.HandlerFunc(func(message *nsq.Message) error {
-		var req *sociality.DouyinRelationActionRequest
+		var req *sociality.QingyuRelationActionRequest
 		err = sonic.Unmarshal(message.Body, &req)
 		if err != nil {
 			klog.Error("subscriber unmarshal socialInfo failed,", err)

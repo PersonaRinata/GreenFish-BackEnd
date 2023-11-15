@@ -1,10 +1,10 @@
 package pkg
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/service/video/config"
-	"GoYin/server/service/video/dao"
-	"GoYin/server/service/video/model"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/service/video/config"
+	"GreenFish/server/service/video/dao"
+	"GreenFish/server/service/video/model"
 	"context"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/kitex/pkg/klog"

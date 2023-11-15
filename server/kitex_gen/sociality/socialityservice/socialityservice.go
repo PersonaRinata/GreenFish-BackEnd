@@ -3,7 +3,7 @@
 package socialityservice
 
 import (
-	sociality "GoYin/server/kitex_gen/sociality"
+	sociality "GreenFish/server/kitex_gen/sociality"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -120,7 +120,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) Action(ctx context.Context, req *sociality.DouyinRelationActionRequest) (r *sociality.DouyinRelationActionResponse, err error) {
+func (p *kClient) Action(ctx context.Context, req *sociality.QingyuRelationActionRequest) (r *sociality.QingyuRelationActionResponse, err error) {
 	var _args sociality.SocialityServiceActionArgs
 	_args.Req = req
 	var _result sociality.SocialityServiceActionResult
@@ -130,7 +130,7 @@ func (p *kClient) Action(ctx context.Context, req *sociality.DouyinRelationActio
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetRelationIdList(ctx context.Context, req *sociality.DouyinGetRelationIdListRequest) (r *sociality.DouyinGetRelationIdListResponse, err error) {
+func (p *kClient) GetRelationIdList(ctx context.Context, req *sociality.QingyuGetRelationIdListRequest) (r *sociality.QingyuGetRelationIdListResponse, err error) {
 	var _args sociality.SocialityServiceGetRelationIdListArgs
 	_args.Req = req
 	var _result sociality.SocialityServiceGetRelationIdListResult
@@ -140,7 +140,7 @@ func (p *kClient) GetRelationIdList(ctx context.Context, req *sociality.DouyinGe
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetSocialInfo(ctx context.Context, req *sociality.DouyinGetSocialInfoRequest) (r *sociality.DouyinGetSocialInfoResponse, err error) {
+func (p *kClient) GetSocialInfo(ctx context.Context, req *sociality.QingyuGetSocialInfoRequest) (r *sociality.QingyuGetSocialInfoResponse, err error) {
 	var _args sociality.SocialityServiceGetSocialInfoArgs
 	_args.Req = req
 	var _result sociality.SocialityServiceGetSocialInfoResult
@@ -150,7 +150,7 @@ func (p *kClient) GetSocialInfo(ctx context.Context, req *sociality.DouyinGetSoc
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) BatchGetSocialInfo(ctx context.Context, req *sociality.DouyinBatchGetSocialInfoRequest) (r *sociality.DouyinBatchGetSocialInfoResponse, err error) {
+func (p *kClient) BatchGetSocialInfo(ctx context.Context, req *sociality.QingyuBatchGetSocialInfoRequest) (r *sociality.QingyuBatchGetSocialInfoResponse, err error) {
 	var _args sociality.SocialityServiceBatchGetSocialInfoArgs
 	_args.Req = req
 	var _result sociality.SocialityServiceBatchGetSocialInfoResult

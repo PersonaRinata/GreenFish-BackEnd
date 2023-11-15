@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"GoYin/server/service/api/config"
+	"GreenFish/server/service/api/config"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"

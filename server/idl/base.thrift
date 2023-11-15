@@ -1,6 +1,6 @@
 namespace go base
 
-struct douyin_base_response {
+struct qingyu_base_response {
     1: i32 status_code // Status code, 0-success, other values-failure
     2: string status_msg // Return status description
 }

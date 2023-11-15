@@ -3,7 +3,7 @@
 package interactionserver
 
 import (
-	interaction "GoYin/server/kitex_gen/interaction"
+	interaction "GreenFish/server/kitex_gen/interaction"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -196,7 +196,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) Favorite(ctx context.Context, req *interaction.DouyinFavoriteActionRequest) (r *interaction.DouyinFavoriteActionResponse, err error) {
+func (p *kClient) Favorite(ctx context.Context, req *interaction.QingyuFavoriteActionRequest) (r *interaction.QingyuFavoriteActionResponse, err error) {
 	var _args interaction.InteractionServerFavoriteArgs
 	_args.Req = req
 	var _result interaction.InteractionServerFavoriteResult
@@ -206,7 +206,7 @@ func (p *kClient) Favorite(ctx context.Context, req *interaction.DouyinFavoriteA
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetFavoriteVideoIdList(ctx context.Context, req *interaction.DouyinGetFavoriteVideoIdListRequest) (r *interaction.DouyinGetFavoriteVideoIdListResponse, err error) {
+func (p *kClient) GetFavoriteVideoIdList(ctx context.Context, req *interaction.QingyuGetFavoriteVideoIdListRequest) (r *interaction.QingyuGetFavoriteVideoIdListResponse, err error) {
 	var _args interaction.InteractionServerGetFavoriteVideoIdListArgs
 	_args.Req = req
 	var _result interaction.InteractionServerGetFavoriteVideoIdListResult
@@ -216,7 +216,7 @@ func (p *kClient) GetFavoriteVideoIdList(ctx context.Context, req *interaction.D
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Comment(ctx context.Context, req *interaction.DouyinCommentActionRequest) (r *interaction.DouyinCommentActionResponse, err error) {
+func (p *kClient) Comment(ctx context.Context, req *interaction.QingyuCommentActionRequest) (r *interaction.QingyuCommentActionResponse, err error) {
 	var _args interaction.InteractionServerCommentArgs
 	_args.Req = req
 	var _result interaction.InteractionServerCommentResult
@@ -226,7 +226,7 @@ func (p *kClient) Comment(ctx context.Context, req *interaction.DouyinCommentAct
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetCommentList(ctx context.Context, req *interaction.DouyinGetCommentListRequest) (r *interaction.DouyinGetCommentListResponse, err error) {
+func (p *kClient) GetCommentList(ctx context.Context, req *interaction.QingyuGetCommentListRequest) (r *interaction.QingyuGetCommentListResponse, err error) {
 	var _args interaction.InteractionServerGetCommentListArgs
 	_args.Req = req
 	var _result interaction.InteractionServerGetCommentListResult
@@ -236,7 +236,7 @@ func (p *kClient) GetCommentList(ctx context.Context, req *interaction.DouyinGet
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetVideoInteractInfo(ctx context.Context, req *interaction.DouyinGetVideoInteractInfoRequest) (r *interaction.DouyinGetVideoInteractInfoResponse, err error) {
+func (p *kClient) GetVideoInteractInfo(ctx context.Context, req *interaction.QingyuGetVideoInteractInfoRequest) (r *interaction.QingyuGetVideoInteractInfoResponse, err error) {
 	var _args interaction.InteractionServerGetVideoInteractInfoArgs
 	_args.Req = req
 	var _result interaction.InteractionServerGetVideoInteractInfoResult
@@ -246,7 +246,7 @@ func (p *kClient) GetVideoInteractInfo(ctx context.Context, req *interaction.Dou
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) BatchGetVideoInteractInfo(ctx context.Context, req *interaction.DouyinBatchGetVideoInteractInfoRequest) (r *interaction.DouyinBatchGetVideoInteractInfoResponse, err error) {
+func (p *kClient) BatchGetVideoInteractInfo(ctx context.Context, req *interaction.QingyuBatchGetVideoInteractInfoRequest) (r *interaction.QingyuBatchGetVideoInteractInfoResponse, err error) {
 	var _args interaction.InteractionServerBatchGetVideoInteractInfoArgs
 	_args.Req = req
 	var _result interaction.InteractionServerBatchGetVideoInteractInfoResult
@@ -256,7 +256,7 @@ func (p *kClient) BatchGetVideoInteractInfo(ctx context.Context, req *interactio
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetUserInteractInfo(ctx context.Context, req *interaction.DouyinGetUserInteractInfoRequest) (r *interaction.DouyinGetUserInteractInfoResponse, err error) {
+func (p *kClient) GetUserInteractInfo(ctx context.Context, req *interaction.QingyuGetUserInteractInfoRequest) (r *interaction.QingyuGetUserInteractInfoResponse, err error) {
 	var _args interaction.InteractionServerGetUserInteractInfoArgs
 	_args.Req = req
 	var _result interaction.InteractionServerGetUserInteractInfoResult
@@ -266,7 +266,7 @@ func (p *kClient) GetUserInteractInfo(ctx context.Context, req *interaction.Douy
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) BatchGetUserInteractInfo(ctx context.Context, req *interaction.DouyinBatchGetUserInteractInfoRequest) (r *interaction.DouyinBatchGetUserInteractInfoResponse, err error) {
+func (p *kClient) BatchGetUserInteractInfo(ctx context.Context, req *interaction.QingyuBatchGetUserInteractInfoRequest) (r *interaction.QingyuBatchGetUserInteractInfoResponse, err error) {
 	var _args interaction.InteractionServerBatchGetUserInteractInfoArgs
 	_args.Req = req
 	var _result interaction.InteractionServerBatchGetUserInteractInfoResult

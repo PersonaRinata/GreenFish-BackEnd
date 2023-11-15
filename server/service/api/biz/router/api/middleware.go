@@ -3,8 +3,8 @@
 package api
 
 import (
-	"GoYin/server/common/middleware"
-	"GoYin/server/service/api/config"
+	"GreenFish/server/common/middleware"
+	"GreenFish/server/service/api/config"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/hertz-contrib/gzip"
 )
@@ -16,7 +16,7 @@ func rootMw() []app.HandlerFunc {
 	}
 }
 
-func _douyinMw() []app.HandlerFunc {
+func _qingyuMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
@@ -224,11 +224,6 @@ func _registerMw() []app.HandlerFunc {
 }
 
 func _register0Mw() []app.HandlerFunc {
-	// your code...
-	return nil
-}
-
-func _qingyuMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

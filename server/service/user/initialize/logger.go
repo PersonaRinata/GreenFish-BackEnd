@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
+	"GreenFish/server/common/consts"
 	"os"
 	"path"
 	"runtime"

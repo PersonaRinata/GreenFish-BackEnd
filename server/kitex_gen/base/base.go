@@ -8,39 +8,39 @@ import (
 	"strings"
 )
 
-type DouyinBaseResponse struct {
+type QingyuBaseResponse struct {
 	StatusCode int32  `thrift:"status_code,1" frugal:"1,default,i32" json:"status_code"`
 	StatusMsg  string `thrift:"status_msg,2" frugal:"2,default,string" json:"status_msg"`
 }
 
-func NewDouyinBaseResponse() *DouyinBaseResponse {
-	return &DouyinBaseResponse{}
+func NewQingyuBaseResponse() *QingyuBaseResponse {
+	return &QingyuBaseResponse{}
 }
 
-func (p *DouyinBaseResponse) InitDefault() {
-	*p = DouyinBaseResponse{}
+func (p *QingyuBaseResponse) InitDefault() {
+	*p = QingyuBaseResponse{}
 }
 
-func (p *DouyinBaseResponse) GetStatusCode() (v int32) {
+func (p *QingyuBaseResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinBaseResponse) GetStatusMsg() (v string) {
+func (p *QingyuBaseResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
-func (p *DouyinBaseResponse) SetStatusCode(val int32) {
+func (p *QingyuBaseResponse) SetStatusCode(val int32) {
 	p.StatusCode = val
 }
-func (p *DouyinBaseResponse) SetStatusMsg(val string) {
+func (p *QingyuBaseResponse) SetStatusMsg(val string) {
 	p.StatusMsg = val
 }
 
-var fieldIDToName_DouyinBaseResponse = map[int16]string{
+var fieldIDToName_QingyuBaseResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 }
 
-func (p *DouyinBaseResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuBaseResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -99,7 +99,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinBaseResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuBaseResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -109,7 +109,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinBaseResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuBaseResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -118,7 +118,7 @@ func (p *DouyinBaseResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinBaseResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuBaseResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -127,9 +127,9 @@ func (p *DouyinBaseResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinBaseResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuBaseResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_base_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_base_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -160,7 +160,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinBaseResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuBaseResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -177,7 +177,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinBaseResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuBaseResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -194,14 +194,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinBaseResponse) String() string {
+func (p *QingyuBaseResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinBaseResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuBaseResponse(%+v)", *p)
 }
 
-func (p *DouyinBaseResponse) DeepEqual(ano *DouyinBaseResponse) bool {
+func (p *QingyuBaseResponse) DeepEqual(ano *QingyuBaseResponse) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -216,14 +216,14 @@ func (p *DouyinBaseResponse) DeepEqual(ano *DouyinBaseResponse) bool {
 	return true
 }
 
-func (p *DouyinBaseResponse) Field1DeepEqual(src int32) bool {
+func (p *QingyuBaseResponse) Field1DeepEqual(src int32) bool {
 
 	if p.StatusCode != src {
 		return false
 	}
 	return true
 }
-func (p *DouyinBaseResponse) Field2DeepEqual(src string) bool {
+func (p *QingyuBaseResponse) Field2DeepEqual(src string) bool {
 
 	if strings.Compare(p.StatusMsg, src) != 0 {
 		return false

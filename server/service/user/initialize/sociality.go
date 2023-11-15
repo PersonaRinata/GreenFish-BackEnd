@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/kitex_gen/sociality/socialityservice"
-	"GoYin/server/service/user/config"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/kitex_gen/sociality/socialityservice"
+	"GreenFish/server/service/user/config"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"

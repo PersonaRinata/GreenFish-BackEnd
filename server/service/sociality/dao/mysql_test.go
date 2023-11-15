@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"GoYin/server/service/sociality/config"
+	"GreenFish/server/service/sociality/config"
 	"context"
 	"fmt"
 	"github.com/bytedance/sonic"

@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/service/interaction/config"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/service/interaction/config"
 	"github.com/bwmarrin/snowflake"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/kitex/pkg/klog"

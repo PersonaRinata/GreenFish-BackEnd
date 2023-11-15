@@ -1,11 +1,11 @@
 package main
 
 import (
-	chat "GoYin/server/kitex_gen/chat/chatservice"
-	"GoYin/server/service/chat/config"
-	"GoYin/server/service/chat/dao"
-	"GoYin/server/service/chat/initialize"
-	"GoYin/server/service/chat/pkg"
+	chat "GreenFish/server/kitex_gen/chat/chatservice"
+	"GreenFish/server/service/chat/config"
+	"GreenFish/server/service/chat/dao"
+	"GreenFish/server/service/chat/initialize"
+	"GreenFish/server/service/chat/pkg"
 	"context"
 	"errors"
 	"fmt"

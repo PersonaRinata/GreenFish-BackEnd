@@ -3,7 +3,7 @@
 package chatservice
 
 import (
-	chat "GoYin/server/kitex_gen/chat"
+	chat "GreenFish/server/kitex_gen/chat"
 	server "github.com/cloudwego/kitex/server"
 )
 

@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/service/sociality/config"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/service/sociality/config"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/nsqio/go-nsq"
 )

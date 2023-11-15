@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/service/sociality/model"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/service/sociality/model"
 	"context"
 	"errors"
 	"github.com/cloudwego/kitex/pkg/klog"

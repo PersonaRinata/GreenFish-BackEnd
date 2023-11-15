@@ -3,16 +3,16 @@
 package api
 
 import (
-	"GoYin/server/common/middleware"
-	"GoYin/server/common/tools"
-	"GoYin/server/kitex_gen/chat"
-	"GoYin/server/kitex_gen/interaction"
-	"GoYin/server/kitex_gen/sociality"
-	"GoYin/server/kitex_gen/user"
-	"GoYin/server/kitex_gen/video"
-	"GoYin/server/service/api/biz/model/base"
-	"GoYin/server/service/api/config"
-	"GoYin/server/service/api/pkg"
+	"GreenFish/server/common/middleware"
+	"GreenFish/server/common/tools"
+	"GreenFish/server/kitex_gen/chat"
+	"GreenFish/server/kitex_gen/interaction"
+	"GreenFish/server/kitex_gen/sociality"
+	"GreenFish/server/kitex_gen/user"
+	"GreenFish/server/kitex_gen/video"
+	"GreenFish/server/service/api/biz/model/base"
+	"GreenFish/server/service/api/config"
+	"GreenFish/server/service/api/pkg"
 	"context"
 	"errors"
 	"github.com/bwmarrin/snowflake"
@@ -21,17 +21,17 @@ import (
 	"strings"
 	"time"
 
-	consts2 "GoYin/server/common/consts"
-	api "GoYin/server/service/api/biz/model/api"
+	consts2 "GreenFish/server/common/consts"
+	api "GreenFish/server/service/api/biz/model/api"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )
 
 // Register .
-// @router /douyin/user/register/ [POST]
+// @router /qingyu/user/register/ [POST]
 func Register(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinUserRegisterRequest
+	var req api.QingyuUserRegisterRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api register bindAndValidate failed", err)
@@ -39,9 +39,9 @@ func Register(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := new(api.DouyinUserRegisterResponse)
+	resp := new(api.QingyuUserRegisterResponse)
 	cg := config.GlobalUserClient
-	res, err := cg.Register(ctx, &user.DouyinUserRegisterRequest{
+	res, err := cg.Register(ctx, &user.QingyuUserRegisterRequest{
 		Username: req.Username,
 		Password: req.Password,
 	})
@@ -50,7 +50,7 @@ func Register(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	resp = &api.DouyinUserRegisterResponse{
+	resp = &api.QingyuUserRegisterResponse{
 		StatusCode: res.BaseResp.StatusCode,
 		StatusMsg:  res.BaseResp.StatusMsg,
 		UserID:     res.UserId,
@@ -60,10 +60,10 @@ func Register(ctx context.Context, c *app.RequestContext) {
 }
 
 // Login .
-// @router /douyin/user/login/ [POST]
+// @router /qingyu/user/login/ [POST]
 func Login(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinUserLoginRequest
+	var req api.QingyuUserLoginRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api login bindAndValidate failed", err)
@@ -71,7 +71,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	cg := config.GlobalUserClient
-	res, err := cg.Login(ctx, &user.DouyinUserLoginRequest{
+	res, err := cg.Login(ctx, &user.QingyuUserLoginRequest{
 		Username: req.Username,
 		Password: req.Password,
 	})
@@ -80,7 +80,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinUserLoginResponse)
+	resp := new(api.QingyuUserLoginResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	resp.Token = res.Token
@@ -89,10 +89,10 @@ func Login(ctx context.Context, c *app.RequestContext) {
 }
 
 // GetUserInfo .
-// @router /douyin/user/ [GET]
+// @router /qingyu/user/ [GET]
 func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinUserRequest
+	var req api.QingyuUserRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api getUserInfo bindAndValidate failed", err)
@@ -105,7 +105,7 @@ func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalUserClient.GetUserInfo(ctx, &user.DouyinGetUserRequest{
+	res, err := config.GlobalUserClient.GetUserInfo(ctx, &user.QingyuGetUserRequest{
 		ViewerId: viewerId.(int64),
 		OwnerId:  req.UserID,
 	})
@@ -114,7 +114,7 @@ func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	resp := new(api.DouyinUserResponse)
+	resp := new(api.QingyuUserResponse)
 	resp.User = &base.User{
 		ID:              res.User.Id,
 		Name:            res.User.Name,
@@ -134,17 +134,17 @@ func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 }
 
 // Feed .
-// @router /douyin/feed/ [GET]
+// @router /qingyu/feed/ [GET]
 func Feed(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinFeedRequest
+	var req api.QingyuFeedRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api feed bindAndValidate failed,", err)
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	resp := new(api.DouyinFeedResponse)
+	resp := new(api.QingyuFeedResponse)
 	var viewerId int64
 	token := req.Token
 	if token != "" {
@@ -158,7 +158,7 @@ func Feed(ctx context.Context, c *app.RequestContext) {
 		}
 		viewerId = claims.ID
 	}
-	res, err := config.GlobalVideoClient.Feed(ctx, &video.DouyinFeedRequest{
+	res, err := config.GlobalVideoClient.Feed(ctx, &video.QingyuFeedRequest{
 		LatestTime: req.LatestTime,
 		ViewerId:   viewerId,
 	})
@@ -198,10 +198,10 @@ func Feed(ctx context.Context, c *app.RequestContext) {
 }
 
 // PublishVideo .
-// @router /douyin/publish/action/ [POST]
+// @router /qingyu/publish/action/ [POST]
 func PublishVideo(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinPublishActionRequest
+	var req api.QingyuPublishActionRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api publishVideo bindAndValidate failed,", err)
@@ -214,7 +214,7 @@ func PublishVideo(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	resp := new(api.DouyinPublishActionResponse)
+	resp := new(api.QingyuPublishActionResponse)
 	_, flag = c.GetQuery("data")
 	if !flag {
 		hlog.Info("get data success")
@@ -283,7 +283,7 @@ func PublishVideo(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	res, err := config.GlobalVideoClient.PublishVideo(ctx, &video.DouyinPublishActionRequest{
+	res, err := config.GlobalVideoClient.PublishVideo(ctx, &video.QingyuPublishActionRequest{
 		UserId:   userId.(int64),
 		PlayUrl:  config.GlobalServerConfig.MinioInfo.UrlPrefix + VUpPath,
 		CoverUrl: config.GlobalServerConfig.MinioInfo.UrlPrefix + CUpPath,
@@ -300,10 +300,10 @@ func PublishVideo(ctx context.Context, c *app.RequestContext) {
 }
 
 // VideoList .
-// @router /douyin/publish/list/ [GET]
+// @router /qingyu/publish/list/ [GET]
 func VideoList(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinPublishListRequest
+	var req api.QingyuPublishListRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api videoList bindAndValidate failed,", err)
@@ -316,8 +316,8 @@ func VideoList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	resp := new(api.DouyinPublishListResponse)
-	res, err := config.GlobalVideoClient.GetPublishedVideoList(ctx, &video.DouyinGetPublishedListRequest{
+	resp := new(api.QingyuPublishListResponse)
+	res, err := config.GlobalVideoClient.GetPublishedVideoList(ctx, &video.QingyuGetPublishedListRequest{
 		ViewerId: viewId.(int64),
 		OwnerId:  req.UserID,
 	})
@@ -356,10 +356,10 @@ func VideoList(ctx context.Context, c *app.RequestContext) {
 }
 
 // Favorite .
-// @router /douyin/favorite/action/ [POST]
+// @router /qingyu/favorite/action/ [POST]
 func Favorite(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinFavoriteActionRequest
+	var req api.QingyuFavoriteActionRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api favorite bindAndValidate failed,", err)
@@ -372,8 +372,8 @@ func Favorite(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	resp := new(api.DouyinFavoriteActionResponse)
-	res, err := config.GlobalInteractionClient.Favorite(ctx, &interaction.DouyinFavoriteActionRequest{
+	resp := new(api.QingyuFavoriteActionResponse)
+	res, err := config.GlobalInteractionClient.Favorite(ctx, &interaction.QingyuFavoriteActionRequest{
 		UserId:     userId.(int64),
 		VideoId:    req.VideoID,
 		ActionType: req.ActionType,
@@ -389,10 +389,10 @@ func Favorite(ctx context.Context, c *app.RequestContext) {
 }
 
 // FavoriteList .
-// @router /douyin/favorite/list/ [GET]
+// @router /qingyu/favorite/list/ [GET]
 func FavoriteList(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinFavoriteListRequest
+	var req api.QingyuFavoriteListRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api favoriteList bindAndValidate failed,", err)
@@ -405,7 +405,7 @@ func FavoriteList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalVideoClient.GetFavoriteVideoList(ctx, &video.DouyinGetFavoriteListRequest{
+	res, err := config.GlobalVideoClient.GetFavoriteVideoList(ctx, &video.QingyuGetFavoriteListRequest{
 		ViewerId: viewerId.(int64),
 		OwnerId:  req.UserID,
 	})
@@ -414,7 +414,7 @@ func FavoriteList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinFavoriteListResponse)
+	resp := new(api.QingyuFavoriteListResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	for _, v := range res.VideoList {
@@ -446,10 +446,10 @@ func FavoriteList(ctx context.Context, c *app.RequestContext) {
 }
 
 // Comment .
-// @router /douyin/comment/action/ [POST]
+// @router /qingyu/comment/action/ [POST]
 func Comment(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinCommentActionRequest
+	var req api.QingyuCommentActionRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api comment bindAndValidate failed,", err)
@@ -462,7 +462,7 @@ func Comment(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalInteractionClient.Comment(ctx, &interaction.DouyinCommentActionRequest{
+	res, err := config.GlobalInteractionClient.Comment(ctx, &interaction.QingyuCommentActionRequest{
 		UserId:      userId.(int64),
 		VideoId:     req.VideoID,
 		ActionType:  req.ActionType,
@@ -474,7 +474,7 @@ func Comment(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinCommentActionResponse)
+	resp := new(api.QingyuCommentActionResponse)
 	resp.Comment = &base.Comment{
 		ID: res.Comment.Id,
 		User: &base.User{
@@ -499,23 +499,23 @@ func Comment(ctx context.Context, c *app.RequestContext) {
 }
 
 // CommentList .
-// @router /douyin/comment/list/ [GET]
+// @router /qingyu/comment/list/ [GET]
 func CommentList(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinCommentListRequest
+	var req api.QingyuCommentListRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api commentList bindAndValidate failed,", err)
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	res, err := config.GlobalInteractionClient.GetCommentList(ctx, &interaction.DouyinGetCommentListRequest{VideoId: req.VideoID})
+	res, err := config.GlobalInteractionClient.GetCommentList(ctx, &interaction.QingyuGetCommentListRequest{VideoId: req.VideoID})
 	if err != nil {
 		hlog.Error("api call interaction_srv failed,", err)
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinCommentListResponse)
+	resp := new(api.QingyuCommentListResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	for _, v := range res.CommentList {
@@ -542,10 +542,10 @@ func CommentList(ctx context.Context, c *app.RequestContext) {
 }
 
 // Action .
-// @router /douyin/relation/action/ [POST]
+// @router /qingyu/relation/action/ [POST]
 func Action(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinRelationActionRequest
+	var req api.QingyuRelationActionRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api action bindAndValidate failed,", err)
@@ -558,7 +558,7 @@ func Action(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalSocialClient.Action(ctx, &sociality.DouyinRelationActionRequest{
+	res, err := config.GlobalSocialClient.Action(ctx, &sociality.QingyuRelationActionRequest{
 		UserId:     userId.(int64),
 		ToUserId:   req.ToUserID,
 		ActionType: req.ActionType,
@@ -568,7 +568,7 @@ func Action(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinRelationActionResponse)
+	resp := new(api.QingyuRelationActionResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 
@@ -576,10 +576,10 @@ func Action(ctx context.Context, c *app.RequestContext) {
 }
 
 // FollowingList .
-// @router /douyin/relation/follow/list/ [GET]
+// @router /qingyu/relation/follow/list/ [GET]
 func FollowingList(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinRelationFollowListRequest
+	var req api.QingyuRelationFollowListRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api followingList bindAndValidate failed,", err)
@@ -592,7 +592,7 @@ func FollowingList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalUserClient.GetFollowList(ctx, &user.DouyinGetRelationFollowListRequest{
+	res, err := config.GlobalUserClient.GetFollowList(ctx, &user.QingyuGetRelationFollowListRequest{
 		ViewerId: viewId.(int64),
 		OwnerId:  req.UserID,
 	})
@@ -601,7 +601,7 @@ func FollowingList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinRelationFollowListResponse)
+	resp := new(api.QingyuRelationFollowListResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	for _, v := range res.UserList {
@@ -623,10 +623,10 @@ func FollowingList(ctx context.Context, c *app.RequestContext) {
 }
 
 // FollowerList .
-// @router /douyin/relation/follower/list/ [GET]
+// @router /qingyu/relation/follower/list/ [GET]
 func FollowerList(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinRelationFollowerListRequest
+	var req api.QingyuRelationFollowerListRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api followerList bindAndValidate failed,", err)
@@ -639,7 +639,7 @@ func FollowerList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalUserClient.GetFollowerList(ctx, &user.DouyinGetRelationFollowerListRequest{
+	res, err := config.GlobalUserClient.GetFollowerList(ctx, &user.QingyuGetRelationFollowerListRequest{
 		ViewerId: viewId.(int64),
 		OwnerId:  req.UserID,
 	})
@@ -648,7 +648,7 @@ func FollowerList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinRelationFollowerListResponse)
+	resp := new(api.QingyuRelationFollowerListResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	for _, v := range res.UserList {
@@ -671,10 +671,10 @@ func FollowerList(ctx context.Context, c *app.RequestContext) {
 }
 
 // FriendList .
-// @router /douyin/relation/friend/list/ [GET]
+// @router /qingyu/relation/friend/list/ [GET]
 func FriendList(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinRelationFriendListRequest
+	var req api.QingyuRelationFriendListRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api friendList bindAndValidate failed,", err)
@@ -687,7 +687,7 @@ func FriendList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalUserClient.GetFriendList(ctx, &user.DouyinGetRelationFriendListRequest{
+	res, err := config.GlobalUserClient.GetFriendList(ctx, &user.QingyuGetRelationFriendListRequest{
 		ViewerId: viewId.(int64),
 		OwnerId:  req.UserID,
 	})
@@ -696,7 +696,7 @@ func FriendList(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinRelationFriendListResponse)
+	resp := new(api.QingyuRelationFriendListResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	for _, v := range res.UserList {
@@ -721,10 +721,10 @@ func FriendList(ctx context.Context, c *app.RequestContext) {
 }
 
 // ChatHistory .
-// @router /douyin/message/chat/ [GET]
+// @router /qingyu/message/chat/ [GET]
 func ChatHistory(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinMessageChatRequest
+	var req api.QingyuMessageChatRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api chatHistory bindAndValidate failed,", err)
@@ -737,7 +737,7 @@ func ChatHistory(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalChatClient.GetChatHistory(ctx, &chat.DouyinMessageGetChatHistoryRequest{
+	res, err := config.GlobalChatClient.GetChatHistory(ctx, &chat.QingyuMessageGetChatHistoryRequest{
 		UserId:     viewId.(int64),
 		ToUserId:   req.ToUserID,
 		PreMsgTime: req.PreMsgTime,
@@ -747,7 +747,7 @@ func ChatHistory(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinMessageChatResponse)
+	resp := new(api.QingyuMessageChatResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	for _, v := range res.MessageList {
@@ -763,10 +763,10 @@ func ChatHistory(ctx context.Context, c *app.RequestContext) {
 }
 
 // SentMessage .
-// @router /douyin/message/action/ [POST]
+// @router /qingyu/message/action/ [POST]
 func SentMessage(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req api.DouyinMessageActionRequest
+	var req api.QingyuMessageActionRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		hlog.Error("api sentMessage failed,", err)
@@ -779,7 +779,7 @@ func SentMessage(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
-	res, err := config.GlobalChatClient.SentMessage(ctx, &chat.DouyinMessageActionRequest{
+	res, err := config.GlobalChatClient.SentMessage(ctx, &chat.QingyuMessageActionRequest{
 		UserId:     viewId.(int64),
 		ToUserId:   req.ToUserID,
 		ActionType: req.ActionType,
@@ -790,7 +790,7 @@ func SentMessage(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp := new(api.DouyinMessageActionResponse)
+	resp := new(api.QingyuMessageActionResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	c.JSON(consts.StatusOK, resp)

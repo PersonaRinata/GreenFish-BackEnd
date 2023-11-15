@@ -3,7 +3,7 @@
 package videoservice
 
 import (
-	video "GoYin/server/kitex_gen/video"
+	video "GreenFish/server/kitex_gen/video"
 	server "github.com/cloudwego/kitex/server"
 )
 

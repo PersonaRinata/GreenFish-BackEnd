@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"GoYin/server/service/interaction/config"
+	"GreenFish/server/service/interaction/config"
 	"context"
 	"fmt"
 	"github.com/bytedance/sonic"

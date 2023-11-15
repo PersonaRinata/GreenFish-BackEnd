@@ -1,9 +1,9 @@
 package pkg
 
 import (
-	"GoYin/server/kitex_gen/base"
-	"GoYin/server/kitex_gen/chat"
-	"GoYin/server/kitex_gen/chat/chatservice"
+	"GreenFish/server/kitex_gen/base"
+	"GreenFish/server/kitex_gen/chat"
+	"GreenFish/server/kitex_gen/chat/chatservice"
 	"context"
 )
 
@@ -16,7 +16,7 @@ func NewChatManager(client chatservice.Client) *ChatManager {
 }
 
 func (m *ChatManager) BatchGetLatestMessage(ctx context.Context, userId int64, toUserIdList []int64) ([]*base.LatestMsg, error) {
-	resp, err := m.client.BatchGetLatestMessage(ctx, &chat.DouyinMessageBatchGetLatestRequest{
+	resp, err := m.client.BatchGetLatestMessage(ctx, &chat.QingyuMessageBatchGetLatestRequest{
 		UserId:       userId,
 		ToUserIdList: toUserIdList,
 	})

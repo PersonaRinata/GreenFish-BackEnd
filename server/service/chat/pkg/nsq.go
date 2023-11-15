@@ -1,10 +1,10 @@
 package pkg
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/kitex_gen/chat"
-	"GoYin/server/service/chat/config"
-	"GoYin/server/service/chat/dao"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/kitex_gen/chat"
+	"GreenFish/server/service/chat/config"
+	"GreenFish/server/service/chat/dao"
 	"context"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -24,7 +24,7 @@ type SubscriberManager struct {
 
 func (s SubscriberManager) Subscribe(ctx context.Context, dao *dao.MysqlManager) (err error) {
 	s.Subscriber.AddHandler(nsq.HandlerFunc(func(message *nsq.Message) error {
-		var req *chat.DouyinMessageActionRequest
+		var req *chat.QingyuMessageActionRequest
 		err = sonic.Unmarshal(message.Body, &req)
 		if err != nil {
 			klog.Error("subscriber unmarshal message failed,", err)
@@ -55,7 +55,7 @@ func (s SubscriberManager) Subscribe(ctx context.Context, dao *dao.MysqlManager)
 	return nil
 }
 
-func (p PublisherManager) Publish(ctx context.Context, request *chat.DouyinMessageActionRequest) error {
+func (p PublisherManager) Publish(ctx context.Context, request *chat.QingyuMessageActionRequest) error {
 	body, err := sonic.Marshal(request)
 	if err != nil {
 		klog.Error("subscriber marshal req failed,", err)

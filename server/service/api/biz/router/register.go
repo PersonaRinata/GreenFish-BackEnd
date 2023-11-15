@@ -3,7 +3,7 @@
 package router
 
 import (
-	api "GoYin/server/service/api/biz/router/api"
+	api "GreenFish/server/service/api/biz/router/api"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

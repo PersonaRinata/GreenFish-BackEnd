@@ -3,7 +3,7 @@
 package chatservice
 
 import (
-	chat "GoYin/server/kitex_gen/chat"
+	chat "GreenFish/server/kitex_gen/chat"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -120,7 +120,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) GetChatHistory(ctx context.Context, req *chat.DouyinMessageGetChatHistoryRequest) (r *chat.DouyinMessageGetChatHistoryResponse, err error) {
+func (p *kClient) GetChatHistory(ctx context.Context, req *chat.QingyuMessageGetChatHistoryRequest) (r *chat.QingyuMessageGetChatHistoryResponse, err error) {
 	var _args chat.ChatServiceGetChatHistoryArgs
 	_args.Req = req
 	var _result chat.ChatServiceGetChatHistoryResult
@@ -130,7 +130,7 @@ func (p *kClient) GetChatHistory(ctx context.Context, req *chat.DouyinMessageGet
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) SentMessage(ctx context.Context, req *chat.DouyinMessageActionRequest) (r *chat.DouyinMessageActionResponse, err error) {
+func (p *kClient) SentMessage(ctx context.Context, req *chat.QingyuMessageActionRequest) (r *chat.QingyuMessageActionResponse, err error) {
 	var _args chat.ChatServiceSentMessageArgs
 	_args.Req = req
 	var _result chat.ChatServiceSentMessageResult
@@ -140,7 +140,7 @@ func (p *kClient) SentMessage(ctx context.Context, req *chat.DouyinMessageAction
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetLatestMessage(ctx context.Context, req *chat.DouyinMessageGetLatestRequest) (r *chat.DouyinMessageGetLatestResponse, err error) {
+func (p *kClient) GetLatestMessage(ctx context.Context, req *chat.QingyuMessageGetLatestRequest) (r *chat.QingyuMessageGetLatestResponse, err error) {
 	var _args chat.ChatServiceGetLatestMessageArgs
 	_args.Req = req
 	var _result chat.ChatServiceGetLatestMessageResult
@@ -150,7 +150,7 @@ func (p *kClient) GetLatestMessage(ctx context.Context, req *chat.DouyinMessageG
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) BatchGetLatestMessage(ctx context.Context, req *chat.DouyinMessageBatchGetLatestRequest) (r *chat.DouyinMessageBatchGetLatestResponse, err error) {
+func (p *kClient) BatchGetLatestMessage(ctx context.Context, req *chat.QingyuMessageBatchGetLatestRequest) (r *chat.QingyuMessageBatchGetLatestResponse, err error) {
 	var _args chat.ChatServiceBatchGetLatestMessageArgs
 	_args.Req = req
 	var _result chat.ChatServiceBatchGetLatestMessageResult

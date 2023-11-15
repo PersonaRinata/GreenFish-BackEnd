@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/kitex_gen/video/videoservice"
-	"GoYin/server/service/interaction/config"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/kitex_gen/video/videoservice"
+	"GreenFish/server/service/interaction/config"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/loadbalance"

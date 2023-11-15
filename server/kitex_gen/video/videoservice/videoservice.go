@@ -3,7 +3,7 @@
 package videoservice
 
 import (
-	video "GoYin/server/kitex_gen/video"
+	video "GreenFish/server/kitex_gen/video"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -139,7 +139,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) Feed(ctx context.Context, req *video.DouyinFeedRequest) (r *video.DouyinFeedResponse, err error) {
+func (p *kClient) Feed(ctx context.Context, req *video.QingyuFeedRequest) (r *video.QingyuFeedResponse, err error) {
 	var _args video.VideoServiceFeedArgs
 	_args.Req = req
 	var _result video.VideoServiceFeedResult
@@ -149,7 +149,7 @@ func (p *kClient) Feed(ctx context.Context, req *video.DouyinFeedRequest) (r *vi
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) PublishVideo(ctx context.Context, req *video.DouyinPublishActionRequest) (r *video.DouyinPublishActionResponse, err error) {
+func (p *kClient) PublishVideo(ctx context.Context, req *video.QingyuPublishActionRequest) (r *video.QingyuPublishActionResponse, err error) {
 	var _args video.VideoServicePublishVideoArgs
 	_args.Req = req
 	var _result video.VideoServicePublishVideoResult
@@ -159,7 +159,7 @@ func (p *kClient) PublishVideo(ctx context.Context, req *video.DouyinPublishActi
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetPublishedVideoList(ctx context.Context, req *video.DouyinGetPublishedListRequest) (r *video.DouyinGetPublishedListResponse, err error) {
+func (p *kClient) GetPublishedVideoList(ctx context.Context, req *video.QingyuGetPublishedListRequest) (r *video.QingyuGetPublishedListResponse, err error) {
 	var _args video.VideoServiceGetPublishedVideoListArgs
 	_args.Req = req
 	var _result video.VideoServiceGetPublishedVideoListResult
@@ -169,7 +169,7 @@ func (p *kClient) GetPublishedVideoList(ctx context.Context, req *video.DouyinGe
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetFavoriteVideoList(ctx context.Context, req *video.DouyinGetFavoriteListRequest) (r *video.DouyinGetFavoriteListResponse, err error) {
+func (p *kClient) GetFavoriteVideoList(ctx context.Context, req *video.QingyuGetFavoriteListRequest) (r *video.QingyuGetFavoriteListResponse, err error) {
 	var _args video.VideoServiceGetFavoriteVideoListArgs
 	_args.Req = req
 	var _result video.VideoServiceGetFavoriteVideoListResult
@@ -179,7 +179,7 @@ func (p *kClient) GetFavoriteVideoList(ctx context.Context, req *video.DouyinGet
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetPublishedVideoIdList(ctx context.Context, req *video.DouyinGetPublishedVideoIdListRequest) (r *video.DouyinGetPublishedVideoIdListResponse, err error) {
+func (p *kClient) GetPublishedVideoIdList(ctx context.Context, req *video.QingyuGetPublishedVideoIdListRequest) (r *video.QingyuGetPublishedVideoIdListResponse, err error) {
 	var _args video.VideoServiceGetPublishedVideoIdListArgs
 	_args.Req = req
 	var _result video.VideoServiceGetPublishedVideoIdListResult

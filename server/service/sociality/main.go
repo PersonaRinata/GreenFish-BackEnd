@@ -1,11 +1,11 @@
 package main
 
 import (
-	sociality "GoYin/server/kitex_gen/sociality/socialityservice"
-	"GoYin/server/service/sociality/config"
-	"GoYin/server/service/sociality/dao"
-	"GoYin/server/service/sociality/initialize"
-	"GoYin/server/service/sociality/pkg"
+	sociality "GreenFish/server/kitex_gen/sociality/socialityservice"
+	"GreenFish/server/service/sociality/config"
+	"GreenFish/server/service/sociality/dao"
+	"GreenFish/server/service/sociality/initialize"
+	"GreenFish/server/service/sociality/pkg"
 	"context"
 	"errors"
 	kitexSentinel "github.com/alibaba/sentinel-golang/pkg/adapters/kitex"

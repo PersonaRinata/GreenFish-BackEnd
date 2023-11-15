@@ -2,7 +2,7 @@
 package socialityservice
 
 import (
-	sociality "GoYin/server/kitex_gen/sociality"
+	sociality "GreenFish/server/kitex_gen/sociality"
 	server "github.com/cloudwego/kitex/server"
 )
 

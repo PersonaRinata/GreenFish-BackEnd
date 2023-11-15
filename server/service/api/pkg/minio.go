@@ -1,7 +1,7 @@
 package pkg
 
 import (
-	"GoYin/server/service/api/config"
+	"GreenFish/server/service/api/config"
 	"context"
 	"fmt"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

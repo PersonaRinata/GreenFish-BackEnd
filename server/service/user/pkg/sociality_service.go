@@ -1,9 +1,9 @@
 package pkg
 
 import (
-	"GoYin/server/kitex_gen/base"
-	"GoYin/server/kitex_gen/sociality"
-	"GoYin/server/kitex_gen/sociality/socialityservice"
+	"GreenFish/server/kitex_gen/base"
+	"GreenFish/server/kitex_gen/sociality"
+	"GreenFish/server/kitex_gen/sociality/socialityservice"
 	"context"
 	"errors"
 )
@@ -17,7 +17,7 @@ func NewSocialManager(client socialityservice.Client) *SocialManager {
 }
 
 func (s *SocialManager) GetSocialInfo(ctx context.Context, viewerId, ownerId int64) (*base.SocialInfo, error) {
-	resp, err := s.client.GetSocialInfo(ctx, &sociality.DouyinGetSocialInfoRequest{
+	resp, err := s.client.GetSocialInfo(ctx, &sociality.QingyuGetSocialInfoRequest{
 		ViewerId: viewerId,
 		OwnerId:  ownerId,
 	})
@@ -31,7 +31,7 @@ func (s *SocialManager) GetSocialInfo(ctx context.Context, viewerId, ownerId int
 }
 
 func (s *SocialManager) BatchGetSocialInfo(ctx context.Context, viewerId int64, ownerIdList []int64) ([]*base.SocialInfo, error) {
-	resp, err := s.client.BatchGetSocialInfo(ctx, &sociality.DouyinBatchGetSocialInfoRequest{
+	resp, err := s.client.BatchGetSocialInfo(ctx, &sociality.QingyuBatchGetSocialInfoRequest{
 		ViewerId:    viewerId,
 		OwnerIdList: ownerIdList,
 	})
@@ -45,7 +45,7 @@ func (s *SocialManager) BatchGetSocialInfo(ctx context.Context, viewerId int64, 
 }
 
 func (s *SocialManager) GetRelationList(ctx context.Context, viewerId, ownerId int64, option int8) ([]int64, error) {
-	resp, err := s.client.GetRelationIdList(ctx, &sociality.DouyinGetRelationIdListRequest{
+	resp, err := s.client.GetRelationIdList(ctx, &sociality.QingyuGetRelationIdListRequest{
 		ViewerId: viewerId,
 		OwnerId:  ownerId,
 		Option:   option,

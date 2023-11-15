@@ -1,10 +1,10 @@
 package main
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/kitex_gen/base"
-	interaction "GoYin/server/kitex_gen/interaction"
-	"GoYin/server/service/interaction/model"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/kitex_gen/base"
+	interaction "GreenFish/server/kitex_gen/interaction"
+	"GreenFish/server/service/interaction/model"
 	"context"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -54,13 +54,13 @@ type RedisManager interface {
 }
 
 // Favorite implements the InteractionServerImpl interface.
-func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.DouyinFavoriteActionRequest) (resp *interaction.DouyinFavoriteActionResponse, err error) {
-	resp = new(interaction.DouyinFavoriteActionResponse)
+func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.QingyuFavoriteActionRequest) (resp *interaction.QingyuFavoriteActionResponse, err error) {
+	resp = new(interaction.QingyuFavoriteActionResponse)
 	if req.ActionType == consts.Like {
 		idList, err := s.RedisManager.GetFavoriteVideoIdList(ctx, req.UserId)
 		if err != nil {
 			klog.Errorf("interaction get favoriteVideoIdList failed,err", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction get favoriteVideoIdList failed",
 			}
@@ -68,7 +68,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.D
 		}
 		for _, v := range idList {
 			if v == req.VideoId {
-				resp.BaseResp = &base.DouyinBaseResponse{
+				resp.BaseResp = &base.QingyuBaseResponse{
 					StatusCode: 0,
 					StatusMsg:  "you have been favorited this video",
 				}
@@ -78,7 +78,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.D
 		if err = s.FavoriteManager.FavoriteAction(ctx, req.UserId, req.VideoId); err != nil {
 			//回滚
 			klog.Errorf("interaction mysql favorite failed,err", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction mysql favorite failed",
 			}
@@ -87,7 +87,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.D
 		err = s.RedisManager.FavoriteAction(ctx, req.UserId, req.VideoId)
 		if err != nil {
 			klog.Errorf("interaction redis favorite failed,err", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction redis favorite failed",
 			}
@@ -97,7 +97,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.D
 		if err := s.FavoriteManager.UnFavoriteAction(ctx, req.UserId, req.VideoId); err != nil {
 			//回滚
 			klog.Errorf("interaction mysql unFavorite failed,err", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction mysql unFavorite failed",
 			}
@@ -106,20 +106,20 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.D
 		err = s.RedisManager.UnFavoriteAction(ctx, req.UserId, req.VideoId)
 		if err != nil {
 			klog.Errorf("interaction redis unFavorite failed,err", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction redis unFavorite failed",
 			}
 			return resp, err
 		}
 	} else {
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "interaction invalid action type",
 		}
 		return resp, err
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "interaction FavoriteAction success",
 	}
@@ -127,15 +127,15 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.D
 }
 
 // GetFavoriteVideoIdList implements the InteractionServerImpl interface.
-func (s *InteractionServerImpl) GetFavoriteVideoIdList(ctx context.Context, req *interaction.DouyinGetFavoriteVideoIdListRequest) (resp *interaction.DouyinGetFavoriteVideoIdListResponse, err error) {
-	resp = new(interaction.DouyinGetFavoriteVideoIdListResponse)
+func (s *InteractionServerImpl) GetFavoriteVideoIdList(ctx context.Context, req *interaction.QingyuGetFavoriteVideoIdListRequest) (resp *interaction.QingyuGetFavoriteVideoIdListResponse, err error) {
+	resp = new(interaction.QingyuGetFavoriteVideoIdListResponse)
 	res, err := s.RedisManager.GetFavoriteVideoIdList(ctx, req.UserId)
 	if err != nil {
 		klog.Errorf("interaction redis get favorite video id list failed,", err)
 		res, err = s.FavoriteManager.GetFavoriteVideoIdList(ctx, req.UserId)
 		if err != nil {
 			klog.Errorf("interaction mysql get favorite video id list failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction get favorite video id list failed",
 			}
@@ -143,7 +143,7 @@ func (s *InteractionServerImpl) GetFavoriteVideoIdList(ctx context.Context, req 
 		}
 	}
 	resp.VideoIdList = res
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "interaction get favorite video id list success",
 	}
@@ -151,8 +151,8 @@ func (s *InteractionServerImpl) GetFavoriteVideoIdList(ctx context.Context, req 
 }
 
 // Comment implements the InteractionServerImpl interface.
-func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.DouyinCommentActionRequest) (resp *interaction.DouyinCommentActionResponse, err error) {
-	resp = new(interaction.DouyinCommentActionResponse)
+func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.QingyuCommentActionRequest) (resp *interaction.QingyuCommentActionResponse, err error) {
+	resp = new(interaction.QingyuCommentActionResponse)
 	comment := &model.Comment{
 		ID:          req.CommentId,
 		UserId:      req.UserId,
@@ -165,7 +165,7 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Do
 		sf, err := snowflake.NewNode(consts.CommentSnowFlakeNode)
 		if err != nil {
 			klog.Errorf("generate comment id failed: %s", err.Error())
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "generate comment id failed",
 			}
@@ -178,7 +178,7 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Do
 		if err != nil {
 			//回滚
 			klog.Errorf("interaction mysql comment failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction mysql comment failed",
 			}
@@ -187,7 +187,7 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Do
 		err = s.RedisManager.Comment(ctx, comment)
 		if err != nil {
 			klog.Errorf("interaction redis comment failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction redis comment failed",
 			}
@@ -198,7 +198,7 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Do
 		if err != nil {
 			//回滚
 			klog.Errorf("interaction mysql deleteComment failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction mysql deleteComment failed",
 			}
@@ -207,20 +207,20 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Do
 		err = s.RedisManager.DeleteComment(ctx, req.CommentId)
 		if err != nil {
 			klog.Errorf("interaction redis deleteComment failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction redis deleteComment failed",
 			}
 			return resp, err
 		}
 	} else {
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "invalid action type",
 		}
 		return resp, nil
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "interaction CommentAction success",
 	}
@@ -234,8 +234,8 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Do
 }
 
 // GetCommentList implements the InteractionServerImpl interface.
-func (s *InteractionServerImpl) GetCommentList(ctx context.Context, req *interaction.DouyinGetCommentListRequest) (resp *interaction.DouyinGetCommentListResponse, err error) {
-	resp = new(interaction.DouyinGetCommentListResponse)
+func (s *InteractionServerImpl) GetCommentList(ctx context.Context, req *interaction.QingyuGetCommentListRequest) (resp *interaction.QingyuGetCommentListResponse, err error) {
+	resp = new(interaction.QingyuGetCommentListResponse)
 
 	commentList, err := s.RedisManager.GetComment(ctx, req.VideoId)
 	if err != nil {
@@ -243,7 +243,7 @@ func (s *InteractionServerImpl) GetCommentList(ctx context.Context, req *interac
 		commentList, err = s.CommentManager.GetComment(ctx, req.VideoId)
 		if err != nil {
 			klog.Errorf("interaction mysql get commentList failed", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction get commentList failed",
 			}
@@ -269,7 +269,7 @@ func (s *InteractionServerImpl) GetCommentList(ctx context.Context, req *interac
 			CreateDate: timeStr,
 		})
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "interaction get comment success",
 	}
@@ -277,13 +277,13 @@ func (s *InteractionServerImpl) GetCommentList(ctx context.Context, req *interac
 }
 
 // GetVideoInteractInfo implements the InteractionServerImpl interface.
-func (s *InteractionServerImpl) GetVideoInteractInfo(ctx context.Context, req *interaction.DouyinGetVideoInteractInfoRequest) (resp *interaction.DouyinGetVideoInteractInfoResponse, err error) {
-	resp = new(interaction.DouyinGetVideoInteractInfoResponse)
+func (s *InteractionServerImpl) GetVideoInteractInfo(ctx context.Context, req *interaction.QingyuGetVideoInteractInfoRequest) (resp *interaction.QingyuGetVideoInteractInfoResponse, err error) {
+	resp = new(interaction.QingyuGetVideoInteractInfoResponse)
 
 	commentNum, favoriteNum, isFavorite, err := s.getVideoInfo(ctx, req.VideoId, req.ViewerId)
 	if err != nil {
 		klog.Errorf("interaction get video info failed")
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "interaction get video failed",
 		}
@@ -294,7 +294,7 @@ func (s *InteractionServerImpl) GetVideoInteractInfo(ctx context.Context, req *i
 		CommentCount:  commentNum,
 		IsFavorite:    isFavorite,
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "interaction get video info success",
 	}
@@ -302,13 +302,13 @@ func (s *InteractionServerImpl) GetVideoInteractInfo(ctx context.Context, req *i
 }
 
 // BatchGetVideoInteractInfo implements the InteractionServerImpl interface.
-func (s *InteractionServerImpl) BatchGetVideoInteractInfo(ctx context.Context, req *interaction.DouyinBatchGetVideoInteractInfoRequest) (resp *interaction.DouyinBatchGetVideoInteractInfoResponse, err error) {
-	resp = new(interaction.DouyinBatchGetVideoInteractInfoResponse)
+func (s *InteractionServerImpl) BatchGetVideoInteractInfo(ctx context.Context, req *interaction.QingyuBatchGetVideoInteractInfoRequest) (resp *interaction.QingyuBatchGetVideoInteractInfoResponse, err error) {
+	resp = new(interaction.QingyuBatchGetVideoInteractInfoResponse)
 	for _, v := range req.VideoIdList {
 		commentNum, favoriteNum, isFavorite, err := s.getVideoInfo(ctx, v, req.ViewerId)
 		if err != nil {
 			klog.Errorf("interaction get video info failed")
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction get video failed",
 			}
@@ -320,7 +320,7 @@ func (s *InteractionServerImpl) BatchGetVideoInteractInfo(ctx context.Context, r
 			IsFavorite:    isFavorite,
 		})
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "interaction get video info success",
 	}
@@ -359,19 +359,19 @@ func (s *InteractionServerImpl) getVideoInfo(ctx context.Context, videoId, userI
 }
 
 // GetUserInteractInfo implements the InteractionServerImpl interface.
-func (s *InteractionServerImpl) GetUserInteractInfo(ctx context.Context, req *interaction.DouyinGetUserInteractInfoRequest) (resp *interaction.DouyinGetUserInteractInfoResponse, err error) {
-	resp = new(interaction.DouyinGetUserInteractInfoResponse)
+func (s *InteractionServerImpl) GetUserInteractInfo(ctx context.Context, req *interaction.QingyuGetUserInteractInfoRequest) (resp *interaction.QingyuGetUserInteractInfoResponse, err error) {
+	resp = new(interaction.QingyuGetUserInteractInfoResponse)
 
 	resp.InteractInfo, err = s.getUserInteractInfo(ctx, req.UserId)
 	if err != nil {
 		klog.Error("interaction get userInteractInfo failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "interaction get userInteractInfo failed",
 		}
 		return resp, nil
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "interaction get userInteractInfo success",
 	}
@@ -379,14 +379,14 @@ func (s *InteractionServerImpl) GetUserInteractInfo(ctx context.Context, req *in
 }
 
 // BatchGetUserInteractInfo implements the InteractionServerImpl interface.
-func (s *InteractionServerImpl) BatchGetUserInteractInfo(ctx context.Context, req *interaction.DouyinBatchGetUserInteractInfoRequest) (resp *interaction.DouyinBatchGetUserInteractInfoResponse, err error) {
-	resp = new(interaction.DouyinBatchGetUserInteractInfoResponse)
+func (s *InteractionServerImpl) BatchGetUserInteractInfo(ctx context.Context, req *interaction.QingyuBatchGetUserInteractInfoRequest) (resp *interaction.QingyuBatchGetUserInteractInfoResponse, err error) {
+	resp = new(interaction.QingyuBatchGetUserInteractInfoResponse)
 
 	for _, v := range req.UserIdList {
 		info, err := s.getUserInteractInfo(ctx, v)
 		if err != nil {
 			klog.Error("interaction batch get userInteractInfo failed,", err)
-			resp.BaseResp = &base.DouyinBaseResponse{
+			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction batch get userInteractInfo failed",
 			}
@@ -394,7 +394,7 @@ func (s *InteractionServerImpl) BatchGetUserInteractInfo(ctx context.Context, re
 		}
 		resp.InteractInfoList = append(resp.InteractInfoList, info)
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "interaction batch get userInteractInfo success",
 	}

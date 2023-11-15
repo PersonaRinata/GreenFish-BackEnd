@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
+	"GreenFish/server/common/consts"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	hertzlogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"

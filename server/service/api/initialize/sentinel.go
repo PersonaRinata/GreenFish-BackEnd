@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	serverConfig "GoYin/server/service/api/config"
+	serverConfig "GreenFish/server/service/api/config"
 	sentinel "github.com/alibaba/sentinel-golang/api"
 	"github.com/alibaba/sentinel-golang/core/config"
 	"github.com/alibaba/sentinel-golang/core/flow"

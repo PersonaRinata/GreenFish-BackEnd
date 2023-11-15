@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"GoYin/server/service/api/config"
+	"GreenFish/server/service/api/config"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/ip2location/ip2location-go/v9"
 )

@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/service/user/config"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/service/user/config"
 	"fmt"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/go-redis/redis/v8"

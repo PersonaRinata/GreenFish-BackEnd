@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
+	"GreenFish/server/common/consts"
 	"github.com/cloudwego/kitex/pkg/klog"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"

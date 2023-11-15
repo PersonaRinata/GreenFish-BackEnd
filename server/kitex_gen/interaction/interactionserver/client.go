@@ -3,7 +3,7 @@
 package interactionserver
 
 import (
-	interaction "GoYin/server/kitex_gen/interaction"
+	interaction "GreenFish/server/kitex_gen/interaction"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
@@ -11,14 +11,14 @@ import (
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
-	Favorite(ctx context.Context, req *interaction.DouyinFavoriteActionRequest, callOptions ...callopt.Option) (r *interaction.DouyinFavoriteActionResponse, err error)
-	GetFavoriteVideoIdList(ctx context.Context, req *interaction.DouyinGetFavoriteVideoIdListRequest, callOptions ...callopt.Option) (r *interaction.DouyinGetFavoriteVideoIdListResponse, err error)
-	Comment(ctx context.Context, req *interaction.DouyinCommentActionRequest, callOptions ...callopt.Option) (r *interaction.DouyinCommentActionResponse, err error)
-	GetCommentList(ctx context.Context, req *interaction.DouyinGetCommentListRequest, callOptions ...callopt.Option) (r *interaction.DouyinGetCommentListResponse, err error)
-	GetVideoInteractInfo(ctx context.Context, req *interaction.DouyinGetVideoInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.DouyinGetVideoInteractInfoResponse, err error)
-	BatchGetVideoInteractInfo(ctx context.Context, req *interaction.DouyinBatchGetVideoInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.DouyinBatchGetVideoInteractInfoResponse, err error)
-	GetUserInteractInfo(ctx context.Context, req *interaction.DouyinGetUserInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.DouyinGetUserInteractInfoResponse, err error)
-	BatchGetUserInteractInfo(ctx context.Context, req *interaction.DouyinBatchGetUserInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.DouyinBatchGetUserInteractInfoResponse, err error)
+	Favorite(ctx context.Context, req *interaction.QingyuFavoriteActionRequest, callOptions ...callopt.Option) (r *interaction.QingyuFavoriteActionResponse, err error)
+	GetFavoriteVideoIdList(ctx context.Context, req *interaction.QingyuGetFavoriteVideoIdListRequest, callOptions ...callopt.Option) (r *interaction.QingyuGetFavoriteVideoIdListResponse, err error)
+	Comment(ctx context.Context, req *interaction.QingyuCommentActionRequest, callOptions ...callopt.Option) (r *interaction.QingyuCommentActionResponse, err error)
+	GetCommentList(ctx context.Context, req *interaction.QingyuGetCommentListRequest, callOptions ...callopt.Option) (r *interaction.QingyuGetCommentListResponse, err error)
+	GetVideoInteractInfo(ctx context.Context, req *interaction.QingyuGetVideoInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.QingyuGetVideoInteractInfoResponse, err error)
+	BatchGetVideoInteractInfo(ctx context.Context, req *interaction.QingyuBatchGetVideoInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.QingyuBatchGetVideoInteractInfoResponse, err error)
+	GetUserInteractInfo(ctx context.Context, req *interaction.QingyuGetUserInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.QingyuGetUserInteractInfoResponse, err error)
+	BatchGetUserInteractInfo(ctx context.Context, req *interaction.QingyuBatchGetUserInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.QingyuBatchGetUserInteractInfoResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -50,42 +50,42 @@ type kInteractionServerClient struct {
 	*kClient
 }
 
-func (p *kInteractionServerClient) Favorite(ctx context.Context, req *interaction.DouyinFavoriteActionRequest, callOptions ...callopt.Option) (r *interaction.DouyinFavoriteActionResponse, err error) {
+func (p *kInteractionServerClient) Favorite(ctx context.Context, req *interaction.QingyuFavoriteActionRequest, callOptions ...callopt.Option) (r *interaction.QingyuFavoriteActionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Favorite(ctx, req)
 }
 
-func (p *kInteractionServerClient) GetFavoriteVideoIdList(ctx context.Context, req *interaction.DouyinGetFavoriteVideoIdListRequest, callOptions ...callopt.Option) (r *interaction.DouyinGetFavoriteVideoIdListResponse, err error) {
+func (p *kInteractionServerClient) GetFavoriteVideoIdList(ctx context.Context, req *interaction.QingyuGetFavoriteVideoIdListRequest, callOptions ...callopt.Option) (r *interaction.QingyuGetFavoriteVideoIdListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetFavoriteVideoIdList(ctx, req)
 }
 
-func (p *kInteractionServerClient) Comment(ctx context.Context, req *interaction.DouyinCommentActionRequest, callOptions ...callopt.Option) (r *interaction.DouyinCommentActionResponse, err error) {
+func (p *kInteractionServerClient) Comment(ctx context.Context, req *interaction.QingyuCommentActionRequest, callOptions ...callopt.Option) (r *interaction.QingyuCommentActionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Comment(ctx, req)
 }
 
-func (p *kInteractionServerClient) GetCommentList(ctx context.Context, req *interaction.DouyinGetCommentListRequest, callOptions ...callopt.Option) (r *interaction.DouyinGetCommentListResponse, err error) {
+func (p *kInteractionServerClient) GetCommentList(ctx context.Context, req *interaction.QingyuGetCommentListRequest, callOptions ...callopt.Option) (r *interaction.QingyuGetCommentListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetCommentList(ctx, req)
 }
 
-func (p *kInteractionServerClient) GetVideoInteractInfo(ctx context.Context, req *interaction.DouyinGetVideoInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.DouyinGetVideoInteractInfoResponse, err error) {
+func (p *kInteractionServerClient) GetVideoInteractInfo(ctx context.Context, req *interaction.QingyuGetVideoInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.QingyuGetVideoInteractInfoResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetVideoInteractInfo(ctx, req)
 }
 
-func (p *kInteractionServerClient) BatchGetVideoInteractInfo(ctx context.Context, req *interaction.DouyinBatchGetVideoInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.DouyinBatchGetVideoInteractInfoResponse, err error) {
+func (p *kInteractionServerClient) BatchGetVideoInteractInfo(ctx context.Context, req *interaction.QingyuBatchGetVideoInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.QingyuBatchGetVideoInteractInfoResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.BatchGetVideoInteractInfo(ctx, req)
 }
 
-func (p *kInteractionServerClient) GetUserInteractInfo(ctx context.Context, req *interaction.DouyinGetUserInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.DouyinGetUserInteractInfoResponse, err error) {
+func (p *kInteractionServerClient) GetUserInteractInfo(ctx context.Context, req *interaction.QingyuGetUserInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.QingyuGetUserInteractInfoResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUserInteractInfo(ctx, req)
 }
 
-func (p *kInteractionServerClient) BatchGetUserInteractInfo(ctx context.Context, req *interaction.DouyinBatchGetUserInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.DouyinBatchGetUserInteractInfoResponse, err error) {
+func (p *kInteractionServerClient) BatchGetUserInteractInfo(ctx context.Context, req *interaction.QingyuBatchGetUserInteractInfoRequest, callOptions ...callopt.Option) (r *interaction.QingyuBatchGetUserInteractInfoResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.BatchGetUserInteractInfo(ctx, req)
 }

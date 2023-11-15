@@ -3,7 +3,7 @@
 package main
 
 import (
-	handler "GoYin/server/service/api/biz/handler"
+	handler "GreenFish/server/service/api/biz/handler"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

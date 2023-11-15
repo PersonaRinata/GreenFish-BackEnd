@@ -23,7 +23,7 @@ var (
 	_ = bthrift.BinaryWriter(nil)
 )
 
-func (p *DouyinBaseResponse) FastRead(buf []byte) (int, error) {
+func (p *QingyuBaseResponse) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -99,7 +99,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinBaseResponse[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuBaseResponse[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 ReadFieldEndError:
@@ -108,7 +108,7 @@ ReadStructEndError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinBaseResponse) FastReadField1(buf []byte) (int, error) {
+func (p *QingyuBaseResponse) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadI32(buf[offset:]); err != nil {
@@ -122,7 +122,7 @@ func (p *DouyinBaseResponse) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *DouyinBaseResponse) FastReadField2(buf []byte) (int, error) {
+func (p *QingyuBaseResponse) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadString(buf[offset:]); err != nil {
@@ -137,13 +137,13 @@ func (p *DouyinBaseResponse) FastReadField2(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *DouyinBaseResponse) FastWrite(buf []byte) int {
+func (p *QingyuBaseResponse) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *DouyinBaseResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *QingyuBaseResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "douyin_base_response")
+	offset += bthrift.Binary.WriteStructBegin(buf[offset:], "qingyu_base_response")
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 		offset += p.fastWriteField2(buf[offset:], binaryWriter)
@@ -153,9 +153,9 @@ func (p *DouyinBaseResponse) FastWriteNocopy(buf []byte, binaryWriter bthrift.Bi
 	return offset
 }
 
-func (p *DouyinBaseResponse) BLength() int {
+func (p *QingyuBaseResponse) BLength() int {
 	l := 0
-	l += bthrift.Binary.StructBeginLength("douyin_base_response")
+	l += bthrift.Binary.StructBeginLength("qingyu_base_response")
 	if p != nil {
 		l += p.field1Length()
 		l += p.field2Length()
@@ -165,7 +165,7 @@ func (p *DouyinBaseResponse) BLength() int {
 	return l
 }
 
-func (p *DouyinBaseResponse) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *QingyuBaseResponse) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status_code", thrift.I32, 1)
 	offset += bthrift.Binary.WriteI32(buf[offset:], p.StatusCode)
@@ -174,7 +174,7 @@ func (p *DouyinBaseResponse) fastWriteField1(buf []byte, binaryWriter bthrift.Bi
 	return offset
 }
 
-func (p *DouyinBaseResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+func (p *QingyuBaseResponse) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
 	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status_msg", thrift.STRING, 2)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.StatusMsg)
@@ -183,7 +183,7 @@ func (p *DouyinBaseResponse) fastWriteField2(buf []byte, binaryWriter bthrift.Bi
 	return offset
 }
 
-func (p *DouyinBaseResponse) field1Length() int {
+func (p *QingyuBaseResponse) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("status_code", thrift.I32, 1)
 	l += bthrift.Binary.I32Length(p.StatusCode)
@@ -192,7 +192,7 @@ func (p *DouyinBaseResponse) field1Length() int {
 	return l
 }
 
-func (p *DouyinBaseResponse) field2Length() int {
+func (p *QingyuBaseResponse) field2Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("status_msg", thrift.STRING, 2)
 	l += bthrift.Binary.StringLengthNocopy(p.StatusMsg)

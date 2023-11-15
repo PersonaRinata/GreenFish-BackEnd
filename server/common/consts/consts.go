@@ -66,7 +66,7 @@ const (
 	MySQLPort          = "0"
 	MySQLAdmin         = "root"
 	DockerTestMySQLPwd = "123456"
-	DockerTestMySQLDb  = "GoYin"
+	DockerTestMySQLDb  = "GreenFish"
 
 	RedisImage         = "redis:latest"
 	RedisContainerPort = "6379/tcp"

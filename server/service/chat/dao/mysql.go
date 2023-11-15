@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"GoYin/server/service/chat/model"
+	"GreenFish/server/service/chat/model"
 	"context"
 	"errors"
 	"github.com/cloudwego/kitex/pkg/klog"

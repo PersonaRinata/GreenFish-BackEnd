@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/common/test"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/common/test"
 	"context"
 	"github.com/bytedance/sonic"
 	"testing"

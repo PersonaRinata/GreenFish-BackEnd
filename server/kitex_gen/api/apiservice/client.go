@@ -3,7 +3,7 @@
 package apiservice
 
 import (
-	api "GoYin/server/kitex_gen/api"
+	api "GreenFish/server/kitex_gen/api"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
@@ -11,22 +11,22 @@ import (
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
-	Register(ctx context.Context, req *api.DouyinUserRegisterRequest, callOptions ...callopt.Option) (r *api.DouyinUserRegisterResponse, err error)
-	Login(ctx context.Context, req *api.DouyinUserLoginRequest, callOptions ...callopt.Option) (r *api.DouyinUserLoginResponse, err error)
-	GetUserInfo(ctx context.Context, req *api.DouyinUserRequest, callOptions ...callopt.Option) (r *api.DouyinUserResponse, err error)
-	Feed(ctx context.Context, req *api.DouyinFeedRequest, callOptions ...callopt.Option) (r *api.DouyinFeedResponse, err error)
-	PublishVideo(ctx context.Context, req *api.DouyinPublishActionRequest, callOptions ...callopt.Option) (r *api.DouyinPublishActionResponse, err error)
-	VideoList(ctx context.Context, req *api.DouyinPublishListRequest, callOptions ...callopt.Option) (r *api.DouyinPublishListResponse, err error)
-	Favorite(ctx context.Context, req *api.DouyinFavoriteActionRequest, callOptions ...callopt.Option) (r *api.DouyinFavoriteActionResponse, err error)
-	FavoriteList(ctx context.Context, req *api.DouyinFavoriteListRequest, callOptions ...callopt.Option) (r *api.DouyinFavoriteListResponse, err error)
-	Comment(ctx context.Context, req *api.DouyinCommentActionRequest, callOptions ...callopt.Option) (r *api.DouyinCommentActionResponse, err error)
-	CommentList(ctx context.Context, req *api.DouyinCommentListRequest, callOptions ...callopt.Option) (r *api.DouyinCommentListResponse, err error)
-	Action(ctx context.Context, req *api.DouyinRelationActionRequest, callOptions ...callopt.Option) (r *api.DouyinRelationActionResponse, err error)
-	FollowingList(ctx context.Context, req *api.DouyinRelationFollowListRequest, callOptions ...callopt.Option) (r *api.DouyinRelationFollowListResponse, err error)
-	FollowerList(ctx context.Context, req *api.DouyinRelationFollowerListRequest, callOptions ...callopt.Option) (r *api.DouyinRelationFollowerListResponse, err error)
-	FriendList(ctx context.Context, req *api.DouyinRelationFriendListRequest, callOptions ...callopt.Option) (r *api.DouyinRelationFriendListResponse, err error)
-	ChatHistory(ctx context.Context, req *api.DouyinMessageChatRequest, callOptions ...callopt.Option) (r *api.DouyinMessageChatResponse, err error)
-	SentMessage(ctx context.Context, req *api.DouyinMessageActionRequest, callOptions ...callopt.Option) (r *api.DouyinMessageActionResponse, err error)
+	Register(ctx context.Context, req *api.QingyuUserRegisterRequest, callOptions ...callopt.Option) (r *api.QingyuUserRegisterResponse, err error)
+	Login(ctx context.Context, req *api.QingyuUserLoginRequest, callOptions ...callopt.Option) (r *api.QingyuUserLoginResponse, err error)
+	GetUserInfo(ctx context.Context, req *api.QingyuUserRequest, callOptions ...callopt.Option) (r *api.QingyuUserResponse, err error)
+	Feed(ctx context.Context, req *api.QingyuFeedRequest, callOptions ...callopt.Option) (r *api.QingyuFeedResponse, err error)
+	PublishVideo(ctx context.Context, req *api.QingyuPublishActionRequest, callOptions ...callopt.Option) (r *api.QingyuPublishActionResponse, err error)
+	VideoList(ctx context.Context, req *api.QingyuPublishListRequest, callOptions ...callopt.Option) (r *api.QingyuPublishListResponse, err error)
+	Favorite(ctx context.Context, req *api.QingyuFavoriteActionRequest, callOptions ...callopt.Option) (r *api.QingyuFavoriteActionResponse, err error)
+	FavoriteList(ctx context.Context, req *api.QingyuFavoriteListRequest, callOptions ...callopt.Option) (r *api.QingyuFavoriteListResponse, err error)
+	Comment(ctx context.Context, req *api.QingyuCommentActionRequest, callOptions ...callopt.Option) (r *api.QingyuCommentActionResponse, err error)
+	CommentList(ctx context.Context, req *api.QingyuCommentListRequest, callOptions ...callopt.Option) (r *api.QingyuCommentListResponse, err error)
+	Action(ctx context.Context, req *api.QingyuRelationActionRequest, callOptions ...callopt.Option) (r *api.QingyuRelationActionResponse, err error)
+	FollowingList(ctx context.Context, req *api.QingyuRelationFollowListRequest, callOptions ...callopt.Option) (r *api.QingyuRelationFollowListResponse, err error)
+	FollowerList(ctx context.Context, req *api.QingyuRelationFollowerListRequest, callOptions ...callopt.Option) (r *api.QingyuRelationFollowerListResponse, err error)
+	FriendList(ctx context.Context, req *api.QingyuRelationFriendListRequest, callOptions ...callopt.Option) (r *api.QingyuRelationFriendListResponse, err error)
+	ChatHistory(ctx context.Context, req *api.QingyuMessageChatRequest, callOptions ...callopt.Option) (r *api.QingyuMessageChatResponse, err error)
+	SentMessage(ctx context.Context, req *api.QingyuMessageActionRequest, callOptions ...callopt.Option) (r *api.QingyuMessageActionResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -58,82 +58,82 @@ type kApiServiceClient struct {
 	*kClient
 }
 
-func (p *kApiServiceClient) Register(ctx context.Context, req *api.DouyinUserRegisterRequest, callOptions ...callopt.Option) (r *api.DouyinUserRegisterResponse, err error) {
+func (p *kApiServiceClient) Register(ctx context.Context, req *api.QingyuUserRegisterRequest, callOptions ...callopt.Option) (r *api.QingyuUserRegisterResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Register(ctx, req)
 }
 
-func (p *kApiServiceClient) Login(ctx context.Context, req *api.DouyinUserLoginRequest, callOptions ...callopt.Option) (r *api.DouyinUserLoginResponse, err error) {
+func (p *kApiServiceClient) Login(ctx context.Context, req *api.QingyuUserLoginRequest, callOptions ...callopt.Option) (r *api.QingyuUserLoginResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Login(ctx, req)
 }
 
-func (p *kApiServiceClient) GetUserInfo(ctx context.Context, req *api.DouyinUserRequest, callOptions ...callopt.Option) (r *api.DouyinUserResponse, err error) {
+func (p *kApiServiceClient) GetUserInfo(ctx context.Context, req *api.QingyuUserRequest, callOptions ...callopt.Option) (r *api.QingyuUserResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUserInfo(ctx, req)
 }
 
-func (p *kApiServiceClient) Feed(ctx context.Context, req *api.DouyinFeedRequest, callOptions ...callopt.Option) (r *api.DouyinFeedResponse, err error) {
+func (p *kApiServiceClient) Feed(ctx context.Context, req *api.QingyuFeedRequest, callOptions ...callopt.Option) (r *api.QingyuFeedResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Feed(ctx, req)
 }
 
-func (p *kApiServiceClient) PublishVideo(ctx context.Context, req *api.DouyinPublishActionRequest, callOptions ...callopt.Option) (r *api.DouyinPublishActionResponse, err error) {
+func (p *kApiServiceClient) PublishVideo(ctx context.Context, req *api.QingyuPublishActionRequest, callOptions ...callopt.Option) (r *api.QingyuPublishActionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.PublishVideo(ctx, req)
 }
 
-func (p *kApiServiceClient) VideoList(ctx context.Context, req *api.DouyinPublishListRequest, callOptions ...callopt.Option) (r *api.DouyinPublishListResponse, err error) {
+func (p *kApiServiceClient) VideoList(ctx context.Context, req *api.QingyuPublishListRequest, callOptions ...callopt.Option) (r *api.QingyuPublishListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.VideoList(ctx, req)
 }
 
-func (p *kApiServiceClient) Favorite(ctx context.Context, req *api.DouyinFavoriteActionRequest, callOptions ...callopt.Option) (r *api.DouyinFavoriteActionResponse, err error) {
+func (p *kApiServiceClient) Favorite(ctx context.Context, req *api.QingyuFavoriteActionRequest, callOptions ...callopt.Option) (r *api.QingyuFavoriteActionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Favorite(ctx, req)
 }
 
-func (p *kApiServiceClient) FavoriteList(ctx context.Context, req *api.DouyinFavoriteListRequest, callOptions ...callopt.Option) (r *api.DouyinFavoriteListResponse, err error) {
+func (p *kApiServiceClient) FavoriteList(ctx context.Context, req *api.QingyuFavoriteListRequest, callOptions ...callopt.Option) (r *api.QingyuFavoriteListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.FavoriteList(ctx, req)
 }
 
-func (p *kApiServiceClient) Comment(ctx context.Context, req *api.DouyinCommentActionRequest, callOptions ...callopt.Option) (r *api.DouyinCommentActionResponse, err error) {
+func (p *kApiServiceClient) Comment(ctx context.Context, req *api.QingyuCommentActionRequest, callOptions ...callopt.Option) (r *api.QingyuCommentActionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Comment(ctx, req)
 }
 
-func (p *kApiServiceClient) CommentList(ctx context.Context, req *api.DouyinCommentListRequest, callOptions ...callopt.Option) (r *api.DouyinCommentListResponse, err error) {
+func (p *kApiServiceClient) CommentList(ctx context.Context, req *api.QingyuCommentListRequest, callOptions ...callopt.Option) (r *api.QingyuCommentListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.CommentList(ctx, req)
 }
 
-func (p *kApiServiceClient) Action(ctx context.Context, req *api.DouyinRelationActionRequest, callOptions ...callopt.Option) (r *api.DouyinRelationActionResponse, err error) {
+func (p *kApiServiceClient) Action(ctx context.Context, req *api.QingyuRelationActionRequest, callOptions ...callopt.Option) (r *api.QingyuRelationActionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Action(ctx, req)
 }
 
-func (p *kApiServiceClient) FollowingList(ctx context.Context, req *api.DouyinRelationFollowListRequest, callOptions ...callopt.Option) (r *api.DouyinRelationFollowListResponse, err error) {
+func (p *kApiServiceClient) FollowingList(ctx context.Context, req *api.QingyuRelationFollowListRequest, callOptions ...callopt.Option) (r *api.QingyuRelationFollowListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.FollowingList(ctx, req)
 }
 
-func (p *kApiServiceClient) FollowerList(ctx context.Context, req *api.DouyinRelationFollowerListRequest, callOptions ...callopt.Option) (r *api.DouyinRelationFollowerListResponse, err error) {
+func (p *kApiServiceClient) FollowerList(ctx context.Context, req *api.QingyuRelationFollowerListRequest, callOptions ...callopt.Option) (r *api.QingyuRelationFollowerListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.FollowerList(ctx, req)
 }
 
-func (p *kApiServiceClient) FriendList(ctx context.Context, req *api.DouyinRelationFriendListRequest, callOptions ...callopt.Option) (r *api.DouyinRelationFriendListResponse, err error) {
+func (p *kApiServiceClient) FriendList(ctx context.Context, req *api.QingyuRelationFriendListRequest, callOptions ...callopt.Option) (r *api.QingyuRelationFriendListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.FriendList(ctx, req)
 }
 
-func (p *kApiServiceClient) ChatHistory(ctx context.Context, req *api.DouyinMessageChatRequest, callOptions ...callopt.Option) (r *api.DouyinMessageChatResponse, err error) {
+func (p *kApiServiceClient) ChatHistory(ctx context.Context, req *api.QingyuMessageChatRequest, callOptions ...callopt.Option) (r *api.QingyuMessageChatResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ChatHistory(ctx, req)
 }
 
-func (p *kApiServiceClient) SentMessage(ctx context.Context, req *api.DouyinMessageActionRequest, callOptions ...callopt.Option) (r *api.DouyinMessageActionResponse, err error) {
+func (p *kApiServiceClient) SentMessage(ctx context.Context, req *api.QingyuMessageActionRequest, callOptions ...callopt.Option) (r *api.QingyuMessageActionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.SentMessage(ctx, req)
 }

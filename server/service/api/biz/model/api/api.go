@@ -3,37 +3,37 @@
 package api
 
 import (
-	"GoYin/server/service/api/biz/model/base"
+	"GreenFish/server/service/api/biz/model/base"
 	"context"
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
 )
 
-type DouyinUserRegisterRequest struct {
+type QingyuUserRegisterRequest struct {
 	// Username, up to 32 characters
 	Username string `thrift:"username,1" json:"username" query:"username" vd:"len($)>0 && len($)<33"`
 	// Password, up to 32 characters
 	Password string `thrift:"password,2" json:"password" query:"password" vd:"len($)>0 && len($)<33"`
 }
 
-func NewDouyinUserRegisterRequest() *DouyinUserRegisterRequest {
-	return &DouyinUserRegisterRequest{}
+func NewQingyuUserRegisterRequest() *QingyuUserRegisterRequest {
+	return &QingyuUserRegisterRequest{}
 }
 
-func (p *DouyinUserRegisterRequest) GetUsername() (v string) {
+func (p *QingyuUserRegisterRequest) GetUsername() (v string) {
 	return p.Username
 }
 
-func (p *DouyinUserRegisterRequest) GetPassword() (v string) {
+func (p *QingyuUserRegisterRequest) GetPassword() (v string) {
 	return p.Password
 }
 
-var fieldIDToName_DouyinUserRegisterRequest = map[int16]string{
+var fieldIDToName_QingyuUserRegisterRequest = map[int16]string{
 	1: "username",
 	2: "password",
 }
 
-func (p *DouyinUserRegisterRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -92,7 +92,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinUserRegisterRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuUserRegisterRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -102,7 +102,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuUserRegisterRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -111,7 +111,7 @@ func (p *DouyinUserRegisterRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserRegisterRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuUserRegisterRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -120,9 +120,9 @@ func (p *DouyinUserRegisterRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserRegisterRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_user_register_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_user_register_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -153,7 +153,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("username", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -170,7 +170,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("password", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -187,14 +187,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterRequest) String() string {
+func (p *QingyuUserRegisterRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinUserRegisterRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuUserRegisterRequest(%+v)", *p)
 }
 
-type DouyinUserRegisterResponse struct {
+type QingyuUserRegisterResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -205,34 +205,34 @@ type DouyinUserRegisterResponse struct {
 	Token string `thrift:"token,4" form:"token" json:"token" query:"token"`
 }
 
-func NewDouyinUserRegisterResponse() *DouyinUserRegisterResponse {
-	return &DouyinUserRegisterResponse{}
+func NewQingyuUserRegisterResponse() *QingyuUserRegisterResponse {
+	return &QingyuUserRegisterResponse{}
 }
 
-func (p *DouyinUserRegisterResponse) GetStatusCode() (v int32) {
+func (p *QingyuUserRegisterResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinUserRegisterResponse) GetStatusMsg() (v string) {
+func (p *QingyuUserRegisterResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinUserRegisterResponse) GetUserID() (v int64) {
+func (p *QingyuUserRegisterResponse) GetUserID() (v int64) {
 	return p.UserID
 }
 
-func (p *DouyinUserRegisterResponse) GetToken() (v string) {
+func (p *QingyuUserRegisterResponse) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinUserRegisterResponse = map[int16]string{
+var fieldIDToName_QingyuUserRegisterResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "user_id",
 	4: "token",
 }
 
-func (p *DouyinUserRegisterResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -311,7 +311,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinUserRegisterResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuUserRegisterResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -321,7 +321,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuUserRegisterResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -330,7 +330,7 @@ func (p *DouyinUserRegisterResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserRegisterResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuUserRegisterResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -339,7 +339,7 @@ func (p *DouyinUserRegisterResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserRegisterResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuUserRegisterResponse) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -348,7 +348,7 @@ func (p *DouyinUserRegisterResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserRegisterResponse) ReadField4(iprot thrift.TProtocol) error {
+func (p *QingyuUserRegisterResponse) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -357,9 +357,9 @@ func (p *DouyinUserRegisterResponse) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserRegisterResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_user_register_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_user_register_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -398,7 +398,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -415,7 +415,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -432,7 +432,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -449,7 +449,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterResponse) writeField4(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRegisterResponse) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -466,38 +466,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
-func (p *DouyinUserRegisterResponse) String() string {
+func (p *QingyuUserRegisterResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinUserRegisterResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuUserRegisterResponse(%+v)", *p)
 }
 
-type DouyinUserLoginRequest struct {
+type QingyuUserLoginRequest struct {
 	// Username, up to 32 characters
 	Username string `thrift:"username,1" json:"username" query:"username" vd:"len($)>0 && len($)<33"`
 	// Password, up to 32 characters
 	Password string `thrift:"password,2" json:"password" query:"password" vd:"len($)>0 && len($)<33"`
 }
 
-func NewDouyinUserLoginRequest() *DouyinUserLoginRequest {
-	return &DouyinUserLoginRequest{}
+func NewQingyuUserLoginRequest() *QingyuUserLoginRequest {
+	return &QingyuUserLoginRequest{}
 }
 
-func (p *DouyinUserLoginRequest) GetUsername() (v string) {
+func (p *QingyuUserLoginRequest) GetUsername() (v string) {
 	return p.Username
 }
 
-func (p *DouyinUserLoginRequest) GetPassword() (v string) {
+func (p *QingyuUserLoginRequest) GetPassword() (v string) {
 	return p.Password
 }
 
-var fieldIDToName_DouyinUserLoginRequest = map[int16]string{
+var fieldIDToName_QingyuUserLoginRequest = map[int16]string{
 	1: "username",
 	2: "password",
 }
 
-func (p *DouyinUserLoginRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -556,7 +556,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinUserLoginRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuUserLoginRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -566,7 +566,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinUserLoginRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuUserLoginRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -575,7 +575,7 @@ func (p *DouyinUserLoginRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserLoginRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuUserLoginRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -584,9 +584,9 @@ func (p *DouyinUserLoginRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserLoginRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_user_login_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_user_login_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -617,7 +617,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinUserLoginRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("username", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -634,7 +634,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinUserLoginRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("password", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -651,14 +651,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinUserLoginRequest) String() string {
+func (p *QingyuUserLoginRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinUserLoginRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuUserLoginRequest(%+v)", *p)
 }
 
-type DouyinUserLoginResponse struct {
+type QingyuUserLoginResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -669,34 +669,34 @@ type DouyinUserLoginResponse struct {
 	Token string `thrift:"token,4" form:"token" json:"token" query:"token"`
 }
 
-func NewDouyinUserLoginResponse() *DouyinUserLoginResponse {
-	return &DouyinUserLoginResponse{}
+func NewQingyuUserLoginResponse() *QingyuUserLoginResponse {
+	return &QingyuUserLoginResponse{}
 }
 
-func (p *DouyinUserLoginResponse) GetStatusCode() (v int32) {
+func (p *QingyuUserLoginResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinUserLoginResponse) GetStatusMsg() (v string) {
+func (p *QingyuUserLoginResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinUserLoginResponse) GetUserID() (v int64) {
+func (p *QingyuUserLoginResponse) GetUserID() (v int64) {
 	return p.UserID
 }
 
-func (p *DouyinUserLoginResponse) GetToken() (v string) {
+func (p *QingyuUserLoginResponse) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinUserLoginResponse = map[int16]string{
+var fieldIDToName_QingyuUserLoginResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "user_id",
 	4: "token",
 }
 
-func (p *DouyinUserLoginResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -775,7 +775,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinUserLoginResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuUserLoginResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -785,7 +785,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinUserLoginResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuUserLoginResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -794,7 +794,7 @@ func (p *DouyinUserLoginResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserLoginResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuUserLoginResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -803,7 +803,7 @@ func (p *DouyinUserLoginResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserLoginResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuUserLoginResponse) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -812,7 +812,7 @@ func (p *DouyinUserLoginResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserLoginResponse) ReadField4(iprot thrift.TProtocol) error {
+func (p *QingyuUserLoginResponse) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -821,9 +821,9 @@ func (p *DouyinUserLoginResponse) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserLoginResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_user_login_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_user_login_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -862,7 +862,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinUserLoginResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -879,7 +879,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinUserLoginResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -896,7 +896,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinUserLoginResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -913,7 +913,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinUserLoginResponse) writeField4(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserLoginResponse) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -930,38 +930,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
-func (p *DouyinUserLoginResponse) String() string {
+func (p *QingyuUserLoginResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinUserLoginResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuUserLoginResponse(%+v)", *p)
 }
 
-type DouyinUserRequest struct {
+type QingyuUserRequest struct {
 	// User id
 	UserID int64 `thrift:"user_id,1" json:"user_id" query:"user_id"`
 	// User authentication token
 	Token string `thrift:"token,2" json:"token" query:"token"`
 }
 
-func NewDouyinUserRequest() *DouyinUserRequest {
-	return &DouyinUserRequest{}
+func NewQingyuUserRequest() *QingyuUserRequest {
+	return &QingyuUserRequest{}
 }
 
-func (p *DouyinUserRequest) GetUserID() (v int64) {
+func (p *QingyuUserRequest) GetUserID() (v int64) {
 	return p.UserID
 }
 
-func (p *DouyinUserRequest) GetToken() (v string) {
+func (p *QingyuUserRequest) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinUserRequest = map[int16]string{
+var fieldIDToName_QingyuUserRequest = map[int16]string{
 	1: "user_id",
 	2: "token",
 }
 
-func (p *DouyinUserRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1020,7 +1020,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinUserRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuUserRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1030,7 +1030,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinUserRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuUserRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1039,7 +1039,7 @@ func (p *DouyinUserRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuUserRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -1048,9 +1048,9 @@ func (p *DouyinUserRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_user_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_user_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1081,7 +1081,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinUserRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1098,7 +1098,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinUserRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1115,14 +1115,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinUserRequest) String() string {
+func (p *QingyuUserRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinUserRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuUserRequest(%+v)", *p)
 }
 
-type DouyinUserResponse struct {
+type QingyuUserResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -1131,38 +1131,38 @@ type DouyinUserResponse struct {
 	User *base.User `thrift:"user,3" form:"user" json:"user" query:"user"`
 }
 
-func NewDouyinUserResponse() *DouyinUserResponse {
-	return &DouyinUserResponse{}
+func NewQingyuUserResponse() *QingyuUserResponse {
+	return &QingyuUserResponse{}
 }
 
-func (p *DouyinUserResponse) GetStatusCode() (v int32) {
+func (p *QingyuUserResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinUserResponse) GetStatusMsg() (v string) {
+func (p *QingyuUserResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-var DouyinUserResponse_User_DEFAULT *base.User
+var QingyuUserResponse_User_DEFAULT *base.User
 
-func (p *DouyinUserResponse) GetUser() (v *base.User) {
+func (p *QingyuUserResponse) GetUser() (v *base.User) {
 	if !p.IsSetUser() {
-		return DouyinUserResponse_User_DEFAULT
+		return QingyuUserResponse_User_DEFAULT
 	}
 	return p.User
 }
 
-var fieldIDToName_DouyinUserResponse = map[int16]string{
+var fieldIDToName_QingyuUserResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "user",
 }
 
-func (p *DouyinUserResponse) IsSetUser() bool {
+func (p *QingyuUserResponse) IsSetUser() bool {
 	return p.User != nil
 }
 
-func (p *DouyinUserResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuUserResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1231,7 +1231,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinUserResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuUserResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1241,7 +1241,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinUserResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuUserResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -1250,7 +1250,7 @@ func (p *DouyinUserResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuUserResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -1259,7 +1259,7 @@ func (p *DouyinUserResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuUserResponse) ReadField3(iprot thrift.TProtocol) error {
 	p.User = base.NewUser()
 	if err := p.User.Read(iprot); err != nil {
 		return err
@@ -1267,9 +1267,9 @@ func (p *DouyinUserResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinUserResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_user_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_user_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1304,7 +1304,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinUserResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1321,7 +1321,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinUserResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1338,7 +1338,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinUserResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuUserResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user", thrift.STRUCT, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1355,38 +1355,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinUserResponse) String() string {
+func (p *QingyuUserResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinUserResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuUserResponse(%+v)", *p)
 }
 
-type DouyinFeedRequest struct {
+type QingyuFeedRequest struct {
 	// Optional parameter, limit the latest submission timestamp of the returned video, accurate to seconds, and leave it blank to indicate the current time
 	LatestTime int64 `thrift:"latest_time,1" json:"latest_time" query:"latest_time"`
 	// Optional parameter, login user settings
 	Token string `thrift:"token,2" json:"token" query:"token"`
 }
 
-func NewDouyinFeedRequest() *DouyinFeedRequest {
-	return &DouyinFeedRequest{}
+func NewQingyuFeedRequest() *QingyuFeedRequest {
+	return &QingyuFeedRequest{}
 }
 
-func (p *DouyinFeedRequest) GetLatestTime() (v int64) {
+func (p *QingyuFeedRequest) GetLatestTime() (v int64) {
 	return p.LatestTime
 }
 
-func (p *DouyinFeedRequest) GetToken() (v string) {
+func (p *QingyuFeedRequest) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinFeedRequest = map[int16]string{
+var fieldIDToName_QingyuFeedRequest = map[int16]string{
 	1: "latest_time",
 	2: "token",
 }
 
-func (p *DouyinFeedRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1445,7 +1445,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFeedRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFeedRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1455,7 +1455,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuFeedRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1464,7 +1464,7 @@ func (p *DouyinFeedRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuFeedRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -1473,9 +1473,9 @@ func (p *DouyinFeedRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_feed_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_feed_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1506,7 +1506,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("latest_time", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1523,7 +1523,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1540,14 +1540,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFeedRequest) String() string {
+func (p *QingyuFeedRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFeedRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuFeedRequest(%+v)", *p)
 }
 
-type DouyinFeedResponse struct {
+type QingyuFeedResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -1558,34 +1558,34 @@ type DouyinFeedResponse struct {
 	NextTime int64 `thrift:"next_time,4" form:"next_time" json:"next_time" query:"next_time"`
 }
 
-func NewDouyinFeedResponse() *DouyinFeedResponse {
-	return &DouyinFeedResponse{}
+func NewQingyuFeedResponse() *QingyuFeedResponse {
+	return &QingyuFeedResponse{}
 }
 
-func (p *DouyinFeedResponse) GetStatusCode() (v int32) {
+func (p *QingyuFeedResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinFeedResponse) GetStatusMsg() (v string) {
+func (p *QingyuFeedResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinFeedResponse) GetVideoList() (v []*base.Video) {
+func (p *QingyuFeedResponse) GetVideoList() (v []*base.Video) {
 	return p.VideoList
 }
 
-func (p *DouyinFeedResponse) GetNextTime() (v int64) {
+func (p *QingyuFeedResponse) GetNextTime() (v int64) {
 	return p.NextTime
 }
 
-var fieldIDToName_DouyinFeedResponse = map[int16]string{
+var fieldIDToName_QingyuFeedResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "video_list",
 	4: "next_time",
 }
 
-func (p *DouyinFeedResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1664,7 +1664,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFeedResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFeedResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1674,7 +1674,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuFeedResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -1683,7 +1683,7 @@ func (p *DouyinFeedResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuFeedResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -1692,7 +1692,7 @@ func (p *DouyinFeedResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuFeedResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -1712,7 +1712,7 @@ func (p *DouyinFeedResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) ReadField4(iprot thrift.TProtocol) error {
+func (p *QingyuFeedResponse) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -1721,9 +1721,9 @@ func (p *DouyinFeedResponse) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFeedResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_feed_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_feed_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1762,7 +1762,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1779,7 +1779,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1796,7 +1796,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1821,7 +1821,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) writeField4(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFeedResponse) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("next_time", thrift.I64, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -1838,38 +1838,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
-func (p *DouyinFeedResponse) String() string {
+func (p *QingyuFeedResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFeedResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuFeedResponse(%+v)", *p)
 }
 
-type DouyinPublishActionRequest struct {
+type QingyuPublishActionRequest struct {
 	// User authentication token
 	Token string `thrift:"token,1" form:"token" json:"token"`
 	// Video title
 	Title string `thrift:"title,2" form:"title" json:"title" vd:"len($)>0 && len($)<33"`
 }
 
-func NewDouyinPublishActionRequest() *DouyinPublishActionRequest {
-	return &DouyinPublishActionRequest{}
+func NewQingyuPublishActionRequest() *QingyuPublishActionRequest {
+	return &QingyuPublishActionRequest{}
 }
 
-func (p *DouyinPublishActionRequest) GetToken() (v string) {
+func (p *QingyuPublishActionRequest) GetToken() (v string) {
 	return p.Token
 }
 
-func (p *DouyinPublishActionRequest) GetTitle() (v string) {
+func (p *QingyuPublishActionRequest) GetTitle() (v string) {
 	return p.Title
 }
 
-var fieldIDToName_DouyinPublishActionRequest = map[int16]string{
+var fieldIDToName_QingyuPublishActionRequest = map[int16]string{
 	1: "token",
 	2: "title",
 }
 
-func (p *DouyinPublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -1928,7 +1928,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinPublishActionRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuPublishActionRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -1938,7 +1938,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuPublishActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -1947,7 +1947,7 @@ func (p *DouyinPublishActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishActionRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuPublishActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -1956,9 +1956,9 @@ func (p *DouyinPublishActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishActionRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_publish_action_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_publish_action_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -1989,7 +1989,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2006,7 +2006,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("title", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2023,38 +2023,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionRequest) String() string {
+func (p *QingyuPublishActionRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinPublishActionRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuPublishActionRequest(%+v)", *p)
 }
 
-type DouyinPublishActionResponse struct {
+type QingyuPublishActionResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
 	StatusMsg string `thrift:"status_msg,2" form:"status_msg" json:"status_msg" query:"status_msg"`
 }
 
-func NewDouyinPublishActionResponse() *DouyinPublishActionResponse {
-	return &DouyinPublishActionResponse{}
+func NewQingyuPublishActionResponse() *QingyuPublishActionResponse {
+	return &QingyuPublishActionResponse{}
 }
 
-func (p *DouyinPublishActionResponse) GetStatusCode() (v int32) {
+func (p *QingyuPublishActionResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinPublishActionResponse) GetStatusMsg() (v string) {
+func (p *QingyuPublishActionResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-var fieldIDToName_DouyinPublishActionResponse = map[int16]string{
+var fieldIDToName_QingyuPublishActionResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 }
 
-func (p *DouyinPublishActionResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2113,7 +2113,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinPublishActionResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuPublishActionResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2123,7 +2123,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinPublishActionResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuPublishActionResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -2132,7 +2132,7 @@ func (p *DouyinPublishActionResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishActionResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuPublishActionResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -2141,9 +2141,9 @@ func (p *DouyinPublishActionResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishActionResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_publish_action_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_publish_action_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2174,7 +2174,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinPublishActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2191,7 +2191,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2208,38 +2208,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinPublishActionResponse) String() string {
+func (p *QingyuPublishActionResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinPublishActionResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuPublishActionResponse(%+v)", *p)
 }
 
-type DouyinPublishListRequest struct {
+type QingyuPublishListRequest struct {
 	// User id
 	UserID int64 `thrift:"user_id,1" json:"user_id" query:"user_id"`
 	// User authentication token
 	Token string `thrift:"token,2" json:"token" query:"token"`
 }
 
-func NewDouyinPublishListRequest() *DouyinPublishListRequest {
-	return &DouyinPublishListRequest{}
+func NewQingyuPublishListRequest() *QingyuPublishListRequest {
+	return &QingyuPublishListRequest{}
 }
 
-func (p *DouyinPublishListRequest) GetUserID() (v int64) {
+func (p *QingyuPublishListRequest) GetUserID() (v int64) {
 	return p.UserID
 }
 
-func (p *DouyinPublishListRequest) GetToken() (v string) {
+func (p *QingyuPublishListRequest) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinPublishListRequest = map[int16]string{
+var fieldIDToName_QingyuPublishListRequest = map[int16]string{
 	1: "user_id",
 	2: "token",
 }
 
-func (p *DouyinPublishListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2298,7 +2298,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinPublishListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuPublishListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2308,7 +2308,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinPublishListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuPublishListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -2317,7 +2317,7 @@ func (p *DouyinPublishListRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishListRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuPublishListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -2326,9 +2326,9 @@ func (p *DouyinPublishListRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_publish_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_publish_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2359,7 +2359,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinPublishListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2376,7 +2376,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinPublishListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2393,14 +2393,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinPublishListRequest) String() string {
+func (p *QingyuPublishListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinPublishListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuPublishListRequest(%+v)", *p)
 }
 
-type DouyinPublishListResponse struct {
+type QingyuPublishListResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -2409,29 +2409,29 @@ type DouyinPublishListResponse struct {
 	VideoList []*base.Video `thrift:"video_list,3" form:"video_list" json:"video_list" query:"video_list"`
 }
 
-func NewDouyinPublishListResponse() *DouyinPublishListResponse {
-	return &DouyinPublishListResponse{}
+func NewQingyuPublishListResponse() *QingyuPublishListResponse {
+	return &QingyuPublishListResponse{}
 }
 
-func (p *DouyinPublishListResponse) GetStatusCode() (v int32) {
+func (p *QingyuPublishListResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinPublishListResponse) GetStatusMsg() (v string) {
+func (p *QingyuPublishListResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinPublishListResponse) GetVideoList() (v []*base.Video) {
+func (p *QingyuPublishListResponse) GetVideoList() (v []*base.Video) {
 	return p.VideoList
 }
 
-var fieldIDToName_DouyinPublishListResponse = map[int16]string{
+var fieldIDToName_QingyuPublishListResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "video_list",
 }
 
-func (p *DouyinPublishListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2500,7 +2500,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinPublishListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuPublishListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2510,7 +2510,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinPublishListResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuPublishListResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -2519,7 +2519,7 @@ func (p *DouyinPublishListResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuPublishListResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -2528,7 +2528,7 @@ func (p *DouyinPublishListResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishListResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuPublishListResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -2548,9 +2548,9 @@ func (p *DouyinPublishListResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinPublishListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_publish_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_publish_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2585,7 +2585,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinPublishListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2602,7 +2602,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinPublishListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2619,7 +2619,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinPublishListResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuPublishListResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2644,14 +2644,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinPublishListResponse) String() string {
+func (p *QingyuPublishListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinPublishListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuPublishListResponse(%+v)", *p)
 }
 
-type DouyinFavoriteActionRequest struct {
+type QingyuFavoriteActionRequest struct {
 	// User authentication token
 	Token string `thrift:"token,1" json:"token" query:"token"`
 	// Video Id
@@ -2660,29 +2660,29 @@ type DouyinFavoriteActionRequest struct {
 	ActionType int8 `thrift:"action_type,3" json:"action_type" query:"action_type" vd:"$==1 || $==2"`
 }
 
-func NewDouyinFavoriteActionRequest() *DouyinFavoriteActionRequest {
-	return &DouyinFavoriteActionRequest{}
+func NewQingyuFavoriteActionRequest() *QingyuFavoriteActionRequest {
+	return &QingyuFavoriteActionRequest{}
 }
 
-func (p *DouyinFavoriteActionRequest) GetToken() (v string) {
+func (p *QingyuFavoriteActionRequest) GetToken() (v string) {
 	return p.Token
 }
 
-func (p *DouyinFavoriteActionRequest) GetVideoID() (v int64) {
+func (p *QingyuFavoriteActionRequest) GetVideoID() (v int64) {
 	return p.VideoID
 }
 
-func (p *DouyinFavoriteActionRequest) GetActionType() (v int8) {
+func (p *QingyuFavoriteActionRequest) GetActionType() (v int8) {
 	return p.ActionType
 }
 
-var fieldIDToName_DouyinFavoriteActionRequest = map[int16]string{
+var fieldIDToName_QingyuFavoriteActionRequest = map[int16]string{
 	1: "token",
 	2: "video_id",
 	3: "action_type",
 }
 
-func (p *DouyinFavoriteActionRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2751,7 +2751,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFavoriteActionRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFavoriteActionRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2761,7 +2761,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -2770,7 +2770,7 @@ func (p *DouyinFavoriteActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFavoriteActionRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -2779,7 +2779,7 @@ func (p *DouyinFavoriteActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFavoriteActionRequest) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadByte(); err != nil {
 		return err
 	} else {
@@ -2788,9 +2788,9 @@ func (p *DouyinFavoriteActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFavoriteActionRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_favorite_action_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_favorite_action_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -2825,7 +2825,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2842,7 +2842,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2859,7 +2859,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("action_type", thrift.BYTE, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -2876,38 +2876,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionRequest) String() string {
+func (p *QingyuFavoriteActionRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFavoriteActionRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuFavoriteActionRequest(%+v)", *p)
 }
 
-type DouyinFavoriteActionResponse struct {
+type QingyuFavoriteActionResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
 	StatusMsg string `thrift:"status_msg,2" form:"status_msg" json:"status_msg" query:"status_msg"`
 }
 
-func NewDouyinFavoriteActionResponse() *DouyinFavoriteActionResponse {
-	return &DouyinFavoriteActionResponse{}
+func NewQingyuFavoriteActionResponse() *QingyuFavoriteActionResponse {
+	return &QingyuFavoriteActionResponse{}
 }
 
-func (p *DouyinFavoriteActionResponse) GetStatusCode() (v int32) {
+func (p *QingyuFavoriteActionResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinFavoriteActionResponse) GetStatusMsg() (v string) {
+func (p *QingyuFavoriteActionResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-var fieldIDToName_DouyinFavoriteActionResponse = map[int16]string{
+var fieldIDToName_QingyuFavoriteActionResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 }
 
-func (p *DouyinFavoriteActionResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -2966,7 +2966,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFavoriteActionResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFavoriteActionResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -2976,7 +2976,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteActionResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -2985,7 +2985,7 @@ func (p *DouyinFavoriteActionResponse) ReadField1(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *DouyinFavoriteActionResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteActionResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -2994,9 +2994,9 @@ func (p *DouyinFavoriteActionResponse) ReadField2(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *DouyinFavoriteActionResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_favorite_action_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_favorite_action_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3027,7 +3027,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3044,7 +3044,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3061,38 +3061,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteActionResponse) String() string {
+func (p *QingyuFavoriteActionResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFavoriteActionResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuFavoriteActionResponse(%+v)", *p)
 }
 
-type DouyinFavoriteListRequest struct {
+type QingyuFavoriteListRequest struct {
 	// User id
 	UserID int64 `thrift:"user_id,1" json:"user_id" query:"user_id"`
 	// User authentication token
 	Token string `thrift:"token,2" json:"token" query:"token"`
 }
 
-func NewDouyinFavoriteListRequest() *DouyinFavoriteListRequest {
-	return &DouyinFavoriteListRequest{}
+func NewQingyuFavoriteListRequest() *QingyuFavoriteListRequest {
+	return &QingyuFavoriteListRequest{}
 }
 
-func (p *DouyinFavoriteListRequest) GetUserID() (v int64) {
+func (p *QingyuFavoriteListRequest) GetUserID() (v int64) {
 	return p.UserID
 }
 
-func (p *DouyinFavoriteListRequest) GetToken() (v string) {
+func (p *QingyuFavoriteListRequest) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinFavoriteListRequest = map[int16]string{
+var fieldIDToName_QingyuFavoriteListRequest = map[int16]string{
 	1: "user_id",
 	2: "token",
 }
 
-func (p *DouyinFavoriteListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3151,7 +3151,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFavoriteListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFavoriteListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3161,7 +3161,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -3170,7 +3170,7 @@ func (p *DouyinFavoriteListRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFavoriteListRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -3179,9 +3179,9 @@ func (p *DouyinFavoriteListRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFavoriteListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_favorite_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_favorite_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3212,7 +3212,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3229,7 +3229,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3246,14 +3246,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListRequest) String() string {
+func (p *QingyuFavoriteListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFavoriteListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuFavoriteListRequest(%+v)", *p)
 }
 
-type DouyinFavoriteListResponse struct {
+type QingyuFavoriteListResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -3262,29 +3262,29 @@ type DouyinFavoriteListResponse struct {
 	VideoList []*base.Video `thrift:"video_list,3" form:"video_list" json:"video_list" query:"video_list"`
 }
 
-func NewDouyinFavoriteListResponse() *DouyinFavoriteListResponse {
-	return &DouyinFavoriteListResponse{}
+func NewQingyuFavoriteListResponse() *QingyuFavoriteListResponse {
+	return &QingyuFavoriteListResponse{}
 }
 
-func (p *DouyinFavoriteListResponse) GetStatusCode() (v int32) {
+func (p *QingyuFavoriteListResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinFavoriteListResponse) GetStatusMsg() (v string) {
+func (p *QingyuFavoriteListResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinFavoriteListResponse) GetVideoList() (v []*base.Video) {
+func (p *QingyuFavoriteListResponse) GetVideoList() (v []*base.Video) {
 	return p.VideoList
 }
 
-var fieldIDToName_DouyinFavoriteListResponse = map[int16]string{
+var fieldIDToName_QingyuFavoriteListResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "video_list",
 }
 
-func (p *DouyinFavoriteListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3353,7 +3353,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinFavoriteListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFavoriteListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3363,7 +3363,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteListResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -3372,7 +3372,7 @@ func (p *DouyinFavoriteListResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFavoriteListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteListResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -3381,7 +3381,7 @@ func (p *DouyinFavoriteListResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFavoriteListResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuFavoriteListResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -3401,9 +3401,9 @@ func (p *DouyinFavoriteListResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinFavoriteListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_favorite_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_favorite_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3438,7 +3438,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3455,7 +3455,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3472,7 +3472,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuFavoriteListResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3497,14 +3497,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinFavoriteListResponse) String() string {
+func (p *QingyuFavoriteListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinFavoriteListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuFavoriteListResponse(%+v)", *p)
 }
 
-type DouyinCommentActionRequest struct {
+type QingyuCommentActionRequest struct {
 	// User authentication token
 	Token string `thrift:"token,1" json:"token" query:"token"`
 	// Video Id
@@ -3517,31 +3517,31 @@ type DouyinCommentActionRequest struct {
 	CommentID int64 `thrift:"comment_id,5" json:"comment_id" query:"comment_id"`
 }
 
-func NewDouyinCommentActionRequest() *DouyinCommentActionRequest {
-	return &DouyinCommentActionRequest{}
+func NewQingyuCommentActionRequest() *QingyuCommentActionRequest {
+	return &QingyuCommentActionRequest{}
 }
 
-func (p *DouyinCommentActionRequest) GetToken() (v string) {
+func (p *QingyuCommentActionRequest) GetToken() (v string) {
 	return p.Token
 }
 
-func (p *DouyinCommentActionRequest) GetVideoID() (v int64) {
+func (p *QingyuCommentActionRequest) GetVideoID() (v int64) {
 	return p.VideoID
 }
 
-func (p *DouyinCommentActionRequest) GetActionType() (v int8) {
+func (p *QingyuCommentActionRequest) GetActionType() (v int8) {
 	return p.ActionType
 }
 
-func (p *DouyinCommentActionRequest) GetCommentText() (v string) {
+func (p *QingyuCommentActionRequest) GetCommentText() (v string) {
 	return p.CommentText
 }
 
-func (p *DouyinCommentActionRequest) GetCommentID() (v int64) {
+func (p *QingyuCommentActionRequest) GetCommentID() (v int64) {
 	return p.CommentID
 }
 
-var fieldIDToName_DouyinCommentActionRequest = map[int16]string{
+var fieldIDToName_QingyuCommentActionRequest = map[int16]string{
 	1: "token",
 	2: "video_id",
 	3: "action_type",
@@ -3549,7 +3549,7 @@ var fieldIDToName_DouyinCommentActionRequest = map[int16]string{
 	5: "comment_id",
 }
 
-func (p *DouyinCommentActionRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3638,7 +3638,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinCommentActionRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuCommentActionRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3648,7 +3648,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinCommentActionRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuCommentActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -3657,7 +3657,7 @@ func (p *DouyinCommentActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentActionRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuCommentActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -3666,7 +3666,7 @@ func (p *DouyinCommentActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentActionRequest) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuCommentActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadByte(); err != nil {
 		return err
 	} else {
@@ -3675,7 +3675,7 @@ func (p *DouyinCommentActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentActionRequest) ReadField4(iprot thrift.TProtocol) error {
+func (p *QingyuCommentActionRequest) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -3684,7 +3684,7 @@ func (p *DouyinCommentActionRequest) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentActionRequest) ReadField5(iprot thrift.TProtocol) error {
+func (p *QingyuCommentActionRequest) ReadField5(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -3693,9 +3693,9 @@ func (p *DouyinCommentActionRequest) ReadField5(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentActionRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_comment_action_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_comment_action_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -3738,7 +3738,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinCommentActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3755,7 +3755,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinCommentActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3772,7 +3772,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinCommentActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("action_type", thrift.BYTE, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3789,7 +3789,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinCommentActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("comment_text", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3806,7 +3806,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
-func (p *DouyinCommentActionRequest) writeField5(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionRequest) writeField5(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("comment_id", thrift.I64, 5); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3823,14 +3823,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
 }
 
-func (p *DouyinCommentActionRequest) String() string {
+func (p *QingyuCommentActionRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinCommentActionRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuCommentActionRequest(%+v)", *p)
 }
 
-type DouyinCommentActionResponse struct {
+type QingyuCommentActionResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -3839,38 +3839,38 @@ type DouyinCommentActionResponse struct {
 	Comment *base.Comment `thrift:"comment,3" form:"comment" json:"comment" query:"comment"`
 }
 
-func NewDouyinCommentActionResponse() *DouyinCommentActionResponse {
-	return &DouyinCommentActionResponse{}
+func NewQingyuCommentActionResponse() *QingyuCommentActionResponse {
+	return &QingyuCommentActionResponse{}
 }
 
-func (p *DouyinCommentActionResponse) GetStatusCode() (v int32) {
+func (p *QingyuCommentActionResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinCommentActionResponse) GetStatusMsg() (v string) {
+func (p *QingyuCommentActionResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-var DouyinCommentActionResponse_Comment_DEFAULT *base.Comment
+var QingyuCommentActionResponse_Comment_DEFAULT *base.Comment
 
-func (p *DouyinCommentActionResponse) GetComment() (v *base.Comment) {
+func (p *QingyuCommentActionResponse) GetComment() (v *base.Comment) {
 	if !p.IsSetComment() {
-		return DouyinCommentActionResponse_Comment_DEFAULT
+		return QingyuCommentActionResponse_Comment_DEFAULT
 	}
 	return p.Comment
 }
 
-var fieldIDToName_DouyinCommentActionResponse = map[int16]string{
+var fieldIDToName_QingyuCommentActionResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "comment",
 }
 
-func (p *DouyinCommentActionResponse) IsSetComment() bool {
+func (p *QingyuCommentActionResponse) IsSetComment() bool {
 	return p.Comment != nil
 }
 
-func (p *DouyinCommentActionResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3939,7 +3939,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinCommentActionResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuCommentActionResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3949,7 +3949,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinCommentActionResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuCommentActionResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -3958,7 +3958,7 @@ func (p *DouyinCommentActionResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentActionResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuCommentActionResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -3967,7 +3967,7 @@ func (p *DouyinCommentActionResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentActionResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuCommentActionResponse) ReadField3(iprot thrift.TProtocol) error {
 	p.Comment = base.NewComment()
 	if err := p.Comment.Read(iprot); err != nil {
 		return err
@@ -3975,9 +3975,9 @@ func (p *DouyinCommentActionResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentActionResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_comment_action_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_comment_action_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -4012,7 +4012,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinCommentActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4029,7 +4029,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinCommentActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4046,7 +4046,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinCommentActionResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentActionResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("comment", thrift.STRUCT, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4063,38 +4063,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinCommentActionResponse) String() string {
+func (p *QingyuCommentActionResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinCommentActionResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuCommentActionResponse(%+v)", *p)
 }
 
-type DouyinCommentListRequest struct {
+type QingyuCommentListRequest struct {
 	// User authentication token
 	Token string `thrift:"token,1" json:"token" query:"token"`
 	// Video Id
 	VideoID int64 `thrift:"video_id,2" json:"video_id" query:"video_id"`
 }
 
-func NewDouyinCommentListRequest() *DouyinCommentListRequest {
-	return &DouyinCommentListRequest{}
+func NewQingyuCommentListRequest() *QingyuCommentListRequest {
+	return &QingyuCommentListRequest{}
 }
 
-func (p *DouyinCommentListRequest) GetToken() (v string) {
+func (p *QingyuCommentListRequest) GetToken() (v string) {
 	return p.Token
 }
 
-func (p *DouyinCommentListRequest) GetVideoID() (v int64) {
+func (p *QingyuCommentListRequest) GetVideoID() (v int64) {
 	return p.VideoID
 }
 
-var fieldIDToName_DouyinCommentListRequest = map[int16]string{
+var fieldIDToName_QingyuCommentListRequest = map[int16]string{
 	1: "token",
 	2: "video_id",
 }
 
-func (p *DouyinCommentListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4153,7 +4153,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinCommentListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuCommentListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4163,7 +4163,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinCommentListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuCommentListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -4172,7 +4172,7 @@ func (p *DouyinCommentListRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentListRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuCommentListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -4181,9 +4181,9 @@ func (p *DouyinCommentListRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_comment_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_comment_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -4214,7 +4214,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinCommentListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4231,7 +4231,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinCommentListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4248,14 +4248,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinCommentListRequest) String() string {
+func (p *QingyuCommentListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinCommentListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuCommentListRequest(%+v)", *p)
 }
 
-type DouyinCommentListResponse struct {
+type QingyuCommentListResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -4264,29 +4264,29 @@ type DouyinCommentListResponse struct {
 	CommentList []*base.Comment `thrift:"comment_list,3" form:"comment_list" json:"comment_list" query:"comment_list"`
 }
 
-func NewDouyinCommentListResponse() *DouyinCommentListResponse {
-	return &DouyinCommentListResponse{}
+func NewQingyuCommentListResponse() *QingyuCommentListResponse {
+	return &QingyuCommentListResponse{}
 }
 
-func (p *DouyinCommentListResponse) GetStatusCode() (v int32) {
+func (p *QingyuCommentListResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinCommentListResponse) GetStatusMsg() (v string) {
+func (p *QingyuCommentListResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinCommentListResponse) GetCommentList() (v []*base.Comment) {
+func (p *QingyuCommentListResponse) GetCommentList() (v []*base.Comment) {
 	return p.CommentList
 }
 
-var fieldIDToName_DouyinCommentListResponse = map[int16]string{
+var fieldIDToName_QingyuCommentListResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "comment_list",
 }
 
-func (p *DouyinCommentListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4355,7 +4355,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinCommentListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuCommentListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4365,7 +4365,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinCommentListResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuCommentListResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -4374,7 +4374,7 @@ func (p *DouyinCommentListResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuCommentListResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -4383,7 +4383,7 @@ func (p *DouyinCommentListResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentListResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuCommentListResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -4403,9 +4403,9 @@ func (p *DouyinCommentListResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinCommentListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_comment_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_comment_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -4440,7 +4440,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinCommentListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4457,7 +4457,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinCommentListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4474,7 +4474,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinCommentListResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuCommentListResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("comment_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4499,14 +4499,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinCommentListResponse) String() string {
+func (p *QingyuCommentListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinCommentListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuCommentListResponse(%+v)", *p)
 }
 
-type DouyinRelationActionRequest struct {
+type QingyuRelationActionRequest struct {
 	// User authentication token
 	Token string `thrift:"token,1" json:"token" query:"token"`
 	// The other party's user id
@@ -4515,29 +4515,29 @@ type DouyinRelationActionRequest struct {
 	ActionType int8 `thrift:"action_type,3" json:"action_type" query:"action_type" vd:"$==1 || $==2"`
 }
 
-func NewDouyinRelationActionRequest() *DouyinRelationActionRequest {
-	return &DouyinRelationActionRequest{}
+func NewQingyuRelationActionRequest() *QingyuRelationActionRequest {
+	return &QingyuRelationActionRequest{}
 }
 
-func (p *DouyinRelationActionRequest) GetToken() (v string) {
+func (p *QingyuRelationActionRequest) GetToken() (v string) {
 	return p.Token
 }
 
-func (p *DouyinRelationActionRequest) GetToUserID() (v int64) {
+func (p *QingyuRelationActionRequest) GetToUserID() (v int64) {
 	return p.ToUserID
 }
 
-func (p *DouyinRelationActionRequest) GetActionType() (v int8) {
+func (p *QingyuRelationActionRequest) GetActionType() (v int8) {
 	return p.ActionType
 }
 
-var fieldIDToName_DouyinRelationActionRequest = map[int16]string{
+var fieldIDToName_QingyuRelationActionRequest = map[int16]string{
 	1: "token",
 	2: "to_user_id",
 	3: "action_type",
 }
 
-func (p *DouyinRelationActionRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4606,7 +4606,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinRelationActionRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuRelationActionRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4616,7 +4616,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinRelationActionRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuRelationActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -4625,7 +4625,7 @@ func (p *DouyinRelationActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinRelationActionRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuRelationActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -4634,7 +4634,7 @@ func (p *DouyinRelationActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinRelationActionRequest) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuRelationActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadByte(); err != nil {
 		return err
 	} else {
@@ -4643,9 +4643,9 @@ func (p *DouyinRelationActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinRelationActionRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_relation_action_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_relation_action_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -4680,7 +4680,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinRelationActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4697,7 +4697,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinRelationActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("to_user_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4714,7 +4714,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinRelationActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("action_type", thrift.BYTE, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4731,38 +4731,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinRelationActionRequest) String() string {
+func (p *QingyuRelationActionRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinRelationActionRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuRelationActionRequest(%+v)", *p)
 }
 
-type DouyinRelationActionResponse struct {
+type QingyuRelationActionResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
 	StatusMsg string `thrift:"status_msg,2" form:"status_msg" json:"status_msg" query:"status_msg"`
 }
 
-func NewDouyinRelationActionResponse() *DouyinRelationActionResponse {
-	return &DouyinRelationActionResponse{}
+func NewQingyuRelationActionResponse() *QingyuRelationActionResponse {
+	return &QingyuRelationActionResponse{}
 }
 
-func (p *DouyinRelationActionResponse) GetStatusCode() (v int32) {
+func (p *QingyuRelationActionResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinRelationActionResponse) GetStatusMsg() (v string) {
+func (p *QingyuRelationActionResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-var fieldIDToName_DouyinRelationActionResponse = map[int16]string{
+var fieldIDToName_QingyuRelationActionResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 }
 
-func (p *DouyinRelationActionResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4821,7 +4821,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinRelationActionResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuRelationActionResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4831,7 +4831,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinRelationActionResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuRelationActionResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -4840,7 +4840,7 @@ func (p *DouyinRelationActionResponse) ReadField1(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *DouyinRelationActionResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuRelationActionResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -4849,9 +4849,9 @@ func (p *DouyinRelationActionResponse) ReadField2(iprot thrift.TProtocol) error 
 	return nil
 }
 
-func (p *DouyinRelationActionResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_relation_action_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_relation_action_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -4882,7 +4882,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinRelationActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4899,7 +4899,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinRelationActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4916,38 +4916,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinRelationActionResponse) String() string {
+func (p *QingyuRelationActionResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinRelationActionResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuRelationActionResponse(%+v)", *p)
 }
 
-type DouyinRelationFollowListRequest struct {
+type QingyuRelationFollowListRequest struct {
 	// User id
 	UserID int64 `thrift:"user_id,1" json:"user_id" query:"user_id"`
 	// User authentication token
 	Token string `thrift:"token,2" json:"token" query:"token"`
 }
 
-func NewDouyinRelationFollowListRequest() *DouyinRelationFollowListRequest {
-	return &DouyinRelationFollowListRequest{}
+func NewQingyuRelationFollowListRequest() *QingyuRelationFollowListRequest {
+	return &QingyuRelationFollowListRequest{}
 }
 
-func (p *DouyinRelationFollowListRequest) GetUserID() (v int64) {
+func (p *QingyuRelationFollowListRequest) GetUserID() (v int64) {
 	return p.UserID
 }
 
-func (p *DouyinRelationFollowListRequest) GetToken() (v string) {
+func (p *QingyuRelationFollowListRequest) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinRelationFollowListRequest = map[int16]string{
+var fieldIDToName_QingyuRelationFollowListRequest = map[int16]string{
 	1: "user_id",
 	2: "token",
 }
 
-func (p *DouyinRelationFollowListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -5006,7 +5006,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinRelationFollowListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuRelationFollowListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5016,7 +5016,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -5025,7 +5025,7 @@ func (p *DouyinRelationFollowListRequest) ReadField1(iprot thrift.TProtocol) err
 	return nil
 }
 
-func (p *DouyinRelationFollowListRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -5034,9 +5034,9 @@ func (p *DouyinRelationFollowListRequest) ReadField2(iprot thrift.TProtocol) err
 	return nil
 }
 
-func (p *DouyinRelationFollowListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_relation_follow_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_relation_follow_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5067,7 +5067,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5084,7 +5084,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5101,14 +5101,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListRequest) String() string {
+func (p *QingyuRelationFollowListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinRelationFollowListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuRelationFollowListRequest(%+v)", *p)
 }
 
-type DouyinRelationFollowListResponse struct {
+type QingyuRelationFollowListResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -5117,29 +5117,29 @@ type DouyinRelationFollowListResponse struct {
 	UserList []*base.User `thrift:"user_list,3" form:"user_list" json:"user_list" query:"user_list"`
 }
 
-func NewDouyinRelationFollowListResponse() *DouyinRelationFollowListResponse {
-	return &DouyinRelationFollowListResponse{}
+func NewQingyuRelationFollowListResponse() *QingyuRelationFollowListResponse {
+	return &QingyuRelationFollowListResponse{}
 }
 
-func (p *DouyinRelationFollowListResponse) GetStatusCode() (v int32) {
+func (p *QingyuRelationFollowListResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinRelationFollowListResponse) GetStatusMsg() (v string) {
+func (p *QingyuRelationFollowListResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinRelationFollowListResponse) GetUserList() (v []*base.User) {
+func (p *QingyuRelationFollowListResponse) GetUserList() (v []*base.User) {
 	return p.UserList
 }
 
-var fieldIDToName_DouyinRelationFollowListResponse = map[int16]string{
+var fieldIDToName_QingyuRelationFollowListResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "user_list",
 }
 
-func (p *DouyinRelationFollowListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -5208,7 +5208,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinRelationFollowListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuRelationFollowListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5218,7 +5218,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowListResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -5227,7 +5227,7 @@ func (p *DouyinRelationFollowListResponse) ReadField1(iprot thrift.TProtocol) er
 	return nil
 }
 
-func (p *DouyinRelationFollowListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowListResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -5236,7 +5236,7 @@ func (p *DouyinRelationFollowListResponse) ReadField2(iprot thrift.TProtocol) er
 	return nil
 }
 
-func (p *DouyinRelationFollowListResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowListResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -5256,9 +5256,9 @@ func (p *DouyinRelationFollowListResponse) ReadField3(iprot thrift.TProtocol) er
 	return nil
 }
 
-func (p *DouyinRelationFollowListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_relation_follow_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_relation_follow_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5293,7 +5293,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5310,7 +5310,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5327,7 +5327,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowListResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5352,38 +5352,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowListResponse) String() string {
+func (p *QingyuRelationFollowListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinRelationFollowListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuRelationFollowListResponse(%+v)", *p)
 }
 
-type DouyinRelationFollowerListRequest struct {
+type QingyuRelationFollowerListRequest struct {
 	// User id
 	UserID int64 `thrift:"user_id,1" json:"user_id" query:"user_id"`
 	// User authentication token
 	Token string `thrift:"token,2" json:"token" query:"token"`
 }
 
-func NewDouyinRelationFollowerListRequest() *DouyinRelationFollowerListRequest {
-	return &DouyinRelationFollowerListRequest{}
+func NewQingyuRelationFollowerListRequest() *QingyuRelationFollowerListRequest {
+	return &QingyuRelationFollowerListRequest{}
 }
 
-func (p *DouyinRelationFollowerListRequest) GetUserID() (v int64) {
+func (p *QingyuRelationFollowerListRequest) GetUserID() (v int64) {
 	return p.UserID
 }
 
-func (p *DouyinRelationFollowerListRequest) GetToken() (v string) {
+func (p *QingyuRelationFollowerListRequest) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinRelationFollowerListRequest = map[int16]string{
+var fieldIDToName_QingyuRelationFollowerListRequest = map[int16]string{
 	1: "user_id",
 	2: "token",
 }
 
-func (p *DouyinRelationFollowerListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -5442,7 +5442,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinRelationFollowerListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuRelationFollowerListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5452,7 +5452,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowerListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -5461,7 +5461,7 @@ func (p *DouyinRelationFollowerListRequest) ReadField1(iprot thrift.TProtocol) e
 	return nil
 }
 
-func (p *DouyinRelationFollowerListRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowerListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -5470,9 +5470,9 @@ func (p *DouyinRelationFollowerListRequest) ReadField2(iprot thrift.TProtocol) e
 	return nil
 }
 
-func (p *DouyinRelationFollowerListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_relation_follower_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_relation_follower_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5503,7 +5503,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5520,7 +5520,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5537,14 +5537,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListRequest) String() string {
+func (p *QingyuRelationFollowerListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinRelationFollowerListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuRelationFollowerListRequest(%+v)", *p)
 }
 
-type DouyinRelationFollowerListResponse struct {
+type QingyuRelationFollowerListResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -5553,29 +5553,29 @@ type DouyinRelationFollowerListResponse struct {
 	UserList []*base.User `thrift:"user_list,3" form:"user_list" json:"user_list" query:"user_list"`
 }
 
-func NewDouyinRelationFollowerListResponse() *DouyinRelationFollowerListResponse {
-	return &DouyinRelationFollowerListResponse{}
+func NewQingyuRelationFollowerListResponse() *QingyuRelationFollowerListResponse {
+	return &QingyuRelationFollowerListResponse{}
 }
 
-func (p *DouyinRelationFollowerListResponse) GetStatusCode() (v int32) {
+func (p *QingyuRelationFollowerListResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinRelationFollowerListResponse) GetStatusMsg() (v string) {
+func (p *QingyuRelationFollowerListResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinRelationFollowerListResponse) GetUserList() (v []*base.User) {
+func (p *QingyuRelationFollowerListResponse) GetUserList() (v []*base.User) {
 	return p.UserList
 }
 
-var fieldIDToName_DouyinRelationFollowerListResponse = map[int16]string{
+var fieldIDToName_QingyuRelationFollowerListResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "user_list",
 }
 
-func (p *DouyinRelationFollowerListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -5644,7 +5644,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinRelationFollowerListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuRelationFollowerListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5654,7 +5654,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowerListResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -5663,7 +5663,7 @@ func (p *DouyinRelationFollowerListResponse) ReadField1(iprot thrift.TProtocol) 
 	return nil
 }
 
-func (p *DouyinRelationFollowerListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowerListResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -5672,7 +5672,7 @@ func (p *DouyinRelationFollowerListResponse) ReadField2(iprot thrift.TProtocol) 
 	return nil
 }
 
-func (p *DouyinRelationFollowerListResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFollowerListResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -5692,9 +5692,9 @@ func (p *DouyinRelationFollowerListResponse) ReadField3(iprot thrift.TProtocol) 
 	return nil
 }
 
-func (p *DouyinRelationFollowerListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_relation_follower_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_relation_follower_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5729,7 +5729,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5746,7 +5746,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5763,7 +5763,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFollowerListResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5788,38 +5788,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinRelationFollowerListResponse) String() string {
+func (p *QingyuRelationFollowerListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinRelationFollowerListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuRelationFollowerListResponse(%+v)", *p)
 }
 
-type DouyinRelationFriendListRequest struct {
+type QingyuRelationFriendListRequest struct {
 	// User id
 	UserID int64 `thrift:"user_id,1" json:"user_id" query:"user_id"`
 	// User authentication token
 	Token string `thrift:"token,2" json:"token" query:"token"`
 }
 
-func NewDouyinRelationFriendListRequest() *DouyinRelationFriendListRequest {
-	return &DouyinRelationFriendListRequest{}
+func NewQingyuRelationFriendListRequest() *QingyuRelationFriendListRequest {
+	return &QingyuRelationFriendListRequest{}
 }
 
-func (p *DouyinRelationFriendListRequest) GetUserID() (v int64) {
+func (p *QingyuRelationFriendListRequest) GetUserID() (v int64) {
 	return p.UserID
 }
 
-func (p *DouyinRelationFriendListRequest) GetToken() (v string) {
+func (p *QingyuRelationFriendListRequest) GetToken() (v string) {
 	return p.Token
 }
 
-var fieldIDToName_DouyinRelationFriendListRequest = map[int16]string{
+var fieldIDToName_QingyuRelationFriendListRequest = map[int16]string{
 	1: "user_id",
 	2: "token",
 }
 
-func (p *DouyinRelationFriendListRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -5878,7 +5878,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinRelationFriendListRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuRelationFriendListRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -5888,7 +5888,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFriendListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -5897,7 +5897,7 @@ func (p *DouyinRelationFriendListRequest) ReadField1(iprot thrift.TProtocol) err
 	return nil
 }
 
-func (p *DouyinRelationFriendListRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFriendListRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -5906,9 +5906,9 @@ func (p *DouyinRelationFriendListRequest) ReadField2(iprot thrift.TProtocol) err
 	return nil
 }
 
-func (p *DouyinRelationFriendListRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_relation_friend_list_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_relation_friend_list_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -5939,7 +5939,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5956,7 +5956,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -5973,14 +5973,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListRequest) String() string {
+func (p *QingyuRelationFriendListRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinRelationFriendListRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuRelationFriendListRequest(%+v)", *p)
 }
 
-type DouyinRelationFriendListResponse struct {
+type QingyuRelationFriendListResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -5989,29 +5989,29 @@ type DouyinRelationFriendListResponse struct {
 	UserList []*base.FriendUser `thrift:"user_list,3" form:"user_list" json:"user_list" query:"user_list"`
 }
 
-func NewDouyinRelationFriendListResponse() *DouyinRelationFriendListResponse {
-	return &DouyinRelationFriendListResponse{}
+func NewQingyuRelationFriendListResponse() *QingyuRelationFriendListResponse {
+	return &QingyuRelationFriendListResponse{}
 }
 
-func (p *DouyinRelationFriendListResponse) GetStatusCode() (v int32) {
+func (p *QingyuRelationFriendListResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinRelationFriendListResponse) GetStatusMsg() (v string) {
+func (p *QingyuRelationFriendListResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinRelationFriendListResponse) GetUserList() (v []*base.FriendUser) {
+func (p *QingyuRelationFriendListResponse) GetUserList() (v []*base.FriendUser) {
 	return p.UserList
 }
 
-var fieldIDToName_DouyinRelationFriendListResponse = map[int16]string{
+var fieldIDToName_QingyuRelationFriendListResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "user_list",
 }
 
-func (p *DouyinRelationFriendListResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -6080,7 +6080,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinRelationFriendListResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuRelationFriendListResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -6090,7 +6090,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFriendListResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -6099,7 +6099,7 @@ func (p *DouyinRelationFriendListResponse) ReadField1(iprot thrift.TProtocol) er
 	return nil
 }
 
-func (p *DouyinRelationFriendListResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFriendListResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -6108,7 +6108,7 @@ func (p *DouyinRelationFriendListResponse) ReadField2(iprot thrift.TProtocol) er
 	return nil
 }
 
-func (p *DouyinRelationFriendListResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuRelationFriendListResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -6128,9 +6128,9 @@ func (p *DouyinRelationFriendListResponse) ReadField3(iprot thrift.TProtocol) er
 	return nil
 }
 
-func (p *DouyinRelationFriendListResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_relation_friend_list_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_relation_friend_list_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -6165,7 +6165,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6182,7 +6182,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6199,7 +6199,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuRelationFriendListResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("user_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6224,14 +6224,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinRelationFriendListResponse) String() string {
+func (p *QingyuRelationFriendListResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinRelationFriendListResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuRelationFriendListResponse(%+v)", *p)
 }
 
-type DouyinMessageChatRequest struct {
+type QingyuMessageChatRequest struct {
 	// User authentication token
 	Token string `thrift:"token,1" json:"token" query:"token"`
 	// The other party's user id
@@ -6240,29 +6240,29 @@ type DouyinMessageChatRequest struct {
 	PreMsgTime int64 `thrift:"pre_msg_time,3" json:"pre_msg_time" query:"pre_msg_time"`
 }
 
-func NewDouyinMessageChatRequest() *DouyinMessageChatRequest {
-	return &DouyinMessageChatRequest{}
+func NewQingyuMessageChatRequest() *QingyuMessageChatRequest {
+	return &QingyuMessageChatRequest{}
 }
 
-func (p *DouyinMessageChatRequest) GetToken() (v string) {
+func (p *QingyuMessageChatRequest) GetToken() (v string) {
 	return p.Token
 }
 
-func (p *DouyinMessageChatRequest) GetToUserID() (v int64) {
+func (p *QingyuMessageChatRequest) GetToUserID() (v int64) {
 	return p.ToUserID
 }
 
-func (p *DouyinMessageChatRequest) GetPreMsgTime() (v int64) {
+func (p *QingyuMessageChatRequest) GetPreMsgTime() (v int64) {
 	return p.PreMsgTime
 }
 
-var fieldIDToName_DouyinMessageChatRequest = map[int16]string{
+var fieldIDToName_QingyuMessageChatRequest = map[int16]string{
 	1: "token",
 	2: "to_user_id",
 	3: "pre_msg_time",
 }
 
-func (p *DouyinMessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -6331,7 +6331,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinMessageChatRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuMessageChatRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -6341,7 +6341,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinMessageChatRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuMessageChatRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -6350,7 +6350,7 @@ func (p *DouyinMessageChatRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageChatRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuMessageChatRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -6359,7 +6359,7 @@ func (p *DouyinMessageChatRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageChatRequest) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuMessageChatRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -6368,9 +6368,9 @@ func (p *DouyinMessageChatRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageChatRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_message_chat_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_message_chat_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -6405,7 +6405,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinMessageChatRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6422,7 +6422,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinMessageChatRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("to_user_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6439,7 +6439,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinMessageChatRequest) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("pre_msg_time", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6456,14 +6456,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinMessageChatRequest) String() string {
+func (p *QingyuMessageChatRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinMessageChatRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuMessageChatRequest(%+v)", *p)
 }
 
-type DouyinMessageChatResponse struct {
+type QingyuMessageChatResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
@@ -6472,29 +6472,29 @@ type DouyinMessageChatResponse struct {
 	MessageList []*base.Message `thrift:"message_list,3" form:"message_list" json:"message_list" query:"message_list"`
 }
 
-func NewDouyinMessageChatResponse() *DouyinMessageChatResponse {
-	return &DouyinMessageChatResponse{}
+func NewQingyuMessageChatResponse() *QingyuMessageChatResponse {
+	return &QingyuMessageChatResponse{}
 }
 
-func (p *DouyinMessageChatResponse) GetStatusCode() (v int32) {
+func (p *QingyuMessageChatResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinMessageChatResponse) GetStatusMsg() (v string) {
+func (p *QingyuMessageChatResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-func (p *DouyinMessageChatResponse) GetMessageList() (v []*base.Message) {
+func (p *QingyuMessageChatResponse) GetMessageList() (v []*base.Message) {
 	return p.MessageList
 }
 
-var fieldIDToName_DouyinMessageChatResponse = map[int16]string{
+var fieldIDToName_QingyuMessageChatResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "message_list",
 }
 
-func (p *DouyinMessageChatResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -6563,7 +6563,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinMessageChatResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuMessageChatResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -6573,7 +6573,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinMessageChatResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuMessageChatResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -6582,7 +6582,7 @@ func (p *DouyinMessageChatResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageChatResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuMessageChatResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -6591,7 +6591,7 @@ func (p *DouyinMessageChatResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageChatResponse) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuMessageChatResponse) ReadField3(iprot thrift.TProtocol) error {
 	_, size, err := iprot.ReadListBegin()
 	if err != nil {
 		return err
@@ -6611,9 +6611,9 @@ func (p *DouyinMessageChatResponse) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageChatResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_message_chat_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_message_chat_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -6648,7 +6648,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinMessageChatResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6665,7 +6665,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinMessageChatResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6682,7 +6682,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinMessageChatResponse) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageChatResponse) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("message_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6707,14 +6707,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinMessageChatResponse) String() string {
+func (p *QingyuMessageChatResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinMessageChatResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuMessageChatResponse(%+v)", *p)
 }
 
-type DouyinMessageActionRequest struct {
+type QingyuMessageActionRequest struct {
 	// User authentication token
 	Token string `thrift:"token,1" json:"token" query:"token"`
 	// The other party's user id
@@ -6725,34 +6725,34 @@ type DouyinMessageActionRequest struct {
 	Content string `thrift:"content,4" json:"content" query:"content" vd:"len($)>0 && len($)<255"`
 }
 
-func NewDouyinMessageActionRequest() *DouyinMessageActionRequest {
-	return &DouyinMessageActionRequest{}
+func NewQingyuMessageActionRequest() *QingyuMessageActionRequest {
+	return &QingyuMessageActionRequest{}
 }
 
-func (p *DouyinMessageActionRequest) GetToken() (v string) {
+func (p *QingyuMessageActionRequest) GetToken() (v string) {
 	return p.Token
 }
 
-func (p *DouyinMessageActionRequest) GetToUserID() (v int64) {
+func (p *QingyuMessageActionRequest) GetToUserID() (v int64) {
 	return p.ToUserID
 }
 
-func (p *DouyinMessageActionRequest) GetActionType() (v int8) {
+func (p *QingyuMessageActionRequest) GetActionType() (v int8) {
 	return p.ActionType
 }
 
-func (p *DouyinMessageActionRequest) GetContent() (v string) {
+func (p *QingyuMessageActionRequest) GetContent() (v string) {
 	return p.Content
 }
 
-var fieldIDToName_DouyinMessageActionRequest = map[int16]string{
+var fieldIDToName_QingyuMessageActionRequest = map[int16]string{
 	1: "token",
 	2: "to_user_id",
 	3: "action_type",
 	4: "content",
 }
 
-func (p *DouyinMessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -6831,7 +6831,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinMessageActionRequest[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuMessageActionRequest[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -6841,7 +6841,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinMessageActionRequest) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuMessageActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -6850,7 +6850,7 @@ func (p *DouyinMessageActionRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageActionRequest) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuMessageActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -6859,7 +6859,7 @@ func (p *DouyinMessageActionRequest) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageActionRequest) ReadField3(iprot thrift.TProtocol) error {
+func (p *QingyuMessageActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadByte(); err != nil {
 		return err
 	} else {
@@ -6868,7 +6868,7 @@ func (p *DouyinMessageActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageActionRequest) ReadField4(iprot thrift.TProtocol) error {
+func (p *QingyuMessageActionRequest) ReadField4(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -6877,9 +6877,9 @@ func (p *DouyinMessageActionRequest) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageActionRequest) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_message_action_request"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_message_action_request"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -6918,7 +6918,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinMessageActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6935,7 +6935,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinMessageActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionRequest) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("to_user_id", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6952,7 +6952,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinMessageActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionRequest) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("action_type", thrift.BYTE, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6969,7 +6969,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *DouyinMessageActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("content", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -6986,38 +6986,38 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
-func (p *DouyinMessageActionRequest) String() string {
+func (p *QingyuMessageActionRequest) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinMessageActionRequest(%+v)", *p)
+	return fmt.Sprintf("QingyuMessageActionRequest(%+v)", *p)
 }
 
-type DouyinMessageActionResponse struct {
+type QingyuMessageActionResponse struct {
 	// Status code, 0-success, other values-failure
 	StatusCode int32 `thrift:"status_code,1" form:"status_code" json:"status_code" query:"status_code"`
 	// Return status description
 	StatusMsg string `thrift:"status_msg,2" form:"status_msg" json:"status_msg" query:"status_msg"`
 }
 
-func NewDouyinMessageActionResponse() *DouyinMessageActionResponse {
-	return &DouyinMessageActionResponse{}
+func NewQingyuMessageActionResponse() *QingyuMessageActionResponse {
+	return &QingyuMessageActionResponse{}
 }
 
-func (p *DouyinMessageActionResponse) GetStatusCode() (v int32) {
+func (p *QingyuMessageActionResponse) GetStatusCode() (v int32) {
 	return p.StatusCode
 }
 
-func (p *DouyinMessageActionResponse) GetStatusMsg() (v string) {
+func (p *QingyuMessageActionResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-var fieldIDToName_DouyinMessageActionResponse = map[int16]string{
+var fieldIDToName_QingyuMessageActionResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 }
 
-func (p *DouyinMessageActionResponse) Read(iprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionResponse) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -7076,7 +7076,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_DouyinMessageActionResponse[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuMessageActionResponse[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -7086,7 +7086,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *DouyinMessageActionResponse) ReadField1(iprot thrift.TProtocol) error {
+func (p *QingyuMessageActionResponse) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -7095,7 +7095,7 @@ func (p *DouyinMessageActionResponse) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageActionResponse) ReadField2(iprot thrift.TProtocol) error {
+func (p *QingyuMessageActionResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -7104,9 +7104,9 @@ func (p *DouyinMessageActionResponse) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *DouyinMessageActionResponse) Write(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionResponse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("douyin_message_action_response"); err != nil {
+	if err = oprot.WriteStructBegin("qingyu_message_action_response"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -7137,7 +7137,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *DouyinMessageActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_code", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -7154,7 +7154,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *DouyinMessageActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *QingyuMessageActionResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("status_msg", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -7171,45 +7171,45 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *DouyinMessageActionResponse) String() string {
+func (p *QingyuMessageActionResponse) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("DouyinMessageActionResponse(%+v)", *p)
+	return fmt.Sprintf("QingyuMessageActionResponse(%+v)", *p)
 }
 
 type ApiService interface {
-	Register(ctx context.Context, req *DouyinUserRegisterRequest) (r *DouyinUserRegisterResponse, err error)
+	Register(ctx context.Context, req *QingyuUserRegisterRequest) (r *QingyuUserRegisterResponse, err error)
 
-	Login(ctx context.Context, req *DouyinUserLoginRequest) (r *DouyinUserLoginResponse, err error)
+	Login(ctx context.Context, req *QingyuUserLoginRequest) (r *QingyuUserLoginResponse, err error)
 
-	GetUserInfo(ctx context.Context, req *DouyinUserRequest) (r *DouyinUserResponse, err error)
+	GetUserInfo(ctx context.Context, req *QingyuUserRequest) (r *QingyuUserResponse, err error)
 
-	Feed(ctx context.Context, req *DouyinFeedRequest) (r *DouyinFeedResponse, err error)
+	Feed(ctx context.Context, req *QingyuFeedRequest) (r *QingyuFeedResponse, err error)
 
-	PublishVideo(ctx context.Context, req *DouyinPublishActionRequest) (r *DouyinPublishActionResponse, err error)
+	PublishVideo(ctx context.Context, req *QingyuPublishActionRequest) (r *QingyuPublishActionResponse, err error)
 
-	VideoList(ctx context.Context, req *DouyinPublishListRequest) (r *DouyinPublishListResponse, err error)
+	VideoList(ctx context.Context, req *QingyuPublishListRequest) (r *QingyuPublishListResponse, err error)
 
-	Favorite(ctx context.Context, req *DouyinFavoriteActionRequest) (r *DouyinFavoriteActionResponse, err error)
+	Favorite(ctx context.Context, req *QingyuFavoriteActionRequest) (r *QingyuFavoriteActionResponse, err error)
 
-	FavoriteList(ctx context.Context, req *DouyinFavoriteListRequest) (r *DouyinFavoriteListResponse, err error)
+	FavoriteList(ctx context.Context, req *QingyuFavoriteListRequest) (r *QingyuFavoriteListResponse, err error)
 
-	Comment(ctx context.Context, req *DouyinCommentActionRequest) (r *DouyinCommentActionResponse, err error)
+	Comment(ctx context.Context, req *QingyuCommentActionRequest) (r *QingyuCommentActionResponse, err error)
 
-	CommentList(ctx context.Context, req *DouyinCommentListRequest) (r *DouyinCommentListResponse, err error)
+	CommentList(ctx context.Context, req *QingyuCommentListRequest) (r *QingyuCommentListResponse, err error)
 
-	Action(ctx context.Context, req *DouyinRelationActionRequest) (r *DouyinRelationActionResponse, err error)
+	Action(ctx context.Context, req *QingyuRelationActionRequest) (r *QingyuRelationActionResponse, err error)
 
-	FollowingList(ctx context.Context, req *DouyinRelationFollowListRequest) (r *DouyinRelationFollowListResponse, err error)
+	FollowingList(ctx context.Context, req *QingyuRelationFollowListRequest) (r *QingyuRelationFollowListResponse, err error)
 
-	FollowerList(ctx context.Context, req *DouyinRelationFollowerListRequest) (r *DouyinRelationFollowerListResponse, err error)
+	FollowerList(ctx context.Context, req *QingyuRelationFollowerListRequest) (r *QingyuRelationFollowerListResponse, err error)
 
-	FriendList(ctx context.Context, req *DouyinRelationFriendListRequest) (r *DouyinRelationFriendListResponse, err error)
+	FriendList(ctx context.Context, req *QingyuRelationFriendListRequest) (r *QingyuRelationFriendListResponse, err error)
 
-	ChatHistory(ctx context.Context, req *DouyinMessageChatRequest) (r *DouyinMessageChatResponse, err error)
+	ChatHistory(ctx context.Context, req *QingyuMessageChatRequest) (r *QingyuMessageChatResponse, err error)
 
-	SentMessage(ctx context.Context, req *DouyinMessageActionRequest) (r *DouyinMessageActionResponse, err error)
+	SentMessage(ctx context.Context, req *QingyuMessageActionRequest) (r *QingyuMessageActionResponse, err error)
 }
 
 type ApiServiceClient struct {
@@ -7238,7 +7238,7 @@ func (p *ApiServiceClient) Client_() thrift.TClient {
 	return p.c
 }
 
-func (p *ApiServiceClient) Register(ctx context.Context, req *DouyinUserRegisterRequest) (r *DouyinUserRegisterResponse, err error) {
+func (p *ApiServiceClient) Register(ctx context.Context, req *QingyuUserRegisterRequest) (r *QingyuUserRegisterResponse, err error) {
 	var _args ApiServiceRegisterArgs
 	_args.Req = req
 	var _result ApiServiceRegisterResult
@@ -7247,7 +7247,7 @@ func (p *ApiServiceClient) Register(ctx context.Context, req *DouyinUserRegister
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) Login(ctx context.Context, req *DouyinUserLoginRequest) (r *DouyinUserLoginResponse, err error) {
+func (p *ApiServiceClient) Login(ctx context.Context, req *QingyuUserLoginRequest) (r *QingyuUserLoginResponse, err error) {
 	var _args ApiServiceLoginArgs
 	_args.Req = req
 	var _result ApiServiceLoginResult
@@ -7256,7 +7256,7 @@ func (p *ApiServiceClient) Login(ctx context.Context, req *DouyinUserLoginReques
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) GetUserInfo(ctx context.Context, req *DouyinUserRequest) (r *DouyinUserResponse, err error) {
+func (p *ApiServiceClient) GetUserInfo(ctx context.Context, req *QingyuUserRequest) (r *QingyuUserResponse, err error) {
 	var _args ApiServiceGetUserInfoArgs
 	_args.Req = req
 	var _result ApiServiceGetUserInfoResult
@@ -7265,7 +7265,7 @@ func (p *ApiServiceClient) GetUserInfo(ctx context.Context, req *DouyinUserReque
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) Feed(ctx context.Context, req *DouyinFeedRequest) (r *DouyinFeedResponse, err error) {
+func (p *ApiServiceClient) Feed(ctx context.Context, req *QingyuFeedRequest) (r *QingyuFeedResponse, err error) {
 	var _args ApiServiceFeedArgs
 	_args.Req = req
 	var _result ApiServiceFeedResult
@@ -7274,7 +7274,7 @@ func (p *ApiServiceClient) Feed(ctx context.Context, req *DouyinFeedRequest) (r 
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) PublishVideo(ctx context.Context, req *DouyinPublishActionRequest) (r *DouyinPublishActionResponse, err error) {
+func (p *ApiServiceClient) PublishVideo(ctx context.Context, req *QingyuPublishActionRequest) (r *QingyuPublishActionResponse, err error) {
 	var _args ApiServicePublishVideoArgs
 	_args.Req = req
 	var _result ApiServicePublishVideoResult
@@ -7283,7 +7283,7 @@ func (p *ApiServiceClient) PublishVideo(ctx context.Context, req *DouyinPublishA
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) VideoList(ctx context.Context, req *DouyinPublishListRequest) (r *DouyinPublishListResponse, err error) {
+func (p *ApiServiceClient) VideoList(ctx context.Context, req *QingyuPublishListRequest) (r *QingyuPublishListResponse, err error) {
 	var _args ApiServiceVideoListArgs
 	_args.Req = req
 	var _result ApiServiceVideoListResult
@@ -7292,7 +7292,7 @@ func (p *ApiServiceClient) VideoList(ctx context.Context, req *DouyinPublishList
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) Favorite(ctx context.Context, req *DouyinFavoriteActionRequest) (r *DouyinFavoriteActionResponse, err error) {
+func (p *ApiServiceClient) Favorite(ctx context.Context, req *QingyuFavoriteActionRequest) (r *QingyuFavoriteActionResponse, err error) {
 	var _args ApiServiceFavoriteArgs
 	_args.Req = req
 	var _result ApiServiceFavoriteResult
@@ -7301,7 +7301,7 @@ func (p *ApiServiceClient) Favorite(ctx context.Context, req *DouyinFavoriteActi
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) FavoriteList(ctx context.Context, req *DouyinFavoriteListRequest) (r *DouyinFavoriteListResponse, err error) {
+func (p *ApiServiceClient) FavoriteList(ctx context.Context, req *QingyuFavoriteListRequest) (r *QingyuFavoriteListResponse, err error) {
 	var _args ApiServiceFavoriteListArgs
 	_args.Req = req
 	var _result ApiServiceFavoriteListResult
@@ -7310,7 +7310,7 @@ func (p *ApiServiceClient) FavoriteList(ctx context.Context, req *DouyinFavorite
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) Comment(ctx context.Context, req *DouyinCommentActionRequest) (r *DouyinCommentActionResponse, err error) {
+func (p *ApiServiceClient) Comment(ctx context.Context, req *QingyuCommentActionRequest) (r *QingyuCommentActionResponse, err error) {
 	var _args ApiServiceCommentArgs
 	_args.Req = req
 	var _result ApiServiceCommentResult
@@ -7319,7 +7319,7 @@ func (p *ApiServiceClient) Comment(ctx context.Context, req *DouyinCommentAction
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) CommentList(ctx context.Context, req *DouyinCommentListRequest) (r *DouyinCommentListResponse, err error) {
+func (p *ApiServiceClient) CommentList(ctx context.Context, req *QingyuCommentListRequest) (r *QingyuCommentListResponse, err error) {
 	var _args ApiServiceCommentListArgs
 	_args.Req = req
 	var _result ApiServiceCommentListResult
@@ -7328,7 +7328,7 @@ func (p *ApiServiceClient) CommentList(ctx context.Context, req *DouyinCommentLi
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) Action(ctx context.Context, req *DouyinRelationActionRequest) (r *DouyinRelationActionResponse, err error) {
+func (p *ApiServiceClient) Action(ctx context.Context, req *QingyuRelationActionRequest) (r *QingyuRelationActionResponse, err error) {
 	var _args ApiServiceActionArgs
 	_args.Req = req
 	var _result ApiServiceActionResult
@@ -7337,7 +7337,7 @@ func (p *ApiServiceClient) Action(ctx context.Context, req *DouyinRelationAction
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) FollowingList(ctx context.Context, req *DouyinRelationFollowListRequest) (r *DouyinRelationFollowListResponse, err error) {
+func (p *ApiServiceClient) FollowingList(ctx context.Context, req *QingyuRelationFollowListRequest) (r *QingyuRelationFollowListResponse, err error) {
 	var _args ApiServiceFollowingListArgs
 	_args.Req = req
 	var _result ApiServiceFollowingListResult
@@ -7346,7 +7346,7 @@ func (p *ApiServiceClient) FollowingList(ctx context.Context, req *DouyinRelatio
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) FollowerList(ctx context.Context, req *DouyinRelationFollowerListRequest) (r *DouyinRelationFollowerListResponse, err error) {
+func (p *ApiServiceClient) FollowerList(ctx context.Context, req *QingyuRelationFollowerListRequest) (r *QingyuRelationFollowerListResponse, err error) {
 	var _args ApiServiceFollowerListArgs
 	_args.Req = req
 	var _result ApiServiceFollowerListResult
@@ -7355,7 +7355,7 @@ func (p *ApiServiceClient) FollowerList(ctx context.Context, req *DouyinRelation
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) FriendList(ctx context.Context, req *DouyinRelationFriendListRequest) (r *DouyinRelationFriendListResponse, err error) {
+func (p *ApiServiceClient) FriendList(ctx context.Context, req *QingyuRelationFriendListRequest) (r *QingyuRelationFriendListResponse, err error) {
 	var _args ApiServiceFriendListArgs
 	_args.Req = req
 	var _result ApiServiceFriendListResult
@@ -7364,7 +7364,7 @@ func (p *ApiServiceClient) FriendList(ctx context.Context, req *DouyinRelationFr
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) ChatHistory(ctx context.Context, req *DouyinMessageChatRequest) (r *DouyinMessageChatResponse, err error) {
+func (p *ApiServiceClient) ChatHistory(ctx context.Context, req *QingyuMessageChatRequest) (r *QingyuMessageChatResponse, err error) {
 	var _args ApiServiceChatHistoryArgs
 	_args.Req = req
 	var _result ApiServiceChatHistoryResult
@@ -7373,7 +7373,7 @@ func (p *ApiServiceClient) ChatHistory(ctx context.Context, req *DouyinMessageCh
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *ApiServiceClient) SentMessage(ctx context.Context, req *DouyinMessageActionRequest) (r *DouyinMessageActionResponse, err error) {
+func (p *ApiServiceClient) SentMessage(ctx context.Context, req *QingyuMessageActionRequest) (r *QingyuMessageActionResponse, err error) {
 	var _args ApiServiceSentMessageArgs
 	_args.Req = req
 	var _result ApiServiceSentMessageResult
@@ -7458,7 +7458,7 @@ func (p *apiServiceProcessorRegister) Process(ctx context.Context, seqId int32, 
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceRegisterResult{}
-	var retval *DouyinUserRegisterResponse
+	var retval *QingyuUserRegisterResponse
 	if retval, err2 = p.handler.Register(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Register: "+err2.Error())
 		oprot.WriteMessageBegin("Register", thrift.EXCEPTION, seqId)
@@ -7506,7 +7506,7 @@ func (p *apiServiceProcessorLogin) Process(ctx context.Context, seqId int32, ipr
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceLoginResult{}
-	var retval *DouyinUserLoginResponse
+	var retval *QingyuUserLoginResponse
 	if retval, err2 = p.handler.Login(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Login: "+err2.Error())
 		oprot.WriteMessageBegin("Login", thrift.EXCEPTION, seqId)
@@ -7554,7 +7554,7 @@ func (p *apiServiceProcessorGetUserInfo) Process(ctx context.Context, seqId int3
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceGetUserInfoResult{}
-	var retval *DouyinUserResponse
+	var retval *QingyuUserResponse
 	if retval, err2 = p.handler.GetUserInfo(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetUserInfo: "+err2.Error())
 		oprot.WriteMessageBegin("GetUserInfo", thrift.EXCEPTION, seqId)
@@ -7602,7 +7602,7 @@ func (p *apiServiceProcessorFeed) Process(ctx context.Context, seqId int32, ipro
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceFeedResult{}
-	var retval *DouyinFeedResponse
+	var retval *QingyuFeedResponse
 	if retval, err2 = p.handler.Feed(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Feed: "+err2.Error())
 		oprot.WriteMessageBegin("Feed", thrift.EXCEPTION, seqId)
@@ -7650,7 +7650,7 @@ func (p *apiServiceProcessorPublishVideo) Process(ctx context.Context, seqId int
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServicePublishVideoResult{}
-	var retval *DouyinPublishActionResponse
+	var retval *QingyuPublishActionResponse
 	if retval, err2 = p.handler.PublishVideo(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing PublishVideo: "+err2.Error())
 		oprot.WriteMessageBegin("PublishVideo", thrift.EXCEPTION, seqId)
@@ -7698,7 +7698,7 @@ func (p *apiServiceProcessorVideoList) Process(ctx context.Context, seqId int32,
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceVideoListResult{}
-	var retval *DouyinPublishListResponse
+	var retval *QingyuPublishListResponse
 	if retval, err2 = p.handler.VideoList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing VideoList: "+err2.Error())
 		oprot.WriteMessageBegin("VideoList", thrift.EXCEPTION, seqId)
@@ -7746,7 +7746,7 @@ func (p *apiServiceProcessorFavorite) Process(ctx context.Context, seqId int32, 
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceFavoriteResult{}
-	var retval *DouyinFavoriteActionResponse
+	var retval *QingyuFavoriteActionResponse
 	if retval, err2 = p.handler.Favorite(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Favorite: "+err2.Error())
 		oprot.WriteMessageBegin("Favorite", thrift.EXCEPTION, seqId)
@@ -7794,7 +7794,7 @@ func (p *apiServiceProcessorFavoriteList) Process(ctx context.Context, seqId int
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceFavoriteListResult{}
-	var retval *DouyinFavoriteListResponse
+	var retval *QingyuFavoriteListResponse
 	if retval, err2 = p.handler.FavoriteList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing FavoriteList: "+err2.Error())
 		oprot.WriteMessageBegin("FavoriteList", thrift.EXCEPTION, seqId)
@@ -7842,7 +7842,7 @@ func (p *apiServiceProcessorComment) Process(ctx context.Context, seqId int32, i
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceCommentResult{}
-	var retval *DouyinCommentActionResponse
+	var retval *QingyuCommentActionResponse
 	if retval, err2 = p.handler.Comment(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Comment: "+err2.Error())
 		oprot.WriteMessageBegin("Comment", thrift.EXCEPTION, seqId)
@@ -7890,7 +7890,7 @@ func (p *apiServiceProcessorCommentList) Process(ctx context.Context, seqId int3
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceCommentListResult{}
-	var retval *DouyinCommentListResponse
+	var retval *QingyuCommentListResponse
 	if retval, err2 = p.handler.CommentList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing CommentList: "+err2.Error())
 		oprot.WriteMessageBegin("CommentList", thrift.EXCEPTION, seqId)
@@ -7938,7 +7938,7 @@ func (p *apiServiceProcessorAction) Process(ctx context.Context, seqId int32, ip
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceActionResult{}
-	var retval *DouyinRelationActionResponse
+	var retval *QingyuRelationActionResponse
 	if retval, err2 = p.handler.Action(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing Action: "+err2.Error())
 		oprot.WriteMessageBegin("Action", thrift.EXCEPTION, seqId)
@@ -7986,7 +7986,7 @@ func (p *apiServiceProcessorFollowingList) Process(ctx context.Context, seqId in
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceFollowingListResult{}
-	var retval *DouyinRelationFollowListResponse
+	var retval *QingyuRelationFollowListResponse
 	if retval, err2 = p.handler.FollowingList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing FollowingList: "+err2.Error())
 		oprot.WriteMessageBegin("FollowingList", thrift.EXCEPTION, seqId)
@@ -8034,7 +8034,7 @@ func (p *apiServiceProcessorFollowerList) Process(ctx context.Context, seqId int
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceFollowerListResult{}
-	var retval *DouyinRelationFollowerListResponse
+	var retval *QingyuRelationFollowerListResponse
 	if retval, err2 = p.handler.FollowerList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing FollowerList: "+err2.Error())
 		oprot.WriteMessageBegin("FollowerList", thrift.EXCEPTION, seqId)
@@ -8082,7 +8082,7 @@ func (p *apiServiceProcessorFriendList) Process(ctx context.Context, seqId int32
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceFriendListResult{}
-	var retval *DouyinRelationFriendListResponse
+	var retval *QingyuRelationFriendListResponse
 	if retval, err2 = p.handler.FriendList(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing FriendList: "+err2.Error())
 		oprot.WriteMessageBegin("FriendList", thrift.EXCEPTION, seqId)
@@ -8130,7 +8130,7 @@ func (p *apiServiceProcessorChatHistory) Process(ctx context.Context, seqId int3
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceChatHistoryResult{}
-	var retval *DouyinMessageChatResponse
+	var retval *QingyuMessageChatResponse
 	if retval, err2 = p.handler.ChatHistory(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ChatHistory: "+err2.Error())
 		oprot.WriteMessageBegin("ChatHistory", thrift.EXCEPTION, seqId)
@@ -8178,7 +8178,7 @@ func (p *apiServiceProcessorSentMessage) Process(ctx context.Context, seqId int3
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := ApiServiceSentMessageResult{}
-	var retval *DouyinMessageActionResponse
+	var retval *QingyuMessageActionResponse
 	if retval, err2 = p.handler.SentMessage(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing SentMessage: "+err2.Error())
 		oprot.WriteMessageBegin("SentMessage", thrift.EXCEPTION, seqId)
@@ -8208,16 +8208,16 @@ func (p *apiServiceProcessorSentMessage) Process(ctx context.Context, seqId int3
 }
 
 type ApiServiceRegisterArgs struct {
-	Req *DouyinUserRegisterRequest `thrift:"req,1"`
+	Req *QingyuUserRegisterRequest `thrift:"req,1"`
 }
 
 func NewApiServiceRegisterArgs() *ApiServiceRegisterArgs {
 	return &ApiServiceRegisterArgs{}
 }
 
-var ApiServiceRegisterArgs_Req_DEFAULT *DouyinUserRegisterRequest
+var ApiServiceRegisterArgs_Req_DEFAULT *QingyuUserRegisterRequest
 
-func (p *ApiServiceRegisterArgs) GetReq() (v *DouyinUserRegisterRequest) {
+func (p *ApiServiceRegisterArgs) GetReq() (v *QingyuUserRegisterRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceRegisterArgs_Req_DEFAULT
 	}
@@ -8292,7 +8292,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceRegisterArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinUserRegisterRequest()
+	p.Req = NewQingyuUserRegisterRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -8353,16 +8353,16 @@ func (p *ApiServiceRegisterArgs) String() string {
 }
 
 type ApiServiceRegisterResult struct {
-	Success *DouyinUserRegisterResponse `thrift:"success,0,optional"`
+	Success *QingyuUserRegisterResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceRegisterResult() *ApiServiceRegisterResult {
 	return &ApiServiceRegisterResult{}
 }
 
-var ApiServiceRegisterResult_Success_DEFAULT *DouyinUserRegisterResponse
+var ApiServiceRegisterResult_Success_DEFAULT *QingyuUserRegisterResponse
 
-func (p *ApiServiceRegisterResult) GetSuccess() (v *DouyinUserRegisterResponse) {
+func (p *ApiServiceRegisterResult) GetSuccess() (v *QingyuUserRegisterResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceRegisterResult_Success_DEFAULT
 	}
@@ -8437,7 +8437,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceRegisterResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinUserRegisterResponse()
+	p.Success = NewQingyuUserRegisterResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -8500,16 +8500,16 @@ func (p *ApiServiceRegisterResult) String() string {
 }
 
 type ApiServiceLoginArgs struct {
-	Req *DouyinUserLoginRequest `thrift:"req,1"`
+	Req *QingyuUserLoginRequest `thrift:"req,1"`
 }
 
 func NewApiServiceLoginArgs() *ApiServiceLoginArgs {
 	return &ApiServiceLoginArgs{}
 }
 
-var ApiServiceLoginArgs_Req_DEFAULT *DouyinUserLoginRequest
+var ApiServiceLoginArgs_Req_DEFAULT *QingyuUserLoginRequest
 
-func (p *ApiServiceLoginArgs) GetReq() (v *DouyinUserLoginRequest) {
+func (p *ApiServiceLoginArgs) GetReq() (v *QingyuUserLoginRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceLoginArgs_Req_DEFAULT
 	}
@@ -8584,7 +8584,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceLoginArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinUserLoginRequest()
+	p.Req = NewQingyuUserLoginRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -8645,16 +8645,16 @@ func (p *ApiServiceLoginArgs) String() string {
 }
 
 type ApiServiceLoginResult struct {
-	Success *DouyinUserLoginResponse `thrift:"success,0,optional"`
+	Success *QingyuUserLoginResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceLoginResult() *ApiServiceLoginResult {
 	return &ApiServiceLoginResult{}
 }
 
-var ApiServiceLoginResult_Success_DEFAULT *DouyinUserLoginResponse
+var ApiServiceLoginResult_Success_DEFAULT *QingyuUserLoginResponse
 
-func (p *ApiServiceLoginResult) GetSuccess() (v *DouyinUserLoginResponse) {
+func (p *ApiServiceLoginResult) GetSuccess() (v *QingyuUserLoginResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceLoginResult_Success_DEFAULT
 	}
@@ -8729,7 +8729,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceLoginResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinUserLoginResponse()
+	p.Success = NewQingyuUserLoginResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -8792,16 +8792,16 @@ func (p *ApiServiceLoginResult) String() string {
 }
 
 type ApiServiceGetUserInfoArgs struct {
-	Req *DouyinUserRequest `thrift:"req,1"`
+	Req *QingyuUserRequest `thrift:"req,1"`
 }
 
 func NewApiServiceGetUserInfoArgs() *ApiServiceGetUserInfoArgs {
 	return &ApiServiceGetUserInfoArgs{}
 }
 
-var ApiServiceGetUserInfoArgs_Req_DEFAULT *DouyinUserRequest
+var ApiServiceGetUserInfoArgs_Req_DEFAULT *QingyuUserRequest
 
-func (p *ApiServiceGetUserInfoArgs) GetReq() (v *DouyinUserRequest) {
+func (p *ApiServiceGetUserInfoArgs) GetReq() (v *QingyuUserRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceGetUserInfoArgs_Req_DEFAULT
 	}
@@ -8876,7 +8876,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceGetUserInfoArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinUserRequest()
+	p.Req = NewQingyuUserRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -8937,16 +8937,16 @@ func (p *ApiServiceGetUserInfoArgs) String() string {
 }
 
 type ApiServiceGetUserInfoResult struct {
-	Success *DouyinUserResponse `thrift:"success,0,optional"`
+	Success *QingyuUserResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceGetUserInfoResult() *ApiServiceGetUserInfoResult {
 	return &ApiServiceGetUserInfoResult{}
 }
 
-var ApiServiceGetUserInfoResult_Success_DEFAULT *DouyinUserResponse
+var ApiServiceGetUserInfoResult_Success_DEFAULT *QingyuUserResponse
 
-func (p *ApiServiceGetUserInfoResult) GetSuccess() (v *DouyinUserResponse) {
+func (p *ApiServiceGetUserInfoResult) GetSuccess() (v *QingyuUserResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceGetUserInfoResult_Success_DEFAULT
 	}
@@ -9021,7 +9021,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceGetUserInfoResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinUserResponse()
+	p.Success = NewQingyuUserResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -9084,16 +9084,16 @@ func (p *ApiServiceGetUserInfoResult) String() string {
 }
 
 type ApiServiceFeedArgs struct {
-	Req *DouyinFeedRequest `thrift:"req,1"`
+	Req *QingyuFeedRequest `thrift:"req,1"`
 }
 
 func NewApiServiceFeedArgs() *ApiServiceFeedArgs {
 	return &ApiServiceFeedArgs{}
 }
 
-var ApiServiceFeedArgs_Req_DEFAULT *DouyinFeedRequest
+var ApiServiceFeedArgs_Req_DEFAULT *QingyuFeedRequest
 
-func (p *ApiServiceFeedArgs) GetReq() (v *DouyinFeedRequest) {
+func (p *ApiServiceFeedArgs) GetReq() (v *QingyuFeedRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceFeedArgs_Req_DEFAULT
 	}
@@ -9168,7 +9168,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFeedArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinFeedRequest()
+	p.Req = NewQingyuFeedRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -9229,16 +9229,16 @@ func (p *ApiServiceFeedArgs) String() string {
 }
 
 type ApiServiceFeedResult struct {
-	Success *DouyinFeedResponse `thrift:"success,0,optional"`
+	Success *QingyuFeedResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceFeedResult() *ApiServiceFeedResult {
 	return &ApiServiceFeedResult{}
 }
 
-var ApiServiceFeedResult_Success_DEFAULT *DouyinFeedResponse
+var ApiServiceFeedResult_Success_DEFAULT *QingyuFeedResponse
 
-func (p *ApiServiceFeedResult) GetSuccess() (v *DouyinFeedResponse) {
+func (p *ApiServiceFeedResult) GetSuccess() (v *QingyuFeedResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceFeedResult_Success_DEFAULT
 	}
@@ -9313,7 +9313,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFeedResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinFeedResponse()
+	p.Success = NewQingyuFeedResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -9376,16 +9376,16 @@ func (p *ApiServiceFeedResult) String() string {
 }
 
 type ApiServicePublishVideoArgs struct {
-	Req *DouyinPublishActionRequest `thrift:"req,1"`
+	Req *QingyuPublishActionRequest `thrift:"req,1"`
 }
 
 func NewApiServicePublishVideoArgs() *ApiServicePublishVideoArgs {
 	return &ApiServicePublishVideoArgs{}
 }
 
-var ApiServicePublishVideoArgs_Req_DEFAULT *DouyinPublishActionRequest
+var ApiServicePublishVideoArgs_Req_DEFAULT *QingyuPublishActionRequest
 
-func (p *ApiServicePublishVideoArgs) GetReq() (v *DouyinPublishActionRequest) {
+func (p *ApiServicePublishVideoArgs) GetReq() (v *QingyuPublishActionRequest) {
 	if !p.IsSetReq() {
 		return ApiServicePublishVideoArgs_Req_DEFAULT
 	}
@@ -9460,7 +9460,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServicePublishVideoArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinPublishActionRequest()
+	p.Req = NewQingyuPublishActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -9521,16 +9521,16 @@ func (p *ApiServicePublishVideoArgs) String() string {
 }
 
 type ApiServicePublishVideoResult struct {
-	Success *DouyinPublishActionResponse `thrift:"success,0,optional"`
+	Success *QingyuPublishActionResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServicePublishVideoResult() *ApiServicePublishVideoResult {
 	return &ApiServicePublishVideoResult{}
 }
 
-var ApiServicePublishVideoResult_Success_DEFAULT *DouyinPublishActionResponse
+var ApiServicePublishVideoResult_Success_DEFAULT *QingyuPublishActionResponse
 
-func (p *ApiServicePublishVideoResult) GetSuccess() (v *DouyinPublishActionResponse) {
+func (p *ApiServicePublishVideoResult) GetSuccess() (v *QingyuPublishActionResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServicePublishVideoResult_Success_DEFAULT
 	}
@@ -9605,7 +9605,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServicePublishVideoResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinPublishActionResponse()
+	p.Success = NewQingyuPublishActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -9668,16 +9668,16 @@ func (p *ApiServicePublishVideoResult) String() string {
 }
 
 type ApiServiceVideoListArgs struct {
-	Req *DouyinPublishListRequest `thrift:"req,1"`
+	Req *QingyuPublishListRequest `thrift:"req,1"`
 }
 
 func NewApiServiceVideoListArgs() *ApiServiceVideoListArgs {
 	return &ApiServiceVideoListArgs{}
 }
 
-var ApiServiceVideoListArgs_Req_DEFAULT *DouyinPublishListRequest
+var ApiServiceVideoListArgs_Req_DEFAULT *QingyuPublishListRequest
 
-func (p *ApiServiceVideoListArgs) GetReq() (v *DouyinPublishListRequest) {
+func (p *ApiServiceVideoListArgs) GetReq() (v *QingyuPublishListRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceVideoListArgs_Req_DEFAULT
 	}
@@ -9752,7 +9752,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceVideoListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinPublishListRequest()
+	p.Req = NewQingyuPublishListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -9813,16 +9813,16 @@ func (p *ApiServiceVideoListArgs) String() string {
 }
 
 type ApiServiceVideoListResult struct {
-	Success *DouyinPublishListResponse `thrift:"success,0,optional"`
+	Success *QingyuPublishListResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceVideoListResult() *ApiServiceVideoListResult {
 	return &ApiServiceVideoListResult{}
 }
 
-var ApiServiceVideoListResult_Success_DEFAULT *DouyinPublishListResponse
+var ApiServiceVideoListResult_Success_DEFAULT *QingyuPublishListResponse
 
-func (p *ApiServiceVideoListResult) GetSuccess() (v *DouyinPublishListResponse) {
+func (p *ApiServiceVideoListResult) GetSuccess() (v *QingyuPublishListResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceVideoListResult_Success_DEFAULT
 	}
@@ -9897,7 +9897,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceVideoListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinPublishListResponse()
+	p.Success = NewQingyuPublishListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -9960,16 +9960,16 @@ func (p *ApiServiceVideoListResult) String() string {
 }
 
 type ApiServiceFavoriteArgs struct {
-	Req *DouyinFavoriteActionRequest `thrift:"req,1"`
+	Req *QingyuFavoriteActionRequest `thrift:"req,1"`
 }
 
 func NewApiServiceFavoriteArgs() *ApiServiceFavoriteArgs {
 	return &ApiServiceFavoriteArgs{}
 }
 
-var ApiServiceFavoriteArgs_Req_DEFAULT *DouyinFavoriteActionRequest
+var ApiServiceFavoriteArgs_Req_DEFAULT *QingyuFavoriteActionRequest
 
-func (p *ApiServiceFavoriteArgs) GetReq() (v *DouyinFavoriteActionRequest) {
+func (p *ApiServiceFavoriteArgs) GetReq() (v *QingyuFavoriteActionRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceFavoriteArgs_Req_DEFAULT
 	}
@@ -10044,7 +10044,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFavoriteArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinFavoriteActionRequest()
+	p.Req = NewQingyuFavoriteActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -10105,16 +10105,16 @@ func (p *ApiServiceFavoriteArgs) String() string {
 }
 
 type ApiServiceFavoriteResult struct {
-	Success *DouyinFavoriteActionResponse `thrift:"success,0,optional"`
+	Success *QingyuFavoriteActionResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceFavoriteResult() *ApiServiceFavoriteResult {
 	return &ApiServiceFavoriteResult{}
 }
 
-var ApiServiceFavoriteResult_Success_DEFAULT *DouyinFavoriteActionResponse
+var ApiServiceFavoriteResult_Success_DEFAULT *QingyuFavoriteActionResponse
 
-func (p *ApiServiceFavoriteResult) GetSuccess() (v *DouyinFavoriteActionResponse) {
+func (p *ApiServiceFavoriteResult) GetSuccess() (v *QingyuFavoriteActionResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceFavoriteResult_Success_DEFAULT
 	}
@@ -10189,7 +10189,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFavoriteResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinFavoriteActionResponse()
+	p.Success = NewQingyuFavoriteActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -10252,16 +10252,16 @@ func (p *ApiServiceFavoriteResult) String() string {
 }
 
 type ApiServiceFavoriteListArgs struct {
-	Req *DouyinFavoriteListRequest `thrift:"req,1"`
+	Req *QingyuFavoriteListRequest `thrift:"req,1"`
 }
 
 func NewApiServiceFavoriteListArgs() *ApiServiceFavoriteListArgs {
 	return &ApiServiceFavoriteListArgs{}
 }
 
-var ApiServiceFavoriteListArgs_Req_DEFAULT *DouyinFavoriteListRequest
+var ApiServiceFavoriteListArgs_Req_DEFAULT *QingyuFavoriteListRequest
 
-func (p *ApiServiceFavoriteListArgs) GetReq() (v *DouyinFavoriteListRequest) {
+func (p *ApiServiceFavoriteListArgs) GetReq() (v *QingyuFavoriteListRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceFavoriteListArgs_Req_DEFAULT
 	}
@@ -10336,7 +10336,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFavoriteListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinFavoriteListRequest()
+	p.Req = NewQingyuFavoriteListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -10397,16 +10397,16 @@ func (p *ApiServiceFavoriteListArgs) String() string {
 }
 
 type ApiServiceFavoriteListResult struct {
-	Success *DouyinFavoriteListResponse `thrift:"success,0,optional"`
+	Success *QingyuFavoriteListResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceFavoriteListResult() *ApiServiceFavoriteListResult {
 	return &ApiServiceFavoriteListResult{}
 }
 
-var ApiServiceFavoriteListResult_Success_DEFAULT *DouyinFavoriteListResponse
+var ApiServiceFavoriteListResult_Success_DEFAULT *QingyuFavoriteListResponse
 
-func (p *ApiServiceFavoriteListResult) GetSuccess() (v *DouyinFavoriteListResponse) {
+func (p *ApiServiceFavoriteListResult) GetSuccess() (v *QingyuFavoriteListResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceFavoriteListResult_Success_DEFAULT
 	}
@@ -10481,7 +10481,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFavoriteListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinFavoriteListResponse()
+	p.Success = NewQingyuFavoriteListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -10544,16 +10544,16 @@ func (p *ApiServiceFavoriteListResult) String() string {
 }
 
 type ApiServiceCommentArgs struct {
-	Req *DouyinCommentActionRequest `thrift:"req,1"`
+	Req *QingyuCommentActionRequest `thrift:"req,1"`
 }
 
 func NewApiServiceCommentArgs() *ApiServiceCommentArgs {
 	return &ApiServiceCommentArgs{}
 }
 
-var ApiServiceCommentArgs_Req_DEFAULT *DouyinCommentActionRequest
+var ApiServiceCommentArgs_Req_DEFAULT *QingyuCommentActionRequest
 
-func (p *ApiServiceCommentArgs) GetReq() (v *DouyinCommentActionRequest) {
+func (p *ApiServiceCommentArgs) GetReq() (v *QingyuCommentActionRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceCommentArgs_Req_DEFAULT
 	}
@@ -10628,7 +10628,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceCommentArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinCommentActionRequest()
+	p.Req = NewQingyuCommentActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -10689,16 +10689,16 @@ func (p *ApiServiceCommentArgs) String() string {
 }
 
 type ApiServiceCommentResult struct {
-	Success *DouyinCommentActionResponse `thrift:"success,0,optional"`
+	Success *QingyuCommentActionResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceCommentResult() *ApiServiceCommentResult {
 	return &ApiServiceCommentResult{}
 }
 
-var ApiServiceCommentResult_Success_DEFAULT *DouyinCommentActionResponse
+var ApiServiceCommentResult_Success_DEFAULT *QingyuCommentActionResponse
 
-func (p *ApiServiceCommentResult) GetSuccess() (v *DouyinCommentActionResponse) {
+func (p *ApiServiceCommentResult) GetSuccess() (v *QingyuCommentActionResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceCommentResult_Success_DEFAULT
 	}
@@ -10773,7 +10773,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceCommentResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinCommentActionResponse()
+	p.Success = NewQingyuCommentActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -10836,16 +10836,16 @@ func (p *ApiServiceCommentResult) String() string {
 }
 
 type ApiServiceCommentListArgs struct {
-	Req *DouyinCommentListRequest `thrift:"req,1"`
+	Req *QingyuCommentListRequest `thrift:"req,1"`
 }
 
 func NewApiServiceCommentListArgs() *ApiServiceCommentListArgs {
 	return &ApiServiceCommentListArgs{}
 }
 
-var ApiServiceCommentListArgs_Req_DEFAULT *DouyinCommentListRequest
+var ApiServiceCommentListArgs_Req_DEFAULT *QingyuCommentListRequest
 
-func (p *ApiServiceCommentListArgs) GetReq() (v *DouyinCommentListRequest) {
+func (p *ApiServiceCommentListArgs) GetReq() (v *QingyuCommentListRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceCommentListArgs_Req_DEFAULT
 	}
@@ -10920,7 +10920,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceCommentListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinCommentListRequest()
+	p.Req = NewQingyuCommentListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -10981,16 +10981,16 @@ func (p *ApiServiceCommentListArgs) String() string {
 }
 
 type ApiServiceCommentListResult struct {
-	Success *DouyinCommentListResponse `thrift:"success,0,optional"`
+	Success *QingyuCommentListResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceCommentListResult() *ApiServiceCommentListResult {
 	return &ApiServiceCommentListResult{}
 }
 
-var ApiServiceCommentListResult_Success_DEFAULT *DouyinCommentListResponse
+var ApiServiceCommentListResult_Success_DEFAULT *QingyuCommentListResponse
 
-func (p *ApiServiceCommentListResult) GetSuccess() (v *DouyinCommentListResponse) {
+func (p *ApiServiceCommentListResult) GetSuccess() (v *QingyuCommentListResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceCommentListResult_Success_DEFAULT
 	}
@@ -11065,7 +11065,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceCommentListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinCommentListResponse()
+	p.Success = NewQingyuCommentListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -11128,16 +11128,16 @@ func (p *ApiServiceCommentListResult) String() string {
 }
 
 type ApiServiceActionArgs struct {
-	Req *DouyinRelationActionRequest `thrift:"req,1"`
+	Req *QingyuRelationActionRequest `thrift:"req,1"`
 }
 
 func NewApiServiceActionArgs() *ApiServiceActionArgs {
 	return &ApiServiceActionArgs{}
 }
 
-var ApiServiceActionArgs_Req_DEFAULT *DouyinRelationActionRequest
+var ApiServiceActionArgs_Req_DEFAULT *QingyuRelationActionRequest
 
-func (p *ApiServiceActionArgs) GetReq() (v *DouyinRelationActionRequest) {
+func (p *ApiServiceActionArgs) GetReq() (v *QingyuRelationActionRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceActionArgs_Req_DEFAULT
 	}
@@ -11212,7 +11212,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceActionArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinRelationActionRequest()
+	p.Req = NewQingyuRelationActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -11273,16 +11273,16 @@ func (p *ApiServiceActionArgs) String() string {
 }
 
 type ApiServiceActionResult struct {
-	Success *DouyinRelationActionResponse `thrift:"success,0,optional"`
+	Success *QingyuRelationActionResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceActionResult() *ApiServiceActionResult {
 	return &ApiServiceActionResult{}
 }
 
-var ApiServiceActionResult_Success_DEFAULT *DouyinRelationActionResponse
+var ApiServiceActionResult_Success_DEFAULT *QingyuRelationActionResponse
 
-func (p *ApiServiceActionResult) GetSuccess() (v *DouyinRelationActionResponse) {
+func (p *ApiServiceActionResult) GetSuccess() (v *QingyuRelationActionResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceActionResult_Success_DEFAULT
 	}
@@ -11357,7 +11357,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceActionResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinRelationActionResponse()
+	p.Success = NewQingyuRelationActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -11420,16 +11420,16 @@ func (p *ApiServiceActionResult) String() string {
 }
 
 type ApiServiceFollowingListArgs struct {
-	Req *DouyinRelationFollowListRequest `thrift:"req,1"`
+	Req *QingyuRelationFollowListRequest `thrift:"req,1"`
 }
 
 func NewApiServiceFollowingListArgs() *ApiServiceFollowingListArgs {
 	return &ApiServiceFollowingListArgs{}
 }
 
-var ApiServiceFollowingListArgs_Req_DEFAULT *DouyinRelationFollowListRequest
+var ApiServiceFollowingListArgs_Req_DEFAULT *QingyuRelationFollowListRequest
 
-func (p *ApiServiceFollowingListArgs) GetReq() (v *DouyinRelationFollowListRequest) {
+func (p *ApiServiceFollowingListArgs) GetReq() (v *QingyuRelationFollowListRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceFollowingListArgs_Req_DEFAULT
 	}
@@ -11504,7 +11504,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFollowingListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinRelationFollowListRequest()
+	p.Req = NewQingyuRelationFollowListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -11565,16 +11565,16 @@ func (p *ApiServiceFollowingListArgs) String() string {
 }
 
 type ApiServiceFollowingListResult struct {
-	Success *DouyinRelationFollowListResponse `thrift:"success,0,optional"`
+	Success *QingyuRelationFollowListResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceFollowingListResult() *ApiServiceFollowingListResult {
 	return &ApiServiceFollowingListResult{}
 }
 
-var ApiServiceFollowingListResult_Success_DEFAULT *DouyinRelationFollowListResponse
+var ApiServiceFollowingListResult_Success_DEFAULT *QingyuRelationFollowListResponse
 
-func (p *ApiServiceFollowingListResult) GetSuccess() (v *DouyinRelationFollowListResponse) {
+func (p *ApiServiceFollowingListResult) GetSuccess() (v *QingyuRelationFollowListResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceFollowingListResult_Success_DEFAULT
 	}
@@ -11649,7 +11649,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFollowingListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinRelationFollowListResponse()
+	p.Success = NewQingyuRelationFollowListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -11712,16 +11712,16 @@ func (p *ApiServiceFollowingListResult) String() string {
 }
 
 type ApiServiceFollowerListArgs struct {
-	Req *DouyinRelationFollowerListRequest `thrift:"req,1"`
+	Req *QingyuRelationFollowerListRequest `thrift:"req,1"`
 }
 
 func NewApiServiceFollowerListArgs() *ApiServiceFollowerListArgs {
 	return &ApiServiceFollowerListArgs{}
 }
 
-var ApiServiceFollowerListArgs_Req_DEFAULT *DouyinRelationFollowerListRequest
+var ApiServiceFollowerListArgs_Req_DEFAULT *QingyuRelationFollowerListRequest
 
-func (p *ApiServiceFollowerListArgs) GetReq() (v *DouyinRelationFollowerListRequest) {
+func (p *ApiServiceFollowerListArgs) GetReq() (v *QingyuRelationFollowerListRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceFollowerListArgs_Req_DEFAULT
 	}
@@ -11796,7 +11796,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFollowerListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinRelationFollowerListRequest()
+	p.Req = NewQingyuRelationFollowerListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -11857,16 +11857,16 @@ func (p *ApiServiceFollowerListArgs) String() string {
 }
 
 type ApiServiceFollowerListResult struct {
-	Success *DouyinRelationFollowerListResponse `thrift:"success,0,optional"`
+	Success *QingyuRelationFollowerListResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceFollowerListResult() *ApiServiceFollowerListResult {
 	return &ApiServiceFollowerListResult{}
 }
 
-var ApiServiceFollowerListResult_Success_DEFAULT *DouyinRelationFollowerListResponse
+var ApiServiceFollowerListResult_Success_DEFAULT *QingyuRelationFollowerListResponse
 
-func (p *ApiServiceFollowerListResult) GetSuccess() (v *DouyinRelationFollowerListResponse) {
+func (p *ApiServiceFollowerListResult) GetSuccess() (v *QingyuRelationFollowerListResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceFollowerListResult_Success_DEFAULT
 	}
@@ -11941,7 +11941,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFollowerListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinRelationFollowerListResponse()
+	p.Success = NewQingyuRelationFollowerListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -12004,16 +12004,16 @@ func (p *ApiServiceFollowerListResult) String() string {
 }
 
 type ApiServiceFriendListArgs struct {
-	Req *DouyinRelationFriendListRequest `thrift:"req,1"`
+	Req *QingyuRelationFriendListRequest `thrift:"req,1"`
 }
 
 func NewApiServiceFriendListArgs() *ApiServiceFriendListArgs {
 	return &ApiServiceFriendListArgs{}
 }
 
-var ApiServiceFriendListArgs_Req_DEFAULT *DouyinRelationFriendListRequest
+var ApiServiceFriendListArgs_Req_DEFAULT *QingyuRelationFriendListRequest
 
-func (p *ApiServiceFriendListArgs) GetReq() (v *DouyinRelationFriendListRequest) {
+func (p *ApiServiceFriendListArgs) GetReq() (v *QingyuRelationFriendListRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceFriendListArgs_Req_DEFAULT
 	}
@@ -12088,7 +12088,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFriendListArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinRelationFriendListRequest()
+	p.Req = NewQingyuRelationFriendListRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -12149,16 +12149,16 @@ func (p *ApiServiceFriendListArgs) String() string {
 }
 
 type ApiServiceFriendListResult struct {
-	Success *DouyinRelationFriendListResponse `thrift:"success,0,optional"`
+	Success *QingyuRelationFriendListResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceFriendListResult() *ApiServiceFriendListResult {
 	return &ApiServiceFriendListResult{}
 }
 
-var ApiServiceFriendListResult_Success_DEFAULT *DouyinRelationFriendListResponse
+var ApiServiceFriendListResult_Success_DEFAULT *QingyuRelationFriendListResponse
 
-func (p *ApiServiceFriendListResult) GetSuccess() (v *DouyinRelationFriendListResponse) {
+func (p *ApiServiceFriendListResult) GetSuccess() (v *QingyuRelationFriendListResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceFriendListResult_Success_DEFAULT
 	}
@@ -12233,7 +12233,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceFriendListResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinRelationFriendListResponse()
+	p.Success = NewQingyuRelationFriendListResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -12296,16 +12296,16 @@ func (p *ApiServiceFriendListResult) String() string {
 }
 
 type ApiServiceChatHistoryArgs struct {
-	Req *DouyinMessageChatRequest `thrift:"req,1"`
+	Req *QingyuMessageChatRequest `thrift:"req,1"`
 }
 
 func NewApiServiceChatHistoryArgs() *ApiServiceChatHistoryArgs {
 	return &ApiServiceChatHistoryArgs{}
 }
 
-var ApiServiceChatHistoryArgs_Req_DEFAULT *DouyinMessageChatRequest
+var ApiServiceChatHistoryArgs_Req_DEFAULT *QingyuMessageChatRequest
 
-func (p *ApiServiceChatHistoryArgs) GetReq() (v *DouyinMessageChatRequest) {
+func (p *ApiServiceChatHistoryArgs) GetReq() (v *QingyuMessageChatRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceChatHistoryArgs_Req_DEFAULT
 	}
@@ -12380,7 +12380,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceChatHistoryArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinMessageChatRequest()
+	p.Req = NewQingyuMessageChatRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -12441,16 +12441,16 @@ func (p *ApiServiceChatHistoryArgs) String() string {
 }
 
 type ApiServiceChatHistoryResult struct {
-	Success *DouyinMessageChatResponse `thrift:"success,0,optional"`
+	Success *QingyuMessageChatResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceChatHistoryResult() *ApiServiceChatHistoryResult {
 	return &ApiServiceChatHistoryResult{}
 }
 
-var ApiServiceChatHistoryResult_Success_DEFAULT *DouyinMessageChatResponse
+var ApiServiceChatHistoryResult_Success_DEFAULT *QingyuMessageChatResponse
 
-func (p *ApiServiceChatHistoryResult) GetSuccess() (v *DouyinMessageChatResponse) {
+func (p *ApiServiceChatHistoryResult) GetSuccess() (v *QingyuMessageChatResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceChatHistoryResult_Success_DEFAULT
 	}
@@ -12525,7 +12525,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceChatHistoryResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinMessageChatResponse()
+	p.Success = NewQingyuMessageChatResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}
@@ -12588,16 +12588,16 @@ func (p *ApiServiceChatHistoryResult) String() string {
 }
 
 type ApiServiceSentMessageArgs struct {
-	Req *DouyinMessageActionRequest `thrift:"req,1"`
+	Req *QingyuMessageActionRequest `thrift:"req,1"`
 }
 
 func NewApiServiceSentMessageArgs() *ApiServiceSentMessageArgs {
 	return &ApiServiceSentMessageArgs{}
 }
 
-var ApiServiceSentMessageArgs_Req_DEFAULT *DouyinMessageActionRequest
+var ApiServiceSentMessageArgs_Req_DEFAULT *QingyuMessageActionRequest
 
-func (p *ApiServiceSentMessageArgs) GetReq() (v *DouyinMessageActionRequest) {
+func (p *ApiServiceSentMessageArgs) GetReq() (v *QingyuMessageActionRequest) {
 	if !p.IsSetReq() {
 		return ApiServiceSentMessageArgs_Req_DEFAULT
 	}
@@ -12672,7 +12672,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceSentMessageArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewDouyinMessageActionRequest()
+	p.Req = NewQingyuMessageActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
 	}
@@ -12733,16 +12733,16 @@ func (p *ApiServiceSentMessageArgs) String() string {
 }
 
 type ApiServiceSentMessageResult struct {
-	Success *DouyinMessageActionResponse `thrift:"success,0,optional"`
+	Success *QingyuMessageActionResponse `thrift:"success,0,optional"`
 }
 
 func NewApiServiceSentMessageResult() *ApiServiceSentMessageResult {
 	return &ApiServiceSentMessageResult{}
 }
 
-var ApiServiceSentMessageResult_Success_DEFAULT *DouyinMessageActionResponse
+var ApiServiceSentMessageResult_Success_DEFAULT *QingyuMessageActionResponse
 
-func (p *ApiServiceSentMessageResult) GetSuccess() (v *DouyinMessageActionResponse) {
+func (p *ApiServiceSentMessageResult) GetSuccess() (v *QingyuMessageActionResponse) {
 	if !p.IsSetSuccess() {
 		return ApiServiceSentMessageResult_Success_DEFAULT
 	}
@@ -12817,7 +12817,7 @@ ReadStructEndError:
 }
 
 func (p *ApiServiceSentMessageResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewDouyinMessageActionResponse()
+	p.Success = NewQingyuMessageActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
 	}

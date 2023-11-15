@@ -1,11 +1,11 @@
 package main
 
 import (
-	interaction "GoYin/server/kitex_gen/interaction/interactionserver"
-	"GoYin/server/service/interaction/config"
-	"GoYin/server/service/interaction/dao"
-	"GoYin/server/service/interaction/initialize"
-	"GoYin/server/service/interaction/pkg"
+	interaction "GreenFish/server/kitex_gen/interaction/interactionserver"
+	"GreenFish/server/service/interaction/config"
+	"GreenFish/server/service/interaction/dao"
+	"GreenFish/server/service/interaction/initialize"
+	"GreenFish/server/service/interaction/pkg"
 	"context"
 	"errors"
 	kitexSentinel "github.com/alibaba/sentinel-golang/pkg/adapters/kitex"

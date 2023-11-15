@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"GoYin/server/service/api/config"
+	"GreenFish/server/service/api/config"
 	"context"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

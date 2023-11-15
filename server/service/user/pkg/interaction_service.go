@@ -1,9 +1,9 @@
 package pkg
 
 import (
-	"GoYin/server/kitex_gen/base"
-	"GoYin/server/kitex_gen/interaction"
-	"GoYin/server/kitex_gen/interaction/interactionserver"
+	"GreenFish/server/kitex_gen/base"
+	"GreenFish/server/kitex_gen/interaction"
+	"GreenFish/server/kitex_gen/interaction/interactionserver"
 	"context"
 	"errors"
 )
@@ -17,7 +17,7 @@ func NewInteractionManager(client interactionserver.Client) *InteractionManager 
 }
 
 func (i *InteractionManager) GetInteractInfo(ctx context.Context, userId int64) (*base.UserInteractInfo, error) {
-	resp, err := i.client.GetUserInteractInfo(ctx, &interaction.DouyinGetUserInteractInfoRequest{
+	resp, err := i.client.GetUserInteractInfo(ctx, &interaction.QingyuGetUserInteractInfoRequest{
 		UserId: userId,
 	})
 	if err != nil {
@@ -30,7 +30,7 @@ func (i *InteractionManager) GetInteractInfo(ctx context.Context, userId int64) 
 }
 
 func (i *InteractionManager) BatchGetInteractInfo(ctx context.Context, userIdList []int64) ([]*base.UserInteractInfo, error) {
-	resp, err := i.client.BatchGetUserInteractInfo(ctx, &interaction.DouyinBatchGetUserInteractInfoRequest{
+	resp, err := i.client.BatchGetUserInteractInfo(ctx, &interaction.QingyuBatchGetUserInteractInfoRequest{
 		UserIdList: userIdList,
 	})
 	if err != nil {

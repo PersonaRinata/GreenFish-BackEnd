@@ -1,9 +1,9 @@
 package rpc
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/kitex_gen/chat/chatservice"
-	"GoYin/server/service/api/config"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/kitex_gen/chat/chatservice"
+	"GreenFish/server/service/api/config"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/loadbalance"

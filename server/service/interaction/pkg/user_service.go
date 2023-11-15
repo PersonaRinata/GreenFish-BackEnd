@@ -1,9 +1,9 @@
 package pkg
 
 import (
-	"GoYin/server/kitex_gen/base"
-	"GoYin/server/kitex_gen/user"
-	"GoYin/server/kitex_gen/user/userservice"
+	"GreenFish/server/kitex_gen/base"
+	"GreenFish/server/kitex_gen/user"
+	"GreenFish/server/kitex_gen/user/userservice"
 	"context"
 )
 
@@ -17,7 +17,7 @@ func NewUserManager(client userservice.Client) *UserManager {
 
 // BatchGetUser gets users info by list.
 func (m *UserManager) BatchGetUser(ctx context.Context, list []int64, viewerId int64) ([]*base.User, error) {
-	res, err := m.UserService.BatchGetUserInfo(ctx, &user.DouyinBatchGetUserRequest{
+	res, err := m.UserService.BatchGetUserInfo(ctx, &user.QingyuBatchGetUserRequest{
 		ViewerId:    viewerId,
 		OwnerIdList: list,
 	})
@@ -32,7 +32,7 @@ func (m *UserManager) BatchGetUser(ctx context.Context, list []int64, viewerId i
 
 // GetUser gets user info.
 func (m *UserManager) GetUser(ctx context.Context, viewerId, ownerId int64) (*base.User, error) {
-	resp, err := m.UserService.GetUserInfo(ctx, &user.DouyinGetUserRequest{ViewerId: viewerId, OwnerId: ownerId})
+	resp, err := m.UserService.GetUserInfo(ctx, &user.QingyuGetUserRequest{ViewerId: viewerId, OwnerId: ownerId})
 	if err != nil {
 		return nil, err
 	}

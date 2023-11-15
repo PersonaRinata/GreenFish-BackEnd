@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/service/user/config"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/service/user/config"
 	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"

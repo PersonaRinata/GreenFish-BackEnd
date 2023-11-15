@@ -1,10 +1,10 @@
 package main
 
 import (
-	video "GoYin/server/kitex_gen/video/videoservice"
-	"GoYin/server/service/video/config"
-	"GoYin/server/service/video/dao"
-	"GoYin/server/service/video/pkg"
+	video "GreenFish/server/kitex_gen/video/videoservice"
+	"GreenFish/server/service/video/config"
+	"GreenFish/server/service/video/dao"
+	"GreenFish/server/service/video/pkg"
 	"context"
 	"errors"
 	kitexSentinel "github.com/alibaba/sentinel-golang/pkg/adapters/kitex"
@@ -18,7 +18,7 @@ import (
 	"log"
 	"net"
 
-	"GoYin/server/service/video/initialize"
+	"GreenFish/server/service/video/initialize"
 )
 
 func main() {

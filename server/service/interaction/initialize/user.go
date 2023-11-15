@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"GoYin/server/common/consts"
-	user "GoYin/server/kitex_gen/user/userservice"
-	"GoYin/server/service/interaction/config"
+	"GreenFish/server/common/consts"
+	user "GreenFish/server/kitex_gen/user/userservice"
+	"GreenFish/server/service/interaction/config"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/loadbalance"

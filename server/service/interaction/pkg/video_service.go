@@ -1,8 +1,8 @@
 package pkg
 
 import (
-	"GoYin/server/kitex_gen/video"
-	"GoYin/server/kitex_gen/video/videoservice"
+	"GreenFish/server/kitex_gen/video"
+	"GreenFish/server/kitex_gen/video/videoservice"
 	"context"
 )
 
@@ -15,7 +15,7 @@ func NewVideoManager(client videoservice.Client) *VideoManager {
 }
 
 func (m *VideoManager) GetPublishedVideoIdList(ctx context.Context, userId int64) ([]int64, error) {
-	resp, err := m.client.GetPublishedVideoIdList(ctx, &video.DouyinGetPublishedVideoIdListRequest{UserId: userId})
+	resp, err := m.client.GetPublishedVideoIdList(ctx, &video.QingyuGetPublishedVideoIdListRequest{UserId: userId})
 	if err != nil {
 		return nil, err
 	}

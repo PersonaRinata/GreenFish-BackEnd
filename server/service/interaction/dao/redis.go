@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"GoYin/server/service/interaction/model"
+	"GreenFish/server/service/interaction/model"
 	"context"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/kitex/pkg/klog"

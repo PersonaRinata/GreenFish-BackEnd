@@ -1,7 +1,7 @@
 package dao
 
 import (
-	"GoYin/server/service/video/config"
+	"GreenFish/server/service/video/config"
 	"context"
 	"fmt"
 	"github.com/bytedance/sonic"

@@ -3,7 +3,7 @@
 package userservice
 
 import (
-	user "GoYin/server/kitex_gen/user"
+	user "GreenFish/server/kitex_gen/user"
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
@@ -11,13 +11,13 @@ import (
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
-	Register(ctx context.Context, req *user.DouyinUserRegisterRequest, callOptions ...callopt.Option) (r *user.DouyinUserRegisterResponse, err error)
-	Login(ctx context.Context, req *user.DouyinUserLoginRequest, callOptions ...callopt.Option) (r *user.DouyinUserLoginResponse, err error)
-	GetUserInfo(ctx context.Context, req *user.DouyinGetUserRequest, callOptions ...callopt.Option) (r *user.DouyinGetUserResponse, err error)
-	BatchGetUserInfo(ctx context.Context, req *user.DouyinBatchGetUserRequest, callOptions ...callopt.Option) (r *user.DouyinBatchGetUserResonse, err error)
-	GetFollowList(ctx context.Context, req *user.DouyinGetRelationFollowListRequest, callOptions ...callopt.Option) (r *user.DouyinGetRelationFollowListResponse, err error)
-	GetFollowerList(ctx context.Context, req *user.DouyinGetRelationFollowerListRequest, callOptions ...callopt.Option) (r *user.DouyinGetRelationFollowerListResponse, err error)
-	GetFriendList(ctx context.Context, req *user.DouyinGetRelationFriendListRequest, callOptions ...callopt.Option) (r *user.DouyinGetRelationFriendListResponse, err error)
+	Register(ctx context.Context, req *user.QingyuUserRegisterRequest, callOptions ...callopt.Option) (r *user.QingyuUserRegisterResponse, err error)
+	Login(ctx context.Context, req *user.QingyuUserLoginRequest, callOptions ...callopt.Option) (r *user.QingyuUserLoginResponse, err error)
+	GetUserInfo(ctx context.Context, req *user.QingyuGetUserRequest, callOptions ...callopt.Option) (r *user.QingyuGetUserResponse, err error)
+	BatchGetUserInfo(ctx context.Context, req *user.QingyuBatchGetUserRequest, callOptions ...callopt.Option) (r *user.QingyuBatchGetUserResonse, err error)
+	GetFollowList(ctx context.Context, req *user.QingyuGetRelationFollowListRequest, callOptions ...callopt.Option) (r *user.QingyuGetRelationFollowListResponse, err error)
+	GetFollowerList(ctx context.Context, req *user.QingyuGetRelationFollowerListRequest, callOptions ...callopt.Option) (r *user.QingyuGetRelationFollowerListResponse, err error)
+	GetFriendList(ctx context.Context, req *user.QingyuGetRelationFriendListRequest, callOptions ...callopt.Option) (r *user.QingyuGetRelationFriendListResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -49,37 +49,37 @@ type kUserServiceClient struct {
 	*kClient
 }
 
-func (p *kUserServiceClient) Register(ctx context.Context, req *user.DouyinUserRegisterRequest, callOptions ...callopt.Option) (r *user.DouyinUserRegisterResponse, err error) {
+func (p *kUserServiceClient) Register(ctx context.Context, req *user.QingyuUserRegisterRequest, callOptions ...callopt.Option) (r *user.QingyuUserRegisterResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Register(ctx, req)
 }
 
-func (p *kUserServiceClient) Login(ctx context.Context, req *user.DouyinUserLoginRequest, callOptions ...callopt.Option) (r *user.DouyinUserLoginResponse, err error) {
+func (p *kUserServiceClient) Login(ctx context.Context, req *user.QingyuUserLoginRequest, callOptions ...callopt.Option) (r *user.QingyuUserLoginResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Login(ctx, req)
 }
 
-func (p *kUserServiceClient) GetUserInfo(ctx context.Context, req *user.DouyinGetUserRequest, callOptions ...callopt.Option) (r *user.DouyinGetUserResponse, err error) {
+func (p *kUserServiceClient) GetUserInfo(ctx context.Context, req *user.QingyuGetUserRequest, callOptions ...callopt.Option) (r *user.QingyuGetUserResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUserInfo(ctx, req)
 }
 
-func (p *kUserServiceClient) BatchGetUserInfo(ctx context.Context, req *user.DouyinBatchGetUserRequest, callOptions ...callopt.Option) (r *user.DouyinBatchGetUserResonse, err error) {
+func (p *kUserServiceClient) BatchGetUserInfo(ctx context.Context, req *user.QingyuBatchGetUserRequest, callOptions ...callopt.Option) (r *user.QingyuBatchGetUserResonse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.BatchGetUserInfo(ctx, req)
 }
 
-func (p *kUserServiceClient) GetFollowList(ctx context.Context, req *user.DouyinGetRelationFollowListRequest, callOptions ...callopt.Option) (r *user.DouyinGetRelationFollowListResponse, err error) {
+func (p *kUserServiceClient) GetFollowList(ctx context.Context, req *user.QingyuGetRelationFollowListRequest, callOptions ...callopt.Option) (r *user.QingyuGetRelationFollowListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetFollowList(ctx, req)
 }
 
-func (p *kUserServiceClient) GetFollowerList(ctx context.Context, req *user.DouyinGetRelationFollowerListRequest, callOptions ...callopt.Option) (r *user.DouyinGetRelationFollowerListResponse, err error) {
+func (p *kUserServiceClient) GetFollowerList(ctx context.Context, req *user.QingyuGetRelationFollowerListRequest, callOptions ...callopt.Option) (r *user.QingyuGetRelationFollowerListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetFollowerList(ctx, req)
 }
 
-func (p *kUserServiceClient) GetFriendList(ctx context.Context, req *user.DouyinGetRelationFriendListRequest, callOptions ...callopt.Option) (r *user.DouyinGetRelationFriendListResponse, err error) {
+func (p *kUserServiceClient) GetFriendList(ctx context.Context, req *user.QingyuGetRelationFriendListRequest, callOptions ...callopt.Option) (r *user.QingyuGetRelationFriendListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetFriendList(ctx, req)
 }

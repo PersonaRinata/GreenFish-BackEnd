@@ -1,11 +1,11 @@
 package config
 
 import (
-	"GoYin/server/kitex_gen/chat/chatservice"
-	"GoYin/server/kitex_gen/interaction/interactionserver"
-	"GoYin/server/kitex_gen/sociality/socialityservice"
-	"GoYin/server/kitex_gen/user/userservice"
-	"GoYin/server/kitex_gen/video/videoservice"
+	"GreenFish/server/kitex_gen/chat/chatservice"
+	"GreenFish/server/kitex_gen/interaction/interactionserver"
+	"GreenFish/server/kitex_gen/sociality/socialityservice"
+	"GreenFish/server/kitex_gen/user/userservice"
+	"GreenFish/server/kitex_gen/video/videoservice"
 	"github.com/minio/minio-go/v7"
 )
 

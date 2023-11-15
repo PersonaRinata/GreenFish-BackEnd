@@ -1,9 +1,9 @@
 package pkg
 
 import (
-	"GoYin/server/kitex_gen/base"
-	"GoYin/server/kitex_gen/interaction"
-	"GoYin/server/kitex_gen/interaction/interactionserver"
+	"GreenFish/server/kitex_gen/base"
+	"GreenFish/server/kitex_gen/interaction"
+	"GreenFish/server/kitex_gen/interaction/interactionserver"
 	"context"
 )
 
@@ -17,7 +17,7 @@ func NewInteractionManager(client interactionserver.Client) *InteractionManager 
 
 // GetVideoInteractInfo get video interactInfo.
 func (i *InteractionManager) GetVideoInteractInfo(ctx context.Context, videoId, viewerId int64) (*base.VideoInteractInfo, error) {
-	resp, err := i.InteractionService.GetVideoInteractInfo(ctx, &interaction.DouyinGetVideoInteractInfoRequest{
+	resp, err := i.InteractionService.GetVideoInteractInfo(ctx, &interaction.QingyuGetVideoInteractInfoRequest{
 		VideoId:  videoId,
 		ViewerId: viewerId,
 	})
@@ -32,7 +32,7 @@ func (i *InteractionManager) GetVideoInteractInfo(ctx context.Context, videoId, 
 
 // GetFavoriteVideoIdList gets the favorite video id list.
 func (i *InteractionManager) GetFavoriteVideoIdList(ctx context.Context, userId int64) ([]int64, error) {
-	resp, err := i.InteractionService.GetFavoriteVideoIdList(ctx, &interaction.DouyinGetFavoriteVideoIdListRequest{UserId: userId})
+	resp, err := i.InteractionService.GetFavoriteVideoIdList(ctx, &interaction.QingyuGetFavoriteVideoIdListRequest{UserId: userId})
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +44,7 @@ func (i *InteractionManager) GetFavoriteVideoIdList(ctx context.Context, userId 
 
 // BatchGetVideoInteractInfo batch get video interactInfo.
 func (i *InteractionManager) BatchGetVideoInteractInfo(ctx context.Context, videoIdList []int64, viewerId int64) ([]*base.VideoInteractInfo, error) {
-	resp, err := i.InteractionService.BatchGetVideoInteractInfo(ctx, &interaction.DouyinBatchGetVideoInteractInfoRequest{
+	resp, err := i.InteractionService.BatchGetVideoInteractInfo(ctx, &interaction.QingyuBatchGetVideoInteractInfoRequest{
 		VideoIdList: videoIdList,
 		ViewerId:    viewerId,
 	})

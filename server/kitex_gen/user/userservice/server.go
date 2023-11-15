@@ -2,7 +2,7 @@
 package userservice
 
 import (
-	user "GoYin/server/kitex_gen/user"
+	user "GreenFish/server/kitex_gen/user"
 	server "github.com/cloudwego/kitex/server"
 )
 

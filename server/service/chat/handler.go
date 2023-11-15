@@ -1,11 +1,11 @@
 package main
 
 import (
-	"GoYin/server/common/consts"
-	"GoYin/server/kitex_gen/base"
-	chat "GoYin/server/kitex_gen/chat"
-	"GoYin/server/service/chat/dao"
-	"GoYin/server/service/chat/model"
+	"GreenFish/server/common/consts"
+	"GreenFish/server/kitex_gen/base"
+	chat "GreenFish/server/kitex_gen/chat"
+	"GreenFish/server/service/chat/dao"
+	"GreenFish/server/service/chat/model"
 	"context"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
@@ -17,7 +17,7 @@ type ChatServiceImpl struct {
 	Subscriber
 }
 type Publisher interface {
-	Publish(context.Context, *chat.DouyinMessageActionRequest) error
+	Publish(context.Context, *chat.QingyuMessageActionRequest) error
 }
 type Subscriber interface {
 	Subscribe(ctx context.Context, dao *dao.MysqlManager) (err error)
@@ -30,13 +30,13 @@ type MysqlManager interface {
 }
 
 // GetChatHistory implements the ChatServiceImpl interface.
-func (s *ChatServiceImpl) GetChatHistory(ctx context.Context, req *chat.DouyinMessageGetChatHistoryRequest) (resp *chat.DouyinMessageGetChatHistoryResponse, err error) {
-	resp = new(chat.DouyinMessageGetChatHistoryResponse)
+func (s *ChatServiceImpl) GetChatHistory(ctx context.Context, req *chat.QingyuMessageGetChatHistoryRequest) (resp *chat.QingyuMessageGetChatHistoryResponse, err error) {
+	resp = new(chat.QingyuMessageGetChatHistoryResponse)
 
 	msg, err := s.MysqlManager.GetHistoryMessage(ctx, req.UserId, req.ToUserId, req.PreMsgTime)
 	if err != nil {
 		klog.Errorf("chat mysql get history message failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "chat mysql get history message failed",
 		}
@@ -51,7 +51,7 @@ func (s *ChatServiceImpl) GetChatHistory(ctx context.Context, req *chat.DouyinMe
 			CreateTime: v.CreateTime,
 		})
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "chat get history message success",
 	}
@@ -59,19 +59,19 @@ func (s *ChatServiceImpl) GetChatHistory(ctx context.Context, req *chat.DouyinMe
 }
 
 // SentMessage implements the ChatServiceImpl interface.
-func (s *ChatServiceImpl) SentMessage(ctx context.Context, req *chat.DouyinMessageActionRequest) (resp *chat.DouyinMessageActionResponse, err error) {
-	resp = new(chat.DouyinMessageActionResponse)
+func (s *ChatServiceImpl) SentMessage(ctx context.Context, req *chat.QingyuMessageActionRequest) (resp *chat.QingyuMessageActionResponse, err error) {
+	resp = new(chat.QingyuMessageActionResponse)
 
 	err = s.Publish(ctx, req)
 	if err != nil {
 		klog.Errorf("chat sentMessage failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "chat publisher publish failed",
 		}
 		return resp, err
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "chat publisher publish success",
 	}
@@ -79,13 +79,13 @@ func (s *ChatServiceImpl) SentMessage(ctx context.Context, req *chat.DouyinMessa
 }
 
 // GetLatestMessage implements the ChatServiceImpl interface.
-func (s *ChatServiceImpl) GetLatestMessage(ctx context.Context, req *chat.DouyinMessageGetLatestRequest) (resp *chat.DouyinMessageGetLatestResponse, err error) {
-	resp = new(chat.DouyinMessageGetLatestResponse)
+func (s *ChatServiceImpl) GetLatestMessage(ctx context.Context, req *chat.QingyuMessageGetLatestRequest) (resp *chat.QingyuMessageGetLatestResponse, err error) {
+	resp = new(chat.QingyuMessageGetLatestResponse)
 
 	msg, err := s.MysqlManager.GetLatestMessage(ctx, req.UserId, req.ToUserId)
 	if err != nil {
 		klog.Errorf("chat mysql get latest message failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "chat mysql get latest message failed",
 		}
@@ -99,7 +99,7 @@ func (s *ChatServiceImpl) GetLatestMessage(ctx context.Context, req *chat.Douyin
 		Message: msg.Content,
 		MsgType: int64(msgType),
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "chat get latest message success",
 	}
@@ -107,13 +107,13 @@ func (s *ChatServiceImpl) GetLatestMessage(ctx context.Context, req *chat.Douyin
 }
 
 // BatchGetLatestMessage implements the ChatServiceImpl interface.
-func (s *ChatServiceImpl) BatchGetLatestMessage(ctx context.Context, req *chat.DouyinMessageBatchGetLatestRequest) (resp *chat.DouyinMessageBatchGetLatestResponse, err error) {
-	resp = new(chat.DouyinMessageBatchGetLatestResponse)
+func (s *ChatServiceImpl) BatchGetLatestMessage(ctx context.Context, req *chat.QingyuMessageBatchGetLatestRequest) (resp *chat.QingyuMessageBatchGetLatestResponse, err error) {
+	resp = new(chat.QingyuMessageBatchGetLatestResponse)
 
 	msgList, err := s.MysqlManager.BatchGetLatestMessage(ctx, req.UserId, req.ToUserIdList)
 	if err != nil {
 		klog.Errorf("chat mysql batch get latest message failed,", err)
-		resp.BaseResp = &base.DouyinBaseResponse{
+		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "chat mysql batch get latest message failed",
 		}
@@ -129,7 +129,7 @@ func (s *ChatServiceImpl) BatchGetLatestMessage(ctx context.Context, req *chat.D
 			MsgType: int64(msgType),
 		})
 	}
-	resp.BaseResp = &base.DouyinBaseResponse{
+	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "chat batch get latest message success",
 	}

@@ -2,7 +2,7 @@
 package interactionserver
 
 import (
-	interaction "GoYin/server/kitex_gen/interaction"
+	interaction "GreenFish/server/kitex_gen/interaction"
 	server "github.com/cloudwego/kitex/server"
 )
 

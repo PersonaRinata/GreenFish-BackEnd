@@ -86,7 +86,7 @@
 ### 目录结构
 ```
 ├── deployment
-│   ├── GoYin-k8s
+│   ├── GreenFish-k8s
 │   │   ├── api
 │   │   ├── chat
 │   │   ├── ingress

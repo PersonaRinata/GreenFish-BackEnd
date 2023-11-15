@@ -3,7 +3,7 @@
 package apiservice
 
 import (
-	api "GoYin/server/kitex_gen/api"
+	api "GreenFish/server/kitex_gen/api"
 	server "github.com/cloudwego/kitex/server"
 )
 

@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"GoYin/server/common/test"
-	"GoYin/server/service/chat/model"
+	"GreenFish/server/common/test"
+	"GreenFish/server/service/chat/model"
 	"context"
 	"fmt"
 	"github.com/bytedance/sonic"
