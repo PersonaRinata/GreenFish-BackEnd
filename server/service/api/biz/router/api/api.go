@@ -18,9 +18,9 @@ func Register(r *server.Hertz) {
 
 	root := r.Group("/", rootMw()...)
 	{
-		_douyin := root.Group("/douyin", _douyinMw()...)
+		_qingyu := root.Group("/qingyu", _qingyuMw()...)
 		{
-			_comment := _douyin.Group("/comment", _commentMw()...)
+			_comment := _qingyu.Group("/comment", _commentMw()...)
 			{
 				_action := _comment.Group("/action", _actionMw()...)
 				_action.POST("/", append(_comment0Mw(), api.Comment)...)
@@ -31,7 +31,7 @@ func Register(r *server.Hertz) {
 			}
 		}
 		{
-			_favorite := _douyin.Group("/favorite", _favoriteMw()...)
+			_favorite := _qingyu.Group("/favorite", _favoriteMw()...)
 			{
 				_action0 := _favorite.Group("/action", _action0Mw()...)
 				_action0.POST("/", append(_favorite0Mw(), api.Favorite)...)
@@ -42,11 +42,11 @@ func Register(r *server.Hertz) {
 			}
 		}
 		{
-			_feed := _douyin.Group("/feed", _feedMw()...)
+			_feed := _qingyu.Group("/feed", _feedMw()...)
 			_feed.GET("/", append(_feed0Mw(), api.Feed)...)
 		}
 		{
-			_message := _douyin.Group("/message", _messageMw()...)
+			_message := _qingyu.Group("/message", _messageMw()...)
 			{
 				_action1 := _message.Group("/action", _action1Mw()...)
 				_action1.POST("/", append(_sentmessageMw(), api.SentMessage)...)
@@ -57,7 +57,7 @@ func Register(r *server.Hertz) {
 			}
 		}
 		{
-			_publish := _douyin.Group("/publish", _publishMw()...)
+			_publish := _qingyu.Group("/publish", _publishMw()...)
 			{
 				_action2 := _publish.Group("/action", _action2Mw()...)
 				_action2.POST("/", append(_publishvideoMw(), api.PublishVideo)...)
@@ -68,7 +68,7 @@ func Register(r *server.Hertz) {
 			}
 		}
 		{
-			_relation := _douyin.Group("/relation", _relationMw()...)
+			_relation := _qingyu.Group("/relation", _relationMw()...)
 			{
 				_action3 := _relation.Group("/action", _action3Mw()...)
 				_action3.POST("/", append(_action4Mw(), api.Action)...)
@@ -96,7 +96,7 @@ func Register(r *server.Hertz) {
 			}
 		}
 		{
-			_user := _douyin.Group("/user", _userMw()...)
+			_user := _qingyu.Group("/user", _userMw()...)
 			_user.GET("/", append(_getuserinfoMw(), api.GetUserInfo)...)
 			{
 				_login := _user.Group("/login", _loginMw()...)
