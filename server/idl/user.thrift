@@ -74,6 +74,25 @@ struct qingyu_get_relation_friend_list_response {
     2: list<base.FriendUser> user_list,     // List of user information
 }
 
+struct qingyu_update_issue_list_request{
+    1: i64 user_id,
+    2: base.IssueList issue_list,
+}
+
+struct qingyu_update_issue_list_response{
+    1: base.qingyu_base_response base_resp,
+}
+
+struct qingyu_get_issue_list_request{
+    1: i64 user_id,
+}
+
+struct qingyu_get_issue_list_response{
+    1: base.qingyu_base_response base_resp,
+    2: base.IssueList issue_list
+}
+
+
 service UserService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req),
     qingyu_user_login_response Login(1: qingyu_user_login_request req),
@@ -82,4 +101,6 @@ service UserService {
     qingyu_get_relation_follow_list_response GetFollowList(1: qingyu_get_relation_follow_list_request req),
     qingyu_get_relation_follower_list_response GetFollowerList(1: qingyu_get_relation_follower_list_request req),
     qingyu_get_relation_friend_list_response GetFriendList(1: qingyu_get_relation_friend_list_request req),
+    qingyu_update_issue_list_response UpdateIssueList(1:qingyu_update_issue_list_request req)
+    qingyu_get_issue_list_response GetIssueList(1:qingyu_get_issue_list_request req)
 }

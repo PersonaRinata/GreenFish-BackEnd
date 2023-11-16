@@ -64,3 +64,32 @@ func (r *RedisManager) BatchGetUserById(ctx context.Context, id []int64) ([]*mod
 	}
 	return userList, nil
 }
+
+func (r *RedisManager) UpdateIssueListById(ctx context.Context, id int64, issueList *model.IssueList) error {
+	issueListJson, err := sonic.Marshal(issueList)
+	if err != nil {
+		klog.Error("redis marshal issueList failed,", err)
+		return err
+	}
+	err = r.redisClient.Set(ctx, "issueListJson:"+strconv.FormatInt(id, 10), issueListJson, 0).Err()
+	if err != nil {
+		klog.Error("redis create issueList failed,", err)
+		return err
+	}
+	return nil
+}
+
+func (r *RedisManager) GetIssueListById(ctx context.Context, id int64) (*model.IssueList, error) {
+	res, err := r.redisClient.Get(ctx, "issueListJson:"+strconv.FormatInt(id, 10)).Result()
+	if err != nil {
+		klog.Error("redis get issueList failed,", err)
+		return nil, err
+	}
+	var issueList *model.IssueList
+	err = sonic.UnmarshalString(res, &issueList)
+	if err != nil {
+		klog.Error("redis unmarshal issueList failed,", err)
+		return nil, err
+	}
+	return issueList, nil
+}

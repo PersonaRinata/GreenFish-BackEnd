@@ -26,6 +26,8 @@ type RedisManager interface {
 	CreateUser(ctx context.Context, user *model.User) error
 	GetUserById(ctx context.Context, id int64) (*model.User, error)
 	BatchGetUserById(ctx context.Context, id []int64) ([]*model.User, error)
+	UpdateIssueListById(ctx context.Context, id int64, issueList *model.IssueList) error
+	GetIssueListById(ctx context.Context, id int64) (*model.IssueList, error)
 }
 type SocialManager interface {
 	GetRelationList(ctx context.Context, viewerId, ownerId int64, option int8) ([]int64, error)
@@ -475,6 +477,98 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGet
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "batch get followList success",
+	}
+	return resp, nil
+}
+
+// UpdateIssueList implements the UserServiceImpl interface.
+func (s *UserServiceImpl) UpdateIssueList(ctx context.Context, req *user.QingyuUpdateIssueListRequest) (resp *user.QingyuUpdateIssueListResponse, err error) {
+	resp = new(user.QingyuUpdateIssueListResponse)
+
+	issueList := model.IssueList{
+		UserID:     req.IssueList.UserId,
+		Username:   req.IssueList.Username,
+		Gender:     req.IssueList.Gender,
+		Age:        req.IssueList.Age,
+		CreateTime: req.IssueList.CreateTime,
+		UpdateTime: req.IssueList.UpdateTime,
+		Department: req.IssueList.Department,
+		MedicalHistoryInfo: model.MedicalHistoryInfo{
+			Symptom:     req.IssueList.MedicalHistoryInfo.Symptom,
+			Description: req.IssueList.MedicalHistoryInfo.Description,
+			FamilyInfo:  req.IssueList.MedicalHistoryInfo.FamilyInfo,
+			History:     req.IssueList.MedicalHistoryInfo.Histroy,
+		},
+		BodyInfo: model.BodyInfo{
+			BloodPressure: req.IssueList.BodyInfo.BloodPressure,
+			HeartRate:     req.IssueList.BodyInfo.HeartRate,
+			Height:        req.IssueList.BodyInfo.Height,
+			Weight:        req.IssueList.BodyInfo.Weight,
+			CreateTime:    req.IssueList.BodyInfo.CreateTime,
+			UpdateTime:    req.IssueList.BodyInfo.UpdateTime,
+		},
+		Introduction: req.IssueList.Introduction,
+		Medicine:     req.IssueList.Medicine,
+	}
+
+	err = s.RedisManager.UpdateIssueListById(ctx, req.UserId, &issueList)
+	if err != nil {
+		klog.Errorf("user redisManager update issueList failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user redisManager update issueList failed",
+		}
+		return resp, err
+	}
+
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "update issueList success",
+	}
+	return resp, nil
+}
+
+// GetIssueList implements the UserServiceImpl interface.
+func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetIssueListRequest) (resp *user.QingyuGetIssueListResponse, err error) {
+	resp = new(user.QingyuGetIssueListResponse)
+
+	issueList, err := s.RedisManager.GetIssueListById(ctx, req.UserId)
+	if err != nil {
+		klog.Errorf("user redisManager get issueList failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user redisManager get issueList failed",
+		}
+		return resp, err
+	}
+	resp.IssueList = &base.IssueList{
+		UserId:     issueList.UserID,
+		Username:   issueList.Username,
+		Gender:     issueList.Gender,
+		Age:        issueList.Age,
+		CreateTime: issueList.CreateTime,
+		UpdateTime: issueList.UpdateTime,
+		Department: issueList.Department,
+		MedicalHistoryInfo: &base.MedicalHistoryInfo{
+			Symptom:     issueList.MedicalHistoryInfo.Symptom,
+			Description: issueList.MedicalHistoryInfo.Description,
+			Histroy:     issueList.MedicalHistoryInfo.History,
+			FamilyInfo:  issueList.MedicalHistoryInfo.FamilyInfo,
+		},
+		BodyInfo: &base.BodyInfo{
+			BloodPressure: issueList.BodyInfo.BloodPressure,
+			HeartRate:     issueList.BodyInfo.HeartRate,
+			Height:        issueList.BodyInfo.Height,
+			Weight:        issueList.BodyInfo.Weight,
+			CreateTime:    issueList.BodyInfo.CreateTime,
+			UpdateTime:    issueList.BodyInfo.UpdateTime,
+		},
+		Introduction: issueList.Introduction,
+		Medicine:     issueList.Medicine,
+	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "get issueList success",
 	}
 	return resp, nil
 }
