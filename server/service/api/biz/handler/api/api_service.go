@@ -3,6 +3,7 @@
 package api
 
 import (
+	consts2 "GreenFish/server/common/consts"
 	"GreenFish/server/common/middleware"
 	"GreenFish/server/common/tools"
 	"GreenFish/server/kitex_gen/chat"
@@ -10,21 +11,21 @@ import (
 	"GreenFish/server/kitex_gen/sociality"
 	"GreenFish/server/kitex_gen/user"
 	"GreenFish/server/kitex_gen/video"
+	"GreenFish/server/service/api/biz/model/api"
 	"GreenFish/server/service/api/biz/model/base"
 	"GreenFish/server/service/api/config"
 	"GreenFish/server/service/api/pkg"
 	"context"
 	"errors"
 	"github.com/bwmarrin/snowflake"
+	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	"github.com/jinzhu/copier"
 	"os"
+	"strconv"
 	"strings"
 	"time"
-
-	consts2 "GreenFish/server/common/consts"
-	api "GreenFish/server/service/api/biz/model/api"
-	"github.com/cloudwego/hertz/pkg/app"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )
 
 // Register .
@@ -791,6 +792,66 @@ func SentMessage(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	resp := new(api.QingyuMessageActionResponse)
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// UpdateIssueList .
+// @router /qingyu/issuelist/action/ [POST]
+func UpdateIssueList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuIssueListUpdateRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		hlog.Error("api update issueList failed,", err)
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	_, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+	userId, _ := strconv.ParseInt(req.IssueList.UserID, 10, 64)
+	var issueList user.QingyuUpdateIssueListRequest
+	copier.Copy(issueList, req.IssueList)
+	issueList.UserId = userId
+	res, err := config.GlobalUserClient.UpdateIssueList(ctx, &issueList)
+	resp := new(api.QingyuIssueListUpdateResponse)
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// GetIssueList .
+// @router /qingyu/issuelist/ [GET]
+func GetIssueList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuIssueListGetRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		hlog.Error("api get issueList failed,", err)
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	_, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+	res, err := config.GlobalUserClient.GetIssueList(ctx, &user.QingyuGetIssueListRequest{UserId: req.UserID})
+	resp := new(api.QingyuIssueListGetResponse)
+	err = copier.Copy(resp.IssueList, res.IssueList)
+	if err != nil {
+		hlog.Error("api copy issueList failed,", err)
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	c.JSON(consts.StatusOK, resp)

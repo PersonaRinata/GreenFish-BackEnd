@@ -184,6 +184,27 @@ struct qingyu_message_action_response {
     2: string status_msg // Return status description
 }
 
+struct qingyu_issue_list_update_request {
+    1: string token(api.query="token") // User authentication token
+    2: base.IssueList issueList(api.query="issue_list")
+}
+
+struct qingyu_issue_list_update_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+}
+
+struct qingyu_issue_list_get_request {
+    1: string token(api.query="token") // User authentication token
+    2: i64 user_id(api.query="user_id")
+}
+
+struct qingyu_issue_list_get_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: base.IssueList issue_list
+}
+
 service ApiService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req)(api.post="/qingyu/user/register/");
     qingyu_user_login_response Login(1: qingyu_user_login_request req)(api.post="/qingyu/user/login/");
@@ -205,4 +226,7 @@ service ApiService {
 
     qingyu_message_chat_response ChatHistory(1: qingyu_message_chat_request req)(api.get="/qingyu/message/chat/");
     qingyu_message_action_response SentMessage(1: qingyu_message_action_request req)(api.post="/qingyu/message/action/");
+
+    qingyu_issue_list_update_response updateIssueList(1:qingyu_issue_list_update_request req)(api.post="/qingyu/issuelist/action/")
+    qingyu_issue_list_get_response getIssueList(1:qingyu_issue_list_get_request rqe)(api.get="/qingyu/issuelist/")
 }

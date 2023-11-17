@@ -46,10 +46,18 @@ func Register(r *server.Hertz) {
 			_feed.GET("/", append(_feed0Mw(), api.Feed)...)
 		}
 		{
+			_issuelist := _qingyu.Group("/issuelist", _issuelistMw()...)
+			_issuelist.GET("/", append(_getissuelistMw(), api.GetIssueList)...)
+			{
+				_action1 := _issuelist.Group("/action", _action1Mw()...)
+				_action1.POST("/", append(_updateissuelistMw(), api.UpdateIssueList)...)
+			}
+		}
+		{
 			_message := _qingyu.Group("/message", _messageMw()...)
 			{
-				_action1 := _message.Group("/action", _action1Mw()...)
-				_action1.POST("/", append(_sentmessageMw(), api.SentMessage)...)
+				_action2 := _message.Group("/action", _action2Mw()...)
+				_action2.POST("/", append(_sentmessageMw(), api.SentMessage)...)
 			}
 			{
 				_chat := _message.Group("/chat", _chatMw()...)
@@ -59,8 +67,8 @@ func Register(r *server.Hertz) {
 		{
 			_publish := _qingyu.Group("/publish", _publishMw()...)
 			{
-				_action2 := _publish.Group("/action", _action2Mw()...)
-				_action2.POST("/", append(_publishvideoMw(), api.PublishVideo)...)
+				_action3 := _publish.Group("/action", _action3Mw()...)
+				_action3.POST("/", append(_publishvideoMw(), api.PublishVideo)...)
 			}
 			{
 				_list1 := _publish.Group("/list", _list1Mw()...)
@@ -70,8 +78,8 @@ func Register(r *server.Hertz) {
 		{
 			_relation := _qingyu.Group("/relation", _relationMw()...)
 			{
-				_action3 := _relation.Group("/action", _action3Mw()...)
-				_action3.POST("/", append(_action4Mw(), api.Action)...)
+				_action4 := _relation.Group("/action", _action4Mw()...)
+				_action4.POST("/", append(_action5Mw(), api.Action)...)
 			}
 			{
 				_follow := _relation.Group("/follow", _followMw()...)

@@ -232,3 +232,23 @@ func _user0Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _issuelistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _getissuelistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _updateissuelistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _action5Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

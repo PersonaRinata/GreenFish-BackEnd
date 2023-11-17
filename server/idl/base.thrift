@@ -87,7 +87,7 @@ struct LatestMsg{
 struct medicalHistoryInfo{
     1:string symptom //患者的主要症状或原因
     2:string description //病情描述
-    3:string histroy //过去的疾病、手术、药物过敏等历史记录。
+    3:string history //过去的疾病、手术、药物过敏等历史记录。
     4:string familyInfo //患者家族中与当前疾病相关的疾病或遗传疾病的记录
 } //病史信息
 

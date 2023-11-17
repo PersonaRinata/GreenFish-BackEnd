@@ -22,6 +22,7 @@ require (
 	github.com/hertz-contrib/pprof v0.1.0
 	github.com/hertz-contrib/registry/nacos v0.0.0-20230731080040-f474f58b3da2
 	github.com/ip2location/ip2location-go/v9 v9.6.0
+	github.com/jinzhu/copier v0.4.0
 	github.com/kitex-contrib/obs-opentelemetry v0.2.3
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20230530060140-c76e27f58391
 	github.com/kitex-contrib/registry-nacos v0.1.0
