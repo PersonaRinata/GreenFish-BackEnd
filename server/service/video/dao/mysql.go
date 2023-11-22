@@ -95,6 +95,15 @@ func (m MysqlManager) PublishVideo(ctx context.Context, video *model.Video) erro
 	return nil
 }
 
+func (m MysqlManager) SearchVideoByTitle(ctx context.Context, content string) ([]*model.Video, error) {
+	var videos []*model.Video
+	content = "%" + content + "%"
+	if err := m.db.Where("title LIKE ?", content).Find(&videos).Error; err != nil {
+		return nil, err
+	}
+	return videos, nil
+}
+
 func (m MysqlManager) HandleVideo(ctx context.Context, videoId, userId int64, playUrl, coverUrl, title string) error {
 	video := model.Video{
 		ID:         videoId,

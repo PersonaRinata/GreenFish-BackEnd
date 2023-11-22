@@ -14,6 +14,7 @@ import (
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/golang-jwt/jwt"
+	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
 	"time"
 )
@@ -21,6 +22,7 @@ import (
 type MysqlManager interface {
 	CreateUser(ctx context.Context, user *model.User) error
 	GetUserByUsername(ctx context.Context, username string) (*model.User, error)
+	SearchUserByUsername(ctx context.Context, content string) ([]*model.User, error)
 }
 type RedisManager interface {
 	CreateUser(ctx context.Context, user *model.User) error
@@ -497,7 +499,7 @@ func (s *UserServiceImpl) UpdateIssueList(ctx context.Context, req *user.QingyuU
 			Symptom:     req.IssueList.MedicalHistoryInfo.Symptom,
 			Description: req.IssueList.MedicalHistoryInfo.Description,
 			FamilyInfo:  req.IssueList.MedicalHistoryInfo.FamilyInfo,
-			History:     req.IssueList.MedicalHistoryInfo.Histroy,
+			History:     req.IssueList.MedicalHistoryInfo.History,
 		},
 		BodyInfo: model.BodyInfo{
 			BloodPressure: req.IssueList.BodyInfo.BloodPressure,
@@ -552,7 +554,7 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 		MedicalHistoryInfo: &base.MedicalHistoryInfo{
 			Symptom:     issueList.MedicalHistoryInfo.Symptom,
 			Description: issueList.MedicalHistoryInfo.Description,
-			Histroy:     issueList.MedicalHistoryInfo.History,
+			History:     issueList.MedicalHistoryInfo.History,
 			FamilyInfo:  issueList.MedicalHistoryInfo.FamilyInfo,
 		},
 		BodyInfo: &base.BodyInfo{
@@ -569,6 +571,37 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "get issueList success",
+	}
+	return resp, nil
+}
+
+// SearchUserList implements the UserServiceImpl interface.
+func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSearchUserRequest) (resp *user.QingyuSearchUserResponse, err error) {
+	resp = new(user.QingyuSearchUserResponse)
+
+	userList, err := s.MysqlManager.SearchUserByUsername(ctx, req.Content)
+	if err != nil {
+		klog.Errorf("user mysqlManager get userList failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user mysqlManager get userList failed",
+		}
+		return resp, err
+	}
+
+	res := userList[req.Num*req.Offset : (req.Num+1)*req.Offset+1]
+	err = copier.Copy(resp.UserList, res)
+	if err != nil {
+		klog.Errorf("user copy failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user copy failed",
+		}
+		return resp, err
+	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "get userList success",
 	}
 	return resp, nil
 }

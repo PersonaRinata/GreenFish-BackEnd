@@ -856,3 +856,61 @@ func GetIssueList(ctx context.Context, c *app.RequestContext) {
 	resp.StatusCode = res.BaseResp.StatusCode
 	c.JSON(consts.StatusOK, resp)
 }
+
+// SearchUserList .
+// @router /qingyu/user/search [POST]
+func SearchUserList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuSearchUserRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	userID, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+	res, err := config.GlobalUserClient.SearchUserList(ctx, &user.QingyuSearchUserRequest{ViewerId: userID.(int64), Content: req.Content, Offset: req.Offset, Num: req.Num})
+	resp := new(api.QingyuSearchUserResponse)
+	err = copier.Copy(resp.UserList, res.UserList)
+	if err != nil {
+		hlog.Error("api copy userList failed,", err)
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// SearchVideoList .
+// @router /qingyu/user/search [POST]
+func SearchVideoList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuSearchVideoRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	userID, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+	res, err := config.GlobalVideoClient.SearchVideoList(ctx, &video.QingyuSearchVideoRequest{ViewerId: userID.(int64), Content: req.Content, Offset: req.Offset, Num: req.Num})
+	resp := new(api.QingyuSearchVideoResponse)
+	err = copier.Copy(resp.VideoList, res.VideoList)
+	if err != nil {
+		hlog.Error("api copy videoList failed,", err)
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}

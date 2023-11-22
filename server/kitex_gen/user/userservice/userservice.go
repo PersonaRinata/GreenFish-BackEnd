@@ -28,6 +28,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"GetFriendList":    kitex.NewMethodInfo(getFriendListHandler, newUserServiceGetFriendListArgs, newUserServiceGetFriendListResult, false),
 		"UpdateIssueList":  kitex.NewMethodInfo(updateIssueListHandler, newUserServiceUpdateIssueListArgs, newUserServiceUpdateIssueListResult, false),
 		"GetIssueList":     kitex.NewMethodInfo(getIssueListHandler, newUserServiceGetIssueListArgs, newUserServiceGetIssueListResult, false),
+		"SearchUserList":   kitex.NewMethodInfo(searchUserListHandler, newUserServiceSearchUserListArgs, newUserServiceSearchUserListResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "user",
@@ -206,6 +207,24 @@ func newUserServiceGetIssueListResult() interface{} {
 	return user.NewUserServiceGetIssueListResult()
 }
 
+func searchUserListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceSearchUserListArgs)
+	realResult := result.(*user.UserServiceSearchUserListResult)
+	success, err := handler.(user.UserService).SearchUserList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceSearchUserListArgs() interface{} {
+	return user.NewUserServiceSearchUserListArgs()
+}
+
+func newUserServiceSearchUserListResult() interface{} {
+	return user.NewUserServiceSearchUserListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -301,6 +320,16 @@ func (p *kClient) GetIssueList(ctx context.Context, req *user.QingyuGetIssueList
 	_args.Req = req
 	var _result user.UserServiceGetIssueListResult
 	if err = p.c.Call(ctx, "GetIssueList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SearchUserList(ctx context.Context, req *user.QingyuSearchUserRequest) (r *user.QingyuSearchUserResponse, err error) {
+	var _args user.UserServiceSearchUserListArgs
+	_args.Req = req
+	var _result user.UserServiceSearchUserListResult
+	if err = p.c.Call(ctx, "SearchUserList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

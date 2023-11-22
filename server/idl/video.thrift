@@ -53,10 +53,24 @@ struct qingyu_get_published_video_id_list_response{
     2: list<i64> video_id_list,
 }
 
+struct qingyu_search_video_request{
+    1: i64 viewer_id,
+    2: string content,
+    3: i64 offset
+    4: i64 num
+}
+
+struct qingyu_search_video_response {
+    1: base.qingyu_base_response base_resp,
+    2: list<base.Video> video_list,                      // User Information
+}
+
+
 service VideoService {
     qingyu_feed_response Feed(1: qingyu_feed_request req),
     qingyu_publish_action_response PublishVideo(1: qingyu_publish_action_request req),
     qingyu_get_published_list_response GetPublishedVideoList(1: qingyu_get_published_list_request req),
     qingyu_get_favorite_list_response GetFavoriteVideoList(1: qingyu_get_favorite_list_request req),
     qingyu_get_published_video_id_list_response GetPublishedVideoIdList(1: qingyu_get_published_video_id_list_request req),
+   qingyu_search_video_response SearchVideoList(1: qingyu_search_video_request req),
 }

@@ -252,3 +252,13 @@ func _action5Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _searchuserlistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _searchvideolistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

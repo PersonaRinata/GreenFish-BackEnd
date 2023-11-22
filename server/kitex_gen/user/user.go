@@ -4247,6 +4247,603 @@ func (p *QingyuGetIssueListResponse) Field2DeepEqual(src *base.IssueList) bool {
 	return true
 }
 
+type QingyuSearchUserRequest struct {
+	ViewerId int64  `thrift:"viewer_id,1" frugal:"1,default,i64" json:"viewer_id"`
+	Content  string `thrift:"content,2" frugal:"2,default,string" json:"content"`
+	Offset   int64  `thrift:"offset,3" frugal:"3,default,i64" json:"offset"`
+	Num      int64  `thrift:"num,4" frugal:"4,default,i64" json:"num"`
+}
+
+func NewQingyuSearchUserRequest() *QingyuSearchUserRequest {
+	return &QingyuSearchUserRequest{}
+}
+
+func (p *QingyuSearchUserRequest) InitDefault() {
+	*p = QingyuSearchUserRequest{}
+}
+
+func (p *QingyuSearchUserRequest) GetViewerId() (v int64) {
+	return p.ViewerId
+}
+
+func (p *QingyuSearchUserRequest) GetContent() (v string) {
+	return p.Content
+}
+
+func (p *QingyuSearchUserRequest) GetOffset() (v int64) {
+	return p.Offset
+}
+
+func (p *QingyuSearchUserRequest) GetNum() (v int64) {
+	return p.Num
+}
+func (p *QingyuSearchUserRequest) SetViewerId(val int64) {
+	p.ViewerId = val
+}
+func (p *QingyuSearchUserRequest) SetContent(val string) {
+	p.Content = val
+}
+func (p *QingyuSearchUserRequest) SetOffset(val int64) {
+	p.Offset = val
+}
+func (p *QingyuSearchUserRequest) SetNum(val int64) {
+	p.Num = val
+}
+
+var fieldIDToName_QingyuSearchUserRequest = map[int16]string{
+	1: "viewer_id",
+	2: "content",
+	3: "offset",
+	4: "num",
+}
+
+func (p *QingyuSearchUserRequest) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 3:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 4:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuSearchUserRequest[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *QingyuSearchUserRequest) ReadField1(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.ViewerId = v
+	}
+	return nil
+}
+
+func (p *QingyuSearchUserRequest) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Content = v
+	}
+	return nil
+}
+
+func (p *QingyuSearchUserRequest) ReadField3(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.Offset = v
+	}
+	return nil
+}
+
+func (p *QingyuSearchUserRequest) ReadField4(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.Num = v
+	}
+	return nil
+}
+
+func (p *QingyuSearchUserRequest) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("qingyu_search_user_request"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *QingyuSearchUserRequest) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("viewer_id", thrift.I64, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.ViewerId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuSearchUserRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("content", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Content); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *QingyuSearchUserRequest) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("offset", thrift.I64, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.Offset); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *QingyuSearchUserRequest) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("num", thrift.I64, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.Num); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *QingyuSearchUserRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("QingyuSearchUserRequest(%+v)", *p)
+}
+
+func (p *QingyuSearchUserRequest) DeepEqual(ano *QingyuSearchUserRequest) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.ViewerId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Content) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.Offset) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.Num) {
+		return false
+	}
+	return true
+}
+
+func (p *QingyuSearchUserRequest) Field1DeepEqual(src int64) bool {
+
+	if p.ViewerId != src {
+		return false
+	}
+	return true
+}
+func (p *QingyuSearchUserRequest) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Content, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *QingyuSearchUserRequest) Field3DeepEqual(src int64) bool {
+
+	if p.Offset != src {
+		return false
+	}
+	return true
+}
+func (p *QingyuSearchUserRequest) Field4DeepEqual(src int64) bool {
+
+	if p.Num != src {
+		return false
+	}
+	return true
+}
+
+type QingyuSearchUserResponse struct {
+	BaseResp *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
+	UserList []*base.User             `thrift:"user_list,2" frugal:"2,default,list<base.User>" json:"user_list"`
+}
+
+func NewQingyuSearchUserResponse() *QingyuSearchUserResponse {
+	return &QingyuSearchUserResponse{}
+}
+
+func (p *QingyuSearchUserResponse) InitDefault() {
+	*p = QingyuSearchUserResponse{}
+}
+
+var QingyuSearchUserResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
+
+func (p *QingyuSearchUserResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
+	if !p.IsSetBaseResp() {
+		return QingyuSearchUserResponse_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+
+func (p *QingyuSearchUserResponse) GetUserList() (v []*base.User) {
+	return p.UserList
+}
+func (p *QingyuSearchUserResponse) SetBaseResp(val *base.QingyuBaseResponse) {
+	p.BaseResp = val
+}
+func (p *QingyuSearchUserResponse) SetUserList(val []*base.User) {
+	p.UserList = val
+}
+
+var fieldIDToName_QingyuSearchUserResponse = map[int16]string{
+	1: "base_resp",
+	2: "user_list",
+}
+
+func (p *QingyuSearchUserResponse) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *QingyuSearchUserResponse) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuSearchUserResponse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *QingyuSearchUserResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
+	if err := p.BaseResp.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *QingyuSearchUserResponse) ReadField2(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.UserList = make([]*base.User, 0, size)
+	for i := 0; i < size; i++ {
+		_elem := base.NewUser()
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		p.UserList = append(p.UserList, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *QingyuSearchUserResponse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("qingyu_search_user_response"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *QingyuSearchUserResponse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.BaseResp.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuSearchUserResponse) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("user_list", thrift.LIST, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.UserList)); err != nil {
+		return err
+	}
+	for _, v := range p.UserList {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *QingyuSearchUserResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("QingyuSearchUserResponse(%+v)", *p)
+}
+
+func (p *QingyuSearchUserResponse) DeepEqual(ano *QingyuSearchUserResponse) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.BaseResp) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.UserList) {
+		return false
+	}
+	return true
+}
+
+func (p *QingyuSearchUserResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *QingyuSearchUserResponse) Field2DeepEqual(src []*base.User) bool {
+
+	if len(p.UserList) != len(src) {
+		return false
+	}
+	for i, v := range p.UserList {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
+
 type UserService interface {
 	Register(ctx context.Context, req *QingyuUserRegisterRequest) (r *QingyuUserRegisterResponse, err error)
 
@@ -4265,6 +4862,8 @@ type UserService interface {
 	UpdateIssueList(ctx context.Context, req *QingyuUpdateIssueListRequest) (r *QingyuUpdateIssueListResponse, err error)
 
 	GetIssueList(ctx context.Context, req *QingyuGetIssueListRequest) (r *QingyuGetIssueListResponse, err error)
+
+	SearchUserList(ctx context.Context, req *QingyuSearchUserRequest) (r *QingyuSearchUserResponse, err error)
 }
 
 type UserServiceClient struct {
@@ -4374,6 +4973,15 @@ func (p *UserServiceClient) GetIssueList(ctx context.Context, req *QingyuGetIssu
 	}
 	return _result.GetSuccess(), nil
 }
+func (p *UserServiceClient) SearchUserList(ctx context.Context, req *QingyuSearchUserRequest) (r *QingyuSearchUserResponse, err error) {
+	var _args UserServiceSearchUserListArgs
+	_args.Req = req
+	var _result UserServiceSearchUserListResult
+	if err = p.Client_().Call(ctx, "SearchUserList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
 
 type UserServiceProcessor struct {
 	processorMap map[string]thrift.TProcessorFunction
@@ -4404,6 +5012,7 @@ func NewUserServiceProcessor(handler UserService) *UserServiceProcessor {
 	self.AddToProcessorMap("GetFriendList", &userServiceProcessorGetFriendList{handler: handler})
 	self.AddToProcessorMap("UpdateIssueList", &userServiceProcessorUpdateIssueList{handler: handler})
 	self.AddToProcessorMap("GetIssueList", &userServiceProcessorGetIssueList{handler: handler})
+	self.AddToProcessorMap("SearchUserList", &userServiceProcessorSearchUserList{handler: handler})
 	return self
 }
 func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -4839,6 +5448,54 @@ func (p *userServiceProcessorGetIssueList) Process(ctx context.Context, seqId in
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("GetIssueList", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type userServiceProcessorSearchUserList struct {
+	handler UserService
+}
+
+func (p *userServiceProcessorSearchUserList) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := UserServiceSearchUserListArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("SearchUserList", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := UserServiceSearchUserListResult{}
+	var retval *QingyuSearchUserResponse
+	if retval, err2 = p.handler.SearchUserList(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing SearchUserList: "+err2.Error())
+		oprot.WriteMessageBegin("SearchUserList", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("SearchUserList", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -7963,6 +8620,352 @@ func (p *UserServiceGetIssueListResult) DeepEqual(ano *UserServiceGetIssueListRe
 }
 
 func (p *UserServiceGetIssueListResult) Field0DeepEqual(src *QingyuGetIssueListResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type UserServiceSearchUserListArgs struct {
+	Req *QingyuSearchUserRequest `thrift:"req,1" frugal:"1,default,QingyuSearchUserRequest" json:"req"`
+}
+
+func NewUserServiceSearchUserListArgs() *UserServiceSearchUserListArgs {
+	return &UserServiceSearchUserListArgs{}
+}
+
+func (p *UserServiceSearchUserListArgs) InitDefault() {
+	*p = UserServiceSearchUserListArgs{}
+}
+
+var UserServiceSearchUserListArgs_Req_DEFAULT *QingyuSearchUserRequest
+
+func (p *UserServiceSearchUserListArgs) GetReq() (v *QingyuSearchUserRequest) {
+	if !p.IsSetReq() {
+		return UserServiceSearchUserListArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *UserServiceSearchUserListArgs) SetReq(val *QingyuSearchUserRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_UserServiceSearchUserListArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *UserServiceSearchUserListArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *UserServiceSearchUserListArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceSearchUserListArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UserServiceSearchUserListArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewQingyuSearchUserRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *UserServiceSearchUserListArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("SearchUserList_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UserServiceSearchUserListArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *UserServiceSearchUserListArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserServiceSearchUserListArgs(%+v)", *p)
+}
+
+func (p *UserServiceSearchUserListArgs) DeepEqual(ano *UserServiceSearchUserListArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *UserServiceSearchUserListArgs) Field1DeepEqual(src *QingyuSearchUserRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type UserServiceSearchUserListResult struct {
+	Success *QingyuSearchUserResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuSearchUserResponse" json:"success,omitempty"`
+}
+
+func NewUserServiceSearchUserListResult() *UserServiceSearchUserListResult {
+	return &UserServiceSearchUserListResult{}
+}
+
+func (p *UserServiceSearchUserListResult) InitDefault() {
+	*p = UserServiceSearchUserListResult{}
+}
+
+var UserServiceSearchUserListResult_Success_DEFAULT *QingyuSearchUserResponse
+
+func (p *UserServiceSearchUserListResult) GetSuccess() (v *QingyuSearchUserResponse) {
+	if !p.IsSetSuccess() {
+		return UserServiceSearchUserListResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *UserServiceSearchUserListResult) SetSuccess(x interface{}) {
+	p.Success = x.(*QingyuSearchUserResponse)
+}
+
+var fieldIDToName_UserServiceSearchUserListResult = map[int16]string{
+	0: "success",
+}
+
+func (p *UserServiceSearchUserListResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *UserServiceSearchUserListResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceSearchUserListResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UserServiceSearchUserListResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewQingyuSearchUserResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *UserServiceSearchUserListResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("SearchUserList_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UserServiceSearchUserListResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *UserServiceSearchUserListResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserServiceSearchUserListResult(%+v)", *p)
+}
+
+func (p *UserServiceSearchUserListResult) DeepEqual(ano *UserServiceSearchUserListResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *UserServiceSearchUserListResult) Field0DeepEqual(src *QingyuSearchUserResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

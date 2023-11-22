@@ -20,6 +20,7 @@ type Client interface {
 	GetFriendList(ctx context.Context, req *user.QingyuGetRelationFriendListRequest, callOptions ...callopt.Option) (r *user.QingyuGetRelationFriendListResponse, err error)
 	UpdateIssueList(ctx context.Context, req *user.QingyuUpdateIssueListRequest, callOptions ...callopt.Option) (r *user.QingyuUpdateIssueListResponse, err error)
 	GetIssueList(ctx context.Context, req *user.QingyuGetIssueListRequest, callOptions ...callopt.Option) (r *user.QingyuGetIssueListResponse, err error)
+	SearchUserList(ctx context.Context, req *user.QingyuSearchUserRequest, callOptions ...callopt.Option) (r *user.QingyuSearchUserResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -94,4 +95,9 @@ func (p *kUserServiceClient) UpdateIssueList(ctx context.Context, req *user.Qing
 func (p *kUserServiceClient) GetIssueList(ctx context.Context, req *user.QingyuGetIssueListRequest, callOptions ...callopt.Option) (r *user.QingyuGetIssueListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetIssueList(ctx, req)
+}
+
+func (p *kUserServiceClient) SearchUserList(ctx context.Context, req *user.QingyuSearchUserRequest, callOptions ...callopt.Option) (r *user.QingyuSearchUserResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SearchUserList(ctx, req)
 }

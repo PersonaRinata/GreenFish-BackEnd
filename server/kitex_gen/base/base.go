@@ -4263,7 +4263,7 @@ func (p *LatestMsg) Field2DeepEqual(src int64) bool {
 type MedicalHistoryInfo struct {
 	Symptom     string `thrift:"symptom,1" frugal:"1,default,string" json:"symptom"`
 	Description string `thrift:"description,2" frugal:"2,default,string" json:"description"`
-	Histroy     string `thrift:"histroy,3" frugal:"3,default,string" json:"histroy"`
+	History     string `thrift:"history,3" frugal:"3,default,string" json:"history"`
 	FamilyInfo  string `thrift:"familyInfo,4" frugal:"4,default,string" json:"familyInfo"`
 }
 
@@ -4283,8 +4283,8 @@ func (p *MedicalHistoryInfo) GetDescription() (v string) {
 	return p.Description
 }
 
-func (p *MedicalHistoryInfo) GetHistroy() (v string) {
-	return p.Histroy
+func (p *MedicalHistoryInfo) GetHistory() (v string) {
+	return p.History
 }
 
 func (p *MedicalHistoryInfo) GetFamilyInfo() (v string) {
@@ -4296,8 +4296,8 @@ func (p *MedicalHistoryInfo) SetSymptom(val string) {
 func (p *MedicalHistoryInfo) SetDescription(val string) {
 	p.Description = val
 }
-func (p *MedicalHistoryInfo) SetHistroy(val string) {
-	p.Histroy = val
+func (p *MedicalHistoryInfo) SetHistory(val string) {
+	p.History = val
 }
 func (p *MedicalHistoryInfo) SetFamilyInfo(val string) {
 	p.FamilyInfo = val
@@ -4306,7 +4306,7 @@ func (p *MedicalHistoryInfo) SetFamilyInfo(val string) {
 var fieldIDToName_MedicalHistoryInfo = map[int16]string{
 	1: "symptom",
 	2: "description",
-	3: "histroy",
+	3: "history",
 	4: "familyInfo",
 }
 
@@ -4421,7 +4421,7 @@ func (p *MedicalHistoryInfo) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.Histroy = v
+		p.History = v
 	}
 	return nil
 }
@@ -4511,10 +4511,10 @@ WriteFieldEndError:
 }
 
 func (p *MedicalHistoryInfo) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("histroy", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("history", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Histroy); err != nil {
+	if err := oprot.WriteString(p.History); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4563,7 +4563,7 @@ func (p *MedicalHistoryInfo) DeepEqual(ano *MedicalHistoryInfo) bool {
 	if !p.Field2DeepEqual(ano.Description) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.Histroy) {
+	if !p.Field3DeepEqual(ano.History) {
 		return false
 	}
 	if !p.Field4DeepEqual(ano.FamilyInfo) {
@@ -4588,7 +4588,7 @@ func (p *MedicalHistoryInfo) Field2DeepEqual(src string) bool {
 }
 func (p *MedicalHistoryInfo) Field3DeepEqual(src string) bool {
 
-	if strings.Compare(p.Histroy, src) != 0 {
+	if strings.Compare(p.History, src) != 0 {
 		return false
 	}
 	return true

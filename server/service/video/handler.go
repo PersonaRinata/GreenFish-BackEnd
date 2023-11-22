@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/jinzhu/copier"
 	"time"
 )
 
@@ -38,6 +39,7 @@ type MysqlManager interface {
 	GetFavoriteVideoListByUserId(ctx context.Context, userId int64) ([]*model.Video, error)
 	GetPublishedVideoIdListByUserId(ctx context.Context, userId int64) ([]int64, error)
 	PublishVideo(ctx context.Context, video *model.Video) error
+	SearchVideoByTitle(ctx context.Context, content string) ([]*model.Video, error)
 }
 type RedisManager interface {
 	GetBasicVideoListByLatestTime(ctx context.Context, userId, latestTime int64) ([]*model.Video, error)
@@ -271,6 +273,37 @@ func (s *VideoServiceImpl) GetPublishedVideoIdList(ctx context.Context, req *vid
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "video get publishedVideoIdList success",
+	}
+	return resp, nil
+}
+
+// SearchVideoList implements the VideoServiceImpl interface.
+func (s *VideoServiceImpl) SearchVideoList(ctx context.Context, req *video.QingyuSearchVideoRequest) (resp *video.QingyuSearchVideoResponse, err error) {
+	resp = new(video.QingyuSearchVideoResponse)
+
+	videoList, err := s.MysqlManager.SearchVideoByTitle(ctx, req.Content)
+	if err != nil {
+		klog.Errorf("user mysqlManager get videoList failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user mysqlManager get videoList failed",
+		}
+		return resp, err
+	}
+
+	res := videoList[req.Num*req.Offset : (req.Num+1)*req.Offset+1]
+	err = copier.Copy(resp.VideoList, res)
+	if err != nil {
+		klog.Errorf("video copy failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "video copy failed",
+		}
+		return resp, err
+	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "get videoList success",
 	}
 	return resp, nil
 }

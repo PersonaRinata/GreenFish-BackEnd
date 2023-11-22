@@ -92,6 +92,18 @@ struct qingyu_get_issue_list_response{
     2: base.IssueList issue_list
 }
 
+struct qingyu_search_user_request{
+    1: i64 viewer_id, // User id of viewer,set to zero when unclear
+    2: string content,  // content for search
+    3: i64 offset
+    4: i64 num
+}
+
+struct qingyu_search_user_response {
+    1: base.qingyu_base_response base_resp,
+    2: list<base.User> user_list,                      // User Information
+}
+
 
 service UserService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req),
@@ -103,4 +115,5 @@ service UserService {
     qingyu_get_relation_friend_list_response GetFriendList(1: qingyu_get_relation_friend_list_request req),
     qingyu_update_issue_list_response UpdateIssueList(1:qingyu_update_issue_list_request req)
     qingyu_get_issue_list_response GetIssueList(1:qingyu_get_issue_list_request req)
+    qingyu_search_user_response SearchUserList(1:qingyu_search_user_request req)
 }

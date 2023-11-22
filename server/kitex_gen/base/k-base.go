@@ -3578,7 +3578,7 @@ func (p *MedicalHistoryInfo) FastReadField3(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.Histroy = v
+		p.History = v
 
 	}
 	return offset, nil
@@ -3651,8 +3651,8 @@ func (p *MedicalHistoryInfo) fastWriteField2(buf []byte, binaryWriter bthrift.Bi
 
 func (p *MedicalHistoryInfo) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "histroy", thrift.STRING, 3)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Histroy)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "history", thrift.STRING, 3)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.History)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -3687,8 +3687,8 @@ func (p *MedicalHistoryInfo) field2Length() int {
 
 func (p *MedicalHistoryInfo) field3Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("histroy", thrift.STRING, 3)
-	l += bthrift.Binary.StringLengthNocopy(p.Histroy)
+	l += bthrift.Binary.FieldBeginLength("history", thrift.STRING, 3)
+	l += bthrift.Binary.StringLengthNocopy(p.History)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l

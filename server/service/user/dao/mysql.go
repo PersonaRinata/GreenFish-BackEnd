@@ -45,6 +45,15 @@ func (u User) GetUserByUsername(ctx context.Context, username string) (*model.Us
 	return &user, nil
 }
 
+func (u User) SearchUserByUsername(ctx context.Context, content string) ([]*model.User, error) {
+	var users []*model.User
+	content = "%" + content + "%"
+	if err := u.db.Where("username LIKE ?", content).Find(&users).Error; err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
 func NewUser(db *gorm.DB) *User {
 	m := db.Migrator()
 	if !m.HasTable(&model.User{}) {

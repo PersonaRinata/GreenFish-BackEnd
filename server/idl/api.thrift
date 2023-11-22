@@ -205,14 +205,42 @@ struct qingyu_issue_list_get_response {
     3: base.IssueList issue_list
 }
 
+struct qingyu_search_user_request{
+    1: string token(api.query="token") // User authentication token
+    2: string content,  // content for search
+    3: i64 offset
+    4: i64 num
+}
+
+struct qingyu_search_user_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: base.User user_list                     // User Information
+}
+
+struct qingyu_search_video_request{
+    1: string token(api.query="token") // User authentication token
+    2: string content,  // content for search
+    3: i64 offset
+    4: i64 num
+}
+
+struct qingyu_search_video_response{
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: base.Video video_list                     // User Information
+}
+
 service ApiService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req)(api.post="/qingyu/user/register/");
     qingyu_user_login_response Login(1: qingyu_user_login_request req)(api.post="/qingyu/user/login/");
     qingyu_user_response GetUserInfo(1: qingyu_user_request req)(api.get="/qingyu/user/");
+    qingyu_search_user_response SearchUserList(1: qingyu_search_user_request req)(api.post="/qingyu/user/search");
 
     qingyu_feed_response Feed (1: qingyu_feed_request req)(api.get="/qingyu/feed/");
     qingyu_publish_action_response PublishVideo (1: qingyu_publish_action_request req)(api.post="/qingyu/publish/action/");
     qingyu_publish_list_response VideoList (1: qingyu_publish_list_request req)(api.get="/qingyu/publish/list/");
+    qingyu_search_video_response SearchVideoList(1: qingyu_search_video_request req)(api.post="/qingyu/user/search");
 
     qingyu_favorite_action_response Favorite(1: qingyu_favorite_action_request req)(api.post="/qingyu/favorite/action/");
     qingyu_favorite_list_response FavoriteList(1: qingyu_favorite_list_request req)(api.get="/qingyu/favorite/list/");
@@ -227,6 +255,6 @@ service ApiService {
     qingyu_message_chat_response ChatHistory(1: qingyu_message_chat_request req)(api.get="/qingyu/message/chat/");
     qingyu_message_action_response SentMessage(1: qingyu_message_action_request req)(api.post="/qingyu/message/action/");
 
-    qingyu_issue_list_update_response updateIssueList(1:qingyu_issue_list_update_request req)(api.post="/qingyu/issuelist/action/")
-    qingyu_issue_list_get_response getIssueList(1:qingyu_issue_list_get_request rqe)(api.get="/qingyu/issuelist/")
+    qingyu_issue_list_update_response updateIssueList(1:qingyu_issue_list_update_request req)(api.post="/qingyu/issuelist/action/");
+    qingyu_issue_list_get_response getIssueList(1:qingyu_issue_list_get_request rqe)(api.get="/qingyu/issuelist/");
 }
