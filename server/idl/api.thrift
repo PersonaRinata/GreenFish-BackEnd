@@ -240,7 +240,7 @@ service ApiService {
     qingyu_feed_response Feed (1: qingyu_feed_request req)(api.get="/qingyu/feed/");
     qingyu_publish_action_response PublishVideo (1: qingyu_publish_action_request req)(api.post="/qingyu/publish/action/");
     qingyu_publish_list_response VideoList (1: qingyu_publish_list_request req)(api.get="/qingyu/publish/list/");
-    qingyu_search_video_response SearchVideoList(1: qingyu_search_video_request req)(api.post="/qingyu/user/search");
+    qingyu_search_video_response SearchVideoList(1: qingyu_search_video_request req)(api.post="/qingyu/video/search");
 
     qingyu_favorite_action_response Favorite(1: qingyu_favorite_action_request req)(api.post="/qingyu/favorite/action/");
     qingyu_favorite_list_response FavoriteList(1: qingyu_favorite_list_request req)(api.get="/qingyu/favorite/list/");

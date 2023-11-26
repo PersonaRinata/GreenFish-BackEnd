@@ -31,6 +31,7 @@ func main() {
 		server.WithHostPorts(fmt.Sprintf(":%d", config.GlobalServerConfig.Port)),
 		server.WithRegistry(r, info),
 		server.WithHandleMethodNotAllowed(true),
+		server.WithMaxRequestBodySize(100*1024*1024),
 	)
 	// use pprof & tracer mw
 	pprof.Register(h)

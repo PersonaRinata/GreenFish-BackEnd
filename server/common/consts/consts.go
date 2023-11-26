@@ -16,6 +16,7 @@ const (
 	InteractionSentinelFilePath = "./tmp/circuit/interaction"
 	SocialSentinelFilePath      = "./tmp/circuit/social"
 	VideoSentinelFilePath       = "./tmp/circuit/video"
+	AIGCSentinelFilePath        = "./tmp/circuit/aigc"
 	ApiSentinelFilePath         = "./tmp/flow/api"
 
 	NacosLogDir   = "tmp/nacos/log"
@@ -27,6 +28,7 @@ const (
 	InteractionConfigPath = "./server/service/interaction/config.yaml"
 	VideoConfigPath       = "./server/service/video/config.yaml"
 	ChatConfigPath        = "./server/service/chat/config.yaml"
+	AIGCConfigPath        = "./server/service/aigc/config.yaml"
 	ApiConfigPath         = "./server/service/api/config.yaml"
 
 	RedisSocialClientDB   = 1

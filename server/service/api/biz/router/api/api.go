@@ -107,7 +107,6 @@ func Register(r *server.Hertz) {
 			_user := _qingyu.Group("/user", _userMw()...)
 			_user.GET("/", append(_getuserinfoMw(), api.GetUserInfo)...)
 			_user.POST("/search", append(_searchuserlistMw(), api.SearchUserList)...)
-			_user.POST("/search", append(_searchvideolistMw(), api.SearchVideoList)...)
 			{
 				_login := _user.Group("/login", _loginMw()...)
 				_login.POST("/", append(_login0Mw(), api.Login)...)
@@ -116,6 +115,10 @@ func Register(r *server.Hertz) {
 				_register := _user.Group("/register", _registerMw()...)
 				_register.POST("/", append(_register0Mw(), api.Register)...)
 			}
+		}
+		{
+			_video := _qingyu.Group("/video", _videoMw()...)
+			_video.POST("/search", append(_searchvideolistMw(), api.SearchVideoList)...)
 		}
 	}
 }
