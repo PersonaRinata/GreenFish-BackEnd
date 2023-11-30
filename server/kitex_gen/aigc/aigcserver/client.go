@@ -12,6 +12,9 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	UserAskQuestion(ctx context.Context, req *aigc.QingyuAigcQuestionRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcQuestionResponse, err error)
+	AnalyseIssueList(ctx context.Context, req *aigc.QingyuAigcIssueListRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcIssueListResponse, err error)
+	ChooseWord(ctx context.Context, req *aigc.QingyuAigcChooseWordRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcChooseWordResponse, err error)
+	DoctorAnalyse(ctx context.Context, req *aigc.QingyuAigcDoctorAnalyseRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcDoctorAnalyseResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -46,4 +49,19 @@ type kAIGCServerClient struct {
 func (p *kAIGCServerClient) UserAskQuestion(ctx context.Context, req *aigc.QingyuAigcQuestionRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcQuestionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UserAskQuestion(ctx, req)
+}
+
+func (p *kAIGCServerClient) AnalyseIssueList(ctx context.Context, req *aigc.QingyuAigcIssueListRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcIssueListResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.AnalyseIssueList(ctx, req)
+}
+
+func (p *kAIGCServerClient) ChooseWord(ctx context.Context, req *aigc.QingyuAigcChooseWordRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcChooseWordResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ChooseWord(ctx, req)
+}
+
+func (p *kAIGCServerClient) DoctorAnalyse(ctx context.Context, req *aigc.QingyuAigcDoctorAnalyseRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcDoctorAnalyseResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DoctorAnalyse(ctx, req)
 }

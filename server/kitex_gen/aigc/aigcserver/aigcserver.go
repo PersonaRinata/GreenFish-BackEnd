@@ -19,7 +19,10 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "AIGCServer"
 	handlerType := (*aigc.AIGCServer)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"UserAskQuestion": kitex.NewMethodInfo(userAskQuestionHandler, newAIGCServerUserAskQuestionArgs, newAIGCServerUserAskQuestionResult, false),
+		"UserAskQuestion":  kitex.NewMethodInfo(userAskQuestionHandler, newAIGCServerUserAskQuestionArgs, newAIGCServerUserAskQuestionResult, false),
+		"AnalyseIssueList": kitex.NewMethodInfo(analyseIssueListHandler, newAIGCServerAnalyseIssueListArgs, newAIGCServerAnalyseIssueListResult, false),
+		"ChooseWord":       kitex.NewMethodInfo(chooseWordHandler, newAIGCServerChooseWordArgs, newAIGCServerChooseWordResult, false),
+		"DoctorAnalyse":    kitex.NewMethodInfo(doctorAnalyseHandler, newAIGCServerDoctorAnalyseArgs, newAIGCServerDoctorAnalyseResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "aigc",
@@ -54,6 +57,60 @@ func newAIGCServerUserAskQuestionResult() interface{} {
 	return aigc.NewAIGCServerUserAskQuestionResult()
 }
 
+func analyseIssueListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*aigc.AIGCServerAnalyseIssueListArgs)
+	realResult := result.(*aigc.AIGCServerAnalyseIssueListResult)
+	success, err := handler.(aigc.AIGCServer).AnalyseIssueList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newAIGCServerAnalyseIssueListArgs() interface{} {
+	return aigc.NewAIGCServerAnalyseIssueListArgs()
+}
+
+func newAIGCServerAnalyseIssueListResult() interface{} {
+	return aigc.NewAIGCServerAnalyseIssueListResult()
+}
+
+func chooseWordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*aigc.AIGCServerChooseWordArgs)
+	realResult := result.(*aigc.AIGCServerChooseWordResult)
+	success, err := handler.(aigc.AIGCServer).ChooseWord(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newAIGCServerChooseWordArgs() interface{} {
+	return aigc.NewAIGCServerChooseWordArgs()
+}
+
+func newAIGCServerChooseWordResult() interface{} {
+	return aigc.NewAIGCServerChooseWordResult()
+}
+
+func doctorAnalyseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*aigc.AIGCServerDoctorAnalyseArgs)
+	realResult := result.(*aigc.AIGCServerDoctorAnalyseResult)
+	success, err := handler.(aigc.AIGCServer).DoctorAnalyse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newAIGCServerDoctorAnalyseArgs() interface{} {
+	return aigc.NewAIGCServerDoctorAnalyseArgs()
+}
+
+func newAIGCServerDoctorAnalyseResult() interface{} {
+	return aigc.NewAIGCServerDoctorAnalyseResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -69,6 +126,36 @@ func (p *kClient) UserAskQuestion(ctx context.Context, req *aigc.QingyuAigcQuest
 	_args.Req = req
 	var _result aigc.AIGCServerUserAskQuestionResult
 	if err = p.c.Call(ctx, "UserAskQuestion", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) AnalyseIssueList(ctx context.Context, req *aigc.QingyuAigcIssueListRequest) (r *aigc.QingyuAigcIssueListResponse, err error) {
+	var _args aigc.AIGCServerAnalyseIssueListArgs
+	_args.Req = req
+	var _result aigc.AIGCServerAnalyseIssueListResult
+	if err = p.c.Call(ctx, "AnalyseIssueList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ChooseWord(ctx context.Context, req *aigc.QingyuAigcChooseWordRequest) (r *aigc.QingyuAigcChooseWordResponse, err error) {
+	var _args aigc.AIGCServerChooseWordArgs
+	_args.Req = req
+	var _result aigc.AIGCServerChooseWordResult
+	if err = p.c.Call(ctx, "ChooseWord", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DoctorAnalyse(ctx context.Context, req *aigc.QingyuAigcDoctorAnalyseRequest) (r *aigc.QingyuAigcDoctorAnalyseResponse, err error) {
+	var _args aigc.AIGCServerDoctorAnalyseArgs
+	_args.Req = req
+	var _result aigc.AIGCServerDoctorAnalyseResult
+	if err = p.c.Call(ctx, "DoctorAnalyse", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

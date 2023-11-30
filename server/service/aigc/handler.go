@@ -48,3 +48,21 @@ func (s *AIGCServerImpl) UserAskQuestion(ctx context.Context, req *aigc.QingyuAi
 	}
 	return
 }
+
+// ChooseWord implements the AIGCServerImpl interface.
+func (s *AIGCServerImpl) ChooseWord(ctx context.Context, req *aigc.QingyuAigcChooseWordRequest) (resp *aigc.QingyuAigcChooseWordResponse, err error) {
+	// TODO: Your code here...
+	return
+}
+
+// DoctorAnalyse implements the AIGCServerImpl interface.
+func (s *AIGCServerImpl) DoctorAnalyse(ctx context.Context, req *aigc.QingyuAigcDoctorAnalyseRequest) (resp *aigc.QingyuAigcDoctorAnalyseResponse, err error) {
+	// TODO: Your code here...
+	return
+}
+
+// AnalyseIssueList implements the AIGCServerImpl interface.
+func (s *AIGCServerImpl) AnalyseIssueList(ctx context.Context, req *aigc.QingyuAigcIssueListRequest) (resp *aigc.QingyuAigcIssueListResponse, err error) {
+	// TODO: Your code here...
+	return
+}
