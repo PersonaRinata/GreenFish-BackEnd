@@ -36,6 +36,15 @@ struct qingyu_user_response {
     3: base.User user // User Information
 }
 
+struct qingyu_avatar_change_request {
+    1: string token(api.form="token") // User authentication token
+}
+
+struct qingyu_avatar_change_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+}
+
 struct qingyu_feed_request {
     1: i64 latest_time(api.query="latest_time") // Optional parameter, limit the latest submission timestamp of the returned video, accurate to seconds, and leave it blank to indicate the current time
     2: string token(api.query="token") // Optional parameter, login user settings
@@ -235,6 +244,7 @@ service ApiService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req)(api.post="/qingyu/user/register/");
     qingyu_user_login_response Login(1: qingyu_user_login_request req)(api.post="/qingyu/user/login/");
     qingyu_user_response GetUserInfo(1: qingyu_user_request req)(api.get="/qingyu/user/");
+    qingyu_avatar_change_response ChangeAvatar(1:qingyu_avatar_change_request req)(api.post="/qingyu/user/avatar")
     qingyu_search_user_response SearchUserList(1: qingyu_search_user_request req)(api.post="/qingyu/user/search");
 
     qingyu_feed_response Feed (1: qingyu_feed_request req)(api.get="/qingyu/feed/");

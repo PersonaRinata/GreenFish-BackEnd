@@ -104,6 +104,15 @@ struct qingyu_search_user_response {
     2: list<base.User> user_list,                      // User Information
 }
 
+struct qingyu_avatar_change_request {
+    1: i64 user_id
+    2: string avatar
+}
+
+struct qingyu_avatar_change_response {
+    1: base.qingyu_base_response base_resp,
+}
+
 
 service UserService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req),
@@ -113,7 +122,8 @@ service UserService {
     qingyu_get_relation_follow_list_response GetFollowList(1: qingyu_get_relation_follow_list_request req),
     qingyu_get_relation_follower_list_response GetFollowerList(1: qingyu_get_relation_follower_list_request req),
     qingyu_get_relation_friend_list_response GetFriendList(1: qingyu_get_relation_friend_list_request req),
-    qingyu_update_issue_list_response UpdateIssueList(1:qingyu_update_issue_list_request req)
-    qingyu_get_issue_list_response GetIssueList(1:qingyu_get_issue_list_request req)
-    qingyu_search_user_response SearchUserList(1:qingyu_search_user_request req)
+    qingyu_update_issue_list_response UpdateIssueList(1:qingyu_update_issue_list_request req),
+    qingyu_get_issue_list_response GetIssueList(1:qingyu_get_issue_list_request req),
+    qingyu_search_user_response SearchUserList(1:qingyu_search_user_request req),
+    qingyu_avatar_change_response ChangeUserAvatar(1:qingyu_avatar_change_request req),
 }

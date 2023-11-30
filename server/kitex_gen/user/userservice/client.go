@@ -21,6 +21,7 @@ type Client interface {
 	UpdateIssueList(ctx context.Context, req *user.QingyuUpdateIssueListRequest, callOptions ...callopt.Option) (r *user.QingyuUpdateIssueListResponse, err error)
 	GetIssueList(ctx context.Context, req *user.QingyuGetIssueListRequest, callOptions ...callopt.Option) (r *user.QingyuGetIssueListResponse, err error)
 	SearchUserList(ctx context.Context, req *user.QingyuSearchUserRequest, callOptions ...callopt.Option) (r *user.QingyuSearchUserResponse, err error)
+	ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarChangeRequest, callOptions ...callopt.Option) (r *user.QingyuAvatarChangeResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -100,4 +101,9 @@ func (p *kUserServiceClient) GetIssueList(ctx context.Context, req *user.QingyuG
 func (p *kUserServiceClient) SearchUserList(ctx context.Context, req *user.QingyuSearchUserRequest, callOptions ...callopt.Option) (r *user.QingyuSearchUserResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.SearchUserList(ctx, req)
+}
+
+func (p *kUserServiceClient) ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarChangeRequest, callOptions ...callopt.Option) (r *user.QingyuAvatarChangeResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ChangeUserAvatar(ctx, req)
 }

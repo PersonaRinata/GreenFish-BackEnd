@@ -54,6 +54,14 @@ func (u User) SearchUserByUsername(ctx context.Context, content string) ([]*mode
 	return users, nil
 }
 
+func (u User) ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error {
+	err := u.db.Model(&model.User{}).WithContext(ctx).Where("id = ?", id).Update("avatar", avatar).Error
+	if err != nil {
+		return err
+	}
+	return err
+}
+
 func NewUser(db *gorm.DB) *User {
 	m := db.Migrator()
 	if !m.HasTable(&model.User{}) {

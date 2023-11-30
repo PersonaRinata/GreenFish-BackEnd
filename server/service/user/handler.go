@@ -23,6 +23,7 @@ type MysqlManager interface {
 	CreateUser(ctx context.Context, user *model.User) error
 	GetUserByUsername(ctx context.Context, username string) (*model.User, error)
 	SearchUserByUsername(ctx context.Context, content string) ([]*model.User, error)
+	ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error
 }
 type RedisManager interface {
 	CreateUser(ctx context.Context, user *model.User) error
@@ -30,6 +31,7 @@ type RedisManager interface {
 	BatchGetUserById(ctx context.Context, id []int64) ([]*model.User, error)
 	UpdateIssueListById(ctx context.Context, id int64, issueList *model.IssueList) error
 	GetIssueListById(ctx context.Context, id int64) (*model.IssueList, error)
+	ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error
 }
 type SocialManager interface {
 	GetRelationList(ctx context.Context, viewerId, ownerId int64, option int8) ([]int64, error)
@@ -604,4 +606,32 @@ func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSe
 		StatusMsg:  "get userList success",
 	}
 	return resp, nil
+}
+
+// ChangeUserAvatar implements the UserServiceImpl interface.
+func (s *UserServiceImpl) ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarChangeRequest) (resp *user.QingyuAvatarChangeResponse, err error) {
+	resp = new(user.QingyuAvatarChangeResponse)
+	err = s.MysqlManager.ChangeAvatarByUserID(ctx, req.Avatar, req.UserId)
+	if err != nil {
+		klog.Errorf("user mysqlManager change avatar failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user mysqlManager change avatar failed",
+		}
+		return resp, err
+	}
+	err = s.RedisManager.ChangeAvatarByUserID(ctx, req.Avatar, req.UserId)
+	if err != nil {
+		klog.Errorf("user redisManager change avatar failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user redisManager change avatar failed",
+		}
+		return resp, err
+	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "change avatar success",
+	}
+	return
 }

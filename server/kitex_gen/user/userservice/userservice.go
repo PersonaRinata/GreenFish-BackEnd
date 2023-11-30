@@ -29,6 +29,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"UpdateIssueList":  kitex.NewMethodInfo(updateIssueListHandler, newUserServiceUpdateIssueListArgs, newUserServiceUpdateIssueListResult, false),
 		"GetIssueList":     kitex.NewMethodInfo(getIssueListHandler, newUserServiceGetIssueListArgs, newUserServiceGetIssueListResult, false),
 		"SearchUserList":   kitex.NewMethodInfo(searchUserListHandler, newUserServiceSearchUserListArgs, newUserServiceSearchUserListResult, false),
+		"ChangeUserAvatar": kitex.NewMethodInfo(changeUserAvatarHandler, newUserServiceChangeUserAvatarArgs, newUserServiceChangeUserAvatarResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "user",
@@ -225,6 +226,24 @@ func newUserServiceSearchUserListResult() interface{} {
 	return user.NewUserServiceSearchUserListResult()
 }
 
+func changeUserAvatarHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceChangeUserAvatarArgs)
+	realResult := result.(*user.UserServiceChangeUserAvatarResult)
+	success, err := handler.(user.UserService).ChangeUserAvatar(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceChangeUserAvatarArgs() interface{} {
+	return user.NewUserServiceChangeUserAvatarArgs()
+}
+
+func newUserServiceChangeUserAvatarResult() interface{} {
+	return user.NewUserServiceChangeUserAvatarResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -330,6 +349,16 @@ func (p *kClient) SearchUserList(ctx context.Context, req *user.QingyuSearchUser
 	_args.Req = req
 	var _result user.UserServiceSearchUserListResult
 	if err = p.c.Call(ctx, "SearchUserList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarChangeRequest) (r *user.QingyuAvatarChangeResponse, err error) {
+	var _args user.UserServiceChangeUserAvatarArgs
+	_args.Req = req
+	var _result user.UserServiceChangeUserAvatarResult
+	if err = p.c.Call(ctx, "ChangeUserAvatar", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

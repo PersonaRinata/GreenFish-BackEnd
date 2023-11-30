@@ -93,3 +93,18 @@ func (r *RedisManager) GetIssueListById(ctx context.Context, id int64) (*model.I
 	}
 	return issueList, nil
 }
+
+func (r *RedisManager) ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error {
+	user, err := r.GetUserById(ctx, id)
+	if err != nil {
+		klog.Error("redis get user by id failed,", err)
+		return err
+	}
+	user.Avatar = avatar
+	err = r.redisClient.Set(ctx, "user:"+strconv.FormatInt(user.ID, 10), user, 0).Err()
+	if err == nil {
+		klog.Error("redis update user avatar failed,", err)
+		return err
+	}
+	return nil
+}

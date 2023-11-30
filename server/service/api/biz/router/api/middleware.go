@@ -267,3 +267,8 @@ func _videoMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _changeavatarMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

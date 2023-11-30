@@ -914,3 +914,60 @@ func SearchVideoList(ctx context.Context, c *app.RequestContext) {
 	resp.StatusCode = res.BaseResp.StatusCode
 	c.JSON(consts.StatusOK, resp)
 }
+
+// ChangeAvatar .
+// @router /qingyu/user/avatar [POST]
+func ChangeAvatar(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAvatarChangeRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		hlog.Error("api bind failed,", err)
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	resp := new(api.QingyuAvatarChangeResponse)
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+	avatarFile, err := c.Request.FormFile("avatar")
+	if err != nil {
+		hlog.Error("api read avatar file failed,err", err)
+		resp.StatusCode = 500
+		resp.StatusMsg = "read avatar file failed"
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	file, err := avatarFile.Open()
+	if err != nil {
+		hlog.Error("api open avatar file failed,err", err)
+		resp.StatusCode = 500
+		resp.StatusMsg = "read avatar file failed"
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	suffix := strings.Split(avatarFile.Filename, ".")
+	filename := "avatar" + strconv.FormatInt(userId.(int64), 10) + "." + suffix[len(suffix)-1]
+	err = pkg.MinioAvatarUpgrade(file, filename, avatarFile.Size)
+	if err != nil {
+		hlog.Error("api upgrade avatar failed,err", err)
+		resp.StatusCode = 500
+		resp.StatusMsg = "api upgrade avatar failed"
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	res, err := config.GlobalUserClient.ChangeUserAvatar(ctx, &user.QingyuAvatarChangeRequest{UserId: userId.(int64), Avatar: config.GlobalServerConfig.MinioInfo.UrlPrefix + filename})
+	if err != nil {
+		hlog.Error("api upgrade avatar failed,err", err)
+		resp.StatusCode = 500
+		resp.StatusMsg = "api upgrade avatar failed"
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
