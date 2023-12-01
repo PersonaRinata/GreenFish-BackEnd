@@ -3,7 +3,9 @@ package main
 import (
 	aigc "GreenFish/server/kitex_gen/aigc/aigcserver"
 	"GreenFish/server/service/aigc/config"
+	"GreenFish/server/service/aigc/dao"
 	"GreenFish/server/service/aigc/initialize"
+	"GreenFish/server/service/aigc/pkg"
 	"context"
 	"errors"
 	kitexSentinel "github.com/alibaba/sentinel-golang/pkg/adapters/kitex"
@@ -27,9 +29,11 @@ func main() {
 		provider.WithInsecure(),
 	)
 	userClient := initialize.InitUser()
+	rdb := initialize.InitRedis()
 	defer p.Shutdown(context.Background())
 	impl := &AIGCServerImpl{
-		userClient,
+		pkg.NewUserManager(userClient),
+		dao.NewRedisManager(rdb),
 	}
 	// Create new server.
 	srv := aigc.NewServer(impl,

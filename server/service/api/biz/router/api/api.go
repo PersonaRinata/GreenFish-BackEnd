@@ -20,6 +20,20 @@ func Register(r *server.Hertz) {
 	{
 		_qingyu := root.Group("/qingyu", _qingyuMw()...)
 		{
+			_aigc := _qingyu.Group("/aigc", _aigcMw()...)
+			_aigc.POST("/doctor", append(_aigcdoctoranalyseMw(), api.AIGCDoctorAnalyse)...)
+			_aigc.GET("/history", append(_aigcgethistoryMw(), api.AIGCGetHistory)...)
+			_aigc.GET("/issuelist", append(_aigcissuelistMw(), api.AIGCIssueList)...)
+			{
+				_question := _aigc.Group("/question", _questionMw()...)
+				_question.POST("/", append(_aigcaskquestionMw(), api.AIGCAskQuestion)...)
+			}
+			{
+				_word := _aigc.Group("/word", _wordMw()...)
+				_word.POST("/", append(_aigcchoosewordMw(), api.AIGCChooseWord)...)
+			}
+		}
+		{
 			_comment := _qingyu.Group("/comment", _commentMw()...)
 			{
 				_action := _comment.Group("/action", _actionMw()...)

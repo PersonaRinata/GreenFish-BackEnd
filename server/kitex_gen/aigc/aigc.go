@@ -1794,6 +1794,428 @@ func (p *QingyuAigcDoctorAnalyseResponse) Field2DeepEqual(src string) bool {
 	return true
 }
 
+type QingyuAigcGetHistoryRequest struct {
+	UserId int64 `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
+}
+
+func NewQingyuAigcGetHistoryRequest() *QingyuAigcGetHistoryRequest {
+	return &QingyuAigcGetHistoryRequest{}
+}
+
+func (p *QingyuAigcGetHistoryRequest) InitDefault() {
+	*p = QingyuAigcGetHistoryRequest{}
+}
+
+func (p *QingyuAigcGetHistoryRequest) GetUserId() (v int64) {
+	return p.UserId
+}
+func (p *QingyuAigcGetHistoryRequest) SetUserId(val int64) {
+	p.UserId = val
+}
+
+var fieldIDToName_QingyuAigcGetHistoryRequest = map[int16]string{
+	1: "user_id",
+}
+
+func (p *QingyuAigcGetHistoryRequest) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuAigcGetHistoryRequest[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *QingyuAigcGetHistoryRequest) ReadField1(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.UserId = v
+	}
+	return nil
+}
+
+func (p *QingyuAigcGetHistoryRequest) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("qingyu_aigc_get_history_request"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *QingyuAigcGetHistoryRequest) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.UserId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuAigcGetHistoryRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("QingyuAigcGetHistoryRequest(%+v)", *p)
+}
+
+func (p *QingyuAigcGetHistoryRequest) DeepEqual(ano *QingyuAigcGetHistoryRequest) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.UserId) {
+		return false
+	}
+	return true
+}
+
+func (p *QingyuAigcGetHistoryRequest) Field1DeepEqual(src int64) bool {
+
+	if p.UserId != src {
+		return false
+	}
+	return true
+}
+
+type QingyuAigcGetHistoryResponse struct {
+	BaseResp *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
+	Msg      []string                 `thrift:"msg,2" frugal:"2,default,list<string>" json:"msg"`
+}
+
+func NewQingyuAigcGetHistoryResponse() *QingyuAigcGetHistoryResponse {
+	return &QingyuAigcGetHistoryResponse{}
+}
+
+func (p *QingyuAigcGetHistoryResponse) InitDefault() {
+	*p = QingyuAigcGetHistoryResponse{}
+}
+
+var QingyuAigcGetHistoryResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
+
+func (p *QingyuAigcGetHistoryResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
+	if !p.IsSetBaseResp() {
+		return QingyuAigcGetHistoryResponse_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+
+func (p *QingyuAigcGetHistoryResponse) GetMsg() (v []string) {
+	return p.Msg
+}
+func (p *QingyuAigcGetHistoryResponse) SetBaseResp(val *base.QingyuBaseResponse) {
+	p.BaseResp = val
+}
+func (p *QingyuAigcGetHistoryResponse) SetMsg(val []string) {
+	p.Msg = val
+}
+
+var fieldIDToName_QingyuAigcGetHistoryResponse = map[int16]string{
+	1: "base_resp",
+	2: "msg",
+}
+
+func (p *QingyuAigcGetHistoryResponse) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *QingyuAigcGetHistoryResponse) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuAigcGetHistoryResponse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *QingyuAigcGetHistoryResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
+	if err := p.BaseResp.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *QingyuAigcGetHistoryResponse) ReadField2(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.Msg = make([]string, 0, size)
+	for i := 0; i < size; i++ {
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		p.Msg = append(p.Msg, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *QingyuAigcGetHistoryResponse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("qingyu_aigc_get_history_response"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *QingyuAigcGetHistoryResponse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.BaseResp.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuAigcGetHistoryResponse) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("msg", thrift.LIST, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRING, len(p.Msg)); err != nil {
+		return err
+	}
+	for _, v := range p.Msg {
+		if err := oprot.WriteString(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *QingyuAigcGetHistoryResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("QingyuAigcGetHistoryResponse(%+v)", *p)
+}
+
+func (p *QingyuAigcGetHistoryResponse) DeepEqual(ano *QingyuAigcGetHistoryResponse) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.BaseResp) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Msg) {
+		return false
+	}
+	return true
+}
+
+func (p *QingyuAigcGetHistoryResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *QingyuAigcGetHistoryResponse) Field2DeepEqual(src []string) bool {
+
+	if len(p.Msg) != len(src) {
+		return false
+	}
+	for i, v := range p.Msg {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+
 type AIGCServer interface {
 	UserAskQuestion(ctx context.Context, req *QingyuAigcQuestionRequest) (r *QingyuAigcQuestionResponse, err error)
 
@@ -1802,6 +2224,8 @@ type AIGCServer interface {
 	ChooseWord(ctx context.Context, req *QingyuAigcChooseWordRequest) (r *QingyuAigcChooseWordResponse, err error)
 
 	DoctorAnalyse(ctx context.Context, req *QingyuAigcDoctorAnalyseRequest) (r *QingyuAigcDoctorAnalyseResponse, err error)
+
+	GetAIGCHistory(ctx context.Context, req *QingyuAigcGetHistoryRequest) (r *QingyuAigcGetHistoryResponse, err error)
 }
 
 type AIGCServerClient struct {
@@ -1866,6 +2290,15 @@ func (p *AIGCServerClient) DoctorAnalyse(ctx context.Context, req *QingyuAigcDoc
 	}
 	return _result.GetSuccess(), nil
 }
+func (p *AIGCServerClient) GetAIGCHistory(ctx context.Context, req *QingyuAigcGetHistoryRequest) (r *QingyuAigcGetHistoryResponse, err error) {
+	var _args AIGCServerGetAIGCHistoryArgs
+	_args.Req = req
+	var _result AIGCServerGetAIGCHistoryResult
+	if err = p.Client_().Call(ctx, "GetAIGCHistory", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
 
 type AIGCServerProcessor struct {
 	processorMap map[string]thrift.TProcessorFunction
@@ -1891,6 +2324,7 @@ func NewAIGCServerProcessor(handler AIGCServer) *AIGCServerProcessor {
 	self.AddToProcessorMap("AnalyseIssueList", &aIGCServerProcessorAnalyseIssueList{handler: handler})
 	self.AddToProcessorMap("ChooseWord", &aIGCServerProcessorChooseWord{handler: handler})
 	self.AddToProcessorMap("DoctorAnalyse", &aIGCServerProcessorDoctorAnalyse{handler: handler})
+	self.AddToProcessorMap("GetAIGCHistory", &aIGCServerProcessorGetAIGCHistory{handler: handler})
 	return self
 }
 func (p *AIGCServerProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -2086,6 +2520,54 @@ func (p *aIGCServerProcessorDoctorAnalyse) Process(ctx context.Context, seqId in
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("DoctorAnalyse", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type aIGCServerProcessorGetAIGCHistory struct {
+	handler AIGCServer
+}
+
+func (p *aIGCServerProcessorGetAIGCHistory) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := AIGCServerGetAIGCHistoryArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetAIGCHistory", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := AIGCServerGetAIGCHistoryResult{}
+	var retval *QingyuAigcGetHistoryResponse
+	if retval, err2 = p.handler.GetAIGCHistory(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetAIGCHistory: "+err2.Error())
+		oprot.WriteMessageBegin("GetAIGCHistory", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetAIGCHistory", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -3480,6 +3962,352 @@ func (p *AIGCServerDoctorAnalyseResult) DeepEqual(ano *AIGCServerDoctorAnalyseRe
 }
 
 func (p *AIGCServerDoctorAnalyseResult) Field0DeepEqual(src *QingyuAigcDoctorAnalyseResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type AIGCServerGetAIGCHistoryArgs struct {
+	Req *QingyuAigcGetHistoryRequest `thrift:"req,1" frugal:"1,default,QingyuAigcGetHistoryRequest" json:"req"`
+}
+
+func NewAIGCServerGetAIGCHistoryArgs() *AIGCServerGetAIGCHistoryArgs {
+	return &AIGCServerGetAIGCHistoryArgs{}
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) InitDefault() {
+	*p = AIGCServerGetAIGCHistoryArgs{}
+}
+
+var AIGCServerGetAIGCHistoryArgs_Req_DEFAULT *QingyuAigcGetHistoryRequest
+
+func (p *AIGCServerGetAIGCHistoryArgs) GetReq() (v *QingyuAigcGetHistoryRequest) {
+	if !p.IsSetReq() {
+		return AIGCServerGetAIGCHistoryArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *AIGCServerGetAIGCHistoryArgs) SetReq(val *QingyuAigcGetHistoryRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_AIGCServerGetAIGCHistoryArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AIGCServerGetAIGCHistoryArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewQingyuAigcGetHistoryRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetAIGCHistory_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AIGCServerGetAIGCHistoryArgs(%+v)", *p)
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) DeepEqual(ano *AIGCServerGetAIGCHistoryArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *AIGCServerGetAIGCHistoryArgs) Field1DeepEqual(src *QingyuAigcGetHistoryRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type AIGCServerGetAIGCHistoryResult struct {
+	Success *QingyuAigcGetHistoryResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuAigcGetHistoryResponse" json:"success,omitempty"`
+}
+
+func NewAIGCServerGetAIGCHistoryResult() *AIGCServerGetAIGCHistoryResult {
+	return &AIGCServerGetAIGCHistoryResult{}
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) InitDefault() {
+	*p = AIGCServerGetAIGCHistoryResult{}
+}
+
+var AIGCServerGetAIGCHistoryResult_Success_DEFAULT *QingyuAigcGetHistoryResponse
+
+func (p *AIGCServerGetAIGCHistoryResult) GetSuccess() (v *QingyuAigcGetHistoryResponse) {
+	if !p.IsSetSuccess() {
+		return AIGCServerGetAIGCHistoryResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *AIGCServerGetAIGCHistoryResult) SetSuccess(x interface{}) {
+	p.Success = x.(*QingyuAigcGetHistoryResponse)
+}
+
+var fieldIDToName_AIGCServerGetAIGCHistoryResult = map[int16]string{
+	0: "success",
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AIGCServerGetAIGCHistoryResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewQingyuAigcGetHistoryResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetAIGCHistory_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AIGCServerGetAIGCHistoryResult(%+v)", *p)
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) DeepEqual(ano *AIGCServerGetAIGCHistoryResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *AIGCServerGetAIGCHistoryResult) Field0DeepEqual(src *QingyuAigcGetHistoryResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

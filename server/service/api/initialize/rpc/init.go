@@ -6,4 +6,5 @@ func Init() {
 	initSocial()
 	initUser()
 	initVideo()
+	initAIGC()
 }

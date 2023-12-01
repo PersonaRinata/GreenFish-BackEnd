@@ -240,6 +240,59 @@ struct qingyu_search_video_response{
     3: base.Video video_list                     // User Information
 }
 
+struct qingyu_aigc_question_request {
+    1: string token(api.query="token") // User authentication token
+    2: string content
+}
+
+struct qingyu_aigc_question_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: string msg
+}
+
+struct qingyu_aigc_issueList_request {
+    1: string token(api.query="token") // User authentication token
+}
+
+struct qingyu_aigc_issueList_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: string msg
+}
+
+struct qingyu_aigc_choose_word_request {
+    1:string token(api.query="token") // User authentication token
+    2:string content
+}
+
+struct qingyu_aigc_choose_word_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: string msg
+}
+
+struct qingyu_aigc_doctor_analyse_request {
+    1:string token(api.query="token") // User authentication token
+    2:list<string> content
+}
+
+struct qingyu_aigc_doctor_analyse_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: string msg
+}
+
+struct qingyu_aigc_get_history_request {
+    1:string token(api.query="token") // User authentication token
+}
+
+struct qingyu_aigc_get_history_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: list<string> msg
+}
+
 service ApiService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req)(api.post="/qingyu/user/register/");
     qingyu_user_login_response Login(1: qingyu_user_login_request req)(api.post="/qingyu/user/login/");
@@ -265,6 +318,12 @@ service ApiService {
     qingyu_message_chat_response ChatHistory(1: qingyu_message_chat_request req)(api.get="/qingyu/message/chat/");
     qingyu_message_action_response SentMessage(1: qingyu_message_action_request req)(api.post="/qingyu/message/action/");
 
-    qingyu_issue_list_update_response updateIssueList(1:qingyu_issue_list_update_request req)(api.post="/qingyu/issuelist/action/");
-    qingyu_issue_list_get_response getIssueList(1:qingyu_issue_list_get_request rqe)(api.get="/qingyu/issuelist/");
+    qingyu_issue_list_update_response UpdateIssueList(1:qingyu_issue_list_update_request req)(api.post="/qingyu/issuelist/action/");
+    qingyu_issue_list_get_response GetIssueList(1:qingyu_issue_list_get_request req)(api.get="/qingyu/issuelist/");
+
+    qingyu_aigc_question_response AIGCAskQuestion(1:qingyu_aigc_question_request req)(api.post="/qingyu/aigc/question/");
+    qingyu_aigc_issueList_response AIGCIssueList(1:qingyu_aigc_issueList_request req)(api.get="/qingyu/aigc/issuelist");
+    qingyu_aigc_choose_word_response AIGCChooseWord(1:qingyu_aigc_choose_word_request req)(api.post="/qingyu/aigc/word/");
+    qingyu_aigc_doctor_analyse_response AIGCDoctorAnalyse(1:qingyu_aigc_doctor_analyse_request req)(api.post="/qingyu/aigc/doctor");
+    qingyu_aigc_get_history_response AIGCGetHistory(1:qingyu_aigc_get_history_request req)(api.get="/qingyu/aigc/history")
 }

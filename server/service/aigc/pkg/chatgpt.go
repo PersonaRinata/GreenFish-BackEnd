@@ -39,7 +39,7 @@ type Choices struct {
 	Index        int     `json:"index"`
 }
 
-func GetGptMessage(strIssueList, msg string) string {
+func GetGptMessage(msg ...string) string {
 	m := Menu{
 		Model: "gpt-3.5-turbo",
 		Messages: []Message{
@@ -47,16 +47,11 @@ func GetGptMessage(strIssueList, msg string) string {
 				"user",
 				"我要你一直扮演专业的医生解答我的一些医疗问题，对于不确定的问题你可以选择不回答，以下是我的一些身体信息",
 			},
-			{
-				"user",
-				strIssueList,
-			},
-			{
-				"user",
-				msg,
-			},
 		},
 		SafeMode: "false",
+	}
+	for _, v := range msg {
+		m.Messages = append(m.Messages, Message{"user", v})
 	}
 	m1, _ := json.Marshal(m)
 	fmt.Println(string(m1))

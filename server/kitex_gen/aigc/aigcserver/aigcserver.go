@@ -23,6 +23,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"AnalyseIssueList": kitex.NewMethodInfo(analyseIssueListHandler, newAIGCServerAnalyseIssueListArgs, newAIGCServerAnalyseIssueListResult, false),
 		"ChooseWord":       kitex.NewMethodInfo(chooseWordHandler, newAIGCServerChooseWordArgs, newAIGCServerChooseWordResult, false),
 		"DoctorAnalyse":    kitex.NewMethodInfo(doctorAnalyseHandler, newAIGCServerDoctorAnalyseArgs, newAIGCServerDoctorAnalyseResult, false),
+		"GetAIGCHistory":   kitex.NewMethodInfo(getAIGCHistoryHandler, newAIGCServerGetAIGCHistoryArgs, newAIGCServerGetAIGCHistoryResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "aigc",
@@ -111,6 +112,24 @@ func newAIGCServerDoctorAnalyseResult() interface{} {
 	return aigc.NewAIGCServerDoctorAnalyseResult()
 }
 
+func getAIGCHistoryHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*aigc.AIGCServerGetAIGCHistoryArgs)
+	realResult := result.(*aigc.AIGCServerGetAIGCHistoryResult)
+	success, err := handler.(aigc.AIGCServer).GetAIGCHistory(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newAIGCServerGetAIGCHistoryArgs() interface{} {
+	return aigc.NewAIGCServerGetAIGCHistoryArgs()
+}
+
+func newAIGCServerGetAIGCHistoryResult() interface{} {
+	return aigc.NewAIGCServerGetAIGCHistoryResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -156,6 +175,16 @@ func (p *kClient) DoctorAnalyse(ctx context.Context, req *aigc.QingyuAigcDoctorA
 	_args.Req = req
 	var _result aigc.AIGCServerDoctorAnalyseResult
 	if err = p.c.Call(ctx, "DoctorAnalyse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetAIGCHistory(ctx context.Context, req *aigc.QingyuAigcGetHistoryRequest) (r *aigc.QingyuAigcGetHistoryResponse, err error) {
+	var _args aigc.AIGCServerGetAIGCHistoryArgs
+	_args.Req = req
+	var _result aigc.AIGCServerGetAIGCHistoryResult
+	if err = p.c.Call(ctx, "GetAIGCHistory", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

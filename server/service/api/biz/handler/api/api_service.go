@@ -6,6 +6,7 @@ import (
 	consts2 "GreenFish/server/common/consts"
 	"GreenFish/server/common/middleware"
 	"GreenFish/server/common/tools"
+	"GreenFish/server/kitex_gen/aigc"
 	"GreenFish/server/kitex_gen/chat"
 	"GreenFish/server/kitex_gen/interaction"
 	"GreenFish/server/kitex_gen/sociality"
@@ -967,6 +968,153 @@ func ChangeAvatar(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AIGCAskQuestion .
+// @router /qingyu/aigc/question/ [POST]
+func AIGCAskQuestion(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAigcQuestionRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+	resp := new(api.QingyuAigcQuestionResponse)
+
+	res, err := config.GlobalAIGCClient.UserAskQuestion(ctx, &aigc.QingyuAigcQuestionRequest{UserId: userId.(int64), Content: req.Content})
+	if err != nil {
+		return
+	}
+	resp.Msg = res.Msg
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AIGCIssueList .
+// @router /qingyu/aigc/issuelist [GET]
+func AIGCIssueList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAigcIssueListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+
+	resp := new(api.QingyuAigcIssueListResponse)
+
+	res, err := config.GlobalAIGCClient.AnalyseIssueList(ctx, &aigc.QingyuAigcIssueListRequest{UserId: userId.(int64)})
+	if err != nil {
+		return
+	}
+	resp.Msg = res.Msg
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AIGCChooseWord .
+// @router /qingyu/aigc/word/ [POST]
+func AIGCChooseWord(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAigcChooseWordRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+
+	resp := new(api.QingyuAigcChooseWordResponse)
+
+	res, err := config.GlobalAIGCClient.ChooseWord(ctx, &aigc.QingyuAigcChooseWordRequest{UserId: userId.(int64), Content: req.Content})
+	if err != nil {
+		return
+	}
+	resp.Msg = res.Msg
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AIGCDoctorAnalyse .
+// @router /qingyu/aigc/doctor [POST]
+func AIGCDoctorAnalyse(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAigcDoctorAnalyseRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+
+	resp := new(api.QingyuAigcDoctorAnalyseResponse)
+
+	res, err := config.GlobalAIGCClient.DoctorAnalyse(ctx, &aigc.QingyuAigcDoctorAnalyseRequest{UserId: userId.(int64), Content: req.Content})
+	if err != nil {
+		return
+	}
+	resp.Msg = res.Msg
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AIGCGetHistory .
+// @router /qingyu/aigc/history [GET]
+func AIGCGetHistory(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAigcGetHistoryRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+
+	resp := new(api.QingyuAigcGetHistoryResponse)
+
+	res, err := config.GlobalAIGCClient.GetAIGCHistory(ctx, &aigc.QingyuAigcGetHistoryRequest{UserId: userId.(int64)})
+	if err != nil {
+		return
+	}
+	resp.Msg = res.Msg
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	c.JSON(consts.StatusOK, resp)

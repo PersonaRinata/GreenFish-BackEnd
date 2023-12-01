@@ -39,6 +39,7 @@ type ServerConfig struct {
 	InteractionSrvInfo RPCSrvConfig    `mapstructure:"interaction_srv" json:"interaction_srv"`
 	SocialitySrvInfo   RPCSrvConfig    `mapstructure:"sociality_srv" json:"sociality_srv"`
 	VideoSrvInfo       RPCSrvConfig    `mapstructure:"video_srv" json:"video_srv"`
+	AIGCSrvInfo        RPCSrvConfig    `mapstructure:"aigc_srv" json:"aigc_srv"`
 	IpInfo             *ip2location.DB `mapstructure:"ip" json:"ip"`
 	FlowRule           FlowRule        `mapstructure:"flow_rule" json:"flow_rule"`
 }

@@ -1,6 +1,7 @@
 package config
 
 import (
+	aigc "GreenFish/server/kitex_gen/aigc/aigcserver"
 	"GreenFish/server/kitex_gen/chat/chatservice"
 	"GreenFish/server/kitex_gen/interaction/interactionserver"
 	"GreenFish/server/kitex_gen/sociality/socialityservice"
@@ -18,5 +19,6 @@ var (
 	GlobalVideoClient       videoservice.Client
 	GlobalSocialClient      socialityservice.Client
 	GlobalInteractionClient interactionserver.Client
+	GlobalAIGCClient        aigc.Client
 	GlobalMinioClient       *minio.Client
 )

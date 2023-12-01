@@ -15,6 +15,7 @@ type Client interface {
 	AnalyseIssueList(ctx context.Context, req *aigc.QingyuAigcIssueListRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcIssueListResponse, err error)
 	ChooseWord(ctx context.Context, req *aigc.QingyuAigcChooseWordRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcChooseWordResponse, err error)
 	DoctorAnalyse(ctx context.Context, req *aigc.QingyuAigcDoctorAnalyseRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcDoctorAnalyseResponse, err error)
+	GetAIGCHistory(ctx context.Context, req *aigc.QingyuAigcGetHistoryRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcGetHistoryResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -64,4 +65,9 @@ func (p *kAIGCServerClient) ChooseWord(ctx context.Context, req *aigc.QingyuAigc
 func (p *kAIGCServerClient) DoctorAnalyse(ctx context.Context, req *aigc.QingyuAigcDoctorAnalyseRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcDoctorAnalyseResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.DoctorAnalyse(ctx, req)
+}
+
+func (p *kAIGCServerClient) GetAIGCHistory(ctx context.Context, req *aigc.QingyuAigcGetHistoryRequest, callOptions ...callopt.Option) (r *aigc.QingyuAigcGetHistoryResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetAIGCHistory(ctx, req)
 }

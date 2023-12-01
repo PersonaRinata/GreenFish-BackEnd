@@ -272,3 +272,43 @@ func _changeavatarMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _aigcMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _aigcdoctoranalyseMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _aigcgethistoryMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _aigcissuelistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _questionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _aigcaskquestionMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _wordMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _aigcchoosewordMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
