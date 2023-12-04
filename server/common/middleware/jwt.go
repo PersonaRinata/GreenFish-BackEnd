@@ -4,6 +4,7 @@ import (
 	"GreenFish/server/service/api/models"
 	"context"
 	"errors"
+	"github.com/bytedance/sonic"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/golang-jwt/jwt"
@@ -18,11 +19,28 @@ var (
 	TokenNotFound    = errors.New("no token")
 )
 
+type tokenStruct struct {
+	Token string `json:"token"`
+}
+
 func JWTAuth(secretKey string) app.HandlerFunc {
 	return func(ctx context.Context, c *app.RequestContext) {
 		token := c.Query("token")
 		if token == "" {
 			token = string(c.FormValue("token"))
+			if token == "" {
+				var s tokenStruct
+				err := sonic.Unmarshal(c.GetRawData(), &s)
+				if err != nil {
+					c.JSON(http.StatusInternalServerError, utils.H{
+						"status_code": 500,
+						"status_msg":  err.Error(),
+					})
+					c.Abort()
+					return
+				}
+				token = s.Token
+			}
 			if token == "" {
 				c.JSON(http.StatusInternalServerError, utils.H{
 					"status_code": 500,

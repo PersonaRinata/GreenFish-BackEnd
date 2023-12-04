@@ -82,6 +82,9 @@ func (r *RedisManager) UpdateIssueListById(ctx context.Context, id int64, issueL
 func (r *RedisManager) GetIssueListById(ctx context.Context, id int64) (*model.IssueList, error) {
 	res, err := r.redisClient.Get(ctx, "issueListJson:"+strconv.FormatInt(id, 10)).Result()
 	if err != nil {
+		if err == redis.Nil {
+			return nil, nil
+		}
 		klog.Error("redis get issueList failed,", err)
 		return nil, err
 	}
@@ -101,8 +104,9 @@ func (r *RedisManager) ChangeAvatarByUserID(ctx context.Context, avatar string, 
 		return err
 	}
 	user.Avatar = avatar
-	err = r.redisClient.Set(ctx, "user:"+strconv.FormatInt(user.ID, 10), user, 0).Err()
-	if err == nil {
+	usr, _ := sonic.Marshal(user)
+	err = r.redisClient.Set(ctx, "user:"+strconv.FormatInt(user.ID, 10), usr, 0).Err()
+	if err != nil {
 		klog.Error("redis update user avatar failed,", err)
 		return err
 	}

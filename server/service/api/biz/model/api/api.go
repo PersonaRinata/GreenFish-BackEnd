@@ -8584,7 +8584,7 @@ type QingyuSearchUserResponse struct {
 	// Return status description
 	StatusMsg string `thrift:"status_msg,2" form:"status_msg" json:"status_msg" query:"status_msg"`
 	// User Information
-	UserList *base.User `thrift:"user_list,3" form:"user_list" json:"user_list" query:"user_list"`
+	UserList []*base.User `thrift:"user_list,3" form:"user_list" json:"user_list" query:"user_list"`
 }
 
 func NewQingyuSearchUserResponse() *QingyuSearchUserResponse {
@@ -8599,12 +8599,7 @@ func (p *QingyuSearchUserResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-var QingyuSearchUserResponse_UserList_DEFAULT *base.User
-
-func (p *QingyuSearchUserResponse) GetUserList() (v *base.User) {
-	if !p.IsSetUserList() {
-		return QingyuSearchUserResponse_UserList_DEFAULT
-	}
+func (p *QingyuSearchUserResponse) GetUserList() (v []*base.User) {
 	return p.UserList
 }
 
@@ -8612,10 +8607,6 @@ var fieldIDToName_QingyuSearchUserResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "user_list",
-}
-
-func (p *QingyuSearchUserResponse) IsSetUserList() bool {
-	return p.UserList != nil
 }
 
 func (p *QingyuSearchUserResponse) Read(iprot thrift.TProtocol) (err error) {
@@ -8658,7 +8649,7 @@ func (p *QingyuSearchUserResponse) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -8716,8 +8707,20 @@ func (p *QingyuSearchUserResponse) ReadField2(iprot thrift.TProtocol) error {
 }
 
 func (p *QingyuSearchUserResponse) ReadField3(iprot thrift.TProtocol) error {
-	p.UserList = base.NewUser()
-	if err := p.UserList.Read(iprot); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.UserList = make([]*base.User, 0, size)
+	for i := 0; i < size; i++ {
+		_elem := base.NewUser()
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		p.UserList = append(p.UserList, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
 	return nil
@@ -8795,10 +8798,18 @@ WriteFieldEndError:
 }
 
 func (p *QingyuSearchUserResponse) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user_list", thrift.STRUCT, 3); err != nil {
+	if err = oprot.WriteFieldBegin("user_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := p.UserList.Write(oprot); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.UserList)); err != nil {
+		return err
+	}
+	for _, v := range p.UserList {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -9101,7 +9112,7 @@ type QingyuSearchVideoResponse struct {
 	// Return status description
 	StatusMsg string `thrift:"status_msg,2" form:"status_msg" json:"status_msg" query:"status_msg"`
 	// User Information
-	VideoList *base.Video `thrift:"video_list,3" form:"video_list" json:"video_list" query:"video_list"`
+	VideoList []*base.Video `thrift:"video_list,3" form:"video_list" json:"video_list" query:"video_list"`
 }
 
 func NewQingyuSearchVideoResponse() *QingyuSearchVideoResponse {
@@ -9116,12 +9127,7 @@ func (p *QingyuSearchVideoResponse) GetStatusMsg() (v string) {
 	return p.StatusMsg
 }
 
-var QingyuSearchVideoResponse_VideoList_DEFAULT *base.Video
-
-func (p *QingyuSearchVideoResponse) GetVideoList() (v *base.Video) {
-	if !p.IsSetVideoList() {
-		return QingyuSearchVideoResponse_VideoList_DEFAULT
-	}
+func (p *QingyuSearchVideoResponse) GetVideoList() (v []*base.Video) {
 	return p.VideoList
 }
 
@@ -9129,10 +9135,6 @@ var fieldIDToName_QingyuSearchVideoResponse = map[int16]string{
 	1: "status_code",
 	2: "status_msg",
 	3: "video_list",
-}
-
-func (p *QingyuSearchVideoResponse) IsSetVideoList() bool {
-	return p.VideoList != nil
 }
 
 func (p *QingyuSearchVideoResponse) Read(iprot thrift.TProtocol) (err error) {
@@ -9175,7 +9177,7 @@ func (p *QingyuSearchVideoResponse) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -9233,8 +9235,20 @@ func (p *QingyuSearchVideoResponse) ReadField2(iprot thrift.TProtocol) error {
 }
 
 func (p *QingyuSearchVideoResponse) ReadField3(iprot thrift.TProtocol) error {
-	p.VideoList = base.NewVideo()
-	if err := p.VideoList.Read(iprot); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.VideoList = make([]*base.Video, 0, size)
+	for i := 0; i < size; i++ {
+		_elem := base.NewVideo()
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		p.VideoList = append(p.VideoList, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
 	return nil
@@ -9312,10 +9326,18 @@ WriteFieldEndError:
 }
 
 func (p *QingyuSearchVideoResponse) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("video_list", thrift.STRUCT, 3); err != nil {
+	if err = oprot.WriteFieldBegin("video_list", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := p.VideoList.Write(oprot); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.VideoList)); err != nil {
+		return err
+	}
+	for _, v := range p.VideoList {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {

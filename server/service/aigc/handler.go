@@ -127,7 +127,7 @@ func (s *AIGCServerImpl) AnalyseIssueList(ctx context.Context, req *aigc.QingyuA
 		}
 		return resp, err
 	}
-	res := pkg.GetGptMessage(string(strIssueList))
+	res := pkg.AnalyseIssueList(string(strIssueList))
 	resp.Msg = res
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,

@@ -14,7 +14,6 @@ import (
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/golang-jwt/jwt"
-	"github.com/jinzhu/copier"
 	"gorm.io/gorm"
 	"time"
 )
@@ -545,6 +544,13 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 		}
 		return resp, err
 	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "get issueList success",
+	}
+	if issueList == nil {
+		return
+	}
 	resp.IssueList = &base.IssueList{
 		UserId:     issueList.UserID,
 		Username:   issueList.Username,
@@ -570,16 +576,14 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 		Introduction: issueList.Introduction,
 		Medicine:     issueList.Medicine,
 	}
-	resp.BaseResp = &base.QingyuBaseResponse{
-		StatusCode: 0,
-		StatusMsg:  "get issueList success",
-	}
 	return resp, nil
 }
 
 // SearchUserList implements the UserServiceImpl interface.
 func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSearchUserRequest) (resp *user.QingyuSearchUserResponse, err error) {
-	resp = new(user.QingyuSearchUserResponse)
+	resp = &user.QingyuSearchUserResponse{
+		UserList: []*base.User{}, // 为UserList分配内存空间
+	}
 
 	userList, err := s.MysqlManager.SearchUserByUsername(ctx, req.Content)
 	if err != nil {
@@ -590,17 +594,33 @@ func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSe
 		}
 		return resp, err
 	}
-
-	res := userList[req.Num*req.Offset : (req.Num+1)*req.Offset+1]
-	err = copier.Copy(resp.UserList, res)
-	if err != nil {
-		klog.Errorf("user copy failed,", err)
-		resp.BaseResp = &base.QingyuBaseResponse{
-			StatusCode: 500,
-			StatusMsg:  "user copy failed",
+	var res []*model.User
+	if int(req.Num*req.Offset+1) <= len(userList) {
+		if int((req.Offset+1)*req.Num) > len(userList) {
+			res = userList[req.Num*req.Offset:]
+		} else {
+			res = userList[req.Num*req.Offset : (req.Offset+1)*req.Num]
 		}
-		return resp, err
+		for _, v := range res {
+			if v == nil {
+				break
+			}
+			resp.UserList = append(resp.UserList, &base.User{
+				Id:              v.ID,
+				Name:            v.Username,
+				FollowCount:     0,
+				FollowerCount:   0,
+				IsFollow:        false,
+				Avatar:          v.Avatar,
+				BackgroundImage: v.BackGroundImage,
+				Signature:       v.Signature,
+				TotalFavorited:  0,
+				WorkCount:       0,
+				FavoriteCount:   0,
+			})
+		}
 	}
+
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "get userList success",

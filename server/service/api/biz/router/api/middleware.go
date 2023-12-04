@@ -239,13 +239,15 @@ func _issuelistMw() []app.HandlerFunc {
 }
 
 func _getissuelistMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
 }
 
 func _updateissuelistMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
 }
 
 func _action5Mw() []app.HandlerFunc {
@@ -254,13 +256,15 @@ func _action5Mw() []app.HandlerFunc {
 }
 
 func _searchuserlistMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
 }
 
 func _searchvideolistMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
 }
 
 func _videoMw() []app.HandlerFunc {
@@ -269,13 +273,15 @@ func _videoMw() []app.HandlerFunc {
 }
 
 func _changeavatarMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
 }
 
 func _aigcMw() []app.HandlerFunc {
-	// your code...
-	return nil
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
 }
 
 func _aigcdoctoranalyseMw() []app.HandlerFunc {

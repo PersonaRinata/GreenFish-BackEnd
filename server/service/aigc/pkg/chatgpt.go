@@ -2,7 +2,6 @@ package pkg
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/imroc/req/v3"
 )
 
@@ -53,12 +52,39 @@ func GetGptMessage(msg ...string) string {
 	for _, v := range msg {
 		m.Messages = append(m.Messages, Message{"user", v})
 	}
-	m1, _ := json.Marshal(m)
-	fmt.Println(string(m1))
 	client1 := req.C()
 	r, err := client1.R().SetBody(m).SetHeader("Content-Type", "application/json").SetHeader("Authorization", "Bearer "+"fk210314-SgSKCEJRaFf5wzjUJt4h6mGwJvjhz6Do").
 		Post("https://oa.api2d.net/v1/chat/completions")
-	fmt.Println(r)
+	s, _ := r.ToString()
+	var resp Resp
+	err = json.Unmarshal([]byte(s), &resp)
+	if err != nil {
+		return "对于这个问题我不能给出准确的回答"
+	}
+	return resp.Choices[0].Message.Content
+}
+
+func AnalyseIssueList(msg ...string) string {
+	m := Menu{
+		Model: "gpt-3.5-turbo",
+		Messages: []Message{
+			{
+				"user",
+				"我要你一直扮演专业的医生解答我的一些医疗问题，对于不确定的问题你可以选择不回答，以下是我的一些身体信息",
+			},
+			{
+				"user",
+				"请你分析我的病历",
+			},
+		},
+		SafeMode: "false",
+	}
+	for _, v := range msg {
+		m.Messages = append(m.Messages, Message{"user", v})
+	}
+	client1 := req.C()
+	r, err := client1.R().SetBody(m).SetHeader("Content-Type", "application/json").SetHeader("Authorization", "Bearer "+"fk210314-SgSKCEJRaFf5wzjUJt4h6mGwJvjhz6Do").
+		Post("https://oa.api2d.net/v1/chat/completions")
 	s, _ := r.ToString()
 	var resp Resp
 	err = json.Unmarshal([]byte(s), &resp)

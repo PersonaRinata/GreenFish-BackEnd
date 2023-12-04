@@ -30,13 +30,15 @@ func MinioCoverUpgrade(tmpFilePath string, fileName string) error {
 	return nil
 }
 
-func MinioAvatarUpgrade(file io.Reader, fileName string, size int64) error {
+func MinioAvatarUpgrade(file io.Reader, fileName string, size int64, suffix string) error {
 	err := config.GlobalMinioClient.RemoveObject(context.Background(), config.GlobalServerConfig.MinioInfo.Bucket, fileName, minio.RemoveObjectOptions{})
 	if err != nil {
 		hlog.Error("minio delete avatar failed,", err)
 		return err
 	}
-	_, err = config.GlobalMinioClient.PutObject(context.Background(), config.GlobalServerConfig.MinioInfo.Bucket, fileName, file, size, minio.PutObjectOptions{})
+	_, err = config.GlobalMinioClient.PutObject(context.Background(), config.GlobalServerConfig.MinioInfo.Bucket, fileName, file, size, minio.PutObjectOptions{
+		ContentType: "image/" + suffix,
+	})
 	if err != nil {
 		hlog.Error("minio upgrade avatar failed,", err)
 		return err

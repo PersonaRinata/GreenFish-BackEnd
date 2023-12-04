@@ -2,7 +2,7 @@ package initialize
 
 import (
 	"GreenFish/server/common/consts"
-	"GreenFish/server/service/user/config"
+	"GreenFish/server/service/aigc/config"
 	"fmt"
 	"github.com/go-redis/redis/v8"
 )

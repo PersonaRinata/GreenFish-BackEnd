@@ -224,7 +224,7 @@ struct qingyu_search_user_request{
 struct qingyu_search_user_response {
     1: i32 status_code // Status code, 0-success, other values-failure
     2: string status_msg // Return status description
-    3: base.User user_list                     // User Information
+    3: list<base.User> user_list                     // User Information
 }
 
 struct qingyu_search_video_request{
@@ -237,7 +237,7 @@ struct qingyu_search_video_request{
 struct qingyu_search_video_response{
     1: i32 status_code // Status code, 0-success, other values-failure
     2: string status_msg // Return status description
-    3: base.Video video_list                     // User Information
+    3: list<base.Video> video_list                     // User Information
 }
 
 struct qingyu_aigc_question_request {

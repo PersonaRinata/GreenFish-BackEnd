@@ -1,5 +1,5 @@
 # Configure according to Nacos configuration.
-host: '162.14.78.209'
+host: '115.159.4.245'
 port: 8848
 namespace: 'cddf6fc0-297e-48c5-a852-e3b9a93b6435'
 user: 'nacos'

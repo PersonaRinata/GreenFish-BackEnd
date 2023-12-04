@@ -17,7 +17,7 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/vo"
 )
 
-// InitChat init AIGC service.
+// InitAIGC init AIGC service.
 func initAIGC() {
 	// init resolver
 	// Read configuration information from nacos
@@ -54,7 +54,7 @@ func initAIGC() {
 
 	// create a new client
 	c, err := aigcserver.NewClient(
-		config.GlobalServerConfig.ChatSrvInfo.Name,
+		config.GlobalServerConfig.AIGCSrvInfo.Name,
 		client.WithResolver(r),                                     // service discovery
 		client.WithLoadBalancer(loadbalance.NewWeightedBalancer()), // load balance
 		client.WithMuxConnection(1),                                // multiplexing

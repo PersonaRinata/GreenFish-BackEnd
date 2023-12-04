@@ -8,7 +8,6 @@ import (
 	"context"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/jinzhu/copier"
 	"time"
 )
 
@@ -288,17 +287,31 @@ func (s *VideoServiceImpl) SearchVideoList(ctx context.Context, req *video.Qingy
 		}
 		return resp, err
 	}
-
-	res := videoList[req.Num*req.Offset : (req.Num+1)*req.Offset+1]
-	err = copier.Copy(resp.VideoList, res)
-	if err != nil {
-		klog.Errorf("video copy failed,", err)
-		resp.BaseResp = &base.QingyuBaseResponse{
-			StatusCode: 500,
-			StatusMsg:  "video copy failed",
+	var res []*model.Video
+	res = videoList[req.Num*req.Offset : (req.Num+1)*req.Offset]
+	if int(req.Num*req.Offset+1) <= len(videoList) {
+		if int((req.Offset+1)*req.Num) > len(videoList) {
+			res = videoList[req.Num*req.Offset:]
+		} else {
+			res = videoList[req.Num*req.Offset : (req.Offset+1)*req.Num]
 		}
-		return resp, err
+		for _, v := range res {
+			if v == nil {
+				break
+			}
+			resp.VideoList = append(resp.VideoList, &base.Video{
+				Id:            v.ID,
+				Author:        &base.User{Id: v.AuthorId},
+				PlayUrl:       v.PlayUrl,
+				CoverUrl:      v.CoverUrl,
+				FavoriteCount: 0,
+				CommentCount:  0,
+				IsFavorite:    false,
+				Title:         v.Title,
+			})
+		}
 	}
+
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "get videoList success",

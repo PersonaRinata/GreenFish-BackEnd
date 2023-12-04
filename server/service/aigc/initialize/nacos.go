@@ -2,7 +2,7 @@ package initialize
 
 import (
 	"GreenFish/server/common/consts"
-	"GreenFish/server/service/user/config"
+	"GreenFish/server/service/aigc/config"
 	"github.com/bwmarrin/snowflake"
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/kitex/pkg/klog"

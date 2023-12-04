@@ -7,6 +7,7 @@ import (
 	"GreenFish/server/common/middleware"
 	"GreenFish/server/common/tools"
 	"GreenFish/server/kitex_gen/aigc"
+	base2 "GreenFish/server/kitex_gen/base"
 	"GreenFish/server/kitex_gen/chat"
 	"GreenFish/server/kitex_gen/interaction"
 	"GreenFish/server/kitex_gen/sociality"
@@ -18,6 +19,7 @@ import (
 	"GreenFish/server/service/api/pkg"
 	"context"
 	"errors"
+	"fmt"
 	"github.com/bwmarrin/snowflake"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -810,15 +812,14 @@ func UpdateIssueList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	_, flag := c.Get("userId")
-	if !flag {
-		hlog.Error("api get viewerId failed,", err)
-		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
-		return
-	}
 	userId, _ := strconv.ParseInt(req.IssueList.UserID, 10, 64)
 	var issueList user.QingyuUpdateIssueListRequest
-	copier.Copy(issueList, req.IssueList)
+	issueList.IssueList = new(base2.IssueList)
+	err = copier.Copy(issueList.IssueList, req.IssueList)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	issueList.UserId = userId
 	res, err := config.GlobalUserClient.UpdateIssueList(ctx, &issueList)
 	resp := new(api.QingyuIssueListUpdateResponse)
@@ -847,14 +848,23 @@ func GetIssueList(ctx context.Context, c *app.RequestContext) {
 	}
 	res, err := config.GlobalUserClient.GetIssueList(ctx, &user.QingyuGetIssueListRequest{UserId: req.UserID})
 	resp := new(api.QingyuIssueListGetResponse)
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	if res.IssueList == nil {
+		c.JSON(consts.StatusOK, resp)
+		return
+	}
+	resp.IssueList = new(base.IssueList)
 	err = copier.Copy(resp.IssueList, res.IssueList)
 	if err != nil {
+		if errors.Is(err, copier.ErrInvalidCopyDestination) {
+			c.JSON(consts.StatusOK, resp)
+			return
+		}
 		hlog.Error("api copy issueList failed,", err)
 		c.String(consts.StatusInternalServerError, err.Error())
 		return
 	}
-	resp.StatusMsg = res.BaseResp.StatusMsg
-	resp.StatusCode = res.BaseResp.StatusCode
 	c.JSON(consts.StatusOK, resp)
 }
 
@@ -876,14 +886,24 @@ func SearchUserList(ctx context.Context, c *app.RequestContext) {
 	}
 	res, err := config.GlobalUserClient.SearchUserList(ctx, &user.QingyuSearchUserRequest{ViewerId: userID.(int64), Content: req.Content, Offset: req.Offset, Num: req.Num})
 	resp := new(api.QingyuSearchUserResponse)
-	err = copier.Copy(resp.UserList, res.UserList)
-	if err != nil {
-		hlog.Error("api copy userList failed,", err)
-		c.String(consts.StatusInternalServerError, err.Error())
-		return
-	}
+	resp.UserList = make([]*base.User, 0)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
+	for _, v := range res.UserList {
+		resp.UserList = append(resp.UserList, &base.User{
+			ID:              v.Id,
+			Name:            v.Name,
+			FollowCount:     0,
+			FollowerCount:   0,
+			IsFollow:        false,
+			Avatar:          v.Avatar,
+			BackgroundImage: v.BackgroundImage,
+			Signature:       v.Signature,
+			TotalFavorited:  0,
+			WorkCount:       0,
+			FavoriteCount:   0,
+		})
+	}
 	c.JSON(consts.StatusOK, resp)
 }
 
@@ -905,14 +925,20 @@ func SearchVideoList(ctx context.Context, c *app.RequestContext) {
 	}
 	res, err := config.GlobalVideoClient.SearchVideoList(ctx, &video.QingyuSearchVideoRequest{ViewerId: userID.(int64), Content: req.Content, Offset: req.Offset, Num: req.Num})
 	resp := new(api.QingyuSearchVideoResponse)
-	err = copier.Copy(resp.VideoList, res.VideoList)
-	if err != nil {
-		hlog.Error("api copy videoList failed,", err)
-		c.String(consts.StatusInternalServerError, err.Error())
-		return
-	}
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
+	for _, v := range res.VideoList {
+		resp.VideoList = append(resp.VideoList, &base.Video{
+			ID:            v.Id,
+			Author:        &base.User{ID: v.Author.Id},
+			PlayURL:       v.PlayUrl,
+			CoverURL:      v.CoverUrl,
+			FavoriteCount: 0,
+			CommentCount:  0,
+			IsFavorite:    false,
+			Title:         v.Title,
+		})
+	}
 	c.JSON(consts.StatusOK, resp)
 }
 
@@ -930,7 +956,7 @@ func ChangeAvatar(ctx context.Context, c *app.RequestContext) {
 	resp := new(api.QingyuAvatarChangeResponse)
 	userId, flag := c.Get("userId")
 	if !flag {
-		hlog.Error("api get viewerId failed,", err)
+		hlog.Error("api get userId failed,", err)
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
 		return
 	}
@@ -951,8 +977,8 @@ func ChangeAvatar(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	suffix := strings.Split(avatarFile.Filename, ".")
-	filename := "avatar" + strconv.FormatInt(userId.(int64), 10) + "." + suffix[len(suffix)-1]
-	err = pkg.MinioAvatarUpgrade(file, filename, avatarFile.Size)
+	filename := "avatar/" + strconv.FormatInt(userId.(int64), 10) + "." + suffix[len(suffix)-1]
+	err = pkg.MinioAvatarUpgrade(file, filename, avatarFile.Size, suffix[len(suffix)-1])
 	if err != nil {
 		hlog.Error("api upgrade avatar failed,err", err)
 		resp.StatusCode = 500
@@ -993,6 +1019,7 @@ func AIGCAskQuestion(ctx context.Context, c *app.RequestContext) {
 
 	res, err := config.GlobalAIGCClient.UserAskQuestion(ctx, &aigc.QingyuAigcQuestionRequest{UserId: userId.(int64), Content: req.Content})
 	if err != nil {
+		hlog.Error("api UserAskQuestion failed,", err)
 		return
 	}
 	resp.Msg = res.Msg
