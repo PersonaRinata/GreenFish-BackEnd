@@ -112,3 +112,22 @@ func (r *RedisManager) ChangeAvatarByUserID(ctx context.Context, avatar string, 
 	}
 	return nil
 }
+
+func (r *RedisManager) AddDoctor(ctx context.Context, id int64) error {
+	err := r.redisClient.Set(ctx, "doctor:"+strconv.FormatInt(id, 10), 1, 0).Err()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RedisManager) JudgeDoctor(ctx context.Context, id int64) (bool, error) {
+	_, err := r.redisClient.Get(ctx, "doctor:"+strconv.FormatInt(id, 10)).Result()
+	if err != nil {
+		if err == redis.Nil {
+			return false, nil
+		}
+		return false, err
+	}
+	return true, nil
+}

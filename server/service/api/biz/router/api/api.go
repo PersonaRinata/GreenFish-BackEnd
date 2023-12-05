@@ -123,6 +123,14 @@ func Register(r *server.Hertz) {
 			_user.POST("/avatar", append(_changeavatarMw(), api.ChangeAvatar)...)
 			_user.POST("/search", append(_searchuserlistMw(), api.SearchUserList)...)
 			{
+				_add := _user.Group("/add", _addMw()...)
+				_add.POST("/doctor", append(_adddoctorMw(), api.AddDoctor)...)
+			}
+			{
+				_judge := _user.Group("/judge", _judgeMw()...)
+				_judge.GET("/doctor", append(_judgedoctorMw(), api.JudgeDoctor)...)
+			}
+			{
 				_login := _user.Group("/login", _loginMw()...)
 				_login.POST("/", append(_login0Mw(), api.Login)...)
 			}

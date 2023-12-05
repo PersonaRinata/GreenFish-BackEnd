@@ -293,12 +293,33 @@ struct qingyu_aigc_get_history_response {
     3: list<string> msg
 }
 
+struct qingyu_judge_doctor_request {
+    1:string token(api.query="token") // User authentication token
+}
+
+struct qingyu_judge_doctor_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: bool is_doctor
+}
+
+struct qingyu_add_doctor_request {
+    1:string token(api.query="token") // User authentication token
+}
+
+struct qingyu_add_doctor_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+}
+
 service ApiService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req)(api.post="/qingyu/user/register/");
     qingyu_user_login_response Login(1: qingyu_user_login_request req)(api.post="/qingyu/user/login/");
     qingyu_user_response GetUserInfo(1: qingyu_user_request req)(api.get="/qingyu/user/");
     qingyu_avatar_change_response ChangeAvatar(1:qingyu_avatar_change_request req)(api.post="/qingyu/user/avatar")
     qingyu_search_user_response SearchUserList(1: qingyu_search_user_request req)(api.post="/qingyu/user/search");
+    qingyu_judge_doctor_response JudgeDoctor(1:qingyu_judge_doctor_request req)(api.get="/qingyu/user/judge/doctor");
+    qingyu_add_doctor_response AddDoctor(1:qingyu_add_doctor_request req)(api.post="/qingyu/user/add/doctor");
 
     qingyu_feed_response Feed (1: qingyu_feed_request req)(api.get="/qingyu/feed/");
     qingyu_publish_action_response PublishVideo (1: qingyu_publish_action_request req)(api.post="/qingyu/publish/action/");

@@ -1139,9 +1139,70 @@ func AIGCGetHistory(ctx context.Context, c *app.RequestContext) {
 
 	res, err := config.GlobalAIGCClient.GetAIGCHistory(ctx, &aigc.QingyuAigcGetHistoryRequest{UserId: userId.(int64)})
 	if err != nil {
+		hlog.Error("api get history failed,", err)
 		return
 	}
 	resp.Msg = res.Msg
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// JudgeDoctor .
+// @router /qingyu/user/judge/doctor [GET]
+func JudgeDoctor(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuJudgeDoctorRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+
+	resp := new(api.QingyuJudgeDoctorResponse)
+	res, err := config.GlobalUserClient.JudgeDoctor(ctx, &user.QingyuJudgeDoctorRequest{UserId: userId.(int64)})
+	if err != nil {
+		hlog.Error("api judge doctor failed,", err)
+		resp.StatusMsg = res.BaseResp.StatusMsg
+		resp.StatusCode = res.BaseResp.StatusCode
+		return
+	}
+	resp.IsDoctor = res.IsDoctor
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AddDoctor .
+// @router /qingyu/user/add/doctor [POST]
+func AddDoctor(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAddDoctorRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get viewerId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+	resp := new(api.QingyuAddDoctorResponse)
+	res, err := config.GlobalUserClient.AddDoctor(ctx, &user.QingyuAddDoctorRequest{UserId: userId.(int64)})
+	if err != nil {
+		hlog.Error("api add doctor failed,", err)
+		resp.StatusMsg = res.BaseResp.StatusMsg
+		resp.StatusCode = res.BaseResp.StatusCode
+		return
+	}
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	c.JSON(consts.StatusOK, resp)

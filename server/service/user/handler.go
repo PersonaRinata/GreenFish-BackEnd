@@ -31,6 +31,8 @@ type RedisManager interface {
 	UpdateIssueListById(ctx context.Context, id int64, issueList *model.IssueList) error
 	GetIssueListById(ctx context.Context, id int64) (*model.IssueList, error)
 	ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error
+	AddDoctor(ctx context.Context, id int64) error
+	JudgeDoctor(ctx context.Context, id int64) (bool, error)
 }
 type SocialManager interface {
 	GetRelationList(ctx context.Context, viewerId, ownerId int64, option int8) ([]int64, error)
@@ -652,6 +654,47 @@ func (s *UserServiceImpl) ChangeUserAvatar(ctx context.Context, req *user.Qingyu
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "change avatar success",
+	}
+	return
+}
+
+// JudgeDoctor implements the UserServiceImpl interface.
+func (s *UserServiceImpl) JudgeDoctor(ctx context.Context, req *user.QingyuJudgeDoctorRequest) (resp *user.QingyuJudgeDoctorResponse, err error) {
+	resp = new(user.QingyuJudgeDoctorResponse)
+
+	res, err := s.RedisManager.JudgeDoctor(ctx, req.UserId)
+	if err != nil {
+		klog.Errorf("user redisManager judge doctor failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user redisManager judge doctor failed",
+		}
+		return resp, err
+	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "judge doctor success",
+	}
+	resp.IsDoctor = res
+	return
+}
+
+// AddDoctor implements the UserServiceImpl interface.
+func (s *UserServiceImpl) AddDoctor(ctx context.Context, req *user.QingyuAddDoctorRequest) (resp *user.QingyuAddDoctorResponse, err error) {
+	resp = new(user.QingyuAddDoctorResponse)
+
+	err = s.RedisManager.AddDoctor(ctx, req.UserId)
+	if err != nil {
+		klog.Errorf("user redisManager add doctor failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user redisManager add doctor failed",
+		}
+		return resp, err
+	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "add doctor success",
 	}
 	return
 }

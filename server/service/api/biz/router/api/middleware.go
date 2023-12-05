@@ -318,3 +318,25 @@ func _aigcchoosewordMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _addMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _adddoctorMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
+}
+
+func _judgeMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _judgedoctorMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
+}

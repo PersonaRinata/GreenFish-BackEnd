@@ -30,6 +30,8 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"GetIssueList":     kitex.NewMethodInfo(getIssueListHandler, newUserServiceGetIssueListArgs, newUserServiceGetIssueListResult, false),
 		"SearchUserList":   kitex.NewMethodInfo(searchUserListHandler, newUserServiceSearchUserListArgs, newUserServiceSearchUserListResult, false),
 		"ChangeUserAvatar": kitex.NewMethodInfo(changeUserAvatarHandler, newUserServiceChangeUserAvatarArgs, newUserServiceChangeUserAvatarResult, false),
+		"JudgeDoctor":      kitex.NewMethodInfo(judgeDoctorHandler, newUserServiceJudgeDoctorArgs, newUserServiceJudgeDoctorResult, false),
+		"AddDoctor":        kitex.NewMethodInfo(addDoctorHandler, newUserServiceAddDoctorArgs, newUserServiceAddDoctorResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "user",
@@ -244,6 +246,42 @@ func newUserServiceChangeUserAvatarResult() interface{} {
 	return user.NewUserServiceChangeUserAvatarResult()
 }
 
+func judgeDoctorHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceJudgeDoctorArgs)
+	realResult := result.(*user.UserServiceJudgeDoctorResult)
+	success, err := handler.(user.UserService).JudgeDoctor(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceJudgeDoctorArgs() interface{} {
+	return user.NewUserServiceJudgeDoctorArgs()
+}
+
+func newUserServiceJudgeDoctorResult() interface{} {
+	return user.NewUserServiceJudgeDoctorResult()
+}
+
+func addDoctorHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceAddDoctorArgs)
+	realResult := result.(*user.UserServiceAddDoctorResult)
+	success, err := handler.(user.UserService).AddDoctor(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceAddDoctorArgs() interface{} {
+	return user.NewUserServiceAddDoctorArgs()
+}
+
+func newUserServiceAddDoctorResult() interface{} {
+	return user.NewUserServiceAddDoctorResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -359,6 +397,26 @@ func (p *kClient) ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarCh
 	_args.Req = req
 	var _result user.UserServiceChangeUserAvatarResult
 	if err = p.c.Call(ctx, "ChangeUserAvatar", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) JudgeDoctor(ctx context.Context, req *user.QingyuJudgeDoctorRequest) (r *user.QingyuJudgeDoctorResponse, err error) {
+	var _args user.UserServiceJudgeDoctorArgs
+	_args.Req = req
+	var _result user.UserServiceJudgeDoctorResult
+	if err = p.c.Call(ctx, "JudgeDoctor", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) AddDoctor(ctx context.Context, req *user.QingyuAddDoctorRequest) (r *user.QingyuAddDoctorResponse, err error) {
+	var _args user.UserServiceAddDoctorArgs
+	_args.Req = req
+	var _result user.UserServiceAddDoctorResult
+	if err = p.c.Call(ctx, "AddDoctor", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
