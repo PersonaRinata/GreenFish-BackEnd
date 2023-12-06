@@ -29,6 +29,10 @@ func Register(r *server.Hertz) {
 				_question.POST("/", append(_aigcaskquestionMw(), api.AIGCAskQuestion)...)
 			}
 			{
+				_recommend := _aigc.Group("/recommend", _recommendMw()...)
+				_recommend.GET("/doctor", append(_aigcrecommenddoctorMw(), api.AIGCRecommendDoctor)...)
+			}
+			{
 				_word := _aigc.Group("/word", _wordMw()...)
 				_word.POST("/", append(_aigcchoosewordMw(), api.AIGCChooseWord)...)
 			}

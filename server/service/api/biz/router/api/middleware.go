@@ -340,3 +340,13 @@ func _judgedoctorMw() []app.HandlerFunc {
 		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
 	}
 }
+
+func _recommendMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _aigcrecommenddoctorMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

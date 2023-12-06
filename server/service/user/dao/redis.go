@@ -113,21 +113,37 @@ func (r *RedisManager) ChangeAvatarByUserID(ctx context.Context, avatar string, 
 	return nil
 }
 
-func (r *RedisManager) AddDoctor(ctx context.Context, id int64) error {
-	err := r.redisClient.Set(ctx, "doctor:"+strconv.FormatInt(id, 10), 1, 0).Err()
+func (r *RedisManager) AddDoctor(ctx context.Context, id int64, department string) error {
+	err := r.redisClient.Set(ctx, "doctor:"+strconv.FormatInt(id, 10), department, 0).Err()
 	if err != nil {
+		return err
+	}
+	err = r.redisClient.LPush(ctx, "doctor_list_"+department, id).Err()
+	if err != nil {
+		klog.Error("redis create issueList failed,", err)
 		return err
 	}
 	return nil
 }
 
-func (r *RedisManager) JudgeDoctor(ctx context.Context, id int64) (bool, error) {
-	_, err := r.redisClient.Get(ctx, "doctor:"+strconv.FormatInt(id, 10)).Result()
+func (r *RedisManager) JudgeDoctor(ctx context.Context, id int64) (string, error) {
+	res, err := r.redisClient.Get(ctx, "doctor:"+strconv.FormatInt(id, 10)).Result()
 	if err != nil {
 		if err == redis.Nil {
-			return false, nil
+			return "", nil
 		}
-		return false, err
+		return "", err
 	}
-	return true, nil
+	return res, nil
+}
+
+func (r *RedisManager) FindDoctor(ctx context.Context, department string) ([]string, error) {
+	res, err := r.redisClient.LRange(ctx, "doctor_list_"+department, 0, -1).Result()
+	if err != nil {
+		if err == redis.Nil {
+			return nil, nil
+		}
+		return nil, err
+	}
+	return res, nil
 }

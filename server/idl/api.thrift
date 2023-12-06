@@ -300,16 +300,28 @@ struct qingyu_judge_doctor_request {
 struct qingyu_judge_doctor_response {
     1: i32 status_code // Status code, 0-success, other values-failure
     2: string status_msg // Return status description
-    3: bool is_doctor
+    3: string department
 }
 
 struct qingyu_add_doctor_request {
     1:string token(api.query="token") // User authentication token
+    2:string department
 }
 
 struct qingyu_add_doctor_response {
     1: i32 status_code // Status code, 0-success, other values-failure
     2: string status_msg // Return status description
+}
+
+struct qingyu_aigc_recommend_docotor_request {
+    1:string content
+}
+
+struct qingyu_aigc_recommend_docotor_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: string department
+    4: list<base.User> doctor_list
 }
 
 service ApiService {
@@ -347,4 +359,5 @@ service ApiService {
     qingyu_aigc_choose_word_response AIGCChooseWord(1:qingyu_aigc_choose_word_request req)(api.post="/qingyu/aigc/word/");
     qingyu_aigc_doctor_analyse_response AIGCDoctorAnalyse(1:qingyu_aigc_doctor_analyse_request req)(api.post="/qingyu/aigc/doctor");
     qingyu_aigc_get_history_response AIGCGetHistory(1:qingyu_aigc_get_history_request req)(api.get="/qingyu/aigc/history")
+    qingyu_aigc_recommend_docotor_response AIGCRecommendDoctor(1:qingyu_aigc_recommend_docotor_request req)(api.get="/qingyu/aigc/recommend/doctor")
 }

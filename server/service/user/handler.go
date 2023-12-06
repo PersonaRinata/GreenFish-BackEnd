@@ -15,6 +15,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/golang-jwt/jwt"
 	"gorm.io/gorm"
+	"strconv"
 	"time"
 )
 
@@ -31,8 +32,9 @@ type RedisManager interface {
 	UpdateIssueListById(ctx context.Context, id int64, issueList *model.IssueList) error
 	GetIssueListById(ctx context.Context, id int64) (*model.IssueList, error)
 	ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error
-	AddDoctor(ctx context.Context, id int64) error
-	JudgeDoctor(ctx context.Context, id int64) (bool, error)
+	AddDoctor(ctx context.Context, id int64, department string) error
+	JudgeDoctor(ctx context.Context, id int64) (string, error)
+	FindDoctor(ctx context.Context, department string) ([]string, error)
 }
 type SocialManager interface {
 	GetRelationList(ctx context.Context, viewerId, ownerId int64, option int8) ([]int64, error)
@@ -675,7 +677,7 @@ func (s *UserServiceImpl) JudgeDoctor(ctx context.Context, req *user.QingyuJudge
 		StatusCode: 0,
 		StatusMsg:  "judge doctor success",
 	}
-	resp.IsDoctor = res
+	resp.Department = res
 	return
 }
 
@@ -683,7 +685,7 @@ func (s *UserServiceImpl) JudgeDoctor(ctx context.Context, req *user.QingyuJudge
 func (s *UserServiceImpl) AddDoctor(ctx context.Context, req *user.QingyuAddDoctorRequest) (resp *user.QingyuAddDoctorResponse, err error) {
 	resp = new(user.QingyuAddDoctorResponse)
 
-	err = s.RedisManager.AddDoctor(ctx, req.UserId)
+	err = s.RedisManager.AddDoctor(ctx, req.UserId, req.Department)
 	if err != nil {
 		klog.Errorf("user redisManager add doctor failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
@@ -691,6 +693,30 @@ func (s *UserServiceImpl) AddDoctor(ctx context.Context, req *user.QingyuAddDoct
 			StatusMsg:  "user redisManager add doctor failed",
 		}
 		return resp, err
+	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "add doctor success",
+	}
+	return
+}
+
+// FindDoctor implements the UserServiceImpl interface.
+func (s *UserServiceImpl) FindDoctor(ctx context.Context, req *user.QingyuFindDoctorRequest) (resp *user.QingyuFindDoctorResponse, err error) {
+	resp = new(user.QingyuFindDoctorResponse)
+
+	res, err := s.RedisManager.FindDoctor(ctx, req.Department)
+	if err != nil {
+		klog.Errorf("user redisManager find doctor failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user redisManager find doctor failed",
+		}
+		return resp, err
+	}
+	for _, v := range res {
+		i, _ := strconv.ParseInt(v, 10, 64)
+		resp.DoctorId = append(resp.DoctorId, i)
 	}
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,

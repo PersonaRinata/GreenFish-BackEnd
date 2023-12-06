@@ -5404,8 +5404,8 @@ func (p *QingyuJudgeDoctorRequest) Field1DeepEqual(src int64) bool {
 }
 
 type QingyuJudgeDoctorResponse struct {
-	BaseResp *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
-	IsDoctor bool                     `thrift:"is_doctor,2" frugal:"2,default,bool" json:"is_doctor"`
+	BaseResp   *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
+	Department string                   `thrift:"department,2" frugal:"2,default,string" json:"department"`
 }
 
 func NewQingyuJudgeDoctorResponse() *QingyuJudgeDoctorResponse {
@@ -5425,19 +5425,19 @@ func (p *QingyuJudgeDoctorResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
 	return p.BaseResp
 }
 
-func (p *QingyuJudgeDoctorResponse) GetIsDoctor() (v bool) {
-	return p.IsDoctor
+func (p *QingyuJudgeDoctorResponse) GetDepartment() (v string) {
+	return p.Department
 }
 func (p *QingyuJudgeDoctorResponse) SetBaseResp(val *base.QingyuBaseResponse) {
 	p.BaseResp = val
 }
-func (p *QingyuJudgeDoctorResponse) SetIsDoctor(val bool) {
-	p.IsDoctor = val
+func (p *QingyuJudgeDoctorResponse) SetDepartment(val string) {
+	p.Department = val
 }
 
 var fieldIDToName_QingyuJudgeDoctorResponse = map[int16]string{
 	1: "base_resp",
-	2: "is_doctor",
+	2: "department",
 }
 
 func (p *QingyuJudgeDoctorResponse) IsSetBaseResp() bool {
@@ -5474,7 +5474,7 @@ func (p *QingyuJudgeDoctorResponse) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 2:
-			if fieldTypeId == thrift.BOOL {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5522,10 +5522,10 @@ func (p *QingyuJudgeDoctorResponse) ReadField1(iprot thrift.TProtocol) error {
 }
 
 func (p *QingyuJudgeDoctorResponse) ReadField2(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadBool(); err != nil {
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.IsDoctor = v
+		p.Department = v
 	}
 	return nil
 }
@@ -5581,10 +5581,10 @@ WriteFieldEndError:
 }
 
 func (p *QingyuJudgeDoctorResponse) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_doctor", thrift.BOOL, 2); err != nil {
+	if err = oprot.WriteFieldBegin("department", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBool(p.IsDoctor); err != nil {
+	if err := oprot.WriteString(p.Department); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5613,7 +5613,7 @@ func (p *QingyuJudgeDoctorResponse) DeepEqual(ano *QingyuJudgeDoctorResponse) bo
 	if !p.Field1DeepEqual(ano.BaseResp) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.IsDoctor) {
+	if !p.Field2DeepEqual(ano.Department) {
 		return false
 	}
 	return true
@@ -5626,16 +5626,17 @@ func (p *QingyuJudgeDoctorResponse) Field1DeepEqual(src *base.QingyuBaseResponse
 	}
 	return true
 }
-func (p *QingyuJudgeDoctorResponse) Field2DeepEqual(src bool) bool {
+func (p *QingyuJudgeDoctorResponse) Field2DeepEqual(src string) bool {
 
-	if p.IsDoctor != src {
+	if strings.Compare(p.Department, src) != 0 {
 		return false
 	}
 	return true
 }
 
 type QingyuAddDoctorRequest struct {
-	UserId int64 `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
+	UserId     int64  `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
+	Department string `thrift:"department,2" frugal:"2,default,string" json:"department"`
 }
 
 func NewQingyuAddDoctorRequest() *QingyuAddDoctorRequest {
@@ -5649,12 +5650,20 @@ func (p *QingyuAddDoctorRequest) InitDefault() {
 func (p *QingyuAddDoctorRequest) GetUserId() (v int64) {
 	return p.UserId
 }
+
+func (p *QingyuAddDoctorRequest) GetDepartment() (v string) {
+	return p.Department
+}
 func (p *QingyuAddDoctorRequest) SetUserId(val int64) {
 	p.UserId = val
+}
+func (p *QingyuAddDoctorRequest) SetDepartment(val string) {
+	p.Department = val
 }
 
 var fieldIDToName_QingyuAddDoctorRequest = map[int16]string{
 	1: "user_id",
+	2: "department",
 }
 
 func (p *QingyuAddDoctorRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -5679,6 +5688,16 @@ func (p *QingyuAddDoctorRequest) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -5725,6 +5744,15 @@ func (p *QingyuAddDoctorRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *QingyuAddDoctorRequest) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Department = v
+	}
+	return nil
+}
+
 func (p *QingyuAddDoctorRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("qingyu_add_doctor_request"); err != nil {
@@ -5733,6 +5761,10 @@ func (p *QingyuAddDoctorRequest) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 
@@ -5771,6 +5803,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *QingyuAddDoctorRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("department", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Department); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
 func (p *QingyuAddDoctorRequest) String() string {
 	if p == nil {
 		return "<nil>"
@@ -5787,12 +5836,22 @@ func (p *QingyuAddDoctorRequest) DeepEqual(ano *QingyuAddDoctorRequest) bool {
 	if !p.Field1DeepEqual(ano.UserId) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.Department) {
+		return false
+	}
 	return true
 }
 
 func (p *QingyuAddDoctorRequest) Field1DeepEqual(src int64) bool {
 
 	if p.UserId != src {
+		return false
+	}
+	return true
+}
+func (p *QingyuAddDoctorRequest) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Department, src) != 0 {
 		return false
 	}
 	return true
@@ -5970,6 +6029,428 @@ func (p *QingyuAddDoctorResponse) Field1DeepEqual(src *base.QingyuBaseResponse) 
 	return true
 }
 
+type QingyuFindDoctorRequest struct {
+	Department string `thrift:"department,1" frugal:"1,default,string" json:"department"`
+}
+
+func NewQingyuFindDoctorRequest() *QingyuFindDoctorRequest {
+	return &QingyuFindDoctorRequest{}
+}
+
+func (p *QingyuFindDoctorRequest) InitDefault() {
+	*p = QingyuFindDoctorRequest{}
+}
+
+func (p *QingyuFindDoctorRequest) GetDepartment() (v string) {
+	return p.Department
+}
+func (p *QingyuFindDoctorRequest) SetDepartment(val string) {
+	p.Department = val
+}
+
+var fieldIDToName_QingyuFindDoctorRequest = map[int16]string{
+	1: "department",
+}
+
+func (p *QingyuFindDoctorRequest) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFindDoctorRequest[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *QingyuFindDoctorRequest) ReadField1(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Department = v
+	}
+	return nil
+}
+
+func (p *QingyuFindDoctorRequest) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("qingyu_find_doctor_request"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *QingyuFindDoctorRequest) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("department", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Department); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuFindDoctorRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("QingyuFindDoctorRequest(%+v)", *p)
+}
+
+func (p *QingyuFindDoctorRequest) DeepEqual(ano *QingyuFindDoctorRequest) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Department) {
+		return false
+	}
+	return true
+}
+
+func (p *QingyuFindDoctorRequest) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.Department, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type QingyuFindDoctorResponse struct {
+	BaseResp *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
+	DoctorId []int64                  `thrift:"doctor_id,2" frugal:"2,default,list<i64>" json:"doctor_id"`
+}
+
+func NewQingyuFindDoctorResponse() *QingyuFindDoctorResponse {
+	return &QingyuFindDoctorResponse{}
+}
+
+func (p *QingyuFindDoctorResponse) InitDefault() {
+	*p = QingyuFindDoctorResponse{}
+}
+
+var QingyuFindDoctorResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
+
+func (p *QingyuFindDoctorResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
+	if !p.IsSetBaseResp() {
+		return QingyuFindDoctorResponse_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+
+func (p *QingyuFindDoctorResponse) GetDoctorId() (v []int64) {
+	return p.DoctorId
+}
+func (p *QingyuFindDoctorResponse) SetBaseResp(val *base.QingyuBaseResponse) {
+	p.BaseResp = val
+}
+func (p *QingyuFindDoctorResponse) SetDoctorId(val []int64) {
+	p.DoctorId = val
+}
+
+var fieldIDToName_QingyuFindDoctorResponse = map[int16]string{
+	1: "base_resp",
+	2: "doctor_id",
+}
+
+func (p *QingyuFindDoctorResponse) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *QingyuFindDoctorResponse) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuFindDoctorResponse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *QingyuFindDoctorResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
+	if err := p.BaseResp.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *QingyuFindDoctorResponse) ReadField2(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.DoctorId = make([]int64, 0, size)
+	for i := 0; i < size; i++ {
+		var _elem int64
+		if v, err := iprot.ReadI64(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		p.DoctorId = append(p.DoctorId, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *QingyuFindDoctorResponse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("qingyu_find_doctor_response"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *QingyuFindDoctorResponse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.BaseResp.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuFindDoctorResponse) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("doctor_id", thrift.LIST, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.I64, len(p.DoctorId)); err != nil {
+		return err
+	}
+	for _, v := range p.DoctorId {
+		if err := oprot.WriteI64(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *QingyuFindDoctorResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("QingyuFindDoctorResponse(%+v)", *p)
+}
+
+func (p *QingyuFindDoctorResponse) DeepEqual(ano *QingyuFindDoctorResponse) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.BaseResp) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.DoctorId) {
+		return false
+	}
+	return true
+}
+
+func (p *QingyuFindDoctorResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *QingyuFindDoctorResponse) Field2DeepEqual(src []int64) bool {
+
+	if len(p.DoctorId) != len(src) {
+		return false
+	}
+	for i, v := range p.DoctorId {
+		_src := src[i]
+		if v != _src {
+			return false
+		}
+	}
+	return true
+}
+
 type UserService interface {
 	Register(ctx context.Context, req *QingyuUserRegisterRequest) (r *QingyuUserRegisterResponse, err error)
 
@@ -5996,6 +6477,8 @@ type UserService interface {
 	JudgeDoctor(ctx context.Context, req *QingyuJudgeDoctorRequest) (r *QingyuJudgeDoctorResponse, err error)
 
 	AddDoctor(ctx context.Context, req *QingyuAddDoctorRequest) (r *QingyuAddDoctorResponse, err error)
+
+	FindDoctor(ctx context.Context, req *QingyuFindDoctorRequest) (r *QingyuFindDoctorResponse, err error)
 }
 
 type UserServiceClient struct {
@@ -6141,6 +6624,15 @@ func (p *UserServiceClient) AddDoctor(ctx context.Context, req *QingyuAddDoctorR
 	}
 	return _result.GetSuccess(), nil
 }
+func (p *UserServiceClient) FindDoctor(ctx context.Context, req *QingyuFindDoctorRequest) (r *QingyuFindDoctorResponse, err error) {
+	var _args UserServiceFindDoctorArgs
+	_args.Req = req
+	var _result UserServiceFindDoctorResult
+	if err = p.Client_().Call(ctx, "FindDoctor", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
 
 type UserServiceProcessor struct {
 	processorMap map[string]thrift.TProcessorFunction
@@ -6175,6 +6667,7 @@ func NewUserServiceProcessor(handler UserService) *UserServiceProcessor {
 	self.AddToProcessorMap("ChangeUserAvatar", &userServiceProcessorChangeUserAvatar{handler: handler})
 	self.AddToProcessorMap("JudgeDoctor", &userServiceProcessorJudgeDoctor{handler: handler})
 	self.AddToProcessorMap("AddDoctor", &userServiceProcessorAddDoctor{handler: handler})
+	self.AddToProcessorMap("FindDoctor", &userServiceProcessorFindDoctor{handler: handler})
 	return self
 }
 func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -6802,6 +7295,54 @@ func (p *userServiceProcessorAddDoctor) Process(ctx context.Context, seqId int32
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("AddDoctor", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type userServiceProcessorFindDoctor struct {
+	handler UserService
+}
+
+func (p *userServiceProcessorFindDoctor) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := UserServiceFindDoctorArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("FindDoctor", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := UserServiceFindDoctorResult{}
+	var retval *QingyuFindDoctorResponse
+	if retval, err2 = p.handler.FindDoctor(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing FindDoctor: "+err2.Error())
+		oprot.WriteMessageBegin("FindDoctor", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("FindDoctor", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -11310,6 +11851,352 @@ func (p *UserServiceAddDoctorResult) DeepEqual(ano *UserServiceAddDoctorResult) 
 }
 
 func (p *UserServiceAddDoctorResult) Field0DeepEqual(src *QingyuAddDoctorResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type UserServiceFindDoctorArgs struct {
+	Req *QingyuFindDoctorRequest `thrift:"req,1" frugal:"1,default,QingyuFindDoctorRequest" json:"req"`
+}
+
+func NewUserServiceFindDoctorArgs() *UserServiceFindDoctorArgs {
+	return &UserServiceFindDoctorArgs{}
+}
+
+func (p *UserServiceFindDoctorArgs) InitDefault() {
+	*p = UserServiceFindDoctorArgs{}
+}
+
+var UserServiceFindDoctorArgs_Req_DEFAULT *QingyuFindDoctorRequest
+
+func (p *UserServiceFindDoctorArgs) GetReq() (v *QingyuFindDoctorRequest) {
+	if !p.IsSetReq() {
+		return UserServiceFindDoctorArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *UserServiceFindDoctorArgs) SetReq(val *QingyuFindDoctorRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_UserServiceFindDoctorArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *UserServiceFindDoctorArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *UserServiceFindDoctorArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceFindDoctorArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UserServiceFindDoctorArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewQingyuFindDoctorRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *UserServiceFindDoctorArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("FindDoctor_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UserServiceFindDoctorArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *UserServiceFindDoctorArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserServiceFindDoctorArgs(%+v)", *p)
+}
+
+func (p *UserServiceFindDoctorArgs) DeepEqual(ano *UserServiceFindDoctorArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *UserServiceFindDoctorArgs) Field1DeepEqual(src *QingyuFindDoctorRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type UserServiceFindDoctorResult struct {
+	Success *QingyuFindDoctorResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuFindDoctorResponse" json:"success,omitempty"`
+}
+
+func NewUserServiceFindDoctorResult() *UserServiceFindDoctorResult {
+	return &UserServiceFindDoctorResult{}
+}
+
+func (p *UserServiceFindDoctorResult) InitDefault() {
+	*p = UserServiceFindDoctorResult{}
+}
+
+var UserServiceFindDoctorResult_Success_DEFAULT *QingyuFindDoctorResponse
+
+func (p *UserServiceFindDoctorResult) GetSuccess() (v *QingyuFindDoctorResponse) {
+	if !p.IsSetSuccess() {
+		return UserServiceFindDoctorResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *UserServiceFindDoctorResult) SetSuccess(x interface{}) {
+	p.Success = x.(*QingyuFindDoctorResponse)
+}
+
+var fieldIDToName_UserServiceFindDoctorResult = map[int16]string{
+	0: "success",
+}
+
+func (p *UserServiceFindDoctorResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *UserServiceFindDoctorResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceFindDoctorResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UserServiceFindDoctorResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewQingyuFindDoctorResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *UserServiceFindDoctorResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("FindDoctor_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UserServiceFindDoctorResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *UserServiceFindDoctorResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserServiceFindDoctorResult(%+v)", *p)
+}
+
+func (p *UserServiceFindDoctorResult) DeepEqual(ano *UserServiceFindDoctorResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *UserServiceFindDoctorResult) Field0DeepEqual(src *QingyuFindDoctorResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

@@ -24,6 +24,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"ChooseWord":       kitex.NewMethodInfo(chooseWordHandler, newAIGCServerChooseWordArgs, newAIGCServerChooseWordResult, false),
 		"DoctorAnalyse":    kitex.NewMethodInfo(doctorAnalyseHandler, newAIGCServerDoctorAnalyseArgs, newAIGCServerDoctorAnalyseResult, false),
 		"GetAIGCHistory":   kitex.NewMethodInfo(getAIGCHistoryHandler, newAIGCServerGetAIGCHistoryArgs, newAIGCServerGetAIGCHistoryResult, false),
+		"RecommendDoctor":  kitex.NewMethodInfo(recommendDoctorHandler, newAIGCServerRecommendDoctorArgs, newAIGCServerRecommendDoctorResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "aigc",
@@ -130,6 +131,24 @@ func newAIGCServerGetAIGCHistoryResult() interface{} {
 	return aigc.NewAIGCServerGetAIGCHistoryResult()
 }
 
+func recommendDoctorHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*aigc.AIGCServerRecommendDoctorArgs)
+	realResult := result.(*aigc.AIGCServerRecommendDoctorResult)
+	success, err := handler.(aigc.AIGCServer).RecommendDoctor(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newAIGCServerRecommendDoctorArgs() interface{} {
+	return aigc.NewAIGCServerRecommendDoctorArgs()
+}
+
+func newAIGCServerRecommendDoctorResult() interface{} {
+	return aigc.NewAIGCServerRecommendDoctorResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -185,6 +204,16 @@ func (p *kClient) GetAIGCHistory(ctx context.Context, req *aigc.QingyuAigcGetHis
 	_args.Req = req
 	var _result aigc.AIGCServerGetAIGCHistoryResult
 	if err = p.c.Call(ctx, "GetAIGCHistory", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) RecommendDoctor(ctx context.Context, req *aigc.QingyuAigcRecommendDocotorRequest) (r *aigc.QingyuAigcRecommendDocotorResponse, err error) {
+	var _args aigc.AIGCServerRecommendDoctorArgs
+	_args.Req = req
+	var _result aigc.AIGCServerRecommendDoctorResult
+	if err = p.c.Call(ctx, "RecommendDoctor", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

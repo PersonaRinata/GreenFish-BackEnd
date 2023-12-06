@@ -156,3 +156,26 @@ func (s *AIGCServerImpl) GetAIGCHistory(ctx context.Context, req *aigc.QingyuAig
 	}
 	return
 }
+
+// RecommendDoctor implements the AIGCServerImpl interface.
+func (s *AIGCServerImpl) RecommendDoctor(ctx context.Context, req *aigc.QingyuAigcRecommendDocotorRequest) (resp *aigc.QingyuAigcRecommendDocotorResponse, err error) {
+	resp = new(aigc.QingyuAigcRecommendDocotorResponse)
+
+	err, department := pkg.DoctorRecommend(req.Content)
+	if err != nil {
+		klog.Error("aigc recommend doctor failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  err.Error(),
+		}
+		return nil, err
+	}
+
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "aigc get history success",
+	}
+
+	resp.Department = department
+	return
+}

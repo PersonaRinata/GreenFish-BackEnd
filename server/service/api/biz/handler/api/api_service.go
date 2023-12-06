@@ -1173,7 +1173,7 @@ func JudgeDoctor(ctx context.Context, c *app.RequestContext) {
 		resp.StatusCode = res.BaseResp.StatusCode
 		return
 	}
-	resp.IsDoctor = res.IsDoctor
+	resp.Department = res.Department
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
 	c.JSON(consts.StatusOK, resp)
@@ -1196,7 +1196,7 @@ func AddDoctor(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	resp := new(api.QingyuAddDoctorResponse)
-	res, err := config.GlobalUserClient.AddDoctor(ctx, &user.QingyuAddDoctorRequest{UserId: userId.(int64)})
+	res, err := config.GlobalUserClient.AddDoctor(ctx, &user.QingyuAddDoctorRequest{UserId: userId.(int64), Department: req.Department})
 	if err != nil {
 		hlog.Error("api add doctor failed,", err)
 		resp.StatusMsg = res.BaseResp.StatusMsg
@@ -1205,5 +1205,62 @@ func AddDoctor(ctx context.Context, c *app.RequestContext) {
 	}
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AIGCRecommendDoctor .
+// @router /qingyu/aigc/recommend/doctor [GET]
+func AIGCRecommendDoctor(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAigcRecommendDocotorRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(api.QingyuAigcRecommendDocotorResponse)
+	dep, err := config.GlobalAIGCClient.RecommendDoctor(ctx, &aigc.QingyuAigcRecommendDocotorRequest{Content: req.Content})
+	if err != nil {
+		hlog.Error("api recommend doctor failed,", err)
+		resp.StatusMsg = dep.BaseResp.StatusMsg
+		resp.StatusCode = dep.BaseResp.StatusCode
+		return
+	}
+	doctorId, err := config.GlobalUserClient.FindDoctor(ctx, &user.QingyuFindDoctorRequest{Department: dep.Department})
+	if err != nil {
+		hlog.Error("api find doctor failed,", err)
+		resp.StatusMsg = dep.BaseResp.StatusMsg
+		resp.StatusCode = dep.BaseResp.StatusCode
+		return
+	}
+	doctorList, err := config.GlobalUserClient.BatchGetUserInfo(ctx, &user.QingyuBatchGetUserRequest{
+		ViewerId:    0,
+		OwnerIdList: doctorId.DoctorId,
+	})
+	if err != nil {
+		hlog.Error("api get doctor_list failed,", err)
+		resp.StatusMsg = dep.BaseResp.StatusMsg
+		resp.StatusCode = dep.BaseResp.StatusCode
+		return
+	}
+	resp.StatusMsg = doctorList.BaseResp.StatusMsg
+	resp.StatusCode = doctorList.BaseResp.StatusCode
+	resp.Department = dep.Department
+	for _, v := range doctorList.UserList {
+		resp.DoctorList = append(resp.DoctorList, &base.User{
+			ID:              v.Id,
+			Name:            v.Name,
+			FollowCount:     v.FollowCount,
+			FollowerCount:   v.FollowerCount,
+			IsFollow:        false,
+			Avatar:          v.Avatar,
+			BackgroundImage: v.BackgroundImage,
+			Signature:       v.Signature,
+			TotalFavorited:  v.TotalFavorited,
+			WorkCount:       v.WorkCount,
+			FavoriteCount:   v.FavoriteCount,
+		})
+	}
 	c.JSON(consts.StatusOK, resp)
 }

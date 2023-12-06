@@ -119,15 +119,25 @@ struct qingyu_judge_doctor_request {
 
 struct qingyu_judge_doctor_response {
     1: base.qingyu_base_response base_resp,
-    2: bool is_doctor
+    2: string department
 }
 
 struct qingyu_add_doctor_request {
     1: i64 user_id
+    2: string department
 }
 
 struct qingyu_add_doctor_response {
     1: base.qingyu_base_response base_resp,
+}
+
+struct qingyu_find_doctor_request {
+    1: string department
+}
+
+struct qingyu_find_doctor_response {
+    1: base.qingyu_base_response base_resp,
+    2: list<i64> doctor_id
 }
 
 
@@ -145,4 +155,5 @@ service UserService {
     qingyu_avatar_change_response ChangeUserAvatar(1:qingyu_avatar_change_request req),
     qingyu_judge_doctor_response JudgeDoctor(1:qingyu_judge_doctor_request req),
     qingyu_add_doctor_response AddDoctor(1:qingyu_add_doctor_request req),
+    qingyu_find_doctor_response FindDoctor(1:qingyu_find_doctor_request req),
 }

@@ -24,6 +24,7 @@ type Client interface {
 	ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarChangeRequest, callOptions ...callopt.Option) (r *user.QingyuAvatarChangeResponse, err error)
 	JudgeDoctor(ctx context.Context, req *user.QingyuJudgeDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuJudgeDoctorResponse, err error)
 	AddDoctor(ctx context.Context, req *user.QingyuAddDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuAddDoctorResponse, err error)
+	FindDoctor(ctx context.Context, req *user.QingyuFindDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuFindDoctorResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -118,4 +119,9 @@ func (p *kUserServiceClient) JudgeDoctor(ctx context.Context, req *user.QingyuJu
 func (p *kUserServiceClient) AddDoctor(ctx context.Context, req *user.QingyuAddDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuAddDoctorResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.AddDoctor(ctx, req)
+}
+
+func (p *kUserServiceClient) FindDoctor(ctx context.Context, req *user.QingyuFindDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuFindDoctorResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FindDoctor(ctx, req)
 }

@@ -592,7 +592,6 @@ type User struct {
 	TotalFavorited  int64  `thrift:"total_favorited,9" frugal:"9,default,i64" json:"total_favorited"`
 	WorkCount       int64  `thrift:"work_count,10" frugal:"10,default,i64" json:"work_count"`
 	FavoriteCount   int64  `thrift:"favorite_count,11" frugal:"11,default,i64" json:"favorite_count"`
-	IsDoctor        bool   `thrift:"is_doctor,12" frugal:"12,default,bool" json:"is_doctor"`
 }
 
 func NewUser() *User {
@@ -646,10 +645,6 @@ func (p *User) GetWorkCount() (v int64) {
 func (p *User) GetFavoriteCount() (v int64) {
 	return p.FavoriteCount
 }
-
-func (p *User) GetIsDoctor() (v bool) {
-	return p.IsDoctor
-}
 func (p *User) SetId(val int64) {
 	p.Id = val
 }
@@ -683,9 +678,6 @@ func (p *User) SetWorkCount(val int64) {
 func (p *User) SetFavoriteCount(val int64) {
 	p.FavoriteCount = val
 }
-func (p *User) SetIsDoctor(val bool) {
-	p.IsDoctor = val
-}
 
 var fieldIDToName_User = map[int16]string{
 	1:  "id",
@@ -699,7 +691,6 @@ var fieldIDToName_User = map[int16]string{
 	9:  "total_favorited",
 	10: "work_count",
 	11: "favorite_count",
-	12: "is_doctor",
 }
 
 func (p *User) Read(iprot thrift.TProtocol) (err error) {
@@ -824,16 +815,6 @@ func (p *User) Read(iprot thrift.TProtocol) (err error) {
 		case 11:
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField11(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		case 12:
-			if fieldTypeId == thrift.BOOL {
-				if err = p.ReadField12(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -970,15 +951,6 @@ func (p *User) ReadField11(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *User) ReadField12(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadBool(); err != nil {
-		return err
-	} else {
-		p.IsDoctor = v
-	}
-	return nil
-}
-
 func (p *User) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("User"); err != nil {
@@ -1027,10 +999,6 @@ func (p *User) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField11(oprot); err != nil {
 			fieldId = 11
-			goto WriteFieldError
-		}
-		if err = p.writeField12(oprot); err != nil {
-			fieldId = 12
 			goto WriteFieldError
 		}
 
@@ -1239,23 +1207,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
 }
 
-func (p *User) writeField12(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_doctor", thrift.BOOL, 12); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteBool(p.IsDoctor); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 12 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
-}
-
 func (p *User) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1300,9 +1251,6 @@ func (p *User) DeepEqual(ano *User) bool {
 		return false
 	}
 	if !p.Field11DeepEqual(ano.FavoriteCount) {
-		return false
-	}
-	if !p.Field12DeepEqual(ano.IsDoctor) {
 		return false
 	}
 	return true
@@ -1381,13 +1329,6 @@ func (p *User) Field10DeepEqual(src int64) bool {
 func (p *User) Field11DeepEqual(src int64) bool {
 
 	if p.FavoriteCount != src {
-		return false
-	}
-	return true
-}
-func (p *User) Field12DeepEqual(src bool) bool {
-
-	if p.IsDoctor != src {
 		return false
 	}
 	return true

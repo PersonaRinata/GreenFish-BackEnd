@@ -32,6 +32,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"ChangeUserAvatar": kitex.NewMethodInfo(changeUserAvatarHandler, newUserServiceChangeUserAvatarArgs, newUserServiceChangeUserAvatarResult, false),
 		"JudgeDoctor":      kitex.NewMethodInfo(judgeDoctorHandler, newUserServiceJudgeDoctorArgs, newUserServiceJudgeDoctorResult, false),
 		"AddDoctor":        kitex.NewMethodInfo(addDoctorHandler, newUserServiceAddDoctorArgs, newUserServiceAddDoctorResult, false),
+		"FindDoctor":       kitex.NewMethodInfo(findDoctorHandler, newUserServiceFindDoctorArgs, newUserServiceFindDoctorResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "user",
@@ -282,6 +283,24 @@ func newUserServiceAddDoctorResult() interface{} {
 	return user.NewUserServiceAddDoctorResult()
 }
 
+func findDoctorHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceFindDoctorArgs)
+	realResult := result.(*user.UserServiceFindDoctorResult)
+	success, err := handler.(user.UserService).FindDoctor(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceFindDoctorArgs() interface{} {
+	return user.NewUserServiceFindDoctorArgs()
+}
+
+func newUserServiceFindDoctorResult() interface{} {
+	return user.NewUserServiceFindDoctorResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -417,6 +436,16 @@ func (p *kClient) AddDoctor(ctx context.Context, req *user.QingyuAddDoctorReques
 	_args.Req = req
 	var _result user.UserServiceAddDoctorResult
 	if err = p.c.Call(ctx, "AddDoctor", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FindDoctor(ctx context.Context, req *user.QingyuFindDoctorRequest) (r *user.QingyuFindDoctorResponse, err error) {
+	var _args user.UserServiceFindDoctorArgs
+	_args.Req = req
+	var _result user.UserServiceFindDoctorResult
+	if err = p.c.Call(ctx, "FindDoctor", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
