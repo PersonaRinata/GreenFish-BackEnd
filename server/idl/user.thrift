@@ -140,6 +140,15 @@ struct qingyu_find_doctor_response {
     2: list<i64> doctor_id
 }
 
+struct qingyu_add_doctor_request {
+    1: string department
+}
+
+struct qingyu_add_doctor_response {
+    1: base.qingyu_base_response base_resp,
+    2: list<i64> doctor_id
+}
+
 
 service UserService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req),

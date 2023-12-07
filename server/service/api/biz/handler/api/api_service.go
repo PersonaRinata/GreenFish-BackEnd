@@ -131,6 +131,7 @@ func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 		TotalFavorited:  res.User.TotalFavorited,
 		WorkCount:       res.User.WorkCount,
 		FavoriteCount:   res.User.FavoriteCount,
+		Department:      res.User.Department,
 	}
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
@@ -189,6 +190,7 @@ func Feed(ctx context.Context, c *app.RequestContext) {
 				TotalFavorited:  v.Author.TotalFavorited,
 				WorkCount:       v.Author.WorkCount,
 				FavoriteCount:   v.Author.FavoriteCount,
+				Department:      v.Author.Department,
 			},
 			PlayURL:       v.PlayUrl,
 			CoverURL:      v.CoverUrl,
@@ -347,6 +349,7 @@ func VideoList(ctx context.Context, c *app.RequestContext) {
 				TotalFavorited:  v.Author.TotalFavorited,
 				WorkCount:       v.Author.WorkCount,
 				FavoriteCount:   v.Author.FavoriteCount,
+				Department:      v.Author.Department,
 			},
 			PlayURL:       v.PlayUrl,
 			CoverURL:      v.CoverUrl,
@@ -436,6 +439,7 @@ func FavoriteList(ctx context.Context, c *app.RequestContext) {
 				TotalFavorited:  v.Author.TotalFavorited,
 				WorkCount:       v.Author.WorkCount,
 				FavoriteCount:   v.Author.FavoriteCount,
+				Department:      v.Author.Department,
 			},
 			PlayURL:       v.PlayUrl,
 			CoverURL:      v.CoverUrl,
@@ -493,6 +497,7 @@ func Comment(ctx context.Context, c *app.RequestContext) {
 			TotalFavorited:  res.Comment.User.TotalFavorited,
 			WorkCount:       res.Comment.User.WorkCount,
 			FavoriteCount:   res.Comment.User.FavoriteCount,
+			Department:      res.Comment.User.Department,
 		},
 		Content:    res.Comment.Content,
 		CreateDate: res.Comment.CreateDate,
@@ -537,6 +542,7 @@ func CommentList(ctx context.Context, c *app.RequestContext) {
 				TotalFavorited:  v.User.TotalFavorited,
 				WorkCount:       v.User.WorkCount,
 				FavoriteCount:   v.User.FavoriteCount,
+				Department:      v.User.Department,
 			},
 			Content:    v.Content,
 			CreateDate: v.CreateDate,
@@ -621,6 +627,7 @@ func FollowingList(ctx context.Context, c *app.RequestContext) {
 			TotalFavorited:  v.TotalFavorited,
 			WorkCount:       v.WorkCount,
 			FavoriteCount:   v.FavoriteCount,
+			Department:      v.Department,
 		})
 	}
 	c.JSON(consts.StatusOK, resp)
@@ -668,6 +675,7 @@ func FollowerList(ctx context.Context, c *app.RequestContext) {
 			TotalFavorited:  v.TotalFavorited,
 			WorkCount:       v.WorkCount,
 			FavoriteCount:   v.FavoriteCount,
+			Department:      v.Department,
 		})
 	}
 
@@ -902,6 +910,7 @@ func SearchUserList(ctx context.Context, c *app.RequestContext) {
 			TotalFavorited:  0,
 			WorkCount:       0,
 			FavoriteCount:   0,
+			Department:      v.Department,
 		})
 	}
 	c.JSON(consts.StatusOK, resp)
@@ -1260,6 +1269,7 @@ func AIGCRecommendDoctor(ctx context.Context, c *app.RequestContext) {
 			TotalFavorited:  v.TotalFavorited,
 			WorkCount:       v.WorkCount,
 			FavoriteCount:   v.FavoriteCount,
+			Department:      v.Department,
 		})
 	}
 	c.JSON(consts.StatusOK, resp)

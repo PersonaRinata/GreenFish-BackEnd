@@ -314,7 +314,8 @@ struct qingyu_add_doctor_response {
 }
 
 struct qingyu_aigc_recommend_docotor_request {
-    1:string content
+    1:string token(api.query="token") // User authentication token
+    2:string content
 }
 
 struct qingyu_aigc_recommend_docotor_response {

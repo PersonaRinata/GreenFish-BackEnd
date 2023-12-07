@@ -233,6 +233,7 @@ func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.QingyuGetUs
 		TotalFavorited:  interactionInfo.TotalFavorited,
 		WorkCount:       interactionInfo.WorkCount,
 		FavoriteCount:   interactionInfo.FavoriteCount,
+		Department:      usr.Department,
 	}
 	return resp, nil
 }
@@ -281,6 +282,7 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Qingyu
 			TotalFavorited:  interactionList[i].TotalFavorited,
 			WorkCount:       interactionList[i].WorkCount,
 			FavoriteCount:   interactionList[i].FavoriteCount,
+			Department:      userList[i].Department,
 		})
 	}
 	resp.BaseResp = &base.QingyuBaseResponse{
@@ -343,6 +345,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.QingyuGet
 			TotalFavorited:  interactionList[i].TotalFavorited,
 			WorkCount:       interactionList[i].WorkCount,
 			FavoriteCount:   interactionList[i].FavoriteCount,
+			Department:      userList[i].Department,
 		})
 	}
 	resp.BaseResp = &base.QingyuBaseResponse{
@@ -405,6 +408,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.QingyuG
 			TotalFavorited:  interactionList[i].TotalFavorited,
 			WorkCount:       interactionList[i].WorkCount,
 			FavoriteCount:   interactionList[i].FavoriteCount,
+			Department:      userList[i].Department,
 		})
 	}
 	resp.BaseResp = &base.QingyuBaseResponse{
@@ -621,6 +625,7 @@ func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSe
 				TotalFavorited:  0,
 				WorkCount:       0,
 				FavoriteCount:   0,
+				Department:      v.Department,
 			})
 		}
 	}

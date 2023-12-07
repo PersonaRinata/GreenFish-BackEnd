@@ -65,6 +65,20 @@ func (r *RedisManager) BatchGetUserById(ctx context.Context, id []int64) ([]*mod
 	return userList, nil
 }
 
+func (r *RedisManager) UpdateUser(ctx context.Context, user model.User) error {
+	userJson, err := sonic.Marshal(user)
+	if err != nil {
+		klog.Error("redis marshal user failed,", err)
+		return err
+	}
+	err = r.redisClient.Set(ctx, "user:"+strconv.FormatInt(user.ID, 10), userJson, 0).Err()
+	if err != nil {
+		klog.Error("redis create user failed,", err)
+		return err
+	}
+	return nil
+}
+
 func (r *RedisManager) UpdateIssueListById(ctx context.Context, id int64, issueList *model.IssueList) error {
 	issueListJson, err := sonic.Marshal(issueList)
 	if err != nil {
@@ -123,6 +137,16 @@ func (r *RedisManager) AddDoctor(ctx context.Context, id int64, department strin
 		klog.Error("redis create issueList failed,", err)
 		return err
 	}
+	user, err := r.GetUserById(ctx, id)
+	if err != nil {
+		return err
+	}
+	user.Department = department
+	err = r.UpdateUser(ctx, *user)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

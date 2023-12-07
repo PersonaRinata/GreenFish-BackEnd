@@ -12,11 +12,11 @@ type answser struct {
 
 func DoctorRecommend(content string) (error, string) {
 	url := "http://127.0.0.1:5000/predict"
-	m := map[string]interface{}{
-		"input": "你好",
+	m := map[string]string{
+		"input": content,
 	}
 	client := req.C()
-	r, err := client.R().SetBody(m).SetHeader("Content-Type", "application/form").SetHeader("Authorization", "Bearer "+"fk210314-SgSKCEJRaFf5wzjUJt4h6mGwJvjhz6Do").
+	r, err := client.R().SetFormData(m).SetHeader("Content-Type", "multipart/form-data").
 		Post(url)
 	if err != nil {
 		fmt.Println(err)

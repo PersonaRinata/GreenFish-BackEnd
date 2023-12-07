@@ -12121,11 +12121,17 @@ func (p *QingyuAddDoctorResponse) String() string {
 }
 
 type QingyuAigcRecommendDocotorRequest struct {
-	Content string `thrift:"content,1" form:"content" json:"content" query:"content"`
+	// User authentication token
+	Token   string `thrift:"token,1" json:"token" query:"token"`
+	Content string `thrift:"content,2" form:"content" json:"content" query:"content"`
 }
 
 func NewQingyuAigcRecommendDocotorRequest() *QingyuAigcRecommendDocotorRequest {
 	return &QingyuAigcRecommendDocotorRequest{}
+}
+
+func (p *QingyuAigcRecommendDocotorRequest) GetToken() (v string) {
+	return p.Token
 }
 
 func (p *QingyuAigcRecommendDocotorRequest) GetContent() (v string) {
@@ -12133,7 +12139,8 @@ func (p *QingyuAigcRecommendDocotorRequest) GetContent() (v string) {
 }
 
 var fieldIDToName_QingyuAigcRecommendDocotorRequest = map[int16]string{
-	1: "content",
+	1: "token",
+	2: "content",
 }
 
 func (p *QingyuAigcRecommendDocotorRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -12158,6 +12165,16 @@ func (p *QingyuAigcRecommendDocotorRequest) Read(iprot thrift.TProtocol) (err er
 		case 1:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -12199,6 +12216,15 @@ func (p *QingyuAigcRecommendDocotorRequest) ReadField1(iprot thrift.TProtocol) e
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
+		p.Token = v
+	}
+	return nil
+}
+
+func (p *QingyuAigcRecommendDocotorRequest) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
 		p.Content = v
 	}
 	return nil
@@ -12212,6 +12238,10 @@ func (p *QingyuAigcRecommendDocotorRequest) Write(oprot thrift.TProtocol) (err e
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 
@@ -12234,10 +12264,10 @@ WriteStructEndError:
 }
 
 func (p *QingyuAigcRecommendDocotorRequest) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("content", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("token", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Content); err != nil {
+	if err := oprot.WriteString(p.Token); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -12248,6 +12278,23 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuAigcRecommendDocotorRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("content", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Content); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
 func (p *QingyuAigcRecommendDocotorRequest) String() string {

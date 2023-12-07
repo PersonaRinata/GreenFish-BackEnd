@@ -502,6 +502,8 @@ type User struct {
 	WorkCount int64 `thrift:"work_count,10" form:"work_count" json:"work_count" query:"work_count"`
 	// Total video likes
 	FavoriteCount int64 `thrift:"favorite_count,11" form:"favorite_count" json:"favorite_count" query:"favorite_count"`
+	// Department
+	Department string `thrift:"department,12" form:"department" json:"department" query:"department"`
 }
 
 func NewUser() *User {
@@ -552,6 +554,10 @@ func (p *User) GetFavoriteCount() (v int64) {
 	return p.FavoriteCount
 }
 
+func (p *User) GetDepartment() (v string) {
+	return p.Department
+}
+
 var fieldIDToName_User = map[int16]string{
 	1:  "id",
 	2:  "name",
@@ -564,6 +570,7 @@ var fieldIDToName_User = map[int16]string{
 	9:  "total_favorited",
 	10: "work_count",
 	11: "favorite_count",
+	12: "department",
 }
 
 func (p *User) Read(iprot thrift.TProtocol) (err error) {
@@ -688,6 +695,16 @@ func (p *User) Read(iprot thrift.TProtocol) (err error) {
 		case 11:
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField11(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 12:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField12(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -824,6 +841,15 @@ func (p *User) ReadField11(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *User) ReadField12(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Department = v
+	}
+	return nil
+}
+
 func (p *User) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("User"); err != nil {
@@ -872,6 +898,10 @@ func (p *User) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField11(oprot); err != nil {
 			fieldId = 11
+			goto WriteFieldError
+		}
+		if err = p.writeField12(oprot); err != nil {
+			fieldId = 12
 			goto WriteFieldError
 		}
 
@@ -1078,6 +1108,23 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
+func (p *User) writeField12(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("department", thrift.STRING, 12); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Department); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
 }
 
 func (p *User) String() string {

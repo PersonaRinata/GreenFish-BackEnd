@@ -7,6 +7,7 @@ type User struct {
 	Avatar          string
 	BackGroundImage string
 	Signature       string
+	Department      string
 }
 
 type MedicalHistoryInfo struct {
