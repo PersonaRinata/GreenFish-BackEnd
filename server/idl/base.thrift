@@ -69,7 +69,8 @@ struct FriendUser {
     10: i64 work_count,         // Number of published videos
     11: i64 favorite_count,     // Total video likes
     12: string message // Latest chat messages with this friend
-    13: i64 msgType // message type, 0 => the message received by the current requesting user, 1 => the message sent by the current requesting user
+    13: i64 time // Latest chat messages time
+    14: i64 msgType // message type, 0 => the message received by the current requesting user, 1 => the message sent by the current requesting user
 }
 
 struct Message {
@@ -82,7 +83,8 @@ struct Message {
 
 struct LatestMsg{
     1: string message // Latest chat messages with this friend
-    2: i64 msgType // message type, 0 => the message received by the current requesting user, 1 => the message sent by the current requesting user
+    2: i64 time // Latest chat messages time
+    3: i64 msgType // message type, 0 => the message received by the current requesting user, 1 => the message sent by the current requesting user
 }
 
 struct medicalHistoryInfo{

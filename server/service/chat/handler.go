@@ -97,6 +97,7 @@ func (s *ChatServiceImpl) GetLatestMessage(ctx context.Context, req *chat.Qingyu
 	}
 	resp.LatestMsg = &base.LatestMsg{
 		Message: msg.Content,
+		Time:    msg.CreateTime,
 		MsgType: int64(msgType),
 	}
 	resp.BaseResp = &base.QingyuBaseResponse{
@@ -126,6 +127,7 @@ func (s *ChatServiceImpl) BatchGetLatestMessage(ctx context.Context, req *chat.Q
 		}
 		resp.LatestMsgList = append(resp.LatestMsgList, &base.LatestMsg{
 			Message: v.Content,
+			Time:    v.CreateTime,
 			MsgType: int64(msgType),
 		})
 	}

@@ -191,7 +191,7 @@ func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.QingyuGetUs
 
 	usr, err := s.RedisManager.GetUserById(ctx, req.OwnerId)
 	if err != nil {
-		klog.Errorf("redis get user by id failed,", err)
+		klog.Error("redis get user by id failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("redis get user by id failed,%s", err),
@@ -201,12 +201,12 @@ func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.QingyuGetUs
 
 	socialInfo, err := s.SocialManager.GetSocialInfo(ctx, req.ViewerId, req.OwnerId)
 	if err != nil {
-		klog.Errorf("socialManager get socialInfo failed,", err)
+		klog.Error("socialManager get socialInfo failed,", err)
 	}
 
 	interactionInfo, err := s.InteractionManager.GetInteractInfo(ctx, req.OwnerId)
 	if err != nil {
-		klog.Errorf("interactionManager get interactionInfo failed,", err)
+		klog.Error("interactionManager get interactionInfo failed,", err)
 	}
 
 	if err != nil {
@@ -244,7 +244,7 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Qingyu
 
 	userList, err := s.RedisManager.BatchGetUserById(ctx, req.OwnerIdList)
 	if err != nil {
-		klog.Errorf("redis batch get users by id failed,", err)
+		klog.Error("redis batch get users by id failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("redis batch get users by id failed,%s", err),
@@ -253,7 +253,7 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Qingyu
 	}
 	socialList, err := s.SocialManager.BatchGetSocialInfo(ctx, req.ViewerId, req.OwnerIdList)
 	if err != nil {
-		klog.Errorf("user socialManager get socialList failed,", err)
+		klog.Error("user socialManager get socialList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get socialList failed",
@@ -262,7 +262,7 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Qingyu
 	}
 	interactionList, err := s.InteractionManager.BatchGetInteractInfo(ctx, req.OwnerIdList)
 	if err != nil {
-		klog.Errorf("user interactionManager get interactionList failed,", err)
+		klog.Error("user interactionManager get interactionList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user interactionManager get interactionList failed",
@@ -298,7 +298,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.QingyuGet
 
 	userIdlist, err := s.SocialManager.GetRelationList(ctx, req.ViewerId, req.OwnerId, consts.FollowList)
 	if err != nil {
-		klog.Errorf("user socialManager get follow list failed,", err)
+		klog.Error("user socialManager get follow list failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get followList failed ",
@@ -307,7 +307,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.QingyuGet
 	}
 	userList, err := s.RedisManager.BatchGetUserById(ctx, userIdlist)
 	if err != nil {
-		klog.Errorf("user redis get user failed,", err)
+		klog.Error("user redis get user failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redis get user failed ",
@@ -316,7 +316,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.QingyuGet
 	}
 	socialList, err := s.SocialManager.BatchGetSocialInfo(ctx, req.ViewerId, userIdlist)
 	if err != nil {
-		klog.Errorf("user socialManager get socialList failed,", err)
+		klog.Error("user socialManager get socialList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get socialList failed",
@@ -325,7 +325,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.QingyuGet
 	}
 	interactionList, err := s.InteractionManager.BatchGetInteractInfo(ctx, userIdlist)
 	if err != nil {
-		klog.Errorf("user interactionManager get interactionList failed,", err)
+		klog.Error("user interactionManager get interactionList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user interactionManager get interactionList failed",
@@ -361,7 +361,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.QingyuG
 
 	userIdlist, err := s.SocialManager.GetRelationList(ctx, req.ViewerId, req.OwnerId, consts.FollowerList)
 	if err != nil {
-		klog.Errorf("user socialManager get follower list failed,", err)
+		klog.Error("user socialManager get follower list failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get followerList failed ",
@@ -370,7 +370,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.QingyuG
 	}
 	userList, err := s.RedisManager.BatchGetUserById(ctx, userIdlist)
 	if err != nil {
-		klog.Errorf("user redis get user failed,", err)
+		klog.Error("user redis get user failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redis get user failed ",
@@ -379,7 +379,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.QingyuG
 	}
 	socialList, err := s.SocialManager.BatchGetSocialInfo(ctx, req.ViewerId, userIdlist)
 	if err != nil {
-		klog.Errorf("user socialManager get socialList failed,", err)
+		klog.Error("user socialManager get socialList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get socialList failed",
@@ -388,7 +388,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.QingyuG
 	}
 	interactionList, err := s.InteractionManager.BatchGetInteractInfo(ctx, userIdlist)
 	if err != nil {
-		klog.Errorf("user interactionManager get interactionList failed,", err)
+		klog.Error("user interactionManager get interactionList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user interactionManager get interactionList failed",
@@ -425,7 +425,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGet
 
 	userIdlist, err := s.SocialManager.GetRelationList(ctx, req.ViewerId, req.OwnerId, consts.FriendsList)
 	if err != nil {
-		klog.Errorf("user socialManager get follow list failed,", err)
+		klog.Error("user socialManager get follow list failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get followList failed ",
@@ -434,7 +434,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGet
 	}
 	userList, err := s.RedisManager.BatchGetUserById(ctx, userIdlist)
 	if err != nil {
-		klog.Errorf("user redis get user failed,", err)
+		klog.Error("user redis get user failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redis get user failed ",
@@ -443,7 +443,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGet
 	}
 	socialList, err := s.SocialManager.BatchGetSocialInfo(ctx, req.ViewerId, userIdlist)
 	if err != nil {
-		klog.Errorf("user socialManager get socialList failed,", err)
+		klog.Error("user socialManager get socialList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user socialManager get socialList failed",
@@ -452,7 +452,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGet
 	}
 	interactionList, err := s.InteractionManager.BatchGetInteractInfo(ctx, userIdlist)
 	if err != nil {
-		klog.Errorf("user interactionManager get interactionList failed,", err)
+		klog.Error("user interactionManager get interactionList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user interactionManager get interactionList failed",
@@ -461,7 +461,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGet
 	}
 	chatList, err := s.ChatManager.BatchGetLatestMessage(ctx, req.ViewerId, userIdlist)
 	if err != nil {
-		klog.Errorf("user chatManager get chatList failed,", err)
+		klog.Error("user chatManager get chatList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user chatManager get chatList failed",
@@ -483,6 +483,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGet
 			FavoriteCount:   interactionList[i].FavoriteCount,
 			MsgType:         chatList[i].MsgType,
 			Message:         chatList[i].Message,
+			Time:            chatList[i].Time,
 		})
 	}
 	resp.BaseResp = &base.QingyuBaseResponse{

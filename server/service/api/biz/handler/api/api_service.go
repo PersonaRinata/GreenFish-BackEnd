@@ -725,6 +725,7 @@ func FriendList(ctx context.Context, c *app.RequestContext) {
 			WorkCount:       v.WorkCount,
 			FavoriteCount:   v.FavoriteCount,
 			Message:         v.Message,
+			Time:            v.Time,
 			MsgType:         v.MsgType,
 		})
 	}
