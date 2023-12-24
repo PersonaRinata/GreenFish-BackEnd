@@ -87,32 +87,34 @@ struct LatestMsg{
     3: i64 msgType // message type, 0 => the message received by the current requesting user, 1 => the message sent by the current requesting user
 }
 
-struct medicalHistoryInfo{
-    1:string symptom //患者的主要症状或原因
-    2:string description //病情描述
-    3:string history //过去的疾病、手术、药物过敏等历史记录。
-    4:string familyInfo //患者家族中与当前疾病相关的疾病或遗传疾病的记录
-} //病史信息
+struct DiseaseRelation {
+    1: string DiseaseIntroduction,
+    2: string FamilyDiseases,
+    3: list<HistoryDiseases> HistoryDiseases,
+}
 
-struct bodyInfo{
-    1:string bloodPressure//血压
-    2:string heartRate //心率
-    3:string height //身高
-    4:string weight //体重
-    5:i64 create_time
-    6:i64 update_time
-} //身体指标
+struct HistoryDiseases {
+    1: string Symptom,
+    2: list<string> Medicines,
+    3: string Department,
+    4: i64 UpdateTime,
+}
 
-struct IssueList{
-    1: string user_id
-    2: string username
-    3: bool gender
-    4: i32 age
-    5: i64 create_time
-    6: i64 update_time
-    7: list<string> department
-    8: medicalHistoryInfo medicalHistoryInfo
-    9: bodyInfo bodyInfo
-    10: string introduction
-    11: list<string> medicine
+struct BodyInfo {
+    1: string BloodPressure,
+    2: string HeartRate,
+    3: string Height,
+    4: string Weight,
+    5: string BloodSugar,
+    6: i64 UpdateTime,
+}
+
+struct IssueList {
+    1: string UserID,
+    2: string Username,
+    3: bool Gender,
+    4: i32 Age,
+    5: DiseaseRelation DiseaseRelation,
+    6: BodyInfo BodyInfo,
+
 }

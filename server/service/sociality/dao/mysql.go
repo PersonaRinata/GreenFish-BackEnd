@@ -126,12 +126,12 @@ func (m MysqlManager) GetUserIdList(ctx context.Context, userId int64, option in
 func (m MysqlManager) GetSocialInfo(ctx context.Context, userId int64, viewerId int64) (*model.SocialInfo, error) {
 	concernIdList, err := m.GetUserIdList(ctx, userId, consts.FollowList)
 	if err != nil {
-		klog.Errorf("get IdList wrong")
+		klog.Error("get IdList wrong")
 		return nil, err
 	}
 	followerIdList, err := m.GetUserIdList(ctx, userId, consts.FollowerList)
 	if err != nil {
-		klog.Errorf("get IdList wrong")
+		klog.Error("get IdList wrong")
 		return nil, err
 	}
 	var flag bool
@@ -204,7 +204,7 @@ func NewMysqlManager(db *gorm.DB) *MysqlManager {
 	if !m.HasTable(&model.ConcernList{}) {
 		err := m.CreateTable(&model.ConcernList{})
 		if err != nil {
-			klog.Errorf("create mysql table failed,", err)
+			klog.Error("create mysql table failed,", err)
 		}
 	}
 	return &MysqlManager{db: db}

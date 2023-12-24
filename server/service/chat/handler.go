@@ -35,7 +35,7 @@ func (s *ChatServiceImpl) GetChatHistory(ctx context.Context, req *chat.QingyuMe
 
 	msg, err := s.MysqlManager.GetHistoryMessage(ctx, req.UserId, req.ToUserId, req.PreMsgTime)
 	if err != nil {
-		klog.Errorf("chat mysql get history message failed,", err)
+		klog.Error("chat mysql get history message failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "chat mysql get history message failed",
@@ -64,7 +64,7 @@ func (s *ChatServiceImpl) SentMessage(ctx context.Context, req *chat.QingyuMessa
 
 	err = s.Publish(ctx, req)
 	if err != nil {
-		klog.Errorf("chat sentMessage failed,", err)
+		klog.Error("chat sentMessage failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "chat publisher publish failed",
@@ -84,7 +84,7 @@ func (s *ChatServiceImpl) GetLatestMessage(ctx context.Context, req *chat.Qingyu
 
 	msg, err := s.MysqlManager.GetLatestMessage(ctx, req.UserId, req.ToUserId)
 	if err != nil {
-		klog.Errorf("chat mysql get latest message failed,", err)
+		klog.Error("chat mysql get latest message failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "chat mysql get latest message failed",
@@ -113,7 +113,7 @@ func (s *ChatServiceImpl) BatchGetLatestMessage(ctx context.Context, req *chat.Q
 
 	msgList, err := s.MysqlManager.BatchGetLatestMessage(ctx, req.UserId, req.ToUserIdList)
 	if err != nil {
-		klog.Errorf("chat mysql batch get latest message failed,", err)
+		klog.Error("chat mysql batch get latest message failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "chat mysql batch get latest message failed",

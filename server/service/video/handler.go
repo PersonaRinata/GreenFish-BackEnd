@@ -280,7 +280,7 @@ func (s *VideoServiceImpl) SearchVideoList(ctx context.Context, req *video.Qingy
 
 	videoList, err := s.MysqlManager.SearchVideoByTitle(ctx, req.Content)
 	if err != nil {
-		klog.Errorf("user mysqlManager get videoList failed,", err)
+		klog.Error("user mysqlManager get videoList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user mysqlManager get videoList failed",

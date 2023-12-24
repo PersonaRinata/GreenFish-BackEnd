@@ -902,9 +902,9 @@ func SearchUserList(ctx context.Context, c *app.RequestContext) {
 		resp.UserList = append(resp.UserList, &base.User{
 			ID:              v.Id,
 			Name:            v.Name,
-			FollowCount:     0,
-			FollowerCount:   0,
-			IsFollow:        false,
+			FollowCount:     v.FollowCount,
+			FollowerCount:   v.FollowerCount,
+			IsFollow:        v.IsFollow,
 			Avatar:          v.Avatar,
 			BackgroundImage: v.BackgroundImage,
 			Signature:       v.Signature,

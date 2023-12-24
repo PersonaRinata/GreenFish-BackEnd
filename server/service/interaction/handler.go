@@ -59,7 +59,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.Q
 	if req.ActionType == consts.Like {
 		idList, err := s.RedisManager.GetFavoriteVideoIdList(ctx, req.UserId)
 		if err != nil {
-			klog.Errorf("interaction get favoriteVideoIdList failed,err", err)
+			klog.Error("interaction get favoriteVideoIdList failed,err", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction get favoriteVideoIdList failed",
@@ -77,7 +77,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.Q
 		}
 		if err = s.FavoriteManager.FavoriteAction(ctx, req.UserId, req.VideoId); err != nil {
 			//回滚
-			klog.Errorf("interaction mysql favorite failed,err", err)
+			klog.Error("interaction mysql favorite failed,err", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction mysql favorite failed",
@@ -86,7 +86,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.Q
 		}
 		err = s.RedisManager.FavoriteAction(ctx, req.UserId, req.VideoId)
 		if err != nil {
-			klog.Errorf("interaction redis favorite failed,err", err)
+			klog.Error("interaction redis favorite failed,err", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction redis favorite failed",
@@ -96,7 +96,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.Q
 	} else if req.ActionType == consts.UnLike {
 		if err := s.FavoriteManager.UnFavoriteAction(ctx, req.UserId, req.VideoId); err != nil {
 			//回滚
-			klog.Errorf("interaction mysql unFavorite failed,err", err)
+			klog.Error("interaction mysql unFavorite failed,err", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction mysql unFavorite failed",
@@ -105,7 +105,7 @@ func (s *InteractionServerImpl) Favorite(ctx context.Context, req *interaction.Q
 		}
 		err = s.RedisManager.UnFavoriteAction(ctx, req.UserId, req.VideoId)
 		if err != nil {
-			klog.Errorf("interaction redis unFavorite failed,err", err)
+			klog.Error("interaction redis unFavorite failed,err", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction redis unFavorite failed",
@@ -131,10 +131,10 @@ func (s *InteractionServerImpl) GetFavoriteVideoIdList(ctx context.Context, req 
 	resp = new(interaction.QingyuGetFavoriteVideoIdListResponse)
 	res, err := s.RedisManager.GetFavoriteVideoIdList(ctx, req.UserId)
 	if err != nil {
-		klog.Errorf("interaction redis get favorite video id list failed,", err)
+		klog.Error("interaction redis get favorite video id list failed,", err)
 		res, err = s.FavoriteManager.GetFavoriteVideoIdList(ctx, req.UserId)
 		if err != nil {
-			klog.Errorf("interaction mysql get favorite video id list failed,", err)
+			klog.Error("interaction mysql get favorite video id list failed,", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction get favorite video id list failed",
@@ -177,7 +177,7 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Qi
 		err = s.CommentManager.Comment(ctx, comment)
 		if err != nil {
 			//回滚
-			klog.Errorf("interaction mysql comment failed,", err)
+			klog.Error("interaction mysql comment failed,", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction mysql comment failed",
@@ -186,7 +186,7 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Qi
 		}
 		err = s.RedisManager.Comment(ctx, comment)
 		if err != nil {
-			klog.Errorf("interaction redis comment failed,", err)
+			klog.Error("interaction redis comment failed,", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction redis comment failed",
@@ -197,7 +197,7 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Qi
 		err = s.CommentManager.DeleteComment(ctx, req.CommentId)
 		if err != nil {
 			//回滚
-			klog.Errorf("interaction mysql deleteComment failed,", err)
+			klog.Error("interaction mysql deleteComment failed,", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction mysql deleteComment failed",
@@ -206,7 +206,7 @@ func (s *InteractionServerImpl) Comment(ctx context.Context, req *interaction.Qi
 		}
 		err = s.RedisManager.DeleteComment(ctx, req.CommentId)
 		if err != nil {
-			klog.Errorf("interaction redis deleteComment failed,", err)
+			klog.Error("interaction redis deleteComment failed,", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction redis deleteComment failed",
@@ -239,10 +239,10 @@ func (s *InteractionServerImpl) GetCommentList(ctx context.Context, req *interac
 
 	commentList, err := s.RedisManager.GetComment(ctx, req.VideoId)
 	if err != nil {
-		klog.Errorf("interaction redis get commentList failed", err)
+		klog.Error("interaction redis get commentList failed", err)
 		commentList, err = s.CommentManager.GetComment(ctx, req.VideoId)
 		if err != nil {
-			klog.Errorf("interaction mysql get commentList failed", err)
+			klog.Error("interaction mysql get commentList failed", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction get commentList failed",
@@ -282,7 +282,7 @@ func (s *InteractionServerImpl) GetVideoInteractInfo(ctx context.Context, req *i
 
 	commentNum, favoriteNum, isFavorite, err := s.getVideoInfo(ctx, req.VideoId, req.ViewerId)
 	if err != nil {
-		klog.Errorf("interaction get video info failed")
+		klog.Error("interaction get video info failed")
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "interaction get video failed",
@@ -307,7 +307,7 @@ func (s *InteractionServerImpl) BatchGetVideoInteractInfo(ctx context.Context, r
 	for _, v := range req.VideoIdList {
 		commentNum, favoriteNum, isFavorite, err := s.getVideoInfo(ctx, v, req.ViewerId)
 		if err != nil {
-			klog.Errorf("interaction get video info failed")
+			klog.Error("interaction get video info failed")
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "interaction get video failed",
@@ -330,28 +330,28 @@ func (s *InteractionServerImpl) BatchGetVideoInteractInfo(ctx context.Context, r
 func (s *InteractionServerImpl) getVideoInfo(ctx context.Context, videoId, userId int64) (CommentNum, FavoriteNum int64, IsFavorite bool, err error) {
 	CommentNum, err = s.RedisManager.GetCommentCount(ctx, videoId)
 	if err != nil {
-		klog.Errorf("interaction get video comment num failed,", err)
+		klog.Error("interaction get video comment num failed,", err)
 		CommentNum, err = s.CommentManager.GetCommentCount(ctx, videoId)
 		if err != nil {
-			klog.Errorf("interaction get video comment num failed,", err)
+			klog.Error("interaction get video comment num failed,", err)
 			return CommentNum, FavoriteNum, IsFavorite, err
 		}
 	}
 	FavoriteNum, err = s.RedisManager.GetFavoriteCount(ctx, videoId)
 	if err != nil {
-		klog.Errorf("interaction get video favorite num failed,", err)
+		klog.Error("interaction get video favorite num failed,", err)
 		CommentNum, err = s.FavoriteManager.GetFavoriteCount(ctx, videoId)
 		if err != nil {
-			klog.Errorf("interaction get favorite num failed,", err)
+			klog.Error("interaction get favorite num failed,", err)
 			return CommentNum, FavoriteNum, IsFavorite, err
 		}
 	}
 	IsFavorite, err = s.RedisManager.JudgeIsFavoriteCount(ctx, videoId, userId)
 	if err != nil {
-		klog.Errorf("interaction judge isFavorite failed,", err)
+		klog.Error("interaction judge isFavorite failed,", err)
 		IsFavorite, err = s.FavoriteManager.JudgeIsFavoriteCount(ctx, videoId, userId)
 		if err != nil {
-			klog.Errorf("interaction judge isFavorite failed,", err)
+			klog.Error("interaction judge isFavorite failed,", err)
 			return CommentNum, FavoriteNum, IsFavorite, err
 		}
 	}

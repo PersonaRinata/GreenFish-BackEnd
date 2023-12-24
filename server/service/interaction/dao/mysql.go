@@ -79,7 +79,7 @@ func (m MysqlManager) UnFavoriteAction(ctx context.Context, userId, videoId int6
 	var favorite model.Favorite
 	err := m.favoriteDb.Where("user_id = ? AND video_id = ?", userId, videoId).First(&favorite).Error
 	if err != nil {
-		klog.Errorf("mysql select failed,", err)
+		klog.Error("mysql select failed,", err)
 		return err
 	}
 	favorite.ActionType = consts.UnLike
@@ -201,7 +201,7 @@ func (m MysqlManager) GetCommentCount(ctx context.Context, videoId int64) (int64
 		Group("video_id").
 		Count(&count).Error
 	if err != nil {
-		klog.Errorf("mysql select failed,", err)
+		klog.Error("mysql select failed,", err)
 		return 0, err
 	}
 
@@ -213,13 +213,13 @@ func NewMysqlManager(db *gorm.DB) *MysqlManager {
 	if !m.HasTable(&model.Comment{}) {
 		err := m.CreateTable(&model.Comment{})
 		if err != nil {
-			klog.Errorf("create mysql table failed,", err)
+			klog.Error("create mysql table failed,", err)
 		}
 	}
 	if !m.HasTable(&model.Favorite{}) {
 		err := m.CreateTable(&model.Favorite{})
 		if err != nil {
-			klog.Errorf("create mysql table failed,", err)
+			klog.Error("create mysql table failed,", err)
 		}
 	}
 	return &MysqlManager{commentDb: db,

@@ -44,7 +44,7 @@ func (s *SocialityServiceImpl) Action(ctx context.Context, req *sociality.Qingyu
 	}
 	err = s.Publisher.Publish(ctx, req)
 	if err != nil {
-		klog.Errorf("sociality publish action failed", err)
+		klog.Error("sociality publish action failed", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "sociality publish action failed",
@@ -53,7 +53,7 @@ func (s *SocialityServiceImpl) Action(ctx context.Context, req *sociality.Qingyu
 	}
 	err = s.RedisManager.Action(ctx, req.UserId, req.ToUserId, req.ActionType)
 	if err != nil {
-		klog.Errorf("sociality redis action failed", err)
+		klog.Error("sociality redis action failed", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "sociality redis action failed",
@@ -72,10 +72,10 @@ func (s *SocialityServiceImpl) GetRelationIdList(ctx context.Context, req *socia
 
 	resp.UserIdList, err = s.RedisManager.GetUserIdList(ctx, req.OwnerId, req.Option)
 	if err != nil {
-		klog.Errorf("sociality redis get relationIdList failed,", err)
+		klog.Error("sociality redis get relationIdList failed,", err)
 		resp.UserIdList, err = s.MysqlManager.GetUserIdList(ctx, req.OwnerId, req.Option)
 		if err != nil {
-			klog.Errorf("sociality mysql get relationIdList failed,", err)
+			klog.Error("sociality mysql get relationIdList failed,", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "sociality get relationIdList failed",
@@ -96,10 +96,10 @@ func (s *SocialityServiceImpl) GetSocialInfo(ctx context.Context, req *sociality
 
 	socialInfo, err := s.RedisManager.GetSocialInfo(ctx, req.OwnerId, req.ViewerId)
 	if err != nil {
-		klog.Errorf("sociality redis get socialInfo failed,", err)
+		klog.Error("sociality redis get socialInfo failed,", err)
 		socialInfo, err = s.MysqlManager.GetSocialInfo(ctx, req.OwnerId, req.ViewerId)
 		if err != nil {
-			klog.Errorf("sociality mysql get socialInfo failed,", err)
+			klog.Error("sociality mysql get socialInfo failed,", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "sociality get socialInfo failed",
@@ -112,7 +112,7 @@ func (s *SocialityServiceImpl) GetSocialInfo(ctx context.Context, req *sociality
 		StatusMsg:  "sociality get socialInfo success",
 	}
 	resp.SocialInfo = &base.SocialInfo{
-		FollowCount:   socialInfo.FollowerCount,
+		FollowCount:   socialInfo.FollowCount,
 		FollowerCount: socialInfo.FollowerCount,
 		IsFollow:      socialInfo.IsFollow,
 	}
@@ -125,10 +125,10 @@ func (s *SocialityServiceImpl) BatchGetSocialInfo(ctx context.Context, req *soci
 
 	socialInfos, err := s.RedisManager.BatchGetSocialInfo(ctx, req.OwnerIdList, req.ViewerId)
 	if err != nil {
-		klog.Errorf("sociality redis batch get socialInfo failed,", err)
+		klog.Error("sociality redis batch get socialInfo failed,", err)
 		socialInfos, err = s.MysqlManager.BatchGetSocialInfo(ctx, req.OwnerIdList, req.ViewerId)
 		if err != nil {
-			klog.Errorf("sociality mysql batch get socialInfo failed,", err)
+			klog.Error("sociality mysql batch get socialInfo failed,", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  "sociality batch get socialInfo failed",

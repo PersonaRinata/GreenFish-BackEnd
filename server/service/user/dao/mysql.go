@@ -16,8 +16,8 @@ type User struct {
 func (u User) CreateUser(ctx context.Context, user *model.User) error {
 	var temp model.User
 	err := u.db.Where("username = ?", user.Username).First(&temp).Error
-	if err != gorm.ErrRecordNotFound && err != nil {
-		klog.Errorf("mysql select failed,", err)
+	if !errors.Is(err, gorm.ErrRecordNotFound) && err != nil {
+		klog.Error("mysql select failed,", err)
 
 		return err
 	}
@@ -27,7 +27,7 @@ func (u User) CreateUser(ctx context.Context, user *model.User) error {
 	}
 	err = u.db.Create(&user).Error
 	if err != nil {
-		klog.Errorf("mysql insert failed", err)
+		klog.Error("mysql insert failed", err)
 
 		return err
 	}
@@ -62,12 +62,21 @@ func (u User) ChangeAvatarByUserID(ctx context.Context, avatar string, id int64)
 	return err
 }
 
+func (u User) AddDoctor(ctx context.Context, id int64, department string) error {
+	if err := u.db.Where("id = ?", id).Update("department = ?", department).Error; err != nil {
+
+		return err
+	}
+
+	return nil
+}
+
 func NewUser(db *gorm.DB) *User {
 	m := db.Migrator()
 	if !m.HasTable(&model.User{}) {
 		err := m.CreateTable(&model.User{})
 		if err != nil {
-			klog.Errorf("create mysql table failed,", err)
+			klog.Error("create mysql table failed,", err)
 		}
 	}
 	return &User{db: db}

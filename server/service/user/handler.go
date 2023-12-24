@@ -24,6 +24,7 @@ type MysqlManager interface {
 	GetUserByUsername(ctx context.Context, username string) (*model.User, error)
 	SearchUserByUsername(ctx context.Context, content string) ([]*model.User, error)
 	ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error
+	AddDoctor(ctx context.Context, id int64, department string) error
 }
 type RedisManager interface {
 	CreateUser(ctx context.Context, user *model.User) error
@@ -116,7 +117,7 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.QingyuUserRegi
 		},
 	})
 	if err != nil {
-		klog.Errorf("register create jwt failed", err)
+		klog.Error("register create jwt failed", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("register create jwt failed,%s", err),
@@ -143,7 +144,7 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.QingyuUserLoginRe
 			}
 			return resp, err
 		} else {
-			klog.Errorf("mysql get user by username failed", err)
+			klog.Error("mysql get user by username failed", err)
 			resp.BaseResp = &base.QingyuBaseResponse{
 				StatusCode: 500,
 				StatusMsg:  err.Error(),
@@ -170,7 +171,7 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.QingyuUserLoginRe
 		},
 	})
 	if err != nil {
-		klog.Errorf("register create jwt failed", err)
+		klog.Error("register create jwt failed", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  fmt.Sprintf("register create jwt failed,%s", err),
@@ -498,34 +499,33 @@ func (s *UserServiceImpl) UpdateIssueList(ctx context.Context, req *user.QingyuU
 	resp = new(user.QingyuUpdateIssueListResponse)
 
 	issueList := model.IssueList{
-		UserID:     req.IssueList.UserId,
-		Username:   req.IssueList.Username,
-		Gender:     req.IssueList.Gender,
-		Age:        req.IssueList.Age,
-		CreateTime: req.IssueList.CreateTime,
-		UpdateTime: req.IssueList.UpdateTime,
-		Department: req.IssueList.Department,
-		MedicalHistoryInfo: model.MedicalHistoryInfo{
-			Symptom:     req.IssueList.MedicalHistoryInfo.Symptom,
-			Description: req.IssueList.MedicalHistoryInfo.Description,
-			FamilyInfo:  req.IssueList.MedicalHistoryInfo.FamilyInfo,
-			History:     req.IssueList.MedicalHistoryInfo.History,
+		UserID:   req.IssueList.UserID,
+		Username: req.IssueList.Username,
+		Gender:   req.IssueList.Gender,
+		Age:      req.IssueList.Age,
+		DiseaseRelation: model.DiseaseRelation{
+			DiseaseIntroduction: req.IssueList.DiseaseRelation.DiseaseIntroduction,
+			FamilyDiseases:      req.IssueList.DiseaseRelation.FamilyDiseases,
+			HistoryDiseases: model.HistoryDiseases{
+				Symptom:    req.IssueList.DiseaseRelation.HistoryDiseases.Symptom,
+				Medicines:  req.IssueList.DiseaseRelation.HistoryDiseases.Medicines,
+				Department: req.IssueList.DiseaseRelation.HistoryDiseases.Department,
+				UpdateTime: time.Now().Unix(),
+			},
 		},
 		BodyInfo: model.BodyInfo{
 			BloodPressure: req.IssueList.BodyInfo.BloodPressure,
 			HeartRate:     req.IssueList.BodyInfo.HeartRate,
 			Height:        req.IssueList.BodyInfo.Height,
 			Weight:        req.IssueList.BodyInfo.Weight,
-			CreateTime:    req.IssueList.BodyInfo.CreateTime,
-			UpdateTime:    req.IssueList.BodyInfo.UpdateTime,
+			BloodSugar:    req.IssueList.BodyInfo.BloodSugar,
+			UpdateTime:    time.Now().Unix(),
 		},
-		Introduction: req.IssueList.Introduction,
-		Medicine:     req.IssueList.Medicine,
 	}
 
 	err = s.RedisManager.UpdateIssueListById(ctx, req.UserId, &issueList)
 	if err != nil {
-		klog.Errorf("user redisManager update issueList failed,", err)
+		klog.Error("user redisManager update issueList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redisManager update issueList failed",
@@ -546,7 +546,7 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 
 	issueList, err := s.RedisManager.GetIssueListById(ctx, req.UserId)
 	if err != nil {
-		klog.Errorf("user redisManager get issueList failed,", err)
+		klog.Error("user redisManager get issueList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redisManager get issueList failed",
@@ -561,29 +561,28 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 		return
 	}
 	resp.IssueList = &base.IssueList{
-		UserId:     issueList.UserID,
-		Username:   issueList.Username,
-		Gender:     issueList.Gender,
-		Age:        issueList.Age,
-		CreateTime: issueList.CreateTime,
-		UpdateTime: issueList.UpdateTime,
-		Department: issueList.Department,
-		MedicalHistoryInfo: &base.MedicalHistoryInfo{
-			Symptom:     issueList.MedicalHistoryInfo.Symptom,
-			Description: issueList.MedicalHistoryInfo.Description,
-			History:     issueList.MedicalHistoryInfo.History,
-			FamilyInfo:  issueList.MedicalHistoryInfo.FamilyInfo,
+		UserID:   issueList.UserID,
+		Username: issueList.Username,
+		Gender:   issueList.Gender,
+		Age:      issueList.Age,
+		DiseaseRelation: &base.DiseaseRelation{
+			DiseaseIntroduction: issueList.DiseaseRelation.DiseaseIntroduction,
+			FamilyDiseases:      issueList.DiseaseRelation.FamilyDiseases,
+			HistoryDiseases: &base.HistoryDiseases{
+				Symptom:    issueList.DiseaseRelation.HistoryDiseases.Symptom,
+				Medicines:  issueList.DiseaseRelation.HistoryDiseases.Medicines,
+				Department: issueList.DiseaseRelation.HistoryDiseases.Department,
+				UpdateTime: issueList.DiseaseRelation.HistoryDiseases.UpdateTime,
+			},
 		},
 		BodyInfo: &base.BodyInfo{
 			BloodPressure: issueList.BodyInfo.BloodPressure,
 			HeartRate:     issueList.BodyInfo.HeartRate,
 			Height:        issueList.BodyInfo.Height,
 			Weight:        issueList.BodyInfo.Weight,
-			CreateTime:    issueList.BodyInfo.CreateTime,
+			BloodSugar:    issueList.BodyInfo.BloodSugar,
 			UpdateTime:    issueList.BodyInfo.UpdateTime,
 		},
-		Introduction: issueList.Introduction,
-		Medicine:     issueList.Medicine,
 	}
 	return resp, nil
 }
@@ -596,7 +595,7 @@ func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSe
 
 	userList, err := s.MysqlManager.SearchUserByUsername(ctx, req.Content)
 	if err != nil {
-		klog.Errorf("user mysqlManager get userList failed,", err)
+		klog.Error("user mysqlManager get userList failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user mysqlManager get userList failed",
@@ -614,19 +613,37 @@ func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSe
 			if v == nil {
 				break
 			}
+			socialInfo, err := s.SocialManager.GetSocialInfo(ctx, req.ViewerId, v.ID)
+			if err != nil {
+				klog.Error("user  get socialInfo failed,", err)
+				resp.BaseResp = &base.QingyuBaseResponse{
+					StatusCode: 500,
+					StatusMsg:  "user  get socialInfo failed",
+				}
+				return resp, err
+			}
+			department, err := s.JudgeDoctor(ctx, &user.QingyuJudgeDoctorRequest{UserId: v.ID})
+			if err != nil {
+				klog.Error("user judge IsDoctor failed,", err)
+				resp.BaseResp = &base.QingyuBaseResponse{
+					StatusCode: 500,
+					StatusMsg:  "user judge IsDoctor failed",
+				}
+				return resp, err
+			}
 			resp.UserList = append(resp.UserList, &base.User{
 				Id:              v.ID,
 				Name:            v.Username,
-				FollowCount:     0,
-				FollowerCount:   0,
-				IsFollow:        false,
+				FollowCount:     socialInfo.FollowCount,
+				FollowerCount:   socialInfo.FollowerCount,
+				IsFollow:        socialInfo.IsFollow,
 				Avatar:          v.Avatar,
 				BackgroundImage: v.BackGroundImage,
 				Signature:       v.Signature,
 				TotalFavorited:  0,
 				WorkCount:       0,
 				FavoriteCount:   0,
-				Department:      v.Department,
+				Department:      department.Department,
 			})
 		}
 	}
@@ -643,7 +660,7 @@ func (s *UserServiceImpl) ChangeUserAvatar(ctx context.Context, req *user.Qingyu
 	resp = new(user.QingyuAvatarChangeResponse)
 	err = s.MysqlManager.ChangeAvatarByUserID(ctx, req.Avatar, req.UserId)
 	if err != nil {
-		klog.Errorf("user mysqlManager change avatar failed,", err)
+		klog.Error("user mysqlManager change avatar failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user mysqlManager change avatar failed",
@@ -652,7 +669,7 @@ func (s *UserServiceImpl) ChangeUserAvatar(ctx context.Context, req *user.Qingyu
 	}
 	err = s.RedisManager.ChangeAvatarByUserID(ctx, req.Avatar, req.UserId)
 	if err != nil {
-		klog.Errorf("user redisManager change avatar failed,", err)
+		klog.Error("user redisManager change avatar failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redisManager change avatar failed",
@@ -672,7 +689,7 @@ func (s *UserServiceImpl) JudgeDoctor(ctx context.Context, req *user.QingyuJudge
 
 	res, err := s.RedisManager.JudgeDoctor(ctx, req.UserId)
 	if err != nil {
-		klog.Errorf("user redisManager judge doctor failed,", err)
+		klog.Error("user redisManager judge doctor failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redisManager judge doctor failed",
@@ -693,10 +710,19 @@ func (s *UserServiceImpl) AddDoctor(ctx context.Context, req *user.QingyuAddDoct
 
 	err = s.RedisManager.AddDoctor(ctx, req.UserId, req.Department)
 	if err != nil {
-		klog.Errorf("user redisManager add doctor failed,", err)
+		klog.Error("user redisManager add doctor failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redisManager add doctor failed",
+		}
+		return resp, err
+	}
+	err = s.MysqlManager.AddDoctor(ctx, req.UserId, req.Department)
+	if err != nil {
+		klog.Error("user mysqlManager add doctor failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user mysqlManager add doctor failed",
 		}
 		return resp, err
 	}
@@ -713,7 +739,7 @@ func (s *UserServiceImpl) FindDoctor(ctx context.Context, req *user.QingyuFindDo
 
 	res, err := s.RedisManager.FindDoctor(ctx, req.Department)
 	if err != nil {
-		klog.Errorf("user redisManager find doctor failed,", err)
+		klog.Error("user redisManager find doctor failed,", err)
 		resp.BaseResp = &base.QingyuBaseResponse{
 			StatusCode: 500,
 			StatusMsg:  "user redisManager find doctor failed",

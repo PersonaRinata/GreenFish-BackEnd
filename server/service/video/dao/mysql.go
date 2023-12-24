@@ -125,7 +125,7 @@ func NewMysqlManager(db *gorm.DB) *MysqlManager {
 	if !m.HasTable(&model.Video{}) {
 		err := m.CreateTable(&model.Video{})
 		if err != nil {
-			klog.Errorf("create mysql table failed,", err)
+			klog.Error("create mysql table failed,", err)
 		}
 	}
 	return &MysqlManager{db: db}

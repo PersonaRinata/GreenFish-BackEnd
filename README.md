@@ -433,7 +433,7 @@ func TestUserLifecycleInMySQL(t *testing.T) {
 		result, err := cc.op()
 		if cc.wantErr {
 			if err == nil {
-				t.Errorf("%s:want error;got none", cc.name)
+				t.Error("%s:want error;got none", cc.name)
 			} else {
 				continue
 			}
