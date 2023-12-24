@@ -506,12 +506,6 @@ func (s *UserServiceImpl) UpdateIssueList(ctx context.Context, req *user.QingyuU
 		DiseaseRelation: model.DiseaseRelation{
 			DiseaseIntroduction: req.IssueList.DiseaseRelation.DiseaseIntroduction,
 			FamilyDiseases:      req.IssueList.DiseaseRelation.FamilyDiseases,
-			HistoryDiseases: model.HistoryDiseases{
-				Symptom:    req.IssueList.DiseaseRelation.HistoryDiseases.Symptom,
-				Medicines:  req.IssueList.DiseaseRelation.HistoryDiseases.Medicines,
-				Department: req.IssueList.DiseaseRelation.HistoryDiseases.Department,
-				UpdateTime: time.Now().Unix(),
-			},
 		},
 		BodyInfo: model.BodyInfo{
 			BloodPressure: req.IssueList.BodyInfo.BloodPressure,
@@ -521,6 +515,14 @@ func (s *UserServiceImpl) UpdateIssueList(ctx context.Context, req *user.QingyuU
 			BloodSugar:    req.IssueList.BodyInfo.BloodSugar,
 			UpdateTime:    time.Now().Unix(),
 		},
+	}
+	for _, v := range req.IssueList.DiseaseRelation.HistoryDiseases {
+		issueList.DiseaseRelation.HistoryDiseases = append(issueList.DiseaseRelation.HistoryDiseases, model.HistoryDisease{
+			Symptom:    v.Symptom,
+			Medicines:  v.Medicines,
+			Department: v.Department,
+			UpdateTime: v.UpdateTime,
+		})
 	}
 
 	err = s.RedisManager.UpdateIssueListById(ctx, req.UserId, &issueList)
@@ -568,12 +570,6 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 		DiseaseRelation: &base.DiseaseRelation{
 			DiseaseIntroduction: issueList.DiseaseRelation.DiseaseIntroduction,
 			FamilyDiseases:      issueList.DiseaseRelation.FamilyDiseases,
-			HistoryDiseases: &base.HistoryDiseases{
-				Symptom:    issueList.DiseaseRelation.HistoryDiseases.Symptom,
-				Medicines:  issueList.DiseaseRelation.HistoryDiseases.Medicines,
-				Department: issueList.DiseaseRelation.HistoryDiseases.Department,
-				UpdateTime: issueList.DiseaseRelation.HistoryDiseases.UpdateTime,
-			},
 		},
 		BodyInfo: &base.BodyInfo{
 			BloodPressure: issueList.BodyInfo.BloodPressure,
@@ -583,6 +579,14 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 			BloodSugar:    issueList.BodyInfo.BloodSugar,
 			UpdateTime:    issueList.BodyInfo.UpdateTime,
 		},
+	}
+	for _, v := range issueList.DiseaseRelation.HistoryDiseases {
+		resp.IssueList.DiseaseRelation.HistoryDiseases = append(resp.IssueList.DiseaseRelation.HistoryDiseases, &base.HistoryDiseases{
+			Symptom:    v.Symptom,
+			Medicines:  v.Medicines,
+			Department: v.Department,
+			UpdateTime: v.UpdateTime,
+		})
 	}
 	return resp, nil
 }

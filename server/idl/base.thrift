@@ -116,5 +116,4 @@ struct IssueList {
     4: i32 Age,
     5: DiseaseRelation DiseaseRelation,
     6: BodyInfo BodyInfo,
-
 }

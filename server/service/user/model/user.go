@@ -13,10 +13,10 @@ type User struct {
 type DiseaseRelation struct {
 	DiseaseIntroduction string
 	FamilyDiseases      string
-	HistoryDiseases     HistoryDiseases
+	HistoryDiseases     []HistoryDisease
 }
 
-type HistoryDiseases struct {
+type HistoryDisease struct {
 	Symptom    string
 	Medicines  []string
 	Department string

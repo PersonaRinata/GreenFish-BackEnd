@@ -4438,9 +4438,9 @@ func (p *LatestMsg) Field3DeepEqual(src int64) bool {
 }
 
 type DiseaseRelation struct {
-	DiseaseIntroduction string           `thrift:"DiseaseIntroduction,1" frugal:"1,default,string" json:"DiseaseIntroduction"`
-	FamilyDiseases      string           `thrift:"FamilyDiseases,2" frugal:"2,default,string" json:"FamilyDiseases"`
-	HistoryDiseases     *HistoryDiseases `thrift:"HistoryDiseases,3" frugal:"3,default,HistoryDiseases" json:"HistoryDiseases"`
+	DiseaseIntroduction string             `thrift:"DiseaseIntroduction,1" frugal:"1,default,string" json:"DiseaseIntroduction"`
+	FamilyDiseases      string             `thrift:"FamilyDiseases,2" frugal:"2,default,string" json:"FamilyDiseases"`
+	HistoryDiseases     []*HistoryDiseases `thrift:"HistoryDiseases,3" frugal:"3,default,list<HistoryDiseases>" json:"HistoryDiseases"`
 }
 
 func NewDiseaseRelation() *DiseaseRelation {
@@ -4459,12 +4459,7 @@ func (p *DiseaseRelation) GetFamilyDiseases() (v string) {
 	return p.FamilyDiseases
 }
 
-var DiseaseRelation_HistoryDiseases_DEFAULT *HistoryDiseases
-
-func (p *DiseaseRelation) GetHistoryDiseases() (v *HistoryDiseases) {
-	if !p.IsSetHistoryDiseases() {
-		return DiseaseRelation_HistoryDiseases_DEFAULT
-	}
+func (p *DiseaseRelation) GetHistoryDiseases() (v []*HistoryDiseases) {
 	return p.HistoryDiseases
 }
 func (p *DiseaseRelation) SetDiseaseIntroduction(val string) {
@@ -4473,7 +4468,7 @@ func (p *DiseaseRelation) SetDiseaseIntroduction(val string) {
 func (p *DiseaseRelation) SetFamilyDiseases(val string) {
 	p.FamilyDiseases = val
 }
-func (p *DiseaseRelation) SetHistoryDiseases(val *HistoryDiseases) {
+func (p *DiseaseRelation) SetHistoryDiseases(val []*HistoryDiseases) {
 	p.HistoryDiseases = val
 }
 
@@ -4481,10 +4476,6 @@ var fieldIDToName_DiseaseRelation = map[int16]string{
 	1: "DiseaseIntroduction",
 	2: "FamilyDiseases",
 	3: "HistoryDiseases",
-}
-
-func (p *DiseaseRelation) IsSetHistoryDiseases() bool {
-	return p.HistoryDiseases != nil
 }
 
 func (p *DiseaseRelation) Read(iprot thrift.TProtocol) (err error) {
@@ -4527,7 +4518,7 @@ func (p *DiseaseRelation) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -4585,8 +4576,20 @@ func (p *DiseaseRelation) ReadField2(iprot thrift.TProtocol) error {
 }
 
 func (p *DiseaseRelation) ReadField3(iprot thrift.TProtocol) error {
-	p.HistoryDiseases = NewHistoryDiseases()
-	if err := p.HistoryDiseases.Read(iprot); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.HistoryDiseases = make([]*HistoryDiseases, 0, size)
+	for i := 0; i < size; i++ {
+		_elem := NewHistoryDiseases()
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		p.HistoryDiseases = append(p.HistoryDiseases, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
 	return nil
@@ -4664,10 +4667,18 @@ WriteFieldEndError:
 }
 
 func (p *DiseaseRelation) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("HistoryDiseases", thrift.STRUCT, 3); err != nil {
+	if err = oprot.WriteFieldBegin("HistoryDiseases", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := p.HistoryDiseases.Write(oprot); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.HistoryDiseases)); err != nil {
+		return err
+	}
+	for _, v := range p.HistoryDiseases {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4719,10 +4730,16 @@ func (p *DiseaseRelation) Field2DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *DiseaseRelation) Field3DeepEqual(src *HistoryDiseases) bool {
+func (p *DiseaseRelation) Field3DeepEqual(src []*HistoryDiseases) bool {
 
-	if !p.HistoryDiseases.DeepEqual(src) {
+	if len(p.HistoryDiseases) != len(src) {
 		return false
+	}
+	for i, v := range p.HistoryDiseases {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
 	}
 	return true
 }
@@ -5561,7 +5578,6 @@ type IssueList struct {
 	Age             int32            `thrift:"Age,4" frugal:"4,default,i32" json:"Age"`
 	DiseaseRelation *DiseaseRelation `thrift:"DiseaseRelation,5" frugal:"5,default,DiseaseRelation" json:"DiseaseRelation"`
 	BodyInfo        *BodyInfo        `thrift:"BodyInfo,6" frugal:"6,default,BodyInfo" json:"BodyInfo"`
-	Introduction    string           `thrift:"Introduction,7" frugal:"7,default,string" json:"Introduction"`
 }
 
 func NewIssueList() *IssueList {
@@ -5605,10 +5621,6 @@ func (p *IssueList) GetBodyInfo() (v *BodyInfo) {
 	}
 	return p.BodyInfo
 }
-
-func (p *IssueList) GetIntroduction() (v string) {
-	return p.Introduction
-}
 func (p *IssueList) SetUserID(val string) {
 	p.UserID = val
 }
@@ -5627,9 +5639,6 @@ func (p *IssueList) SetDiseaseRelation(val *DiseaseRelation) {
 func (p *IssueList) SetBodyInfo(val *BodyInfo) {
 	p.BodyInfo = val
 }
-func (p *IssueList) SetIntroduction(val string) {
-	p.Introduction = val
-}
 
 var fieldIDToName_IssueList = map[int16]string{
 	1: "UserID",
@@ -5638,7 +5647,6 @@ var fieldIDToName_IssueList = map[int16]string{
 	4: "Age",
 	5: "DiseaseRelation",
 	6: "BodyInfo",
-	7: "Introduction",
 }
 
 func (p *IssueList) IsSetDiseaseRelation() bool {
@@ -5728,16 +5736,6 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 					goto SkipFieldError
 				}
 			}
-		case 7:
-			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField7(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
 		default:
 			if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
@@ -5820,15 +5818,6 @@ func (p *IssueList) ReadField6(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *IssueList) ReadField7(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
-		p.Introduction = v
-	}
-	return nil
-}
-
 func (p *IssueList) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("IssueList"); err != nil {
@@ -5857,10 +5846,6 @@ func (p *IssueList) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField6(oprot); err != nil {
 			fieldId = 6
-			goto WriteFieldError
-		}
-		if err = p.writeField7(oprot); err != nil {
-			fieldId = 7
 			goto WriteFieldError
 		}
 
@@ -5984,23 +5969,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
 }
 
-func (p *IssueList) writeField7(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Introduction", thrift.STRING, 7); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteString(p.Introduction); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
-}
-
 func (p *IssueList) String() string {
 	if p == nil {
 		return "<nil>"
@@ -6030,9 +5998,6 @@ func (p *IssueList) DeepEqual(ano *IssueList) bool {
 		return false
 	}
 	if !p.Field6DeepEqual(ano.BodyInfo) {
-		return false
-	}
-	if !p.Field7DeepEqual(ano.Introduction) {
 		return false
 	}
 	return true
@@ -6076,13 +6041,6 @@ func (p *IssueList) Field5DeepEqual(src *DiseaseRelation) bool {
 func (p *IssueList) Field6DeepEqual(src *BodyInfo) bool {
 
 	if !p.BodyInfo.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *IssueList) Field7DeepEqual(src string) bool {
-
-	if strings.Compare(p.Introduction, src) != 0 {
 		return false
 	}
 	return true
