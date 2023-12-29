@@ -3613,9 +3613,9 @@ func (p *LatestMsg) String() string {
 }
 
 type DiseaseRelation struct {
-	DiseaseIntroduction string             `thrift:"DiseaseIntroduction,1" form:"DiseaseIntroduction" json:"DiseaseIntroduction" query:"DiseaseIntroduction"`
-	FamilyDiseases      string             `thrift:"FamilyDiseases,2" form:"FamilyDiseases" json:"FamilyDiseases" query:"FamilyDiseases"`
-	HistoryDiseases     []*HistoryDiseases `thrift:"HistoryDiseases,3" form:"HistoryDiseases" json:"HistoryDiseases" query:"HistoryDiseases"`
+	DiseaseIntroduction string             `thrift:"disease_introduction,1" form:"disease_introduction" json:"disease_introduction" query:"disease_introduction"`
+	FamilyDiseases      string             `thrift:"family_diseases,2" form:"family_diseases" json:"family_diseases" query:"family_diseases"`
+	HistoryDiseases     []*HistoryDiseases `thrift:"history_diseases,3" form:"history_diseases" json:"history_diseases" query:"history_diseases"`
 }
 
 func NewDiseaseRelation() *DiseaseRelation {
@@ -3635,9 +3635,9 @@ func (p *DiseaseRelation) GetHistoryDiseases() (v []*HistoryDiseases) {
 }
 
 var fieldIDToName_DiseaseRelation = map[int16]string{
-	1: "DiseaseIntroduction",
-	2: "FamilyDiseases",
-	3: "HistoryDiseases",
+	1: "disease_introduction",
+	2: "family_diseases",
+	3: "history_diseases",
 }
 
 func (p *DiseaseRelation) Read(iprot thrift.TProtocol) (err error) {
@@ -3795,7 +3795,7 @@ WriteStructEndError:
 }
 
 func (p *DiseaseRelation) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("DiseaseIntroduction", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("disease_introduction", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.DiseaseIntroduction); err != nil {
@@ -3812,7 +3812,7 @@ WriteFieldEndError:
 }
 
 func (p *DiseaseRelation) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("FamilyDiseases", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("family_diseases", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.FamilyDiseases); err != nil {
@@ -3829,7 +3829,7 @@ WriteFieldEndError:
 }
 
 func (p *DiseaseRelation) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("HistoryDiseases", thrift.LIST, 3); err != nil {
+	if err = oprot.WriteFieldBegin("history_diseases", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.HistoryDiseases)); err != nil {
@@ -3861,10 +3861,10 @@ func (p *DiseaseRelation) String() string {
 }
 
 type HistoryDiseases struct {
-	Symptom    string   `thrift:"Symptom,1" form:"Symptom" json:"Symptom" query:"Symptom"`
-	Medicines  []string `thrift:"Medicines,2" form:"Medicines" json:"Medicines" query:"Medicines"`
-	Department string   `thrift:"Department,3" form:"Department" json:"Department" query:"Department"`
-	UpdateTime int64    `thrift:"UpdateTime,4" form:"UpdateTime" json:"UpdateTime" query:"UpdateTime"`
+	Symptom    string   `thrift:"symptom,1" form:"symptom" json:"symptom" query:"symptom"`
+	Medicines  []string `thrift:"medicines,2" form:"medicines" json:"medicines" query:"medicines"`
+	Department string   `thrift:"department,3" form:"department" json:"department" query:"department"`
+	UpdateTime int64    `thrift:"update_time,4" form:"update_time" json:"update_time" query:"update_time"`
 }
 
 func NewHistoryDiseases() *HistoryDiseases {
@@ -3888,10 +3888,10 @@ func (p *HistoryDiseases) GetUpdateTime() (v int64) {
 }
 
 var fieldIDToName_HistoryDiseases = map[int16]string{
-	1: "Symptom",
-	2: "Medicines",
-	3: "Department",
-	4: "UpdateTime",
+	1: "symptom",
+	2: "medicines",
+	3: "department",
+	4: "update_time",
 }
 
 func (p *HistoryDiseases) Read(iprot thrift.TProtocol) (err error) {
@@ -4074,7 +4074,7 @@ WriteStructEndError:
 }
 
 func (p *HistoryDiseases) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Symptom", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("symptom", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.Symptom); err != nil {
@@ -4091,7 +4091,7 @@ WriteFieldEndError:
 }
 
 func (p *HistoryDiseases) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Medicines", thrift.LIST, 2); err != nil {
+	if err = oprot.WriteFieldBegin("medicines", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteListBegin(thrift.STRING, len(p.Medicines)); err != nil {
@@ -4116,7 +4116,7 @@ WriteFieldEndError:
 }
 
 func (p *HistoryDiseases) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Department", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("department", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.Department); err != nil {
@@ -4133,7 +4133,7 @@ WriteFieldEndError:
 }
 
 func (p *HistoryDiseases) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("UpdateTime", thrift.I64, 4); err != nil {
+	if err = oprot.WriteFieldBegin("update_time", thrift.I64, 4); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteI64(p.UpdateTime); err != nil {
@@ -4157,12 +4157,12 @@ func (p *HistoryDiseases) String() string {
 }
 
 type BodyInfo struct {
-	BloodPressure string `thrift:"BloodPressure,1" form:"BloodPressure" json:"BloodPressure" query:"BloodPressure"`
-	HeartRate     string `thrift:"HeartRate,2" form:"HeartRate" json:"HeartRate" query:"HeartRate"`
-	Height        string `thrift:"Height,3" form:"Height" json:"Height" query:"Height"`
-	Weight        string `thrift:"Weight,4" form:"Weight" json:"Weight" query:"Weight"`
-	BloodSugar    string `thrift:"BloodSugar,5" form:"BloodSugar" json:"BloodSugar" query:"BloodSugar"`
-	UpdateTime    int64  `thrift:"UpdateTime,6" form:"UpdateTime" json:"UpdateTime" query:"UpdateTime"`
+	BloodPressure string `thrift:"blood_pressure,1" form:"blood_pressure" json:"blood_pressure" query:"blood_pressure"`
+	HeartRate     string `thrift:"heart_rate,2" form:"heart_rate" json:"heart_rate" query:"heart_rate"`
+	Height        string `thrift:"height,3" form:"height" json:"height" query:"height"`
+	Weight        string `thrift:"weight,4" form:"weight" json:"weight" query:"weight"`
+	BloodSugar    string `thrift:"blood_sugar,5" form:"blood_sugar" json:"blood_sugar" query:"blood_sugar"`
+	UpdateTime    int64  `thrift:"update_time,6" form:"update_time" json:"update_time" query:"update_time"`
 }
 
 func NewBodyInfo() *BodyInfo {
@@ -4194,12 +4194,12 @@ func (p *BodyInfo) GetUpdateTime() (v int64) {
 }
 
 var fieldIDToName_BodyInfo = map[int16]string{
-	1: "BloodPressure",
-	2: "HeartRate",
-	3: "Height",
-	4: "Weight",
-	5: "BloodSugar",
-	6: "UpdateTime",
+	1: "blood_pressure",
+	2: "heart_rate",
+	3: "height",
+	4: "weight",
+	5: "blood_sugar",
+	6: "update_time",
 }
 
 func (p *BodyInfo) Read(iprot thrift.TProtocol) (err error) {
@@ -4415,7 +4415,7 @@ WriteStructEndError:
 }
 
 func (p *BodyInfo) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("BloodPressure", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("blood_pressure", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.BloodPressure); err != nil {
@@ -4432,7 +4432,7 @@ WriteFieldEndError:
 }
 
 func (p *BodyInfo) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("HeartRate", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("heart_rate", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.HeartRate); err != nil {
@@ -4449,7 +4449,7 @@ WriteFieldEndError:
 }
 
 func (p *BodyInfo) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Height", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("height", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.Height); err != nil {
@@ -4466,7 +4466,7 @@ WriteFieldEndError:
 }
 
 func (p *BodyInfo) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Weight", thrift.STRING, 4); err != nil {
+	if err = oprot.WriteFieldBegin("weight", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.Weight); err != nil {
@@ -4483,7 +4483,7 @@ WriteFieldEndError:
 }
 
 func (p *BodyInfo) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("BloodSugar", thrift.STRING, 5); err != nil {
+	if err = oprot.WriteFieldBegin("blood_sugar", thrift.STRING, 5); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.BloodSugar); err != nil {
@@ -4500,7 +4500,7 @@ WriteFieldEndError:
 }
 
 func (p *BodyInfo) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("UpdateTime", thrift.I64, 6); err != nil {
+	if err = oprot.WriteFieldBegin("update_time", thrift.I64, 6); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteI64(p.UpdateTime); err != nil {
@@ -4524,12 +4524,12 @@ func (p *BodyInfo) String() string {
 }
 
 type IssueList struct {
-	UserID          string           `thrift:"UserID,1" form:"UserID" json:"UserID" query:"UserID"`
-	Username        string           `thrift:"Username,2" form:"Username" json:"Username" query:"Username"`
-	Gender          bool             `thrift:"Gender,3" form:"Gender" json:"Gender" query:"Gender"`
-	Age             int32            `thrift:"Age,4" form:"Age" json:"Age" query:"Age"`
-	DiseaseRelation *DiseaseRelation `thrift:"DiseaseRelation,5" form:"DiseaseRelation" json:"DiseaseRelation" query:"DiseaseRelation"`
-	BodyInfo        *BodyInfo        `thrift:"BodyInfo,6" form:"BodyInfo" json:"BodyInfo" query:"BodyInfo"`
+	UserID          string           `thrift:"userID,1" form:"userID" json:"userID" query:"userID"`
+	Username        string           `thrift:"username,2" form:"username" json:"username" query:"username"`
+	Gender          bool             `thrift:"gender,3" form:"gender" json:"gender" query:"gender"`
+	Age             int32            `thrift:"age,4" form:"age" json:"age" query:"age"`
+	DiseaseRelation *DiseaseRelation `thrift:"disease_relation,5" form:"disease_relation" json:"disease_relation" query:"disease_relation"`
+	BodyInfo        *BodyInfo        `thrift:"body_info,6" form:"body_info" json:"body_info" query:"body_info"`
 }
 
 func NewIssueList() *IssueList {
@@ -4571,12 +4571,12 @@ func (p *IssueList) GetBodyInfo() (v *BodyInfo) {
 }
 
 var fieldIDToName_IssueList = map[int16]string{
-	1: "UserID",
-	2: "Username",
-	3: "Gender",
-	4: "Age",
-	5: "DiseaseRelation",
-	6: "BodyInfo",
+	1: "userID",
+	2: "username",
+	3: "gender",
+	4: "age",
+	5: "disease_relation",
+	6: "body_info",
 }
 
 func (p *IssueList) IsSetDiseaseRelation() bool {
@@ -4798,7 +4798,7 @@ WriteStructEndError:
 }
 
 func (p *IssueList) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("UserID", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("userID", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.UserID); err != nil {
@@ -4815,7 +4815,7 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Username", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("username", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.Username); err != nil {
@@ -4832,7 +4832,7 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Gender", thrift.BOOL, 3); err != nil {
+	if err = oprot.WriteFieldBegin("gender", thrift.BOOL, 3); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteBool(p.Gender); err != nil {
@@ -4849,7 +4849,7 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("Age", thrift.I32, 4); err != nil {
+	if err = oprot.WriteFieldBegin("age", thrift.I32, 4); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteI32(p.Age); err != nil {
@@ -4866,7 +4866,7 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("DiseaseRelation", thrift.STRUCT, 5); err != nil {
+	if err = oprot.WriteFieldBegin("disease_relation", thrift.STRUCT, 5); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := p.DiseaseRelation.Write(oprot); err != nil {
@@ -4883,7 +4883,7 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("BodyInfo", thrift.STRUCT, 6); err != nil {
+	if err = oprot.WriteFieldBegin("body_info", thrift.STRUCT, 6); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := p.BodyInfo.Write(oprot); err != nil {

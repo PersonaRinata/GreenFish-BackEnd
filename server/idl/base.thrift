@@ -88,32 +88,32 @@ struct LatestMsg{
 }
 
 struct DiseaseRelation {
-    1: string DiseaseIntroduction,
-    2: string FamilyDiseases,
-    3: list<HistoryDiseases> HistoryDiseases,
+    1: string disease_introduction,
+    2: string family_diseases,
+    3: list<HistoryDiseases> history_diseases,
 }
 
 struct HistoryDiseases {
-    1: string Symptom,
-    2: list<string> Medicines,
-    3: string Department,
-    4: i64 UpdateTime,
+    1: string symptom,
+    2: list<string> medicines,
+    3: string department,
+    4: i64 update_time,
 }
 
 struct BodyInfo {
-    1: string BloodPressure,
-    2: string HeartRate,
-    3: string Height,
-    4: string Weight,
-    5: string BloodSugar,
-    6: i64 UpdateTime,
+    1: string blood_pressure,
+    2: string heart_rate,
+    3: string height,
+    4: string weight,
+    5: string blood_sugar,
+    6: i64 update_time,
 }
 
 struct IssueList {
-    1: string UserID,
-    2: string Username,
-    3: bool Gender,
-    4: i32 Age,
-    5: DiseaseRelation DiseaseRelation,
-    6: BodyInfo BodyInfo,
+    1: string userID,
+    2: string username,
+    3: bool gender,
+    4: i32 age,
+    5: DiseaseRelation disease_relation,
+    6: BodyInfo body_info,
 }

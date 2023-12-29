@@ -3760,7 +3760,7 @@ func (p *DiseaseRelation) BLength() int {
 
 func (p *DiseaseRelation) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "DiseaseIntroduction", thrift.STRING, 1)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "disease_introduction", thrift.STRING, 1)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.DiseaseIntroduction)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -3769,7 +3769,7 @@ func (p *DiseaseRelation) fastWriteField1(buf []byte, binaryWriter bthrift.Binar
 
 func (p *DiseaseRelation) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "FamilyDiseases", thrift.STRING, 2)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "family_diseases", thrift.STRING, 2)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.FamilyDiseases)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -3778,7 +3778,7 @@ func (p *DiseaseRelation) fastWriteField2(buf []byte, binaryWriter bthrift.Binar
 
 func (p *DiseaseRelation) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "HistoryDiseases", thrift.LIST, 3)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "history_diseases", thrift.LIST, 3)
 	listBeginOffset := offset
 	offset += bthrift.Binary.ListBeginLength(thrift.STRUCT, 0)
 	var length int
@@ -3794,7 +3794,7 @@ func (p *DiseaseRelation) fastWriteField3(buf []byte, binaryWriter bthrift.Binar
 
 func (p *DiseaseRelation) field1Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("DiseaseIntroduction", thrift.STRING, 1)
+	l += bthrift.Binary.FieldBeginLength("disease_introduction", thrift.STRING, 1)
 	l += bthrift.Binary.StringLengthNocopy(p.DiseaseIntroduction)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -3803,7 +3803,7 @@ func (p *DiseaseRelation) field1Length() int {
 
 func (p *DiseaseRelation) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("FamilyDiseases", thrift.STRING, 2)
+	l += bthrift.Binary.FieldBeginLength("family_diseases", thrift.STRING, 2)
 	l += bthrift.Binary.StringLengthNocopy(p.FamilyDiseases)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -3812,7 +3812,7 @@ func (p *DiseaseRelation) field2Length() int {
 
 func (p *DiseaseRelation) field3Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("HistoryDiseases", thrift.LIST, 3)
+	l += bthrift.Binary.FieldBeginLength("history_diseases", thrift.LIST, 3)
 	l += bthrift.Binary.ListBeginLength(thrift.STRUCT, len(p.HistoryDiseases))
 	for _, v := range p.HistoryDiseases {
 		l += v.BLength()
@@ -4042,7 +4042,7 @@ func (p *HistoryDiseases) BLength() int {
 
 func (p *HistoryDiseases) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Symptom", thrift.STRING, 1)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "symptom", thrift.STRING, 1)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Symptom)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4051,7 +4051,7 @@ func (p *HistoryDiseases) fastWriteField1(buf []byte, binaryWriter bthrift.Binar
 
 func (p *HistoryDiseases) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Medicines", thrift.LIST, 2)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "medicines", thrift.LIST, 2)
 	listBeginOffset := offset
 	offset += bthrift.Binary.ListBeginLength(thrift.STRING, 0)
 	var length int
@@ -4068,7 +4068,7 @@ func (p *HistoryDiseases) fastWriteField2(buf []byte, binaryWriter bthrift.Binar
 
 func (p *HistoryDiseases) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Department", thrift.STRING, 3)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "department", thrift.STRING, 3)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Department)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4077,7 +4077,7 @@ func (p *HistoryDiseases) fastWriteField3(buf []byte, binaryWriter bthrift.Binar
 
 func (p *HistoryDiseases) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "UpdateTime", thrift.I64, 4)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "update_time", thrift.I64, 4)
 	offset += bthrift.Binary.WriteI64(buf[offset:], p.UpdateTime)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4086,7 +4086,7 @@ func (p *HistoryDiseases) fastWriteField4(buf []byte, binaryWriter bthrift.Binar
 
 func (p *HistoryDiseases) field1Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Symptom", thrift.STRING, 1)
+	l += bthrift.Binary.FieldBeginLength("symptom", thrift.STRING, 1)
 	l += bthrift.Binary.StringLengthNocopy(p.Symptom)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4095,7 +4095,7 @@ func (p *HistoryDiseases) field1Length() int {
 
 func (p *HistoryDiseases) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Medicines", thrift.LIST, 2)
+	l += bthrift.Binary.FieldBeginLength("medicines", thrift.LIST, 2)
 	l += bthrift.Binary.ListBeginLength(thrift.STRING, len(p.Medicines))
 	for _, v := range p.Medicines {
 		l += bthrift.Binary.StringLengthNocopy(v)
@@ -4108,7 +4108,7 @@ func (p *HistoryDiseases) field2Length() int {
 
 func (p *HistoryDiseases) field3Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Department", thrift.STRING, 3)
+	l += bthrift.Binary.FieldBeginLength("department", thrift.STRING, 3)
 	l += bthrift.Binary.StringLengthNocopy(p.Department)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4117,7 +4117,7 @@ func (p *HistoryDiseases) field3Length() int {
 
 func (p *HistoryDiseases) field4Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("UpdateTime", thrift.I64, 4)
+	l += bthrift.Binary.FieldBeginLength("update_time", thrift.I64, 4)
 	l += bthrift.Binary.I64Length(p.UpdateTime)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4388,7 +4388,7 @@ func (p *BodyInfo) BLength() int {
 
 func (p *BodyInfo) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "BloodPressure", thrift.STRING, 1)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "blood_pressure", thrift.STRING, 1)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.BloodPressure)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4397,7 +4397,7 @@ func (p *BodyInfo) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter
 
 func (p *BodyInfo) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "HeartRate", thrift.STRING, 2)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "heart_rate", thrift.STRING, 2)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.HeartRate)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4406,7 +4406,7 @@ func (p *BodyInfo) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter
 
 func (p *BodyInfo) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Height", thrift.STRING, 3)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "height", thrift.STRING, 3)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Height)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4415,7 +4415,7 @@ func (p *BodyInfo) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter
 
 func (p *BodyInfo) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Weight", thrift.STRING, 4)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "weight", thrift.STRING, 4)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Weight)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4424,7 +4424,7 @@ func (p *BodyInfo) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter
 
 func (p *BodyInfo) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "BloodSugar", thrift.STRING, 5)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "blood_sugar", thrift.STRING, 5)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.BloodSugar)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4433,7 +4433,7 @@ func (p *BodyInfo) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWriter
 
 func (p *BodyInfo) fastWriteField6(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "UpdateTime", thrift.I64, 6)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "update_time", thrift.I64, 6)
 	offset += bthrift.Binary.WriteI64(buf[offset:], p.UpdateTime)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4442,7 +4442,7 @@ func (p *BodyInfo) fastWriteField6(buf []byte, binaryWriter bthrift.BinaryWriter
 
 func (p *BodyInfo) field1Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("BloodPressure", thrift.STRING, 1)
+	l += bthrift.Binary.FieldBeginLength("blood_pressure", thrift.STRING, 1)
 	l += bthrift.Binary.StringLengthNocopy(p.BloodPressure)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4451,7 +4451,7 @@ func (p *BodyInfo) field1Length() int {
 
 func (p *BodyInfo) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("HeartRate", thrift.STRING, 2)
+	l += bthrift.Binary.FieldBeginLength("heart_rate", thrift.STRING, 2)
 	l += bthrift.Binary.StringLengthNocopy(p.HeartRate)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4460,7 +4460,7 @@ func (p *BodyInfo) field2Length() int {
 
 func (p *BodyInfo) field3Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Height", thrift.STRING, 3)
+	l += bthrift.Binary.FieldBeginLength("height", thrift.STRING, 3)
 	l += bthrift.Binary.StringLengthNocopy(p.Height)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4469,7 +4469,7 @@ func (p *BodyInfo) field3Length() int {
 
 func (p *BodyInfo) field4Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Weight", thrift.STRING, 4)
+	l += bthrift.Binary.FieldBeginLength("weight", thrift.STRING, 4)
 	l += bthrift.Binary.StringLengthNocopy(p.Weight)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4478,7 +4478,7 @@ func (p *BodyInfo) field4Length() int {
 
 func (p *BodyInfo) field5Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("BloodSugar", thrift.STRING, 5)
+	l += bthrift.Binary.FieldBeginLength("blood_sugar", thrift.STRING, 5)
 	l += bthrift.Binary.StringLengthNocopy(p.BloodSugar)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4487,7 +4487,7 @@ func (p *BodyInfo) field5Length() int {
 
 func (p *BodyInfo) field6Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("UpdateTime", thrift.I64, 6)
+	l += bthrift.Binary.FieldBeginLength("update_time", thrift.I64, 6)
 	l += bthrift.Binary.I64Length(p.UpdateTime)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4756,7 +4756,7 @@ func (p *IssueList) BLength() int {
 
 func (p *IssueList) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "UserID", thrift.STRING, 1)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "userID", thrift.STRING, 1)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.UserID)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4765,7 +4765,7 @@ func (p *IssueList) fastWriteField1(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *IssueList) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Username", thrift.STRING, 2)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "username", thrift.STRING, 2)
 	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Username)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4774,7 +4774,7 @@ func (p *IssueList) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *IssueList) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Gender", thrift.BOOL, 3)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "gender", thrift.BOOL, 3)
 	offset += bthrift.Binary.WriteBool(buf[offset:], p.Gender)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4783,7 +4783,7 @@ func (p *IssueList) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *IssueList) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "Age", thrift.I32, 4)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "age", thrift.I32, 4)
 	offset += bthrift.Binary.WriteI32(buf[offset:], p.Age)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -4792,7 +4792,7 @@ func (p *IssueList) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *IssueList) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "DiseaseRelation", thrift.STRUCT, 5)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "disease_relation", thrift.STRUCT, 5)
 	offset += p.DiseaseRelation.FastWriteNocopy(buf[offset:], binaryWriter)
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -4800,7 +4800,7 @@ func (p *IssueList) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *IssueList) fastWriteField6(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "BodyInfo", thrift.STRUCT, 6)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "body_info", thrift.STRUCT, 6)
 	offset += p.BodyInfo.FastWriteNocopy(buf[offset:], binaryWriter)
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -4808,7 +4808,7 @@ func (p *IssueList) fastWriteField6(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *IssueList) field1Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("UserID", thrift.STRING, 1)
+	l += bthrift.Binary.FieldBeginLength("userID", thrift.STRING, 1)
 	l += bthrift.Binary.StringLengthNocopy(p.UserID)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4817,7 +4817,7 @@ func (p *IssueList) field1Length() int {
 
 func (p *IssueList) field2Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Username", thrift.STRING, 2)
+	l += bthrift.Binary.FieldBeginLength("username", thrift.STRING, 2)
 	l += bthrift.Binary.StringLengthNocopy(p.Username)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4826,7 +4826,7 @@ func (p *IssueList) field2Length() int {
 
 func (p *IssueList) field3Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Gender", thrift.BOOL, 3)
+	l += bthrift.Binary.FieldBeginLength("gender", thrift.BOOL, 3)
 	l += bthrift.Binary.BoolLength(p.Gender)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4835,7 +4835,7 @@ func (p *IssueList) field3Length() int {
 
 func (p *IssueList) field4Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("Age", thrift.I32, 4)
+	l += bthrift.Binary.FieldBeginLength("age", thrift.I32, 4)
 	l += bthrift.Binary.I32Length(p.Age)
 
 	l += bthrift.Binary.FieldEndLength()
@@ -4844,7 +4844,7 @@ func (p *IssueList) field4Length() int {
 
 func (p *IssueList) field5Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("DiseaseRelation", thrift.STRUCT, 5)
+	l += bthrift.Binary.FieldBeginLength("disease_relation", thrift.STRUCT, 5)
 	l += p.DiseaseRelation.BLength()
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -4852,7 +4852,7 @@ func (p *IssueList) field5Length() int {
 
 func (p *IssueList) field6Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("BodyInfo", thrift.STRUCT, 6)
+	l += bthrift.Binary.FieldBeginLength("body_info", thrift.STRUCT, 6)
 	l += p.BodyInfo.BLength()
 	l += bthrift.Binary.FieldEndLength()
 	return l
