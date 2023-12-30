@@ -821,7 +821,7 @@ func UpdateIssueList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	userId, _ := strconv.ParseInt(req.IssueList.UserID, 10, 64)
+	userId := req.UserID
 	var issueList user.QingyuUpdateIssueListRequest
 	issueList.IssueList = new(base2.IssueList)
 	err = copier.Copy(issueList.IssueList, req.IssueList)
@@ -830,7 +830,10 @@ func UpdateIssueList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	issueList.UserId = userId
-	res, err := config.GlobalUserClient.UpdateIssueList(ctx, &issueList)
+	res, err := config.GlobalUserClient.UpdateIssueList(ctx, &user.QingyuUpdateIssueListRequest{
+		UserId:    userId,
+		IssueList: issueList.IssueList,
+	})
 	resp := new(api.QingyuIssueListUpdateResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode

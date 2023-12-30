@@ -195,7 +195,8 @@ struct qingyu_message_action_response {
 
 struct qingyu_issue_list_update_request {
     1: string token(api.query="token") // User authentication token
-    2: base.IssueList issueList(api.query="issue_list")
+    2: i64 userID
+    3: base.IssueList issueList(api.query="issue_list")
 }
 
 struct qingyu_issue_list_update_response {

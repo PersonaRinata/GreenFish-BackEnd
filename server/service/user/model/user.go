@@ -33,7 +33,6 @@ type BodyInfo struct {
 }
 
 type IssueList struct {
-	UserID          string          // 用户ID
 	Username        string          // 用户名
 	Gender          bool            // 性别
 	Age             int32           // 年龄

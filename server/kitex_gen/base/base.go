@@ -5572,12 +5572,11 @@ func (p *BodyInfo) Field6DeepEqual(src int64) bool {
 }
 
 type IssueList struct {
-	UserID          string           `thrift:"userID,1" frugal:"1,default,string" json:"userID"`
-	Username        string           `thrift:"username,2" frugal:"2,default,string" json:"username"`
-	Gender          bool             `thrift:"gender,3" frugal:"3,default,bool" json:"gender"`
-	Age             int32            `thrift:"age,4" frugal:"4,default,i32" json:"age"`
-	DiseaseRelation *DiseaseRelation `thrift:"disease_relation,5" frugal:"5,default,DiseaseRelation" json:"disease_relation"`
-	BodyInfo        *BodyInfo        `thrift:"body_info,6" frugal:"6,default,BodyInfo" json:"body_info"`
+	Username        string           `thrift:"username,1" frugal:"1,default,string" json:"username"`
+	Gender          bool             `thrift:"gender,2" frugal:"2,default,bool" json:"gender"`
+	Age             int32            `thrift:"age,3" frugal:"3,default,i32" json:"age"`
+	DiseaseRelation *DiseaseRelation `thrift:"disease_relation,4" frugal:"4,default,DiseaseRelation" json:"disease_relation"`
+	BodyInfo        *BodyInfo        `thrift:"body_info,5" frugal:"5,default,BodyInfo" json:"body_info"`
 }
 
 func NewIssueList() *IssueList {
@@ -5586,10 +5585,6 @@ func NewIssueList() *IssueList {
 
 func (p *IssueList) InitDefault() {
 	*p = IssueList{}
-}
-
-func (p *IssueList) GetUserID() (v string) {
-	return p.UserID
 }
 
 func (p *IssueList) GetUsername() (v string) {
@@ -5621,9 +5616,6 @@ func (p *IssueList) GetBodyInfo() (v *BodyInfo) {
 	}
 	return p.BodyInfo
 }
-func (p *IssueList) SetUserID(val string) {
-	p.UserID = val
-}
 func (p *IssueList) SetUsername(val string) {
 	p.Username = val
 }
@@ -5641,12 +5633,11 @@ func (p *IssueList) SetBodyInfo(val *BodyInfo) {
 }
 
 var fieldIDToName_IssueList = map[int16]string{
-	1: "userID",
-	2: "username",
-	3: "gender",
-	4: "age",
-	5: "disease_relation",
-	6: "body_info",
+	1: "username",
+	2: "gender",
+	3: "age",
+	4: "disease_relation",
+	5: "body_info",
 }
 
 func (p *IssueList) IsSetDiseaseRelation() bool {
@@ -5687,7 +5678,7 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 2:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5697,7 +5688,7 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.BOOL {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5707,7 +5698,7 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 4:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5719,16 +5710,6 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 		case 5:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField5(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		case 6:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -5770,21 +5751,12 @@ func (p *IssueList) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.UserID = v
-	}
-	return nil
-}
-
-func (p *IssueList) ReadField2(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
 		p.Username = v
 	}
 	return nil
 }
 
-func (p *IssueList) ReadField3(iprot thrift.TProtocol) error {
+func (p *IssueList) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
@@ -5793,7 +5765,7 @@ func (p *IssueList) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *IssueList) ReadField4(iprot thrift.TProtocol) error {
+func (p *IssueList) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -5802,7 +5774,7 @@ func (p *IssueList) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *IssueList) ReadField5(iprot thrift.TProtocol) error {
+func (p *IssueList) ReadField4(iprot thrift.TProtocol) error {
 	p.DiseaseRelation = NewDiseaseRelation()
 	if err := p.DiseaseRelation.Read(iprot); err != nil {
 		return err
@@ -5810,7 +5782,7 @@ func (p *IssueList) ReadField5(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *IssueList) ReadField6(iprot thrift.TProtocol) error {
+func (p *IssueList) ReadField5(iprot thrift.TProtocol) error {
 	p.BodyInfo = NewBodyInfo()
 	if err := p.BodyInfo.Read(iprot); err != nil {
 		return err
@@ -5844,10 +5816,6 @@ func (p *IssueList) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 5
 			goto WriteFieldError
 		}
-		if err = p.writeField6(oprot); err != nil {
-			fieldId = 6
-			goto WriteFieldError
-		}
 
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
@@ -5868,10 +5836,10 @@ WriteStructEndError:
 }
 
 func (p *IssueList) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("userID", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("username", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.UserID); err != nil {
+	if err := oprot.WriteString(p.Username); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5885,10 +5853,10 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("username", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("gender", thrift.BOOL, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Username); err != nil {
+	if err := oprot.WriteBool(p.Gender); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5902,10 +5870,10 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("gender", thrift.BOOL, 3); err != nil {
+	if err = oprot.WriteFieldBegin("age", thrift.I32, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBool(p.Gender); err != nil {
+	if err := oprot.WriteI32(p.Age); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5919,10 +5887,10 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("age", thrift.I32, 4); err != nil {
+	if err = oprot.WriteFieldBegin("disease_relation", thrift.STRUCT, 4); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Age); err != nil {
+	if err := p.DiseaseRelation.Write(oprot); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5936,24 +5904,7 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("disease_relation", thrift.STRUCT, 5); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.DiseaseRelation.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
-}
-
-func (p *IssueList) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("body_info", thrift.STRUCT, 6); err != nil {
+	if err = oprot.WriteFieldBegin("body_info", thrift.STRUCT, 5); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := p.BodyInfo.Write(oprot); err != nil {
@@ -5964,9 +5915,9 @@ func (p *IssueList) writeField6(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
 }
 
 func (p *IssueList) String() string {
@@ -5982,22 +5933,19 @@ func (p *IssueList) DeepEqual(ano *IssueList) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.UserID) {
+	if !p.Field1DeepEqual(ano.Username) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Username) {
+	if !p.Field2DeepEqual(ano.Gender) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.Gender) {
+	if !p.Field3DeepEqual(ano.Age) {
 		return false
 	}
-	if !p.Field4DeepEqual(ano.Age) {
+	if !p.Field4DeepEqual(ano.DiseaseRelation) {
 		return false
 	}
-	if !p.Field5DeepEqual(ano.DiseaseRelation) {
-		return false
-	}
-	if !p.Field6DeepEqual(ano.BodyInfo) {
+	if !p.Field5DeepEqual(ano.BodyInfo) {
 		return false
 	}
 	return true
@@ -6005,40 +5953,33 @@ func (p *IssueList) DeepEqual(ano *IssueList) bool {
 
 func (p *IssueList) Field1DeepEqual(src string) bool {
 
-	if strings.Compare(p.UserID, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *IssueList) Field2DeepEqual(src string) bool {
-
 	if strings.Compare(p.Username, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *IssueList) Field3DeepEqual(src bool) bool {
+func (p *IssueList) Field2DeepEqual(src bool) bool {
 
 	if p.Gender != src {
 		return false
 	}
 	return true
 }
-func (p *IssueList) Field4DeepEqual(src int32) bool {
+func (p *IssueList) Field3DeepEqual(src int32) bool {
 
 	if p.Age != src {
 		return false
 	}
 	return true
 }
-func (p *IssueList) Field5DeepEqual(src *DiseaseRelation) bool {
+func (p *IssueList) Field4DeepEqual(src *DiseaseRelation) bool {
 
 	if !p.DiseaseRelation.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *IssueList) Field6DeepEqual(src *BodyInfo) bool {
+func (p *IssueList) Field5DeepEqual(src *BodyInfo) bool {
 
 	if !p.BodyInfo.DeepEqual(src) {
 		return false

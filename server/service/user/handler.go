@@ -499,7 +499,6 @@ func (s *UserServiceImpl) UpdateIssueList(ctx context.Context, req *user.QingyuU
 	resp = new(user.QingyuUpdateIssueListResponse)
 
 	issueList := model.IssueList{
-		UserID:   req.IssueList.UserID,
 		Username: req.IssueList.Username,
 		Gender:   req.IssueList.Gender,
 		Age:      req.IssueList.Age,
@@ -563,7 +562,6 @@ func (s *UserServiceImpl) GetIssueList(ctx context.Context, req *user.QingyuGetI
 		return
 	}
 	resp.IssueList = &base.IssueList{
-		UserID:   issueList.UserID,
 		Username: issueList.Username,
 		Gender:   issueList.Gender,
 		Age:      issueList.Age,

@@ -110,10 +110,9 @@ struct BodyInfo {
 }
 
 struct IssueList {
-    1: string userID,
-    2: string username,
-    3: bool gender,
-    4: i32 age,
-    5: DiseaseRelation disease_relation,
-    6: BodyInfo body_info,
+    1: string username,
+    2: bool gender,
+    3: i32 age,
+    4: DiseaseRelation disease_relation,
+    5: BodyInfo body_info,
 }

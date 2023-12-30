@@ -7504,7 +7504,8 @@ func (p *QingyuMessageActionResponse) String() string {
 type QingyuIssueListUpdateRequest struct {
 	// User authentication token
 	Token     string          `thrift:"token,1" json:"token" query:"token"`
-	IssueList *base.IssueList `thrift:"issueList,2" json:"issueList" query:"issue_list"`
+	UserID    int64           `thrift:"userID,2" form:"userID" json:"userID" query:"userID"`
+	IssueList *base.IssueList `thrift:"issueList,3" json:"issueList" query:"issue_list"`
 }
 
 func NewQingyuIssueListUpdateRequest() *QingyuIssueListUpdateRequest {
@@ -7513,6 +7514,10 @@ func NewQingyuIssueListUpdateRequest() *QingyuIssueListUpdateRequest {
 
 func (p *QingyuIssueListUpdateRequest) GetToken() (v string) {
 	return p.Token
+}
+
+func (p *QingyuIssueListUpdateRequest) GetUserID() (v int64) {
+	return p.UserID
 }
 
 var QingyuIssueListUpdateRequest_IssueList_DEFAULT *base.IssueList
@@ -7526,7 +7531,8 @@ func (p *QingyuIssueListUpdateRequest) GetIssueList() (v *base.IssueList) {
 
 var fieldIDToName_QingyuIssueListUpdateRequest = map[int16]string{
 	1: "token",
-	2: "issueList",
+	2: "userID",
+	3: "issueList",
 }
 
 func (p *QingyuIssueListUpdateRequest) IsSetIssueList() bool {
@@ -7563,8 +7569,18 @@ func (p *QingyuIssueListUpdateRequest) Read(iprot thrift.TProtocol) (err error) 
 				}
 			}
 		case 2:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 3:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -7612,6 +7628,15 @@ func (p *QingyuIssueListUpdateRequest) ReadField1(iprot thrift.TProtocol) error 
 }
 
 func (p *QingyuIssueListUpdateRequest) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.UserID = v
+	}
+	return nil
+}
+
+func (p *QingyuIssueListUpdateRequest) ReadField3(iprot thrift.TProtocol) error {
 	p.IssueList = base.NewIssueList()
 	if err := p.IssueList.Read(iprot); err != nil {
 		return err
@@ -7631,6 +7656,10 @@ func (p *QingyuIssueListUpdateRequest) Write(oprot thrift.TProtocol) (err error)
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
 			goto WriteFieldError
 		}
 
@@ -7670,10 +7699,10 @@ WriteFieldEndError:
 }
 
 func (p *QingyuIssueListUpdateRequest) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("issueList", thrift.STRUCT, 2); err != nil {
+	if err = oprot.WriteFieldBegin("userID", thrift.I64, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := p.IssueList.Write(oprot); err != nil {
+	if err := oprot.WriteI64(p.UserID); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -7684,6 +7713,23 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *QingyuIssueListUpdateRequest) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("issueList", thrift.STRUCT, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.IssueList.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
 func (p *QingyuIssueListUpdateRequest) String() string {

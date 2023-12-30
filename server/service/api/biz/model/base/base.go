@@ -4524,20 +4524,15 @@ func (p *BodyInfo) String() string {
 }
 
 type IssueList struct {
-	UserID          string           `thrift:"userID,1" form:"userID" json:"userID" query:"userID"`
-	Username        string           `thrift:"username,2" form:"username" json:"username" query:"username"`
-	Gender          bool             `thrift:"gender,3" form:"gender" json:"gender" query:"gender"`
-	Age             int32            `thrift:"age,4" form:"age" json:"age" query:"age"`
-	DiseaseRelation *DiseaseRelation `thrift:"disease_relation,5" form:"disease_relation" json:"disease_relation" query:"disease_relation"`
-	BodyInfo        *BodyInfo        `thrift:"body_info,6" form:"body_info" json:"body_info" query:"body_info"`
+	Username        string           `thrift:"username,1" form:"username" json:"username" query:"username"`
+	Gender          bool             `thrift:"gender,2" form:"gender" json:"gender" query:"gender"`
+	Age             int32            `thrift:"age,3" form:"age" json:"age" query:"age"`
+	DiseaseRelation *DiseaseRelation `thrift:"disease_relation,4" form:"disease_relation" json:"disease_relation" query:"disease_relation"`
+	BodyInfo        *BodyInfo        `thrift:"body_info,5" form:"body_info" json:"body_info" query:"body_info"`
 }
 
 func NewIssueList() *IssueList {
 	return &IssueList{}
-}
-
-func (p *IssueList) GetUserID() (v string) {
-	return p.UserID
 }
 
 func (p *IssueList) GetUsername() (v string) {
@@ -4571,12 +4566,11 @@ func (p *IssueList) GetBodyInfo() (v *BodyInfo) {
 }
 
 var fieldIDToName_IssueList = map[int16]string{
-	1: "userID",
-	2: "username",
-	3: "gender",
-	4: "age",
-	5: "disease_relation",
-	6: "body_info",
+	1: "username",
+	2: "gender",
+	3: "age",
+	4: "disease_relation",
+	5: "body_info",
 }
 
 func (p *IssueList) IsSetDiseaseRelation() bool {
@@ -4617,7 +4611,7 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 2:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -4627,7 +4621,7 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.BOOL {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -4637,7 +4631,7 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 4:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -4649,16 +4643,6 @@ func (p *IssueList) Read(iprot thrift.TProtocol) (err error) {
 		case 5:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField5(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		case 6:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -4700,21 +4684,12 @@ func (p *IssueList) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.UserID = v
-	}
-	return nil
-}
-
-func (p *IssueList) ReadField2(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
 		p.Username = v
 	}
 	return nil
 }
 
-func (p *IssueList) ReadField3(iprot thrift.TProtocol) error {
+func (p *IssueList) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
@@ -4723,7 +4698,7 @@ func (p *IssueList) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *IssueList) ReadField4(iprot thrift.TProtocol) error {
+func (p *IssueList) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -4732,7 +4707,7 @@ func (p *IssueList) ReadField4(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *IssueList) ReadField5(iprot thrift.TProtocol) error {
+func (p *IssueList) ReadField4(iprot thrift.TProtocol) error {
 	p.DiseaseRelation = NewDiseaseRelation()
 	if err := p.DiseaseRelation.Read(iprot); err != nil {
 		return err
@@ -4740,7 +4715,7 @@ func (p *IssueList) ReadField5(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *IssueList) ReadField6(iprot thrift.TProtocol) error {
+func (p *IssueList) ReadField5(iprot thrift.TProtocol) error {
 	p.BodyInfo = NewBodyInfo()
 	if err := p.BodyInfo.Read(iprot); err != nil {
 		return err
@@ -4774,10 +4749,6 @@ func (p *IssueList) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 5
 			goto WriteFieldError
 		}
-		if err = p.writeField6(oprot); err != nil {
-			fieldId = 6
-			goto WriteFieldError
-		}
 
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
@@ -4798,10 +4769,10 @@ WriteStructEndError:
 }
 
 func (p *IssueList) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("userID", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("username", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.UserID); err != nil {
+	if err := oprot.WriteString(p.Username); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4815,10 +4786,10 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("username", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("gender", thrift.BOOL, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Username); err != nil {
+	if err := oprot.WriteBool(p.Gender); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4832,10 +4803,10 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("gender", thrift.BOOL, 3); err != nil {
+	if err = oprot.WriteFieldBegin("age", thrift.I32, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBool(p.Gender); err != nil {
+	if err := oprot.WriteI32(p.Age); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4849,10 +4820,10 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("age", thrift.I32, 4); err != nil {
+	if err = oprot.WriteFieldBegin("disease_relation", thrift.STRUCT, 4); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Age); err != nil {
+	if err := p.DiseaseRelation.Write(oprot); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4866,24 +4837,7 @@ WriteFieldEndError:
 }
 
 func (p *IssueList) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("disease_relation", thrift.STRUCT, 5); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.DiseaseRelation.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
-}
-
-func (p *IssueList) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("body_info", thrift.STRUCT, 6); err != nil {
+	if err = oprot.WriteFieldBegin("body_info", thrift.STRUCT, 5); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := p.BodyInfo.Write(oprot); err != nil {
@@ -4894,9 +4848,9 @@ func (p *IssueList) writeField6(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
 }
 
 func (p *IssueList) String() string {
