@@ -25,6 +25,7 @@ struct User {
     10: i64 work_count,         // Number of published videos
     11: i64 favorite_count,     // Total video likes
     12: string department,      // Department
+    13: string nickname,        // Nickname
 }
 
 struct SocialInfo{

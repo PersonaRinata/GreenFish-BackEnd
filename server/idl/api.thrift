@@ -25,6 +25,17 @@ struct qingyu_user_login_response {
     4: string token // User authentication token
 }
 
+struct qingyu_nickname_change_request {
+    1: i64 user_id(api.query="user_id") // User id
+    2: string token(api.query="token") // User authentication token
+    3: string nickname(api.query="nickname") // Nickname
+}
+
+struct qingyu_nickname_change_response {
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+}
+
 struct qingyu_user_request {
     1: i64 user_id(api.query="user_id") // User id
     2: string token(api.query="token") // User authentication token
@@ -331,6 +342,7 @@ service ApiService {
     qingyu_user_login_response Login(1: qingyu_user_login_request req)(api.post="/qingyu/user/login/");
     qingyu_user_response GetUserInfo(1: qingyu_user_request req)(api.get="/qingyu/user/");
     qingyu_avatar_change_response ChangeAvatar(1:qingyu_avatar_change_request req)(api.post="/qingyu/user/avatar")
+    qingyu_nickname_change_response ChangeNickname(1:qingyu_nickname_change_request req)(api.post="/qingyu/user/nickname");
     qingyu_search_user_response SearchUserList(1: qingyu_search_user_request req)(api.post="/qingyu/user/search");
     qingyu_judge_doctor_response JudgeDoctor(1:qingyu_judge_doctor_request req)(api.get="/qingyu/user/judge/doctor");
     qingyu_add_doctor_response AddDoctor(1:qingyu_add_doctor_request req)(api.post="/qingyu/user/add/doctor");

@@ -127,6 +127,22 @@ func (r *RedisManager) ChangeAvatarByUserID(ctx context.Context, avatar string, 
 	return nil
 }
 
+func (r *RedisManager) ChangeNicknameByUserID(ctx context.Context, nickname string, id int64) error {
+	user, err := r.GetUserById(ctx, id)
+	if err != nil {
+		klog.Error("redis get user by id failed,", err)
+		return err
+	}
+	user.Nickname = nickname
+	usr, _ := sonic.Marshal(user)
+	err = r.redisClient.Set(ctx, "user:"+strconv.FormatInt(user.ID, 10), usr, 0).Err()
+	if err != nil {
+		klog.Error("redis update user avatar failed,", err)
+		return err
+	}
+	return nil
+}
+
 func (r *RedisManager) AddDoctor(ctx context.Context, id int64, department string) error {
 	err := r.redisClient.Set(ctx, "doctor:"+strconv.FormatInt(id, 10), department, 0).Err()
 	if err != nil {

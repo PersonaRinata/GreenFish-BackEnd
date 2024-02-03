@@ -113,6 +113,15 @@ struct qingyu_avatar_change_response {
     1: base.qingyu_base_response base_resp,
 }
 
+struct qingyu_nickname_change_request {
+    1: i64 user_id
+    2: string nickname
+}
+
+struct qingyu_nickname_change_response {
+    1: base.qingyu_base_response base_resp,
+}
+
 struct qingyu_judge_doctor_request {
     1: i64 user_id
 }
@@ -153,6 +162,7 @@ service UserService {
     qingyu_get_issue_list_response GetIssueList(1:qingyu_get_issue_list_request req),
     qingyu_search_user_response SearchUserList(1:qingyu_search_user_request req),
     qingyu_avatar_change_response ChangeUserAvatar(1:qingyu_avatar_change_request req),
+    qingyu_nickname_change_response ChangeUserNickname(1:qingyu_nickname_change_request req),
     qingyu_judge_doctor_response JudgeDoctor(1:qingyu_judge_doctor_request req),
     qingyu_add_doctor_response AddDoctor(1:qingyu_add_doctor_request req),
     qingyu_find_doctor_response FindDoctor(1:qingyu_find_doctor_request req),

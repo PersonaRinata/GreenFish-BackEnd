@@ -22,6 +22,7 @@ type Client interface {
 	GetIssueList(ctx context.Context, req *user.QingyuGetIssueListRequest, callOptions ...callopt.Option) (r *user.QingyuGetIssueListResponse, err error)
 	SearchUserList(ctx context.Context, req *user.QingyuSearchUserRequest, callOptions ...callopt.Option) (r *user.QingyuSearchUserResponse, err error)
 	ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarChangeRequest, callOptions ...callopt.Option) (r *user.QingyuAvatarChangeResponse, err error)
+	ChangeUserNickname(ctx context.Context, req *user.QingyuNicknameChangeRequest, callOptions ...callopt.Option) (r *user.QingyuNicknameChangeResponse, err error)
 	JudgeDoctor(ctx context.Context, req *user.QingyuJudgeDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuJudgeDoctorResponse, err error)
 	AddDoctor(ctx context.Context, req *user.QingyuAddDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuAddDoctorResponse, err error)
 	FindDoctor(ctx context.Context, req *user.QingyuFindDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuFindDoctorResponse, err error)
@@ -109,6 +110,11 @@ func (p *kUserServiceClient) SearchUserList(ctx context.Context, req *user.Qingy
 func (p *kUserServiceClient) ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarChangeRequest, callOptions ...callopt.Option) (r *user.QingyuAvatarChangeResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ChangeUserAvatar(ctx, req)
+}
+
+func (p *kUserServiceClient) ChangeUserNickname(ctx context.Context, req *user.QingyuNicknameChangeRequest, callOptions ...callopt.Option) (r *user.QingyuNicknameChangeResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ChangeUserNickname(ctx, req)
 }
 
 func (p *kUserServiceClient) JudgeDoctor(ctx context.Context, req *user.QingyuJudgeDoctorRequest, callOptions ...callopt.Option) (r *user.QingyuJudgeDoctorResponse, err error) {

@@ -350,3 +350,9 @@ func _aigcrecommenddoctorMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _changenicknameMw() []app.HandlerFunc {
+	return []app.HandlerFunc{
+		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
+	}
+}

@@ -1278,3 +1278,34 @@ func AIGCRecommendDoctor(ctx context.Context, c *app.RequestContext) {
 	}
 	c.JSON(consts.StatusOK, resp)
 }
+
+// ChangeNickname .
+// @router /qingyu/user/nickname [POST]
+func ChangeNickname(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuNicknameChangeRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		hlog.Error("api bind failed,", err)
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+	resp := new(api.QingyuNicknameChangeResponse)
+	userId, flag := c.Get("userId")
+	if !flag {
+		hlog.Error("api get userId failed,", err)
+		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
+		return
+	}
+	res, err := config.GlobalUserClient.ChangeUserNickname(ctx, &user.QingyuNicknameChangeRequest{UserId: userId.(int64), Nickname: req.Nickname})
+	if err != nil {
+		hlog.Error("api upgrade avatar failed,err", err)
+		resp.StatusCode = 500
+		resp.StatusMsg = "api upgrade avatar failed"
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+	resp.StatusMsg = res.BaseResp.StatusMsg
+	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}

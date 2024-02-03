@@ -5239,6 +5239,401 @@ func (p *QingyuAvatarChangeResponse) Field1DeepEqual(src *base.QingyuBaseRespons
 	return true
 }
 
+type QingyuNicknameChangeRequest struct {
+	UserId   int64  `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
+	Nickname string `thrift:"nickname,2" frugal:"2,default,string" json:"nickname"`
+}
+
+func NewQingyuNicknameChangeRequest() *QingyuNicknameChangeRequest {
+	return &QingyuNicknameChangeRequest{}
+}
+
+func (p *QingyuNicknameChangeRequest) InitDefault() {
+	*p = QingyuNicknameChangeRequest{}
+}
+
+func (p *QingyuNicknameChangeRequest) GetUserId() (v int64) {
+	return p.UserId
+}
+
+func (p *QingyuNicknameChangeRequest) GetNickname() (v string) {
+	return p.Nickname
+}
+func (p *QingyuNicknameChangeRequest) SetUserId(val int64) {
+	p.UserId = val
+}
+func (p *QingyuNicknameChangeRequest) SetNickname(val string) {
+	p.Nickname = val
+}
+
+var fieldIDToName_QingyuNicknameChangeRequest = map[int16]string{
+	1: "user_id",
+	2: "nickname",
+}
+
+func (p *QingyuNicknameChangeRequest) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuNicknameChangeRequest[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *QingyuNicknameChangeRequest) ReadField1(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.UserId = v
+	}
+	return nil
+}
+
+func (p *QingyuNicknameChangeRequest) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Nickname = v
+	}
+	return nil
+}
+
+func (p *QingyuNicknameChangeRequest) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("qingyu_nickname_change_request"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *QingyuNicknameChangeRequest) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.UserId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuNicknameChangeRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("nickname", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Nickname); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *QingyuNicknameChangeRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("QingyuNicknameChangeRequest(%+v)", *p)
+}
+
+func (p *QingyuNicknameChangeRequest) DeepEqual(ano *QingyuNicknameChangeRequest) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.UserId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Nickname) {
+		return false
+	}
+	return true
+}
+
+func (p *QingyuNicknameChangeRequest) Field1DeepEqual(src int64) bool {
+
+	if p.UserId != src {
+		return false
+	}
+	return true
+}
+func (p *QingyuNicknameChangeRequest) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Nickname, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type QingyuNicknameChangeResponse struct {
+	BaseResp *base.QingyuBaseResponse `thrift:"base_resp,1" frugal:"1,default,base.QingyuBaseResponse" json:"base_resp"`
+}
+
+func NewQingyuNicknameChangeResponse() *QingyuNicknameChangeResponse {
+	return &QingyuNicknameChangeResponse{}
+}
+
+func (p *QingyuNicknameChangeResponse) InitDefault() {
+	*p = QingyuNicknameChangeResponse{}
+}
+
+var QingyuNicknameChangeResponse_BaseResp_DEFAULT *base.QingyuBaseResponse
+
+func (p *QingyuNicknameChangeResponse) GetBaseResp() (v *base.QingyuBaseResponse) {
+	if !p.IsSetBaseResp() {
+		return QingyuNicknameChangeResponse_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+func (p *QingyuNicknameChangeResponse) SetBaseResp(val *base.QingyuBaseResponse) {
+	p.BaseResp = val
+}
+
+var fieldIDToName_QingyuNicknameChangeResponse = map[int16]string{
+	1: "base_resp",
+}
+
+func (p *QingyuNicknameChangeResponse) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *QingyuNicknameChangeResponse) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_QingyuNicknameChangeResponse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *QingyuNicknameChangeResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewQingyuBaseResponse()
+	if err := p.BaseResp.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *QingyuNicknameChangeResponse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("qingyu_nickname_change_response"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *QingyuNicknameChangeResponse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.BaseResp.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QingyuNicknameChangeResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("QingyuNicknameChangeResponse(%+v)", *p)
+}
+
+func (p *QingyuNicknameChangeResponse) DeepEqual(ano *QingyuNicknameChangeResponse) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.BaseResp) {
+		return false
+	}
+	return true
+}
+
+func (p *QingyuNicknameChangeResponse) Field1DeepEqual(src *base.QingyuBaseResponse) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
 type QingyuJudgeDoctorRequest struct {
 	UserId int64 `thrift:"user_id,1" frugal:"1,default,i64" json:"user_id"`
 }
@@ -6474,6 +6869,8 @@ type UserService interface {
 
 	ChangeUserAvatar(ctx context.Context, req *QingyuAvatarChangeRequest) (r *QingyuAvatarChangeResponse, err error)
 
+	ChangeUserNickname(ctx context.Context, req *QingyuNicknameChangeRequest) (r *QingyuNicknameChangeResponse, err error)
+
 	JudgeDoctor(ctx context.Context, req *QingyuJudgeDoctorRequest) (r *QingyuJudgeDoctorResponse, err error)
 
 	AddDoctor(ctx context.Context, req *QingyuAddDoctorRequest) (r *QingyuAddDoctorResponse, err error)
@@ -6606,6 +7003,15 @@ func (p *UserServiceClient) ChangeUserAvatar(ctx context.Context, req *QingyuAva
 	}
 	return _result.GetSuccess(), nil
 }
+func (p *UserServiceClient) ChangeUserNickname(ctx context.Context, req *QingyuNicknameChangeRequest) (r *QingyuNicknameChangeResponse, err error) {
+	var _args UserServiceChangeUserNicknameArgs
+	_args.Req = req
+	var _result UserServiceChangeUserNicknameResult
+	if err = p.Client_().Call(ctx, "ChangeUserNickname", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
 func (p *UserServiceClient) JudgeDoctor(ctx context.Context, req *QingyuJudgeDoctorRequest) (r *QingyuJudgeDoctorResponse, err error) {
 	var _args UserServiceJudgeDoctorArgs
 	_args.Req = req
@@ -6665,6 +7071,7 @@ func NewUserServiceProcessor(handler UserService) *UserServiceProcessor {
 	self.AddToProcessorMap("GetIssueList", &userServiceProcessorGetIssueList{handler: handler})
 	self.AddToProcessorMap("SearchUserList", &userServiceProcessorSearchUserList{handler: handler})
 	self.AddToProcessorMap("ChangeUserAvatar", &userServiceProcessorChangeUserAvatar{handler: handler})
+	self.AddToProcessorMap("ChangeUserNickname", &userServiceProcessorChangeUserNickname{handler: handler})
 	self.AddToProcessorMap("JudgeDoctor", &userServiceProcessorJudgeDoctor{handler: handler})
 	self.AddToProcessorMap("AddDoctor", &userServiceProcessorAddDoctor{handler: handler})
 	self.AddToProcessorMap("FindDoctor", &userServiceProcessorFindDoctor{handler: handler})
@@ -7199,6 +7606,54 @@ func (p *userServiceProcessorChangeUserAvatar) Process(ctx context.Context, seqI
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("ChangeUserAvatar", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type userServiceProcessorChangeUserNickname struct {
+	handler UserService
+}
+
+func (p *userServiceProcessorChangeUserNickname) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := UserServiceChangeUserNicknameArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("ChangeUserNickname", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := UserServiceChangeUserNicknameResult{}
+	var retval *QingyuNicknameChangeResponse
+	if retval, err2 = p.handler.ChangeUserNickname(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing ChangeUserNickname: "+err2.Error())
+		oprot.WriteMessageBegin("ChangeUserNickname", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("ChangeUserNickname", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -11159,6 +11614,352 @@ func (p *UserServiceChangeUserAvatarResult) DeepEqual(ano *UserServiceChangeUser
 }
 
 func (p *UserServiceChangeUserAvatarResult) Field0DeepEqual(src *QingyuAvatarChangeResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type UserServiceChangeUserNicknameArgs struct {
+	Req *QingyuNicknameChangeRequest `thrift:"req,1" frugal:"1,default,QingyuNicknameChangeRequest" json:"req"`
+}
+
+func NewUserServiceChangeUserNicknameArgs() *UserServiceChangeUserNicknameArgs {
+	return &UserServiceChangeUserNicknameArgs{}
+}
+
+func (p *UserServiceChangeUserNicknameArgs) InitDefault() {
+	*p = UserServiceChangeUserNicknameArgs{}
+}
+
+var UserServiceChangeUserNicknameArgs_Req_DEFAULT *QingyuNicknameChangeRequest
+
+func (p *UserServiceChangeUserNicknameArgs) GetReq() (v *QingyuNicknameChangeRequest) {
+	if !p.IsSetReq() {
+		return UserServiceChangeUserNicknameArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *UserServiceChangeUserNicknameArgs) SetReq(val *QingyuNicknameChangeRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_UserServiceChangeUserNicknameArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *UserServiceChangeUserNicknameArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *UserServiceChangeUserNicknameArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceChangeUserNicknameArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UserServiceChangeUserNicknameArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewQingyuNicknameChangeRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *UserServiceChangeUserNicknameArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ChangeUserNickname_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UserServiceChangeUserNicknameArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *UserServiceChangeUserNicknameArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserServiceChangeUserNicknameArgs(%+v)", *p)
+}
+
+func (p *UserServiceChangeUserNicknameArgs) DeepEqual(ano *UserServiceChangeUserNicknameArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *UserServiceChangeUserNicknameArgs) Field1DeepEqual(src *QingyuNicknameChangeRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type UserServiceChangeUserNicknameResult struct {
+	Success *QingyuNicknameChangeResponse `thrift:"success,0,optional" frugal:"0,optional,QingyuNicknameChangeResponse" json:"success,omitempty"`
+}
+
+func NewUserServiceChangeUserNicknameResult() *UserServiceChangeUserNicknameResult {
+	return &UserServiceChangeUserNicknameResult{}
+}
+
+func (p *UserServiceChangeUserNicknameResult) InitDefault() {
+	*p = UserServiceChangeUserNicknameResult{}
+}
+
+var UserServiceChangeUserNicknameResult_Success_DEFAULT *QingyuNicknameChangeResponse
+
+func (p *UserServiceChangeUserNicknameResult) GetSuccess() (v *QingyuNicknameChangeResponse) {
+	if !p.IsSetSuccess() {
+		return UserServiceChangeUserNicknameResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *UserServiceChangeUserNicknameResult) SetSuccess(x interface{}) {
+	p.Success = x.(*QingyuNicknameChangeResponse)
+}
+
+var fieldIDToName_UserServiceChangeUserNicknameResult = map[int16]string{
+	0: "success",
+}
+
+func (p *UserServiceChangeUserNicknameResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *UserServiceChangeUserNicknameResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceChangeUserNicknameResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UserServiceChangeUserNicknameResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewQingyuNicknameChangeResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *UserServiceChangeUserNicknameResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ChangeUserNickname_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UserServiceChangeUserNicknameResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *UserServiceChangeUserNicknameResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UserServiceChangeUserNicknameResult(%+v)", *p)
+}
+
+func (p *UserServiceChangeUserNicknameResult) DeepEqual(ano *UserServiceChangeUserNicknameResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *UserServiceChangeUserNicknameResult) Field0DeepEqual(src *QingyuNicknameChangeResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

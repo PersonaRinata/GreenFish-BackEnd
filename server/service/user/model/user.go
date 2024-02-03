@@ -5,6 +5,7 @@ type User struct {
 	Username        string `gorm:"index:idx_username,unique"`
 	Password        string
 	Avatar          string
+	Nickname        string
 	BackGroundImage string
 	Signature       string
 	Department      string

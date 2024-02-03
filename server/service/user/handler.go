@@ -24,6 +24,7 @@ type MysqlManager interface {
 	GetUserByUsername(ctx context.Context, username string) (*model.User, error)
 	SearchUserByUsername(ctx context.Context, content string) ([]*model.User, error)
 	ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error
+	ChangeNicknameByUserID(ctx context.Context, nickname string, id int64) error
 	AddDoctor(ctx context.Context, id int64, department string) error
 }
 type RedisManager interface {
@@ -33,6 +34,7 @@ type RedisManager interface {
 	UpdateIssueListById(ctx context.Context, id int64, issueList *model.IssueList) error
 	GetIssueListById(ctx context.Context, id int64) (*model.IssueList, error)
 	ChangeAvatarByUserID(ctx context.Context, avatar string, id int64) error
+	ChangeNicknameByUserID(ctx context.Context, nickname string, id int64) error
 	AddDoctor(ctx context.Context, id int64, department string) error
 	JudgeDoctor(ctx context.Context, id int64) (string, error)
 	FindDoctor(ctx context.Context, department string) ([]string, error)
@@ -755,6 +757,34 @@ func (s *UserServiceImpl) FindDoctor(ctx context.Context, req *user.QingyuFindDo
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
 		StatusMsg:  "add doctor success",
+	}
+	return
+}
+
+// ChangeUserNickname implements the UserServiceImpl interface.
+func (s *UserServiceImpl) ChangeUserNickname(ctx context.Context, req *user.QingyuNicknameChangeRequest) (resp *user.QingyuNicknameChangeResponse, err error) {
+	resp = new(user.QingyuNicknameChangeResponse)
+	err = s.MysqlManager.ChangeNicknameByUserID(ctx, req.Nickname, req.UserId)
+	if err != nil {
+		klog.Error("user mysqlManager change avatar failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user mysqlManager change avatar failed",
+		}
+		return resp, err
+	}
+	err = s.RedisManager.ChangeNicknameByUserID(ctx, req.Nickname, req.UserId)
+	if err != nil {
+		klog.Error("user redisManager change avatar failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "user redisManager change avatar failed",
+		}
+		return resp, err
+	}
+	resp.BaseResp = &base.QingyuBaseResponse{
+		StatusCode: 0,
+		StatusMsg:  "change avatar success",
 	}
 	return
 }

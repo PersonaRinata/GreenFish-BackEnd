@@ -62,6 +62,14 @@ func (u User) ChangeAvatarByUserID(ctx context.Context, avatar string, id int64)
 	return err
 }
 
+func (u User) ChangeNicknameByUserID(ctx context.Context, nickname string, id int64) error {
+	err := u.db.Model(&model.User{}).WithContext(ctx).Where("id = ?", id).Update("nickname", nickname).Error
+	if err != nil {
+		return err
+	}
+	return err
+}
+
 func (u User) AddDoctor(ctx context.Context, id int64, department string) error {
 	if err := u.db.Where("id = ?", id).Update("department = ?", department).Error; err != nil {
 

@@ -125,6 +125,7 @@ func Register(r *server.Hertz) {
 			_user := _qingyu.Group("/user", _userMw()...)
 			_user.GET("/", append(_getuserinfoMw(), api.GetUserInfo)...)
 			_user.POST("/avatar", append(_changeavatarMw(), api.ChangeAvatar)...)
+			_user.POST("/nickname", append(_changenicknameMw(), api.ChangeNickname)...)
 			_user.POST("/search", append(_searchuserlistMw(), api.SearchUserList)...)
 			{
 				_add := _user.Group("/add", _addMw()...)

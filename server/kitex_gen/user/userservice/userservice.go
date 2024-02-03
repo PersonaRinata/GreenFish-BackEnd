@@ -19,20 +19,21 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "UserService"
 	handlerType := (*user.UserService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"Register":         kitex.NewMethodInfo(registerHandler, newUserServiceRegisterArgs, newUserServiceRegisterResult, false),
-		"Login":            kitex.NewMethodInfo(loginHandler, newUserServiceLoginArgs, newUserServiceLoginResult, false),
-		"GetUserInfo":      kitex.NewMethodInfo(getUserInfoHandler, newUserServiceGetUserInfoArgs, newUserServiceGetUserInfoResult, false),
-		"BatchGetUserInfo": kitex.NewMethodInfo(batchGetUserInfoHandler, newUserServiceBatchGetUserInfoArgs, newUserServiceBatchGetUserInfoResult, false),
-		"GetFollowList":    kitex.NewMethodInfo(getFollowListHandler, newUserServiceGetFollowListArgs, newUserServiceGetFollowListResult, false),
-		"GetFollowerList":  kitex.NewMethodInfo(getFollowerListHandler, newUserServiceGetFollowerListArgs, newUserServiceGetFollowerListResult, false),
-		"GetFriendList":    kitex.NewMethodInfo(getFriendListHandler, newUserServiceGetFriendListArgs, newUserServiceGetFriendListResult, false),
-		"UpdateIssueList":  kitex.NewMethodInfo(updateIssueListHandler, newUserServiceUpdateIssueListArgs, newUserServiceUpdateIssueListResult, false),
-		"GetIssueList":     kitex.NewMethodInfo(getIssueListHandler, newUserServiceGetIssueListArgs, newUserServiceGetIssueListResult, false),
-		"SearchUserList":   kitex.NewMethodInfo(searchUserListHandler, newUserServiceSearchUserListArgs, newUserServiceSearchUserListResult, false),
-		"ChangeUserAvatar": kitex.NewMethodInfo(changeUserAvatarHandler, newUserServiceChangeUserAvatarArgs, newUserServiceChangeUserAvatarResult, false),
-		"JudgeDoctor":      kitex.NewMethodInfo(judgeDoctorHandler, newUserServiceJudgeDoctorArgs, newUserServiceJudgeDoctorResult, false),
-		"AddDoctor":        kitex.NewMethodInfo(addDoctorHandler, newUserServiceAddDoctorArgs, newUserServiceAddDoctorResult, false),
-		"FindDoctor":       kitex.NewMethodInfo(findDoctorHandler, newUserServiceFindDoctorArgs, newUserServiceFindDoctorResult, false),
+		"Register":           kitex.NewMethodInfo(registerHandler, newUserServiceRegisterArgs, newUserServiceRegisterResult, false),
+		"Login":              kitex.NewMethodInfo(loginHandler, newUserServiceLoginArgs, newUserServiceLoginResult, false),
+		"GetUserInfo":        kitex.NewMethodInfo(getUserInfoHandler, newUserServiceGetUserInfoArgs, newUserServiceGetUserInfoResult, false),
+		"BatchGetUserInfo":   kitex.NewMethodInfo(batchGetUserInfoHandler, newUserServiceBatchGetUserInfoArgs, newUserServiceBatchGetUserInfoResult, false),
+		"GetFollowList":      kitex.NewMethodInfo(getFollowListHandler, newUserServiceGetFollowListArgs, newUserServiceGetFollowListResult, false),
+		"GetFollowerList":    kitex.NewMethodInfo(getFollowerListHandler, newUserServiceGetFollowerListArgs, newUserServiceGetFollowerListResult, false),
+		"GetFriendList":      kitex.NewMethodInfo(getFriendListHandler, newUserServiceGetFriendListArgs, newUserServiceGetFriendListResult, false),
+		"UpdateIssueList":    kitex.NewMethodInfo(updateIssueListHandler, newUserServiceUpdateIssueListArgs, newUserServiceUpdateIssueListResult, false),
+		"GetIssueList":       kitex.NewMethodInfo(getIssueListHandler, newUserServiceGetIssueListArgs, newUserServiceGetIssueListResult, false),
+		"SearchUserList":     kitex.NewMethodInfo(searchUserListHandler, newUserServiceSearchUserListArgs, newUserServiceSearchUserListResult, false),
+		"ChangeUserAvatar":   kitex.NewMethodInfo(changeUserAvatarHandler, newUserServiceChangeUserAvatarArgs, newUserServiceChangeUserAvatarResult, false),
+		"ChangeUserNickname": kitex.NewMethodInfo(changeUserNicknameHandler, newUserServiceChangeUserNicknameArgs, newUserServiceChangeUserNicknameResult, false),
+		"JudgeDoctor":        kitex.NewMethodInfo(judgeDoctorHandler, newUserServiceJudgeDoctorArgs, newUserServiceJudgeDoctorResult, false),
+		"AddDoctor":          kitex.NewMethodInfo(addDoctorHandler, newUserServiceAddDoctorArgs, newUserServiceAddDoctorResult, false),
+		"FindDoctor":         kitex.NewMethodInfo(findDoctorHandler, newUserServiceFindDoctorArgs, newUserServiceFindDoctorResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "user",
@@ -247,6 +248,24 @@ func newUserServiceChangeUserAvatarResult() interface{} {
 	return user.NewUserServiceChangeUserAvatarResult()
 }
 
+func changeUserNicknameHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceChangeUserNicknameArgs)
+	realResult := result.(*user.UserServiceChangeUserNicknameResult)
+	success, err := handler.(user.UserService).ChangeUserNickname(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceChangeUserNicknameArgs() interface{} {
+	return user.NewUserServiceChangeUserNicknameArgs()
+}
+
+func newUserServiceChangeUserNicknameResult() interface{} {
+	return user.NewUserServiceChangeUserNicknameResult()
+}
+
 func judgeDoctorHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*user.UserServiceJudgeDoctorArgs)
 	realResult := result.(*user.UserServiceJudgeDoctorResult)
@@ -416,6 +435,16 @@ func (p *kClient) ChangeUserAvatar(ctx context.Context, req *user.QingyuAvatarCh
 	_args.Req = req
 	var _result user.UserServiceChangeUserAvatarResult
 	if err = p.c.Call(ctx, "ChangeUserAvatar", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ChangeUserNickname(ctx context.Context, req *user.QingyuNicknameChangeRequest) (r *user.QingyuNicknameChangeResponse, err error) {
+	var _args user.UserServiceChangeUserNicknameArgs
+	_args.Req = req
+	var _result user.UserServiceChangeUserNicknameResult
+	if err = p.c.Call(ctx, "ChangeUserNickname", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
