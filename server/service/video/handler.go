@@ -295,26 +295,42 @@ func (s *VideoServiceImpl) SearchVideoList(ctx context.Context, req *video.Qingy
 		} else {
 			res = videoList[req.Num*req.Offset : (req.Offset+1)*req.Num]
 		}
-		for _, v := range res {
-			if v == nil {
-				break
-			}
-			resp.VideoList = append(resp.VideoList, &base.Video{
-				Id:            v.ID,
-				Author:        &base.User{Id: v.AuthorId},
-				PlayUrl:       v.PlayUrl,
-				CoverUrl:      v.CoverUrl,
-				FavoriteCount: 0,
-				CommentCount:  0,
-				IsFavorite:    false,
-				Title:         v.Title,
-			})
-		}
 	}
 
+	var videoIdList []int64
+	var userIdList []int64
+	for _, v := range res {
+		videoIdList = append(videoIdList, v.ID)
+		userIdList = append(userIdList, v.AuthorId)
+	}
+
+	iv, err := s.InteractionManager.BatchGetVideoInteractInfo(ctx, videoIdList, req.ViewerId)
+	uv, err := s.UserManager.BatchGetUser(ctx, userIdList, req.ViewerId)
+	if err != nil {
+		klog.Error("video InteractionManager BatchGetVideoInteractInfo failed,", err)
+		resp.BaseResp = &base.QingyuBaseResponse{
+			StatusCode: 500,
+			StatusMsg:  "video InteractionManager BatchGetVideoInteractInfo failed",
+		}
+		return resp, err
+	}
 	resp.BaseResp = &base.QingyuBaseResponse{
 		StatusCode: 0,
-		StatusMsg:  "get videoList success",
+		StatusMsg:  "get feed success",
 	}
+
+	for k, v := range videoIdList {
+		resp.VideoList = append(resp.VideoList, &base.Video{
+			Id:            v,
+			Author:        uv[k],
+			PlayUrl:       res[k].PlayUrl,
+			CoverUrl:      res[k].CoverUrl,
+			FavoriteCount: iv[k].FavoriteCount,
+			CommentCount:  iv[k].CommentCount,
+			IsFavorite:    iv[k].IsFavorite,
+			Title:         res[k].Title,
+		})
+	}
+
 	return resp, nil
 }

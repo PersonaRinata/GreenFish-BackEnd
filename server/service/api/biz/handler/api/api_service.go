@@ -911,9 +911,9 @@ func SearchUserList(ctx context.Context, c *app.RequestContext) {
 			Avatar:          v.Avatar,
 			BackgroundImage: v.BackgroundImage,
 			Signature:       v.Signature,
-			TotalFavorited:  0,
-			WorkCount:       0,
-			FavoriteCount:   0,
+			TotalFavorited:  v.TotalFavorited,
+			WorkCount:       v.WorkCount,
+			FavoriteCount:   v.FavoriteCount,
 			Department:      v.Department,
 		})
 	}
@@ -942,13 +942,26 @@ func SearchVideoList(ctx context.Context, c *app.RequestContext) {
 	resp.StatusCode = res.BaseResp.StatusCode
 	for _, v := range res.VideoList {
 		resp.VideoList = append(resp.VideoList, &base.Video{
-			ID:            v.Id,
-			Author:        &base.User{ID: v.Author.Id},
+			ID: v.Id,
+			Author: &base.User{
+				ID:              v.Author.Id,
+				Name:            v.Author.Name,
+				FollowCount:     v.Author.FollowCount,
+				FollowerCount:   v.Author.FollowerCount,
+				IsFollow:        v.Author.IsFollow,
+				Avatar:          v.Author.Avatar,
+				BackgroundImage: v.Author.BackgroundImage,
+				Signature:       v.Author.Signature,
+				TotalFavorited:  v.Author.TotalFavorited,
+				WorkCount:       v.Author.WorkCount,
+				FavoriteCount:   v.Author.FavoriteCount,
+				Department:      v.Author.Department,
+			},
 			PlayURL:       v.PlayUrl,
 			CoverURL:      v.CoverUrl,
-			FavoriteCount: 0,
-			CommentCount:  0,
-			IsFavorite:    false,
+			FavoriteCount: v.FavoriteCount,
+			CommentCount:  v.CommentCount,
+			IsFavorite:    v.IsFavorite,
 			Title:         v.Title,
 		})
 	}

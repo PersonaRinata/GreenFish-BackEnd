@@ -626,6 +626,10 @@ func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSe
 				}
 				return resp, err
 			}
+			interactionInfo, err := s.InteractionManager.GetInteractInfo(ctx, v.ID)
+			if err != nil {
+				klog.Error("interactionManager get interactionInfo failed,", err)
+			}
 			department, err := s.JudgeDoctor(ctx, &user.QingyuJudgeDoctorRequest{UserId: v.ID})
 			if err != nil {
 				klog.Error("user judge IsDoctor failed,", err)
@@ -644,9 +648,9 @@ func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSe
 				Avatar:          v.Avatar,
 				BackgroundImage: v.BackGroundImage,
 				Signature:       v.Signature,
-				TotalFavorited:  0,
-				WorkCount:       0,
-				FavoriteCount:   0,
+				TotalFavorited:  interactionInfo.TotalFavorited,
+				WorkCount:       interactionInfo.WorkCount,
+				FavoriteCount:   interactionInfo.FavoriteCount,
 				Department:      department.Department,
 			})
 		}
