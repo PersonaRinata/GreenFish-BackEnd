@@ -23,7 +23,7 @@ func (r *RedisManager) GetAIGCHistory(ctx context.Context, userID int64) ([]stri
 }
 
 func (r *RedisManager) AddAIGCRecord(ctx context.Context, userID int64, msg ...string) error {
-	err := r.redisClient.LPush(ctx, "aigc:"+strconv.FormatInt(userID, 10), msg).Err()
+	err := r.redisClient.RPush(ctx, "aigc:"+strconv.FormatInt(userID, 10), msg).Err()
 	if err != nil {
 		return err
 	}

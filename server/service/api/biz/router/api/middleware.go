@@ -356,3 +356,8 @@ func _changenicknameMw() []app.HandlerFunc {
 		middleware.JWTAuth(config.GlobalServerConfig.JWTInfo.SigningKey),
 	}
 }
+
+func _aigcknowlegedlistMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

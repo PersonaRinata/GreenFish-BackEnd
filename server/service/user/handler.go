@@ -82,6 +82,7 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.QingyuUserRegi
 		Avatar:          "",
 		BackGroundImage: "",
 		Signature:       "default signature",
+		Nickname:        req.Username,
 	}
 	err = s.MysqlManager.CreateUser(ctx, usr)
 	if err != nil {

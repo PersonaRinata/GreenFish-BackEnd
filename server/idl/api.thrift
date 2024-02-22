@@ -337,6 +337,17 @@ struct qingyu_aigc_recommend_docotor_response {
     4: list<base.User> doctor_list
 }
 
+struct qingyu_aigc_knowleged_list_request{
+    1: string query
+    2: string category
+}
+
+struct qingyu_aigc_knowleged_list_response{
+    1: i32 status_code // Status code, 0-success, other values-failure
+    2: string status_msg // Return status description
+    3: string answer
+}
+
 service ApiService {
     qingyu_user_register_response Register(1: qingyu_user_register_request req)(api.post="/qingyu/user/register/");
     qingyu_user_login_response Login(1: qingyu_user_login_request req)(api.post="/qingyu/user/login/");
@@ -374,4 +385,5 @@ service ApiService {
     qingyu_aigc_doctor_analyse_response AIGCDoctorAnalyse(1:qingyu_aigc_doctor_analyse_request req)(api.post="/qingyu/aigc/doctor");
     qingyu_aigc_get_history_response AIGCGetHistory(1:qingyu_aigc_get_history_request req)(api.get="/qingyu/aigc/history")
     qingyu_aigc_recommend_docotor_response AIGCRecommendDoctor(1:qingyu_aigc_recommend_docotor_request req)(api.get="/qingyu/aigc/recommend/doctor")
+    qingyu_aigc_knowleged_list_response AIGCKnowlegedList(1:qingyu_aigc_knowleged_list_request req)(api.get="/qingyu/aigc/knowledge")
 }

@@ -21,9 +21,11 @@ import (
 	"errors"
 	"fmt"
 	"github.com/bwmarrin/snowflake"
+	"github.com/bytedance/sonic"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	reqx "github.com/imroc/req/v3"
 	"github.com/jinzhu/copier"
 	"os"
 	"strconv"
@@ -1003,7 +1005,7 @@ func ChangeAvatar(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	suffix := strings.Split(avatarFile.Filename, ".")
-	filename := "avatar/" + strconv.FormatInt(userId.(int64), 10) + "." + suffix[len(suffix)-1]
+	filename := "avatar/" + strconv.FormatInt(userId.(int64), 10) + "/" + strconv.FormatInt(time.Now().Unix(), 10) + "." + suffix[len(suffix)-1]
 	err = pkg.MinioAvatarUpgrade(file, filename, avatarFile.Size, suffix[len(suffix)-1])
 	if err != nil {
 		hlog.Error("api upgrade avatar failed,err", err)
@@ -1320,5 +1322,56 @@ func ChangeNickname(ctx context.Context, c *app.RequestContext) {
 	}
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
+	c.JSON(consts.StatusOK, resp)
+}
+
+// AIGCKnowlegedList .
+// @router /qingyu/aigc/knowledge [GET]
+func AIGCKnowlegedList(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req api.QingyuAigcKnowlegedListRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		hlog.Error("api bind failed,", err)
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(api.QingyuAigcKnowlegedListResponse)
+
+	url := "http://47.108.208.120:5000/chat"
+	m := map[string]string{
+		"query":    req.Query,
+		"category": req.Category,
+	}
+	jsonStr, _ := sonic.Marshal(m)
+	client := reqx.C()
+	r, err := client.R().SetBodyJsonBytes(jsonStr).SetHeader("Content-Type", "application/json").
+		Post(url)
+	if err != nil {
+		hlog.Error("api request failed,", err)
+		resp.StatusCode = 500
+		resp.StatusMsg = "api request failed"
+		c.String(consts.StatusInternalServerError, err.Error())
+		return
+	}
+
+	type answser struct {
+		Data struct {
+			Answer string `json:"answer"`
+		} `json:"data"`
+		Info   string `json:"info"`
+		Status int    `json:"status"`
+	}
+	var a answser
+	sonic.Unmarshal(r.Bytes(), &a)
+	if a.Status != 0 {
+		resp.StatusCode = 500
+		resp.StatusMsg = a.Info
+		c.String(consts.StatusInternalServerError, a.Info)
+		return
+	}
+	resp.StatusMsg = "get knowledge success"
+	resp.Answer = a.Data.Answer
 	c.JSON(consts.StatusOK, resp)
 }

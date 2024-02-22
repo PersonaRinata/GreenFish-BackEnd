@@ -24,6 +24,7 @@ func Register(r *server.Hertz) {
 			_aigc.POST("/doctor", append(_aigcdoctoranalyseMw(), api.AIGCDoctorAnalyse)...)
 			_aigc.GET("/history", append(_aigcgethistoryMw(), api.AIGCGetHistory)...)
 			_aigc.GET("/issuelist", append(_aigcissuelistMw(), api.AIGCIssueList)...)
+			_aigc.GET("/knowledge", append(_aigcknowlegedlistMw(), api.AIGCKnowlegedList)...)
 			{
 				_question := _aigc.Group("/question", _questionMw()...)
 				_question.POST("/", append(_aigcaskquestionMw(), api.AIGCAskQuestion)...)

@@ -43,7 +43,7 @@ func (s SubscriberManager) Subscribe(ctx context.Context, dao *dao.MysqlManager)
 			klog.Error("subscriber unmarshal message failed,", err)
 			return err
 		}
-		err = dao.HandleVideo(ctx, req.ID, req.AuthorId, req.CoverUrl, req.PlayUrl, req.Title)
+		err = dao.HandleVideo(ctx, req.ID, req.AuthorId, req.PlayUrl, req.CoverUrl, req.Title)
 		return nil
 	}))
 
