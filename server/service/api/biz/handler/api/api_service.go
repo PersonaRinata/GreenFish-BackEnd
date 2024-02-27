@@ -124,6 +124,7 @@ func GetUserInfo(ctx context.Context, c *app.RequestContext) {
 	resp.User = &base.User{
 		ID:              res.User.Id,
 		Name:            res.User.Name,
+		Nickname:        res.User.Nickname,
 		FollowCount:     res.User.FollowCount,
 		FollowerCount:   res.User.FollowerCount,
 		IsFollow:        res.User.IsFollow,
@@ -899,6 +900,11 @@ func SearchUserList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	res, err := config.GlobalUserClient.SearchUserList(ctx, &user.QingyuSearchUserRequest{ViewerId: userID.(int64), Content: req.Content, Offset: req.Offset, Num: req.Num})
+	if err != nil {
+		hlog.Error("rpc search userList failed,", err)
+		c.String(consts.StatusInternalServerError, errors.New("api context get viewerId failed").Error())
+		return
+	}
 	resp := new(api.QingyuSearchUserResponse)
 	resp.UserList = make([]*base.User, 0)
 	resp.StatusMsg = res.BaseResp.StatusMsg
@@ -907,6 +913,7 @@ func SearchUserList(ctx context.Context, c *app.RequestContext) {
 		resp.UserList = append(resp.UserList, &base.User{
 			ID:              v.Id,
 			Name:            v.Name,
+			Nickname:        v.Nickname,
 			FollowCount:     v.FollowCount,
 			FollowerCount:   v.FollowerCount,
 			IsFollow:        v.IsFollow,
@@ -939,6 +946,11 @@ func SearchVideoList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	res, err := config.GlobalVideoClient.SearchVideoList(ctx, &video.QingyuSearchVideoRequest{ViewerId: userID.(int64), Content: req.Content, Offset: req.Offset, Num: req.Num})
+	if err != nil {
+		hlog.Error("rpc search videoList failed,", err)
+		c.String(consts.StatusInternalServerError, errors.New("api context get viewerId failed").Error())
+		return
+	}
 	resp := new(api.QingyuSearchVideoResponse)
 	resp.StatusMsg = res.BaseResp.StatusMsg
 	resp.StatusCode = res.BaseResp.StatusCode
@@ -948,6 +960,7 @@ func SearchVideoList(ctx context.Context, c *app.RequestContext) {
 			Author: &base.User{
 				ID:              v.Author.Id,
 				Name:            v.Author.Name,
+				Nickname:        v.Author.Nickname,
 				FollowCount:     v.Author.FollowCount,
 				FollowerCount:   v.Author.FollowerCount,
 				IsFollow:        v.Author.IsFollow,
@@ -1279,6 +1292,7 @@ func AIGCRecommendDoctor(ctx context.Context, c *app.RequestContext) {
 		resp.DoctorList = append(resp.DoctorList, &base.User{
 			ID:              v.Id,
 			Name:            v.Name,
+			Nickname:        v.Nickname,
 			FollowCount:     v.FollowCount,
 			FollowerCount:   v.FollowerCount,
 			IsFollow:        false,

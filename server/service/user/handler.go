@@ -228,6 +228,7 @@ func (s *UserServiceImpl) GetUserInfo(ctx context.Context, req *user.QingyuGetUs
 	resp.User = &base.User{
 		Id:              usr.ID,
 		Name:            usr.Username,
+		Nickname:        usr.Nickname,
 		FollowCount:     socialInfo.FollowCount,
 		FollowerCount:   socialInfo.FollowerCount,
 		IsFollow:        socialInfo.IsFollow,
@@ -277,6 +278,7 @@ func (s *UserServiceImpl) BatchGetUserInfo(ctx context.Context, req *user.Qingyu
 		resp.UserList = append(resp.UserList, &base.User{
 			Id:              userList[i].ID,
 			Name:            userList[i].Username,
+			Nickname:        userList[i].Nickname,
 			FollowCount:     socialList[i].FollowCount,
 			FollowerCount:   socialList[i].FollowerCount,
 			IsFollow:        socialList[i].IsFollow,
@@ -643,6 +645,7 @@ func (s *UserServiceImpl) SearchUserList(ctx context.Context, req *user.QingyuSe
 			resp.UserList = append(resp.UserList, &base.User{
 				Id:              v.ID,
 				Name:            v.Username,
+				Nickname:        v.Nickname,
 				FollowCount:     socialInfo.FollowCount,
 				FollowerCount:   socialInfo.FollowerCount,
 				IsFollow:        socialInfo.IsFollow,
