@@ -184,6 +184,7 @@ func Feed(ctx context.Context, c *app.RequestContext) {
 			Author: &base.User{
 				ID:              v.Author.Id,
 				Name:            v.Author.Name,
+				Nickname:        v.Author.Nickname,
 				FollowCount:     v.Author.FollowCount,
 				FollowerCount:   v.Author.FollowerCount,
 				IsFollow:        v.Author.IsFollow,
@@ -343,6 +344,7 @@ func VideoList(ctx context.Context, c *app.RequestContext) {
 			Author: &base.User{
 				ID:              v.Author.Id,
 				Name:            v.Author.Name,
+				Nickname:        v.Author.Nickname,
 				FollowCount:     v.Author.FollowCount,
 				FollowerCount:   v.Author.FollowerCount,
 				IsFollow:        v.Author.IsFollow,
@@ -433,6 +435,7 @@ func FavoriteList(ctx context.Context, c *app.RequestContext) {
 			Author: &base.User{
 				ID:              v.Author.Id,
 				Name:            v.Author.Name,
+				Nickname:        v.Author.Nickname,
 				FollowCount:     v.Author.FollowCount,
 				FollowerCount:   v.Author.FollowerCount,
 				IsFollow:        v.Author.IsFollow,
@@ -491,6 +494,7 @@ func Comment(ctx context.Context, c *app.RequestContext) {
 		User: &base.User{
 			ID:              res.Comment.User.Id,
 			Name:            res.Comment.User.Name,
+			Nickname:        res.Comment.User.Nickname,
 			FollowCount:     res.Comment.User.FollowerCount,
 			FollowerCount:   res.Comment.User.FollowerCount,
 			IsFollow:        res.Comment.User.IsFollow,
@@ -536,6 +540,7 @@ func CommentList(ctx context.Context, c *app.RequestContext) {
 			User: &base.User{
 				ID:              v.User.Id,
 				Name:            v.User.Name,
+				Nickname:        v.User.Nickname,
 				FollowCount:     v.User.FollowerCount,
 				FollowerCount:   v.User.FollowerCount,
 				IsFollow:        v.User.IsFollow,
@@ -621,6 +626,7 @@ func FollowingList(ctx context.Context, c *app.RequestContext) {
 		resp.UserList = append(resp.UserList, &base.User{
 			ID:              v.Id,
 			Name:            v.Name,
+			Nickname:        v.Nickname,
 			FollowCount:     v.FollowCount,
 			FollowerCount:   v.FollowerCount,
 			IsFollow:        v.IsFollow,
@@ -669,6 +675,7 @@ func FollowerList(ctx context.Context, c *app.RequestContext) {
 		resp.UserList = append(resp.UserList, &base.User{
 			ID:              v.Id,
 			Name:            v.Name,
+			Nickname:        v.Nickname,
 			FollowCount:     v.FollowCount,
 			FollowerCount:   v.FollowerCount,
 			IsFollow:        v.IsFollow,
