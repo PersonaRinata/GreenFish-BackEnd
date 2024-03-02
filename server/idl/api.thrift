@@ -265,6 +265,7 @@ struct qingyu_aigc_question_response {
 
 struct qingyu_aigc_issueList_request {
     1: string token(api.query="token") // User authentication token
+    2: i64 user_id(api.query="user_id")
 }
 
 struct qingyu_aigc_issueList_response {

@@ -1088,7 +1088,7 @@ func AIGCIssueList(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	userId, flag := c.Get("userId")
+	_, flag := c.Get("userId")
 	if !flag {
 		hlog.Error("api get viewerId failed,", err)
 		c.String(consts.StatusBadRequest, errors.New("api context get viewerId failed").Error())
@@ -1097,7 +1097,7 @@ func AIGCIssueList(ctx context.Context, c *app.RequestContext) {
 
 	resp := new(api.QingyuAigcIssueListResponse)
 
-	res, err := config.GlobalAIGCClient.AnalyseIssueList(ctx, &aigc.QingyuAigcIssueListRequest{UserId: userId.(int64)})
+	res, err := config.GlobalAIGCClient.AnalyseIssueList(ctx, &aigc.QingyuAigcIssueListRequest{UserId: req.UserID})
 	if err != nil {
 		return
 	}
