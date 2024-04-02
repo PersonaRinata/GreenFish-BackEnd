@@ -72,6 +72,7 @@ struct FriendUser {
     12: string message // Latest chat messages with this friend
     13: i64 time // Latest chat messages time
     14: i64 msgType // message type, 0 => the message received by the current requesting user, 1 => the message sent by the current requesting user
+    15: string nickname
 }
 
 struct Message {

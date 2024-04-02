@@ -342,6 +342,7 @@ func (s *UserServiceImpl) GetFollowList(ctx context.Context, req *user.QingyuGet
 		resp.UserList = append(resp.UserList, &base.User{
 			Id:              userList[i].ID,
 			Name:            userList[i].Username,
+			Nickname:        userList[i].Nickname,
 			FollowCount:     socialList[i].FollowCount,
 			FollowerCount:   socialList[i].FollowerCount,
 			IsFollow:        socialList[i].IsFollow,
@@ -405,6 +406,7 @@ func (s *UserServiceImpl) GetFollowerList(ctx context.Context, req *user.QingyuG
 		resp.UserList = append(resp.UserList, &base.User{
 			Id:              userList[i].ID,
 			Name:            userList[i].Username,
+			Nickname:        userList[i].Nickname,
 			FollowCount:     socialList[i].FollowCount,
 			FollowerCount:   socialList[i].FollowerCount,
 			IsFollow:        socialList[i].IsFollow,
@@ -478,6 +480,7 @@ func (s *UserServiceImpl) GetFriendList(ctx context.Context, req *user.QingyuGet
 		resp.UserList = append(resp.UserList, &base.FriendUser{
 			Id:              userList[i].ID,
 			Name:            userList[i].Username,
+			Nickname:        userList[i].Nickname,
 			FollowCount:     socialList[i].FollowCount,
 			FollowerCount:   socialList[i].FollowerCount,
 			IsFollow:        socialList[i].IsFollow,

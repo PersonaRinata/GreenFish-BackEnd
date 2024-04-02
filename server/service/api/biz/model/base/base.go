@@ -2380,7 +2380,8 @@ type FriendUser struct {
 	// Latest chat messages time
 	Time int64 `thrift:"time,13" form:"time" json:"time" query:"time"`
 	// message type, 0 => the message received by the current requesting user, 1 => the message sent by the current requesting user
-	MsgType int64 `thrift:"msgType,14" form:"msgType" json:"msgType" query:"msgType"`
+	MsgType  int64  `thrift:"msgType,14" form:"msgType" json:"msgType" query:"msgType"`
+	Nickname string `thrift:"nickname,15" form:"nickname" json:"nickname" query:"nickname"`
 }
 
 func NewFriendUser() *FriendUser {
@@ -2443,6 +2444,10 @@ func (p *FriendUser) GetMsgType() (v int64) {
 	return p.MsgType
 }
 
+func (p *FriendUser) GetNickname() (v string) {
+	return p.Nickname
+}
+
 var fieldIDToName_FriendUser = map[int16]string{
 	1:  "id",
 	2:  "name",
@@ -2458,6 +2463,7 @@ var fieldIDToName_FriendUser = map[int16]string{
 	12: "message",
 	13: "time",
 	14: "msgType",
+	15: "nickname",
 }
 
 func (p *FriendUser) Read(iprot thrift.TProtocol) (err error) {
@@ -2612,6 +2618,16 @@ func (p *FriendUser) Read(iprot thrift.TProtocol) (err error) {
 		case 14:
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField14(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 15:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField15(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -2775,6 +2791,15 @@ func (p *FriendUser) ReadField14(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *FriendUser) ReadField15(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Nickname = v
+	}
+	return nil
+}
+
 func (p *FriendUser) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("FriendUser"); err != nil {
@@ -2835,6 +2860,10 @@ func (p *FriendUser) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField14(oprot); err != nil {
 			fieldId = 14
+			goto WriteFieldError
+		}
+		if err = p.writeField15(oprot); err != nil {
+			fieldId = 15
 			goto WriteFieldError
 		}
 
@@ -3092,6 +3121,23 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 14 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
+}
+
+func (p *FriendUser) writeField15(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("nickname", thrift.STRING, 15); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Nickname); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 end error: ", p), err)
 }
 
 func (p *FriendUser) String() string {

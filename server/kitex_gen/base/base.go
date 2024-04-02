@@ -2898,6 +2898,7 @@ type FriendUser struct {
 	Message         string `thrift:"message,12" frugal:"12,default,string" json:"message"`
 	Time            int64  `thrift:"time,13" frugal:"13,default,i64" json:"time"`
 	MsgType         int64  `thrift:"msgType,14" frugal:"14,default,i64" json:"msgType"`
+	Nickname        string `thrift:"nickname,15" frugal:"15,default,string" json:"nickname"`
 }
 
 func NewFriendUser() *FriendUser {
@@ -2963,6 +2964,10 @@ func (p *FriendUser) GetTime() (v int64) {
 func (p *FriendUser) GetMsgType() (v int64) {
 	return p.MsgType
 }
+
+func (p *FriendUser) GetNickname() (v string) {
+	return p.Nickname
+}
 func (p *FriendUser) SetId(val int64) {
 	p.Id = val
 }
@@ -3005,6 +3010,9 @@ func (p *FriendUser) SetTime(val int64) {
 func (p *FriendUser) SetMsgType(val int64) {
 	p.MsgType = val
 }
+func (p *FriendUser) SetNickname(val string) {
+	p.Nickname = val
+}
 
 var fieldIDToName_FriendUser = map[int16]string{
 	1:  "id",
@@ -3021,6 +3029,7 @@ var fieldIDToName_FriendUser = map[int16]string{
 	12: "message",
 	13: "time",
 	14: "msgType",
+	15: "nickname",
 }
 
 func (p *FriendUser) Read(iprot thrift.TProtocol) (err error) {
@@ -3175,6 +3184,16 @@ func (p *FriendUser) Read(iprot thrift.TProtocol) (err error) {
 		case 14:
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField14(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 15:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField15(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -3338,6 +3357,15 @@ func (p *FriendUser) ReadField14(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *FriendUser) ReadField15(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Nickname = v
+	}
+	return nil
+}
+
 func (p *FriendUser) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("FriendUser"); err != nil {
@@ -3398,6 +3426,10 @@ func (p *FriendUser) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField14(oprot); err != nil {
 			fieldId = 14
+			goto WriteFieldError
+		}
+		if err = p.writeField15(oprot); err != nil {
+			fieldId = 15
 			goto WriteFieldError
 		}
 
@@ -3657,6 +3689,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
 }
 
+func (p *FriendUser) writeField15(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("nickname", thrift.STRING, 15); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Nickname); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 end error: ", p), err)
+}
+
 func (p *FriendUser) String() string {
 	if p == nil {
 		return "<nil>"
@@ -3710,6 +3759,9 @@ func (p *FriendUser) DeepEqual(ano *FriendUser) bool {
 		return false
 	}
 	if !p.Field14DeepEqual(ano.MsgType) {
+		return false
+	}
+	if !p.Field15DeepEqual(ano.Nickname) {
 		return false
 	}
 	return true
@@ -3809,6 +3861,13 @@ func (p *FriendUser) Field13DeepEqual(src int64) bool {
 func (p *FriendUser) Field14DeepEqual(src int64) bool {
 
 	if p.MsgType != src {
+		return false
+	}
+	return true
+}
+func (p *FriendUser) Field15DeepEqual(src string) bool {
+
+	if strings.Compare(p.Nickname, src) != 0 {
 		return false
 	}
 	return true

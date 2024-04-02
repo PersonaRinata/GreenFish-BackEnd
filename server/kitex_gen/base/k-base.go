@@ -2537,6 +2537,20 @@ func (p *FriendUser) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 15:
+			if fieldTypeId == thrift.STRING {
+				l, err = p.FastReadField15(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -2768,6 +2782,20 @@ func (p *FriendUser) FastReadField14(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *FriendUser) FastReadField15(buf []byte) (int, error) {
+	offset := 0
+
+	if v, l, err := bthrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+
+		p.Nickname = v
+
+	}
+	return offset, nil
+}
+
 // for compatibility
 func (p *FriendUser) FastWrite(buf []byte) int {
 	return 0
@@ -2791,6 +2819,7 @@ func (p *FriendUser) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWrit
 		offset += p.fastWriteField7(buf[offset:], binaryWriter)
 		offset += p.fastWriteField8(buf[offset:], binaryWriter)
 		offset += p.fastWriteField12(buf[offset:], binaryWriter)
+		offset += p.fastWriteField15(buf[offset:], binaryWriter)
 	}
 	offset += bthrift.Binary.WriteFieldStop(buf[offset:])
 	offset += bthrift.Binary.WriteStructEnd(buf[offset:])
@@ -2815,6 +2844,7 @@ func (p *FriendUser) BLength() int {
 		l += p.field12Length()
 		l += p.field13Length()
 		l += p.field14Length()
+		l += p.field15Length()
 	}
 	l += bthrift.Binary.FieldStopLength()
 	l += bthrift.Binary.StructEndLength()
@@ -2947,6 +2977,15 @@ func (p *FriendUser) fastWriteField14(buf []byte, binaryWriter bthrift.BinaryWri
 	return offset
 }
 
+func (p *FriendUser) fastWriteField15(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+	offset := 0
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "nickname", thrift.STRING, 15)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Nickname)
+
+	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	return offset
+}
+
 func (p *FriendUser) field1Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("id", thrift.I64, 1)
@@ -3068,6 +3107,15 @@ func (p *FriendUser) field14Length() int {
 	l := 0
 	l += bthrift.Binary.FieldBeginLength("msgType", thrift.I64, 14)
 	l += bthrift.Binary.I64Length(p.MsgType)
+
+	l += bthrift.Binary.FieldEndLength()
+	return l
+}
+
+func (p *FriendUser) field15Length() int {
+	l := 0
+	l += bthrift.Binary.FieldBeginLength("nickname", thrift.STRING, 15)
+	l += bthrift.Binary.StringLengthNocopy(p.Nickname)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l

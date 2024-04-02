@@ -725,6 +725,7 @@ func FriendList(ctx context.Context, c *app.RequestContext) {
 		resp.UserList = append(resp.UserList, &base.FriendUser{
 			ID:              v.Id,
 			Name:            v.Name,
+			Nickname:        v.Nickname,
 			FollowCount:     v.FollowCount,
 			FollowerCount:   v.FollowerCount,
 			IsFollow:        v.IsFollow,
